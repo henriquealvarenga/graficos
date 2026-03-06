@@ -1,0 +1,23 @@
+# Saída renderizada pelo Quarto
+docs/
+_site/
+_freeze/
+
+# PDFs das referências (arquivos grandes)
+references/PDF/
+
+# Arquivos temporários do R
+.Rproj.user/
+.Rhistory
+.RData
+.Rdata
+*.Rproj
+
+# Cache e temporários do sistema
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+/.quarto/
+**/*.quarto_ipynb

@@ -1,0 +1,167 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: ""
+  site-url: https://henriquealvarenga.github.io/graficos
+  repo-url: https://github.com/henriquealvarenga/graficos
+  page-navigation: true
+  back-to-top-navigation: true
+  reader-mode: true
+  navbar:
+    background: primary
+    logo: images/logo.svg
+    left:
+      - text: "Início"
+        href: index.qmd
+        icon: house
+      - text: "Fundamentos"
+        menu:
+          - text: "Você precisa de um gráfico?"
+            href: cap00-precisa-grafico.qmd
+            icon: question-circle
+          - text: "Gramática dos Gráficos"
+            href: cap01-gramatica.qmd
+            icon: layers
+          - text: "Elementos de um gráfico"
+            href: cap02-elementos.qmd
+            icon: diagram-3
+          - text: "Princípios de Tufte"
+            href: cap03-tufte.qmd
+            icon: brush
+      - text: "Tipos de Gráficos"
+        menu:
+          - text: "Gráfico de Pizza"
+            href: cap04-pizza.qmd
+            icon: pie-chart
+          - text: "Gráfico de Barras"
+            href: cap05-barras.qmd
+            icon: bar-chart
+          - text: "Histograma"
+            href: cap06-histograma.qmd
+            icon: bar-chart-steps
+          - text: "Gráfico de Densidade"
+            href: cap07-densidade.qmd
+            icon: soundwave
+          - text: "Boxplot"
+            href: cap08-boxplot.qmd
+            icon: box
+          - text: "Scatter Plot"
+            href: cap09-scatterplot.qmd
+            icon: scatter-chart
+          - text: "Gráfico de Linha"
+            href: cap10-linhas.qmd
+            icon: graph-up
+      - text: "Pensamento Crítico"
+        menu:
+          - text: "Gráficos que Mudaram a História"
+            href: cap12-historia.qmd
+            icon: clock-history
+          - text: "Mesmos Dados, Histórias Diferentes"
+            href: cap13-mesmos-dados.qmd
+            icon: shuffle
+          - text: "Galeria de Horrores"
+            href: cap14-galeria-horrores.qmd
+            icon: exclamation-triangle
+      - text: "Ferramentas"
+        menu:
+          - text: "IA para Gráficos"
+            href: cap11-ia.qmd
+            icon: robot
+          - text: "Qual Gráfico Devo Usar?"
+            href: cap15-fluxograma.qmd
+            icon: signpost-split
+    right:
+      - text: "Sobre"
+        href: about.qmd
+        icon: info-circle
+      - icon: github
+        href: https://github.com/henriquealvarenga/graficos
+  sidebar:
+    style: floating
+    search: true
+    contents:
+      - section: "Fundamentos"
+        contents:
+          - text: "Você precisa de um gráfico?"
+            href: cap00-precisa-grafico.qmd
+          - text: "Gramática dos Gráficos"
+            href: cap01-gramatica.qmd
+          - text: "Elementos de um gráfico"
+            href: cap02-elementos.qmd
+          - text: "Princípios de Tufte"
+            href: cap03-tufte.qmd
+      - section: "Tipos de Gráficos"
+        contents:
+          - text: "Gráfico de Pizza"
+            href: cap04-pizza.qmd
+          - text: "Gráfico de Barras"
+            href: cap05-barras.qmd
+          - text: "Histograma"
+            href: cap06-histograma.qmd
+          - text: "Gráfico de Densidade"
+            href: cap07-densidade.qmd
+          - text: "Boxplot"
+            href: cap08-boxplot.qmd
+          - text: "Scatter Plot"
+            href: cap09-scatterplot.qmd
+          - text: "Gráfico de Linha"
+            href: cap10-linhas.qmd
+      - section: "Pensamento Crítico"
+        contents:
+          - text: "Gráficos que Mudaram a História"
+            href: cap12-historia.qmd
+          - text: "Mesmos Dados, Histórias Diferentes"
+            href: cap13-mesmos-dados.qmd
+          - text: "Galeria de Horrores"
+            href: cap14-galeria-horrores.qmd
+      - section: "Ferramentas"
+        contents:
+          - text: "IA para Gráficos"
+            href: cap11-ia.qmd
+          - text: "Qual Gráfico Devo Usar?"
+            href: cap15-fluxograma.qmd
+  page-footer:
+    left: |
+      Dos Dados aos Gráficos<br>
+      © 2026 Henrique Alvarenga da Silva · UFSJ · UNIPTAN/AFYA
+    right: |
+      Feito com [Quarto](https://quarto.org/) e [R](https://www.r-project.org/)
+
+execute:
+  freeze: auto
+  warning: false
+  message: false
+
+bibliography: references/references.bib
+csl: references/csl_styles/ABNT.csl
+
+format:
+  html:
+    theme:
+      light: [cosmo, custom.scss]
+    toc: true
+    toc-depth: 3
+    toc-title: "Nesta página"
+    code-fold: true
+    code-tools: true
+    code-summary: "Ver código R"
+    code-overflow: wrap
+    code-line-numbers: true
+    lang: pt
+    lightbox: true
+    smooth-scroll: true
+    highlight-style: github
+    fig-align: center
+    fig-responsive: true
+
+lang: pt
+
+knitr:
+  opts_chunk:
+    fig.width: 8
+    fig.height: 5
+    fig.retina: 2
+    dpi: 150
+    out.width: "100%"

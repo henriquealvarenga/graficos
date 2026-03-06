@@ -1,0 +1,499 @@
+---
+title: "Gráfico de Densidade"
+subtitle: "Capítulo 7 — A versão suavizada do histograma"
+author: "Henrique Alvarenga da Silva"
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
+## História
+
+O gráfico de densidade tem suas raízes na **estimação de densidade por kernel (KDE - Kernel Density Estimation)**, uma técnica desenvolvida na estatística do século XX. Enquanto histogramas dividem dados em bins discretos, a estimação de densidade por kernel oferece uma abordagem suavizada que cria uma curva contínua representando a distribuição.
+
+A técnica ganhou popularidade com o avanço computacional, permitindo cálculos rápidos de densidades. Hoje, gráficos de densidade são indispensáveis em análise de dados, especialmente quando se comparam distribuições de múltiplos grupos.
+
+## O que é um Gráfico de Densidade?
+
+Um **gráfico de densidade** é uma versão suavizada do histograma. Em vez de contar observações em bins discretos, a densidade usa **estimação de kernel** para criar uma curva contínua que representa a probabilidade de encontrar um valor em cada ponto.
+
+A intuição é simples: imagine colocar uma pequena "colina" em torno de cada observação e depois suavizar todas essas colinas em uma curva única. O resultado é uma estimativa suave da distribuição subjacente.
+
+### Como o Kernel Funciona
+
+A densidade calcula a proximidade de cada ponto com o resto dos dados:
+
+- Pontos onde muitos dados se agrupam → picos altos na curva
+- Pontos onde há poucos dados → vales baixos na curva
+- A largura da "colina" (bandwidth) controla o suavismo
+
+## Vantagem Sobre o Histograma
+
+Os gráficos de densidade superam histogramas em várias situações:
+
+✓ **Comparação de múltiplos grupos**: Densidades sobrepostas revelam diferenças claramente
+✓ **Menos distração por ruído**: A suavização remove flutuações aleatórias
+✓ **Aspecto mais profissional**: Curvas contínuas são visualmente elegantes
+✓ **Interpretação de sobreposição**: Transparência facilita ver como distribuições se sobrepõem
+
+**Porém**, histogramas ainda são melhores quando:
+- Você tem poucos dados (< 50 observações)
+- A forma exata dos bins importa
+- Você quer mostrar frequências absolutas (não relativas)
+
+## Quando o Histograma é Melhor
+
+Escolha um **histograma** quando:
+
+- **Poucas observações**: Suavização não funciona bem com n < 50
+- **Importa a forma exata**: Você quer mostrar padrões discretos
+- **Frequências brutas importam**: Histogramas mostram contagens reais
+- **Didática**: Para iniciantes, histogramas são mais intuitivos
+
+Escolha uma **densidade** quando:
+
+- **Múltiplos grupos**: Comparação clara entre distribuições
+- **Dados abundantes**: n > 100 para uma suavização confiável
+- **Relatório científico**: Apresentação mais polida
+- **Padrões gerais**: Forma e tendência geral importam mais que detalhes
+
+## Comparação Direta: Histograma vs. Densidade
+
+Vamos visualizar o mesmo conjunto de dados (glicose) nos dois formatos:
+
+```{r}
+# Histograma
+p1 <- ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(bins = 20, fill = cores$azul, alpha = 0.6, color = "white") +
+  labs(
+    title = "Histograma",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+
+# Densidade
+p2 <- ggplot(pacientes, aes(x = glicose)) +
+  geom_density(fill = cores$vermelho, alpha = 0.6, color = cores$vermelho, linewidth = 1) +
+  labs(
+    title = "Gráfico de Densidade",
+    x = "Glicose (mg/dL)",
+    y = "Densidade"
+  ) +
+  tema_graficos()
+
+p1 + p2
+```
+
+Ambos mostram a mesma distribuição, mas de formas diferentes. O histograma é discreto; a densidade é contínua e suavizada.
+
+## Exemplos com Código R
+
+### Densidade Básica
+
+```{r}
+ggplot(pacientes, aes(x = glicose)) +
+  geom_density(
+    fill = cores$azul,
+    color = cores$azul,
+    alpha = 0.6,
+    linewidth = 1.2
+  ) +
+  labs(
+    title = "Distribuição de Glicose",
+    x = "Glicose (mg/dL)",
+    y = "Densidade"
+  ) +
+  tema_graficos()
+```
+
+### Densidade Estratificada por Sexo
+
+```{r}
+ggplot(pacientes, aes(x = glicose, fill = sexo)) +
+  geom_density(alpha = 0.5, linewidth = 1) +
+  scale_fill_manual(
+    values = paleta_sexo,
+    labels = c("female" = "Mulheres", "male" = "Homens")
+  ) +
+  labs(
+    title = "Distribuição de Glicose por Sexo",
+    x = "Glicose (mg/dL)",
+    y = "Densidade",
+    fill = "Sexo"
+  ) +
+  tema_graficos()
+```
+
+Observe como as duas distribuições se sobrepõem, revelando diferenças sutis entre homens e mulheres.
+
+### Densidade de Quadril Estratificada por Biotipo
+
+```{r}
+ggplot(pacientes, aes(x = quadril, fill = biotipo)) +
+  geom_density(alpha = 0.5, linewidth = 1) +
+  scale_fill_manual(values = paleta_cat) +
+  labs(
+    title = "Distribuição de Circunferência da Cintura por Biotipo",
+    x = "Quadril (cm)",
+    y = "Densidade",
+    fill = "Biotipo"
+  ) +
+  tema_graficos() +
+  theme(legend.position = "bottom")
+```
+
+Neste exemplo, as diferenças entre biotipos (pequeno, médio, grande) são dramáticas e facilmente visíveis.
+
+### Simulação: Curvas Epidêmicas (COVID-19)
+
+Vamos criar uma visualização conceitual do achatamento da curva durante pandemias:
+
+```{r}
+# Simulando dados de duas curvas epidêmicas
+# Cenário 1: Sem isolamento (pico alto e rápido)
+# Cenário 2: Com isolamento (pico baixo e distribuído)
+
+set.seed(42)
+
+# Curva 1: Sem isolamento - distribuição mais concentrada (Gamma)
+dias_sem_isolamento <- rgamma(5000, shape = 10, rate = 0.05)
+dados_sem_isolamento <- data.frame(
+  dia = dias_sem_isolamento,
+  cenario = "Sem Isolamento Social"
+)
+
+# Curva 2: Com isolamento - distribuição mais dispersa (Gamma com parâmetros diferentes)
+dias_com_isolamento <- rgamma(5000, shape = 6, rate = 0.03)
+dados_com_isolamento <- data.frame(
+  dia = dias_com_isolamento,
+  cenario = "Com Isolamento Social"
+)
+
+dados_epidemia <- rbind(dados_sem_isolamento, dados_com_isolamento)
+
+ggplot(dados_epidemia, aes(x = dia, fill = cenario)) +
+  geom_density(alpha = 0.5, linewidth = 1.2) +
+  scale_fill_manual(
+    values = c(
+      "Sem Isolamento Social" = cores$vermelho,
+      "Com Isolamento Social" = cores$verde
+    )
+  ) +
+  scale_x_continuous(
+    limits = c(0, 400),
+    labels = function(x) paste0("Dia ", x)
+  ) +
+  labs(
+    title = "Achatamento da Curva: O Impacto do Isolamento Social",
+    subtitle = "Distribuição simulada de casos novos ao longo do tempo",
+    x = "Dias desde o primeiro caso",
+    y = "Densidade de novos casos",
+    fill = "Cenário",
+    caption = "Simulação didática. Dados reais variam significativamente."
+  ) +
+  tema_graficos() +
+  theme(
+    legend.position = "top",
+    plot.subtitle = element_text(face = "italic", color = "gray40")
+  ) +
+  annotate(
+    "text",
+    x = 100, y = 0.0025,
+    label = "Pico Alto\n(colapso de saúde)",
+    color = cores$vermelho,
+    fontface = "bold",
+    size = 4
+  ) +
+  annotate(
+    "text",
+    x = 200, y = 0.0015,
+    label = "Pico Baixo\n(sistema resistente)",
+    color = cores$verde,
+    fontface = "bold",
+    size = 4
+  )
+```
+
+Este gráfico ilustra um conceito crítico em epidemiologia: mesmo que o número total de casos seja o mesmo, distribuir casos ao longo de mais tempo (achatando a curva) permite que o sistema de saúde responda adequadamente.
+
+### Densidade com Facetagem
+
+```{r}
+ggplot(pacientes, aes(x = colesterol)) +
+  geom_density(fill = cores$laranja, alpha = 0.6, color = cores$laranja, linewidth = 1) +
+  facet_wrap(~ sexo, labeller = labeller(sexo = c(
+    "Feminino" = "Mulheres",
+    "Masculino" = "Homens"
+  ))) +
+  labs(
+    title = "Distribuição de Colesterol por Sexo",
+    x = "Colesterol (mg/dL)",
+    y = "Densidade"
+  ) +
+  tema_graficos()
+```
+
+### Versão Interativa com Plotly
+
+```{r}
+p <- ggplot(pacientes, aes(x = glicose, fill = sexo)) +
+  geom_density(alpha = 0.5, linewidth = 1) +
+  scale_fill_manual(
+    values = paleta_sexo,
+    labels = c("female" = "Mulheres", "male" = "Homens")
+  ) +
+  labs(
+    title = "Distribuição de Glicose por Sexo (Interativa)",
+    x = "Glicose (mg/dL)",
+    y = "Densidade",
+    fill = "Sexo"
+  ) +
+  tema_graficos()
+
+para_plotly(p)
+```
+
+Passe o mouse sobre a curva para explorar valores de densidade em diferentes pontos!
+
+## Combinando Histograma e Densidade
+
+Uma visualização poderosa combina o detalhe do histograma com a suavidade da densidade. Isso oferece o melhor dos dois mundos:
+
+```{r}
+ggplot(pacientes, aes(x = glicose)) +
+  # Histograma com densidade como eixo Y
+  geom_histogram(
+    aes(y = after_stat(density)),
+    bins = 20,
+    fill = cores$azul,
+    alpha = 0.5,
+    color = "white"
+  ) +
+  # Sobreposição de curva de densidade
+  geom_density(
+    color = cores$vermelho,
+    linewidth = 1.5,
+    fill = NA
+  ) +
+  labs(
+    title = "Histograma + Densidade Sobreposta",
+    subtitle = "Combine a estrutura do histograma com a suavidade da densidade",
+    x = "Glicose (mg/dL)",
+    y = "Densidade"
+  ) +
+  tema_graficos() +
+  annotate(
+    "text",
+    x = 140, y = 0.03,
+    label = "Histograma\n(barras)",
+    color = cores$azul,
+    fontface = "italic",
+    size = 3.5
+  ) +
+  annotate(
+    "text",
+    x = 80, y = 0.025,
+    label = "Densidade\n(curva vermelha)",
+    color = cores$vermelho,
+    fontface = "italic",
+    size = 3.5
+  )
+```
+
+### Código para Sobreposição
+
+```{r, eval=FALSE}
+ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    bins = 20,
+    fill = cores$azul,
+    alpha = 0.5,
+    color = "white"
+  ) +
+  geom_density(
+    color = cores$vermelho,
+    linewidth = 1.5
+  ) +
+  labs(
+    title = "Histograma + Densidade",
+    x = "Glicose (mg/dL)",
+    y = "Densidade"
+  ) +
+  tema_graficos()
+```
+
+A chave é usar `aes(y = after_stat(density))` no histograma para que as alturas das barras representem densidade, não contagem, permitindo comparação direta com a curva de densidade.
+
+## Ajustando o Suavismo (Bandwidth)
+
+O parâmetro `adjust` em `geom_density()` controla o suavismo da curva:
+
+```{r}
+p1 <- ggplot(pacientes, aes(x = glicose)) +
+  geom_density(fill = cores$azul, alpha = 0.6, adjust = 0.5) +
+  labs(title = "adjust = 0.5\n(Menos suave)", y = "Densidade") +
+  tema_graficos()
+
+p2 <- ggplot(pacientes, aes(x = glicose)) +
+  geom_density(fill = cores$verde, alpha = 0.6, adjust = 1) +
+  labs(title = "adjust = 1\n(Padrão)", y = "Densidade") +
+  tema_graficos()
+
+p3 <- ggplot(pacientes, aes(x = glicose)) +
+  geom_density(fill = cores$laranja, alpha = 0.6, adjust = 2) +
+  labs(title = "adjust = 2\n(Mais suave)", y = "Densidade") +
+  tema_graficos()
+
+p1 + p2 + p3 + plot_layout(nrow = 1)
+```
+
+- **adjust < 1**: Curva mais "nervosa", mostra mais detalhes (possível ruído)
+- **adjust = 1**: Padrão, bom equilíbrio
+- **adjust > 1**: Curva mais suave, melhor para dados ruidosos
+
+## Casos de Uso Prático
+
+### 1. Comparação Clínica de Biomarcadores
+
+```{r}
+ggplot(pacientes, aes(x = hdl, fill = sexo)) +
+  geom_density(alpha = 0.5, linewidth = 1.2) +
+  scale_fill_manual(
+    values = paleta_sexo,
+    labels = c("female" = "Mulheres", "male" = "Homens")
+  ) +
+  labs(
+    title = "HDL (Colesterol Bom) por Sexo",
+    subtitle = "Homens e mulheres diferem significativamente",
+    x = "HDL (mg/dL)",
+    y = "Densidade",
+    fill = "Sexo"
+  ) +
+  tema_graficos()
+```
+
+### 2. Variabilidade de Medidas Antropométricas
+
+```{r}
+ggplot(pacientes, aes(x = cintura, fill = biotipo)) +
+  geom_density(alpha = 0.5, linewidth = 1.2) +
+  scale_fill_manual(values = paleta_cat) +
+  labs(
+    title = "Circunferência de Cintura por Biotipo",
+    subtitle = "Biotipos menores e maiores diferem dramaticamente",
+    x = "Cintura (cm)",
+    y = "Densidade",
+    fill = "Biotipo"
+  ) +
+  tema_graficos() +
+  theme(legend.position = "bottom")
+```
+
+## Erros Comuns com Densidade
+
+### ❌ Usar densidade com muito poucos dados
+Com n < 50, a curva de densidade é instável e enganosa. Use histograma.
+
+### ❌ Transparência insuficiente
+Se sobrepor densidades, use `alpha < 0.6` para ver ambas as curvas claramente.
+
+### ❌ Suavismo inadequado
+`adjust` muito baixo cria artefatos; muito alto esconde padrões. Teste alguns valores.
+
+### ❌ Comparar densidades de grupos com tamanhos muito diferentes
+Densidades normalizam por área, então grupos menores podem parecer maiores. Sempre mostre tamanhos de amostra.
+
+### ❌ Não mencionar a unidade do eixo Y
+Densidade é uma unidade abstrata. Sempre rotule o eixo Y como "Densidade".
+
+## Resumo Comparativo: Histograma vs. Densidade
+
+| Aspecto | Histograma | Densidade |
+|---------|-----------|----------|
+| **Tipo de dado** | Contínuo | Contínuo |
+| **Forma** | Barras discretas | Curva contínua |
+| **Número de grupos** | 1-2 | 2+ (ideal) |
+| **Tamanho mínimo** | ~20 observações | ~100 observações |
+| **Detalhes pequenos** | Visíveis | Suavizados |
+| **Comparação visual** | Difícil se sobrepostos | Fácil com transparência |
+| **Uso comum** | Exploração inicial | Apresentação profissional |
+
+---
+
+## Quiz
+
+::: {.callout-note title="Teste seu conhecimento" icon="false"}
+
+**Pergunta 1**: Qual é a vantagem principal de um gráfico de densidade sobre um histograma?
+
+a) Densidade requer menos dados
+b) Densidade mostra curvas suaves que facilitam comparação de múltiplos grupos quando sobrepostos
+c) Densidade é sempre mais precisa
+d) Densidade não tem vantagens, são equivalentes
+
+<details>
+<summary>Resposta</summary>
+**b)** A suavização contínua da densidade facilita enormemente a comparação visual de grupos. Quando múltiplos histogramas são sobrepostos, eles se tornam confusos; densidades sobreposta com transparência revelam diferenças claramente.
+</details>
+
+---
+
+**Pergunta 2**: Qual é o tamanho mínimo de amostra para confiar em um gráfico de densidade?
+
+a) 10 observações
+b) 30 observações
+c) ~100 observações
+d) Não importa o tamanho
+
+<details>
+<summary>Resposta</summary>
+**c)** A estimação de densidade por kernel funciona melhor com pelo menos 100 observações. Com menos, a curva pode ser instável e enganosa. Para 20-50 observações, use histograma.
+</details>
+
+---
+
+**Pergunta 3**: Qual parâmetro em `geom_density()` controla o suavismo da curva?
+
+a) `smooth`
+b) `adjust`
+c) `bandwidth`
+d) `kernel`
+
+<details>
+<summary>Resposta</summary>
+**b)** O parâmetro `adjust` em ggplot2 controla o suavismo. Valores < 1 criam curvas mais "nervosas"; valores > 1 criam curvas mais suavizadas.
+</details>
+
+---
+
+**Pergunta 4**: No gráfico COVID-19 apresentado, por que o isolamento social "achata a curva"?
+
+a) Reduz o número total de casos
+b) Mantém aproximadamente o mesmo número de casos, mas os distribui ao longo de mais tempo
+c) Cura as pessoas mais rápido
+d) Aumenta a imunidade da população
+
+<details>
+<summary>Resposta</summary>
+**b)** O isolamento não reduz casos totais significativamente, mas estende a duração da epidemia. Um pico menor permite que hospitais e profissionais de saúde lidem com a demanda, evitando colapso.
+</details>
+
+:::
+
+---
+
+## Leitura Complementar
+
+Para aprofundamento sobre estimação de densidade por kernel, veja @silverman1986. No R, consulte `?density` e `?geom_density`.
+
+---
+
+## Referências {.unnumbered}
+
+::: {#refs}
+:::

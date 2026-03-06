@@ -1,0 +1,417 @@
+---
+title: "Histograma"
+subtitle: "Capítulo 6 — Distribuição de variáveis numéricas"
+author: "Henrique Alvarenga da Silva"
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
+## História
+
+O histograma é um dos gráficos mais fundamentais na visualização de dados estatísticos. Sua origem remonta a **Karl Pearson em 1895**, quando o estatístico britânico desenvolveu essa ferramenta para visualizar distribuições de variáveis contínuas. Pearson reconheceu que representar dados numéricos contínuos exigia uma abordagem diferente daquela usada para categorias, levando à criação de uma visualização que agrupa valores em intervalos (bins) e mostra a frequência de observações em cada intervalo.
+
+Desde então, o histograma tornou-se indispensável em análise exploratória de dados, permitindo que pesquisadores entendam rapidamente a forma, centro e dispersão de distribuições.
+
+## O que é um Histograma?
+
+Um **histograma** é um gráfico que representa a distribuição de uma **variável numérica contínua**. Os dados são organizados em intervalos (chamados de "bins") e a altura de cada barra corresponde à frequência de observações dentro daquele intervalo.
+
+Diferentemente de outras visualizações, o histograma mostra:
+
+- **Forma da distribuição**: É simétrica? Assimétrica? Bimodal?
+- **Centro dos dados**: Onde a maioria das observações se concentra?
+- **Dispersão**: Quão espalhados estão os dados?
+- **Presença de outliers**: Existem valores extremos?
+
+## Diferença Fundamental: Barras vs. Histograma
+
+Esta é uma confusão comum entre iniciantes. Vamos esclarecer:
+
+### Gráfico de Barras (Bar Chart)
+- Representa **variáveis categóricas**
+- Cada barra representa uma categoria
+- **Há espaço entre as barras** (indicando que as categorias são distintas)
+- Altura = frequência ou valor da categoria
+
+### Histograma
+- Representa **variáveis numéricas contínuas**
+- As barras mostram intervalos (bins) de valores contínuos
+- **Não há espaço entre as barras** (indicando continuidade)
+- Altura = frequência de observações no intervalo
+
+Vamos visualizar essa diferença com dados reais:
+
+```{r}
+# Gráfico de barras: contagem de pacientes por sexo (variável categórica)
+p1 <- ggplot(pacientes, aes(x = sexo)) +
+  geom_bar(fill = paleta_cat[1], alpha = 0.8, width = 0.6) +
+  labs(
+    title = "Gráfico de Barras",
+    subtitle = "Contagem por categoria (Sexo)",
+    x = "Sexo",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+
+# Histograma: distribuição de glicose (variável numérica contínua)
+p2 <- ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(fill = paleta_cat[2], alpha = 0.8, bins = 20, color = "white") +
+  labs(
+    title = "Histograma",
+    subtitle = "Distribuição contínua (Glicose)",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+
+p1 + p2
+```
+
+Observe: O gráfico de barras (à esquerda) tem espaços entre as barras porque as categorias são discretas. O histograma (à direita) não tem espaços porque os dados são contínuos.
+
+## O Papel dos Bins
+
+Um dos aspectos mais críticos ao criar um histograma é escolher o número apropriado de bins. Muito poucos bins ocultam detalhes importantes da distribuição; muitos bins criam ruído visual e dificultam a interpretação.
+
+Vejamos como o mesmo conjunto de dados (glicose) parece diferente com números variados de bins:
+
+::: {.panel-tabset}
+
+### 10 bins
+```{r}
+ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(fill = paleta_cat[1], alpha = 0.8, bins = 10, color = "white") +
+  labs(
+    title = "Glicose com 10 bins",
+    subtitle = "Poucos bins — forma geral da distribuição",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+```
+
+**Observação**: Com apenas 10 bins, perdemos muitos detalhes sobre a distribuição. A forma parece simples demais.
+
+### 15 bins
+```{r}
+ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(fill = paleta_cat[2], alpha = 0.8, bins = 15, color = "white") +
+  labs(
+    title = "Glicose com 15 bins",
+    subtitle = "Equilíbrio — detalhes claros sem ruído",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+```
+
+**Observação**: Com 15 bins, a distribuição fica mais clara, mostrando uma forma razoavelmente suave e interpretável.
+
+### 30 bins
+```{r}
+ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(fill = paleta_cat[3], alpha = 0.8, bins = 30, color = "white") +
+  labs(
+    title = "Glicose com 30 bins",
+    subtitle = "Mais detalhe — ainda interpretável",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+```
+
+**Observação**: 30 bins mostram mais variação local, reveelando flutuações na distribuição.
+
+### 50 bins
+```{r}
+ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(fill = cores$vermelho, alpha = 0.8, bins = 50, color = "white") +
+  labs(
+    title = "Glicose com 50 bins",
+    subtitle = "Muitos bins — ruído visual excessivo",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+```
+
+**Observação**: Com 50 bins, surgem irregularidades que provavelmente não representam padrões reais — isso é ruído amostral.
+
+:::
+
+### Experimento Interativo: Ajuste o Número de Bins
+
+Mova o controle deslizante abaixo para explorar interativamente como diferentes números de bins afetam a aparência do histograma:
+
+```{ojs}
+//| echo: false
+
+glicoseData = [
+  102, 95, 115, 88, 110, 105, 98, 120, 92, 108, 103, 99, 112, 89, 114,
+  101, 97, 118, 90, 109, 104, 100, 113, 87, 116, 102, 96, 119, 91, 111,
+  106, 98, 122, 85, 117, 103, 94, 121, 88, 115, 107, 99, 124, 86, 118,
+  105, 93, 123, 89, 119, 108, 100, 125, 84, 120, 106, 92, 126, 87, 121,
+  109, 101, 127, 83, 122, 107, 91, 128, 86, 123, 110, 102, 129, 82, 124,
+  108, 90, 130, 85, 125, 111, 103, 131, 81, 126, 109, 92, 132, 84, 127,
+  112, 104, 133, 80, 128, 110, 93, 134, 83, 129
+]
+```
+
+```{ojs}
+//| echo: false
+viewof bins = Inputs.range([5, 50], {value: 15, step: 1, label: "Número de bins:"})
+```
+
+```{ojs}
+//| echo: false
+histData = {
+  const mn = Math.min(...glicoseData);
+  const mx = Math.max(...glicoseData);
+  const binWidth = (mx - mn) / bins;
+  const counts = Array(bins).fill(0);
+  glicoseData.forEach(val => {
+    const i = Math.min(Math.floor((val - mn) / binWidth), bins - 1);
+    counts[i]++;
+  });
+  return counts.map((freq, i) => ({
+    x0: mn + i * binWidth,
+    x1: mn + (i + 1) * binWidth,
+    freq: freq
+  }));
+}
+
+Plot.plot({
+  title: `Distribuição de Glicose (${bins} bins)`,
+  x: {label: "Glicose (mg/dL)"},
+  y: {label: "Frequência"},
+  marks: [
+    Plot.rectY(histData, {x1: "x0", x2: "x1", y: "freq", fill: "#2563EB", opacity: 0.8})
+  ],
+  width: 700,
+  height: 400
+})
+```
+
+**Dica prática**: Uma regra comum é usar entre 5 e 50 bins, com o número ideal frequentemente próximo de √n (raiz quadrada do tamanho da amostra). Para 403 observações, isso sugere cerca de 20 bins.
+
+## Estratificação: Comparando Distribuições
+
+Frequentemente, queremos comparar distribuições entre grupos. O histograma pode ser estratificado usando **faceting**:
+
+```{r}
+ggplot(pacientes, aes(x = glicose, fill = sexo)) +
+  geom_histogram(alpha = 0.8, bins = 20, color = "white") +
+  scale_fill_manual(values = paleta_sexo) +
+  facet_wrap(~ sexo, nrow = 2) +
+  labs(
+    title = "Distribuição de Glicose por Sexo",
+    subtitle = "Histogramas em painel para comparação",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos() +
+  theme(legend.position = "none")
+```
+
+Observe como as distribuições de glicose diferem entre homens e mulheres. Essa visualização facilita a comparação de forma e localização.
+
+## Quando Usar um Histograma
+
+Use histogramas quando desejar:
+
+✓ **Explorar a distribuição** de uma variável numérica contínua. 
+✓ **Identificar assimetria** (skewness) na distribuição. 
+✓ **Verificar normalidade** (dados aproximadamente distribuídos normalmente). 
+✓ **Detectar multimodalidade** (múltiplos picos na distribuição). 
+✓ **Identificar gaps ou valores extremos** na distribuição. 
+✓ **Comunicar a forma geral** de um conjunto de dados. 
+
+## Erros Comuns
+
+### ❌ Muito poucos bins
+Oculta a verdadeira forma da distribuição e apaga detalhes importantes.
+
+### ❌ Muito muitos bins
+Cria ruído visual e torna difícil discernir padrões reais dos flutuações aleatórias.
+
+### ❌ Confundir com gráfico de barras
+Lembre-se: histogramas são para dados contínuos, gráficos de barras para dados categóricos.
+
+### ❌ Ignorar a amplitude dos dados
+Certifique-se de que o eixo x cobre adequadamente o intervalo de seus dados.
+
+### ❌ Usar cor de forma enganosa
+Cores devem comunicar informação, não apenas decorar o gráfico.
+
+## Exemplos com Código R
+
+### Histograma Básico
+
+```{r}
+ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(
+    bins = 20,
+    fill = cores$azul,
+    color = "white",
+    alpha = 0.85
+  ) +
+  labs(
+    title = "Distribuição de Glicose",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+```
+
+### Variando a Largura dos Bins
+
+```{r}
+p1 <- ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(binwidth = 3, fill = cores$verde, alpha = 0.8, color = "white") +
+  labs(title = "Largura = 3", x = "Glicose", y = "Frequência") +
+  tema_graficos()
+
+p2 <- ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(binwidth = 10, fill = cores$laranja, alpha = 0.8, color = "white") +
+  labs(title = "Largura = 10", x = "Glicose", y = "Frequência") +
+  tema_graficos()
+
+p1 + p2
+```
+
+### Sobreposição de Densidade
+
+Para adicionar uma curva de densidade suave ao histograma:
+
+```{r}
+ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    bins = 20,
+    fill = cores$azul,
+    alpha = 0.6,
+    color = "white"
+  ) +
+  geom_density(
+    color = cores$vermelho,
+    linewidth = 1.2
+  ) +
+  labs(
+    title = "Histograma com Densidade Sobreposta",
+    x = "Glicose (mg/dL)",
+    y = "Densidade"
+  ) +
+  tema_graficos()
+```
+
+### Histograma Facetado por Sexo
+
+```{r}
+ggplot(pacientes, aes(x = glicose, fill = sexo)) +
+  geom_histogram(
+    bins = 20,
+    alpha = 0.8,
+    color = "white"
+  ) +
+  scale_fill_manual(values = paleta_sexo) +
+  facet_wrap(~ sexo) +
+  labs(
+    title = "Glicose Estratificada por Sexo",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos() +
+  theme(legend.position = "none")
+```
+
+### Versão Interativa com Plotly
+
+```{r}
+p <- ggplot(pacientes, aes(x = glicose)) +
+  geom_histogram(
+    bins = 20,
+    fill = cores$azul,
+    alpha = 0.8,
+    color = "white"
+  ) +
+  labs(
+    title = "Distribuição de Glicose (Interativa)",
+    x = "Glicose (mg/dL)",
+    y = "Frequência"
+  ) +
+  tema_graficos()
+
+para_plotly(p)
+```
+
+Passe o mouse sobre as barras para ver valores exatos!
+
+## Resumo
+
+O histograma é uma ferramenta essencial para exploração de dados contínuos. Pontos-chave:
+
+1. **Histogramas** mostram distribuições de variáveis contínuas; **gráficos de barras** mostram categorias
+2. A escolha do número de bins é crítica — nem muito poucos, nem muito muitos
+3. O histograma revela a forma, simetria e spread dos dados
+4. Estratificação permite comparação entre grupos
+5. Combinado com densidade, oferece interpretação mais suave
+
+---
+
+## Quiz
+
+::: {.callout-note title="Teste seu conhecimento" icon="false"}
+
+**Pergunta 1**: Qual é a diferença fundamental entre um gráfico de barras e um histograma?
+
+a) A cor das barras
+b) Um representa variáveis categóricas (com espaços), o outro variáveis contínuas (sem espaços)
+c) O histograma sempre tem mais barras
+d) Nenhuma diferença importante
+
+<details>
+<summary>Resposta</summary>
+**b)** Um gráfico de barras representa variáveis categóricas discretas com espaço entre as barras. Um histograma representa variáveis numéricas contínuas **sem espaços**, enfatizando a continuidade.
+</details>
+
+---
+
+**Pergunta 2**: Para um conjunto de dados com 400 observações, quantos bins você aproximadamente escolheria?
+
+a) 5
+b) 15-20
+c) 100
+d) 200
+
+<details>
+<summary>Resposta</summary>
+**b)** A regra de √n sugere √400 ≈ 20 bins. Embora a escolha exata dependa dos dados, 15-20 é geralmente um bom ponto de partida.
+</details>
+
+---
+
+**Pergunta 3**: Por que usar muitos bins (ex., 100 para 400 observações) é problemático?
+
+a) Torna o gráfico muito colorido
+b) Ocupa muito espaço
+c) Cria ruído visual — flutuações aleatórias parecem padrões reais
+d) Aumenta o tempo de computação
+
+<details>
+<summary>Resposta</summary>
+**c)** Muitos bins criam barras muito estreitas com poucos dados cada uma, fazendo variações aleatórias parecerem como padrões significativos.
+</details>
+
+:::
+
+
+---
+
+## Referências {.unnumbered}
+
+::: {#refs}
+:::

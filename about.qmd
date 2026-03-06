@@ -1,0 +1,130 @@
+---
+title: "Sobre este projeto"
+subtitle: "Informações sobre o autor, tecnologias e licenciamento"
+---
+
+## Autor
+
+**Henrique Alvarenga da Silva**
+
+Médico psiquiatra. Professor de Psiquiatria e Psicopatologia no curso de Medicina da Universidade Federal de São João del-Rei (UFSJ). Professor de Métodos de Pesquisa em Medicina na UNIPTAN/AFYA.
+
+🌐 [henriquealvarenga.com](https://www.henriquealvarenga.com)
+
+📧 [henriquealvarenga@ufsj.edu.br](mailto:henriquealvarenga@ufsj.edu.br)
+
+🆔 ORCID: [0000-0001-9799-5240](https://orcid.org/0000-0001-9799-5240)
+
+## Sobre a obra
+
+Este material foi desenvolvido como recurso educacional para estudantes de medicina, residentes e profissionais da área da saúde que desejam compreender os fundamentos da visualização de dados estatísticos e aplicá-los em suas pesquisas e prática clínica.
+
+## Tecnologias utilizadas
+
+Este material foi produzido utilizando ferramentas de código aberto e ciência aberta:
+
+| Tecnologia | Finalidade |
+|------------------------------------|-----------------------------------------|
+| [R](https://www.r-project.org/) | Linguagem de programação estatística |
+| [ggplot2](https://ggplot2.tidyverse.org/) | Criação de gráficos baseados na Grammar of Graphics |
+| [Plotly](https://plotly.com/r/) | Gráficos interativos |
+| [Quarto](https://quarto.org/) | Sistema de publicação científica e técnica |
+| [Markdown](https://www.markdownguide.org/) | Linguagem de marcação para escrita do conteúdo |
+| [Positron](https://github.com/posit-dev/positron) | Ambiente de desenvolvimento integrado (IDE) |
+| [Git](https://git-scm.com/) | Controle de versão |
+| [GitHub](https://github.com/) | Hospedagem do repositório e controle de versão |
+| [GitHub Pages](https://pages.github.com/) | Publicação e hospedagem do site |
+| [BibTeX](http://www.bibtex.org/) | Gerenciamento de referências bibliográficas |
+
+### Inteligência artificial
+
+O desenvolvimento deste material contou com o auxílio de ferramentas de inteligência artificial generativa:
+
+-   **Claude** (Anthropic) — assistência na estruturação do conteúdo, geração de código R, revisão textual e organização das referências
+-   **ChatGPT** (OpenAI) — apoio na elaboração de seções específicas e revisão de conteúdo
+
+O uso dessas ferramentas seguiu princípios de transparência e verificação: todo o conteúdo gerado foi revisado, verificado e validado pelo autor. As referências bibliográficas foram conferidas individualmente para garantir precisão e veracidade.
+
+::: callout-note
+## Nota sobre o uso de IA
+
+A inteligência artificial foi utilizada como ferramenta de apoio, não como substituto do trabalho intelectual. A responsabilidade pelo conteúdo final, incluindo a precisão das informações, do código e a adequação das referências, é integralmente do autor.
+:::
+
+## Repositório
+
+O código-fonte deste projeto está disponível publicamente:
+
+🔗 **Repositório:** [github.com/henriquealvarenga/graficos](https://github.com/henriquealvarenga/graficos)
+
+Contribuições, sugestões e correções são bem-vindas por meio de *issues* ou *pull requests*.
+
+## Licença
+
+Este trabalho está licenciado sob uma Licença **Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional (CC BY-NC-SA 4.0)**.
+
+Você tem o direito de:
+
+-   **Compartilhar** — copiar e redistribuir o material em qualquer suporte ou formato
+-   **Adaptar** — remixar, transformar e criar a partir do material
+
+Sob os seguintes termos:
+
+-   **Atribuição** — Você deve dar o crédito apropriado, fornecer um link para a licença e indicar se mudanças foram feitas
+-   **NãoComercial** — Você não pode usar o material para fins comerciais
+-   **CompartilhaIgual** — Se você remixar, transformar ou criar a partir do material, deve distribuir suas contribuições sob a mesma licença
+
+🔗 [Texto completo da licença](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR)
+
+## Citação
+
+Para citar este material, utilize:
+
+> Silva, H. A. (2026). *Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde*. Disponível em: https://henriquealvarenga.github.io/graficos/
+
+Formato BibTeX:
+
+``` bibtex
+@book{silva2026graficos,
+  author    = {Silva, Henrique Alvarenga da},
+  title     = {Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde},
+  year      = {2026},
+  publisher = {Publicação independente},
+  url       = {https://henriquealvarenga.github.io/graficos/},
+  note      = {Recurso educacional aberto}
+}
+```
+
+## ISBN
+
+::: callout-warning
+**ISBN:** *(a ser registrado)*
+:::
+
+## Ficha catalográfica
+
+::: callout-warning
+*(a ser incluída)*
+:::
+
+## Agradecimentos
+
+Agradeço aos estudantes e colegas que, ao longo dos anos, motivaram a criação deste material com suas dúvidas, sugestões e entusiasmo pela pesquisa científica e pela comunicação visual de dados.
+
+## Histórico de versões
+
+| Versão | Data | Descrição |
+|--------|----------------|----------------|
+| 1.0.0 | Fevereiro/2026 | Versão inicial |
+
+## Contato
+
+Dúvidas, sugestões ou correções podem ser enviadas para:
+
+📧 [henriquealvarenga@ufsj.edu.br](mailto:henriquealvarenga@ufsj.edu.br)
+
+Ou por meio de *issues* no repositório do projeto no GitHub.
+
+---
+
+*Última atualização: Fevereiro de 2026*

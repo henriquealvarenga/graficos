@@ -1,0 +1,660 @@
+---
+title: "A Gramática dos Gráficos"
+subtitle: "Capítulo 1 — The Grammar of Graphics"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+source("_common.R")
+```
+
+## Introdução
+
+Você já se perguntou por que alguns gráficos funcionam bem e outros deixam você confuso? Ou talvez tenha se visto procurando "qual tipo de gráfico usar" sem realmente entender a lógica por trás de suas escolhas?
+
+A resposta está em compreender que **não há dezenas de tipos de gráficos diferentes**. Há, na verdade, **uma gramática unificada** — um conjunto de componentes que podem ser combinados de infinitas maneiras para criar qualquer visualização que você queira.
+
+Este é o poder da **Grammar of Graphics**.
+
+---
+
+## História: Leland Wilkinson
+
+Em 1999 (e posteriormente em uma edição expandida em 2005), o estatístico **Leland Wilkinson** publicou o livro *The Grammar of Graphics* [@wilkinson2005] — uma obra revolucionária que mudaria para sempre a forma como pensamos sobre visualização de dados.
+
+### O Problema que Wilkinson Queria Resolver
+
+Antes de Wilkinson, cada tipo de gráfico era um universo isolado:
+
+- Um gráfico de barras tinha suas próprias regras. 
+- Um gráfico de linhas tinha regras diferentes. 
+- Um scatter plot era completamente separado. 
+- Um boxplot era ainda outro animal. 
+
+Não havia uma **linguagem comum** que os conectasse. Se você aprendia sobre um tipo de gráfico, isso não o ajudava a entender o próximo. Era como se cada gráfico fosse uma língua estrangeira completamente diferente.
+
+### A Ideia Revolucionária
+
+Wilkinson teve uma percepção fundamental: **toda e qualquer visualização gráfica pode ser decomposta em componentes gramaticais**, assim como toda sentença em português pode ser decomposta em sujeito, verbo, predicado, complementos, etc.
+
+Por exemplo, considere a sentença:
+> "**O médico** **receitou** **um antibiótico** **ao paciente**."
+
+Os componentes gramaticais (sujeito, verbo, objeto, complemento indireto) são os blocos de construção. Você pode reorganizá-los, mudar um ou outro, e ainda terá uma sentença válida.
+
+Wilkinson propôs que gráficos funcionam da mesma forma. Há componentes — **camadas** — que você combina para construir qualquer visualização.
+
+::: {.callout-note}
+## A Grande Revelação
+
+A beleza dessa ideia é que **uma vez que você entenda a gramática, você não precisa memorizar tipos de gráficos**. Você entende a lógica de como construí-los. Isso é libertador.
+:::
+
+---
+
+## De Wilkinson para Hadley Wickham
+
+A teoria de Wilkinson era elegante, mas permanecia principalmente na literatura estatística acadêmica. Tudo mudou quando o programador e estatístico **Hadley Wickham** descobriu o trabalho de Wilkinson.
+
+Em **2007**, Wickham criou `ggplot2` — uma implementação prática e intuitiva da Grammar of Graphics em R [@wickham2016].
+
+O nome `ggplot2` vem exatamente daqui:
+
+- **gg** = Grammar of Graphics
+- **plot** = gráficos
+
+::: {.callout-success}
+## Por que isso importa?
+
+Compreender a gramática dos gráficos significa entender **a lógica** por trás de qualquer visualização. Não é sobre memorizar "qual gráfico usar quando". É sobre entender **por que** você está usando um gráfico específico.
+
+Para médicos e pesquisadores em saúde, isso é transformador: você consegue comunicar dados de forma muito mais efetiva quando realmente entende o que está fazendo.
+:::
+
+---
+
+## As Camadas da Gramática (Layers)
+
+Agora vamos aos componentes específicos. Cada gráfico — não importa quão complexo — é construído a partir dessas camadas:
+
+### 1. Data (Dados)
+
+**A base de tudo.** Seus dados, a sua tabela, seus números.
+
+No nosso caso, estamos usando o dataset `pacientes` que contém informações sobre 403 pacientes: sexo, peso, circunferência de quadril, glicose sanguínea, idade, biotipo, e outras variáveis clínicas importantes.
+
+```{r}
+#| label: dados-exemplo
+#| message: false
+
+# Vamos dar uma olhada na estrutura dos dados
+pacientes |>
+  head(10) |>
+  select(id, sexo, idade, peso, altura, biotipo, glicose, colesterol, sistolica, diastolica) |>
+  kbl(
+    col.names = c("ID", "Sexo", "Idade", "Peso (kg)", "Altura (cm)",
+                   "Biótipo", "Glicose", "Colesterol", "PAS", "PAD"),
+    align = c("c", "l", "c", "c", "c", "l", "c", "c", "c", "c"),
+    caption = "Primeiros 10 pacientes do dataset — variáveis clínicas selecionadas"
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 14
+  ) |>
+  row_spec(0, bold = TRUE, color = "white", background = "#2563EB") |>
+  column_spec(1, bold = TRUE, color = "#64748B")
+```
+
+### 2. Aesthetics (aes) — O Mapeamento
+
+"Aesthetics" significa **mapear variáveis dos seus dados para propriedades visuais** do gráfico.
+
+Por exemplo:
+
+- A variável "peso" pode ser mapeada para o **eixo x**. 
+- A variável "quadril" pode ser mapeada para o **eixo y**. 
+- A variável "sexo" pode ser mapeada para a **cor**. 
+- Uma variável contínua pode ser mapeada para o **tamanho**. 
+
+É nessa camada que você decide: "Quais dados quero mostrar? Como quero posicioná-los?"
+
+```{r}
+#| label: aes-exemplo
+#| message: false
+
+# Exemplo: mapeando variáveis para o eixo x e y
+ggplot(pacientes, aes(x = peso, y = glicose)) +
+  theme_minimal() +
+  labs(
+    title = "Mapeamento de Aesthetics",
+    subtitle = "Peso (eixo x) e Glicose (eixo y)",
+    x = "Peso (kg)",
+    y = "Glicose (mg/dL)"
+  )
+```
+
+Repare: ainda não há **pontos** no gráfico. Só temos os eixos, o mapeamento estético. É como ter uma tela branca com as coordenadas já estabelecidas.
+
+### 3. Geometries (geom) — As Formas Visuais
+
+Agora você escolhe **qual forma visual** usar para representar seus dados:
+
+- `geom_point()` — pontos (scatter plot). 
+- `geom_bar()` — barras (gráfico de barras). 
+- `geom_line()` — linhas (gráfico de linhas).  
+- `geom_boxplot()` — caixas (boxplot). 
+- `geom_histogram()` — histograma. 
+- `geom_smooth()` — linha de tendência. 
+
+```{r}
+#| label: geom-exemplo
+#| message: false
+#| fig-height: 4
+
+# Adicionando geometria: pontos
+ggplot(pacientes, aes(x = peso, y = glicose)) +
+  geom_point(alpha = 0.6, color = cores[["azul"]]) +
+  theme_minimal() +
+  labs(
+    title = "Adicionando Geom: Pontos aparecem!",
+    x = "Peso (kg)",
+    y = "Glicose (mg/dL)"
+  )
+```
+
+Viu? A mesma aes (estética), mas agora com `geom_point()`, temos pontos visualizados!
+
+### 4. Facets — Dividindo em Painéis
+
+Às vezes você quer mostrar o **mesmo gráfico, mas separado por categorias**.
+
+Por exemplo: mostrar a relação entre peso e glicose, mas separadamente para homens e mulheres.
+
+```{r}
+#| label: facet-exemplo
+#| message: false
+#| fig-height: 4
+
+ggplot(pacientes, aes(x = peso, y = glicose, color = sexo)) +
+  geom_point(alpha = 0.6, size = 2) +
+  facet_wrap(~sexo) +
+  scale_color_manual(values = paleta_sexo) +
+  theme_minimal() +
+  labs(
+    title = "Facets: Dividindo por Sexo",
+    x = "Peso (kg)",
+    y = "Glicose (mg/dL)"
+  ) +
+  theme(legend.position = "top")
+```
+
+A camada de facets permite que você explore padrões específicos de subgrupos.
+
+### 5. Statistics (Stat) — Transformações
+
+Muitas vezes você não quer apenas plotar dados brutos. Você quer aplicar uma **transformação estatística**:
+
+- Calcular a média. 
+- Ajustar uma linha de regressão. 
+- Calcular uma densidade. 
+- Sumarizar dados em uma contagem. 
+
+```{r}
+#| label: stat-exemplo
+#| message: false
+#| fig-height: 4
+
+ggplot(pacientes, aes(x = peso, y = glicose)) +
+  geom_point(alpha = 0.4, color = cores[["azul"]]) +
+  geom_smooth(method = "lm", se = TRUE, color = cores[["vermelho"]], fill = cores[["vermelho"]]) +
+  theme_minimal() +
+  labs(
+    title = "Statistics: Linha de Regressão Linear",
+    subtitle = "Os dados (pontos) + tendência (linha vermelha)",
+    x = "Peso (kg)",
+    y = "Glicose (mg/dL)"
+  )
+```
+
+A linha de regressão é uma **estatística** — uma transformação calculada a partir dos dados.
+
+### 6. Coordinates (Coord) — O Sistema de Coordenadas
+
+Aqui vem uma das insights mais poderosas: **o tipo de sistema de coordenadas que você usa muda completamente como o gráfico é interpretado**.
+
+A maioria dos gráficos usa **coordenadas cartesianas** (x e y perpendiculares). Mas há outras opções:
+
+- `coord_cartesian()` — cartesiano (padrão). 
+- `coord_flip()` — inverte os eixos. 
+- `coord_polar()` — polar (em círculo). 
+- `coord_fixed()` — proporção 1:1. 
+
+```{r}
+#| label: coord-exemplo
+#| message: false
+#| fig-height: 4
+
+# Criamos um gráfico de barras com contagem de biotipo
+p1 <- ggplot(pacientes, aes(x = biotipo, fill = biotipo)) +
+  geom_bar() +
+  scale_fill_manual(values = paleta_cat) +
+  theme_minimal() +
+  labs(title = "Gráfico de Barras (Cartesiano)") +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
+
+p1
+```
+
+Agora, aqui vem a parte legal...
+
+::: {.callout-important}
+## Insight Poderoso: O Gráfico de Pizza é Uma Ilusão!
+
+Um gráfico de pizza (pie chart) **é literalmente um gráfico de barras em coordenadas polares**.
+
+Vamos demonstrar:
+:::
+
+```{r}
+#| label: coord-polar-insight
+#| message: false
+#| fig-height: 8
+
+# Mesmo gráfico, mesmos dados, apenas mudamos coord_cartesian para coord_polar
+p1_cartesiano <- ggplot(pacientes, aes(x = biotipo, fill = biotipo)) +
+  geom_bar() +
+  scale_fill_manual(values = paleta_cat) +
+  theme_minimal() +
+  labs(title = "Coordenadas Cartesianas (Barras)") +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
+
+p1_polar <- ggplot(pacientes, aes(x = biotipo, fill = biotipo)) +
+  geom_bar() +
+  scale_fill_manual(values = paleta_cat) +
+  coord_polar() +
+  theme_minimal() +
+  labs(title = "Coordenadas Polares (Pizza!)") +
+  theme(legend.position = "none")
+
+# Lado a lado
+p1_cartesiano | p1_polar
+```
+
+Vê só? **Exatamente os mesmos dados, mesma geometria, mesma estética**. A única coisa que mudou foi a camada `coord_polar()`.
+
+Isso desmistifica completamente o gráfico de pizza. Não é um tipo de gráfico especial — é apenas um gráfico de barras visualizado em um sistema de coordenadas diferente!
+
+::: {.callout-warning}
+## Nota Importante
+
+Na medicina, gráficos de pizza são frequentemente **não recomendados** porque o olho humano tem dificuldade em comparar áreas circulares com precisão. Um gráfico de barras (mesmo em coordenadas cartesianas) geralmente comunica a informação de forma muito mais clara.
+
+Entender isso — entender que você *pode* usar pizza mas *não deveria* — é parte do poder da gramática de gráficos.
+:::
+
+### 7. Theme — A Aparência Visual
+
+A última camada é o **tema**: cores de fundo, tamanho de fontes, cores dos eixos, etc.
+
+Um tema não muda os dados ou como são mapeados. Ele muda apenas a **aparência visual**.
+
+```{r}
+#| label: theme-exemplo
+#| message: false
+#| fig-height: 4
+
+ggplot(pacientes, aes(x = peso, y = glicose, color = sexo)) +
+  geom_point(alpha = 0.6, size = 2) +
+  scale_color_manual(values = paleta_sexo) +
+  tema_graficos() +  # Nosso tema customizado!
+  labs(
+    title = "Com Tema Customizado",
+    x = "Peso (kg)",
+    y = "Glicose (mg/dL)"
+  )
+```
+
+---
+
+## Analogia Didática: Grammar of Graphics = Grammar of Language
+
+Pense em como você construiria uma sentença em português:
+
+| Componente Gráfico | Componente Linguístico | Exemplo |
+|---|---|---|
+| **Data** | Sujeito | "O médico" |
+| **Aesthetics** | Palavras/escolha de termos | "receitou um antibiótico" |
+| **Geom** | Tipo de sentença | Afirmativa, interrogativa, etc. |
+| **Facets** | Conjunções/separação em cláusulas | "ao paciente, que tinha febre" |
+| **Statistics** | Tempos verbais/modificadores | Presente, passado, condicional |
+| **Coordinates** | Estrutura sintática | Ordem das palavras (SVO vs. SOV) |
+| **Theme** | Sotaque/estilo | "Ele é um sotaque carioca" |
+
+Assim como uma frase bem construída comunica claramente, um gráfico bem construído também comunica. E assim como você não precisa pensar em "qual ordem de palavras usar" — você usa a gramática naturalmente — você também não precisa pensar em "qual tipo de gráfico" quando você realmente entende a gramática.
+
+---
+
+## Exemplo Prático Progressivo: Construindo Camada por Camada
+
+Agora vamos construir um gráfico de verdade, começando do zero e adicionando camada por camada. Você verá exatamente como a gramática funciona na prática.
+
+::: {.panel-tabset}
+
+### Passo 1: Data + Aesthetics
+
+```{r}
+#| label: progressivo-p1
+#| message: false
+#| fig-height: 4
+#| fig-width: 10
+#| out-width: "100%"
+
+ggplot(pacientes, aes(x = quadril, y = peso))
+```
+
+**O que aconteceu?** Definimos os dados (`pacientes`) e o mapeamento estético (quadril no eixo x, peso no eixo y). Mas não há nada para ver além dos eixos — porque ainda não temos uma geometria!  
+
+
+### Passo 2: Adicionando Geom (Pontos)
+
+```{r}
+#| label: progressivo-p2
+#| message: false
+#| fig-height: 4
+#| fig-width: 10
+#| out-width: "100%"
+
+ggplot(pacientes, aes(x = quadril, y = peso)) +
+  geom_point(alpha = 0.6, color = cores[["azul"]])
+```
+
+**O que aconteceu?** Agora temos pontos! Os dados foram mapeados para a tela. Cada ponto representa um paciente: seu peso (eixo y) versus sua circunferência de quadril (eixo x).  
+
+### Passo 3: Adicionando Color Aesthetic
+
+```{r}
+#| label: progressivo-p3
+#| message: false
+#| fig-height: 4
+#| fig-width: 10
+#| out-width: "100%"
+
+ggplot(pacientes, aes(x = quadril, y = peso, color = sexo)) +
+  geom_point(alpha = 0.6, size = 2) +
+  scale_color_manual(values = paleta_sexo) +
+  theme(legend.position = "bottom")
+```
+
+**O que aconteceu?** Agora mapeamos a variável `sexo` para a cor dos pontos. De repente, conseguimos ver um novo padrão: homens e mulheres provavelmente têm distribuições diferentes de peso e quadril.
+
+### Passo 4: Adicionando Geom Smooth (Tendência)
+
+```{r}
+#| label: progressivo-p4
+#| message: false
+#| fig-height: 4
+#| fig-width: 10
+#| out-width: "100%"
+
+ggplot(pacientes, aes(x = quadril, y = peso, color = sexo, fill = sexo)) +
+  geom_point(alpha = 0.4, size = 2) +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.2) +
+  scale_color_manual(values = paleta_sexo) +
+  scale_fill_manual(values = paleta_sexo) +
+  theme(legend.position = "bottom")
+```
+
+**O que aconteceu?** Adicionamos uma estatística: `geom_smooth()` calcula uma linha de regressão linear para cada grupo (sexo) e mostra a região de confiança (área sombreada). Agora podemos ver a tendência geral.  
+ 
+### Passo 5: Adicionando Facets
+
+```{r}
+#| label: progressivo-p5
+#| message: false
+#| fig-height: 5
+#| fig-width: 10
+#| out-width: "100%"
+
+ggplot(pacientes, aes(x = quadril, y = peso, color = sexo)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = "black", alpha = 0.2) +
+  scale_color_manual(values = paleta_sexo) +
+  facet_wrap(~sexo) +
+  theme_minimal() +
+  labs(title = "Peso vs. Quadril - Separado por Sexo") +
+  theme(legend.position = "none")
+```
+
+**O que aconteceu?** Usamos `facet_wrap(~sexo)` para criar dois painéis, um para cada sexo. Agora podemos ver os padrões mais claramente sem a sobreposição de cores.  ç
+
+### Passo 6: Tema Customizado
+
+```{r}
+#| label: progressivo-p6
+#| message: false
+#| fig-height: 5
+#| fig-width: 10
+#| out-width: "100%"
+
+ggplot(pacientes, aes(x = quadril, y = peso, color = sexo)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = "black", alpha = 0.2) +
+  scale_color_manual(values = paleta_sexo) +
+  facet_wrap(~sexo) +
+  tema_graficos() +
+  labs(
+    title = "Relação entre Quadril e Peso",
+    subtitle = "Separado por Sexo",
+    x = "Circunferência de Quadril (cm)",
+    y = "Peso (kg)"
+  ) +
+  theme(legend.position = "none")
+```
+
+**O que aconteceu?** Aplicamos nosso tema customizado (`tema_graficos()`), que ajusta cores de fundo, fontes, tamanho de elementos, etc. Os dados não mudaram, mas a apresentação ficou muito mais profissional!
+
+:::
+
+---
+
+## Por Que Isso Importa na Medicina
+
+Você pode estar pensando: "Tudo bem, mas por que devo me importar com essa abstração toda?"
+
+A resposta é simples e poderosa:
+
+::: {.callout-success}
+## A Questão Errada vs. A Questão Certa
+
+**Questão Errada:** "Qual tipo de gráfico devo usar?"
+
+Esta pergunta te faz memorizar regras (quando usar barras, quando usar linhas, etc.). É frágil e você está sempre procurando.
+
+**Questão Certa:** "O que quero comunicar com meus dados?"
+
+Uma vez que você faz essa pergunta, a gramática de gráficos te diz como construir a resposta. Você não está buscando um tipo de gráfico específico — você está construindo a visualização que comunica exatamente o que você quer.
+
+Na medicina, isso é crucial. Seus gráficos comunicam resultados que afetam decisões clínicas. Você precisa ser deliberado, intencional, e compreender exatamente o que está fazendo.
+:::
+
+Alguns exemplos práticos:
+
+- **Você quer mostrar a distribuição de uma variável contínua?** Você sabe que precisa de dados (a variável), aesthetics (eixo x), e talvez uma geometria que mostre distribuição (histograma, densidade). Você escolhe a geometria baseado no que torna a comunicação mais clara.
+
+- **Você quer comparar duas grupos?** Dados (dois grupos), aesthetics (um grupo na cor, o outro no painel), e uma geometria que ressalte a comparação (boxplot, violin plot). Tudo flui logicamente.
+
+- **Você quer mostrar uma série temporal?** Dados (tempo e medida), aesthetics (tempo no eixo x, medida no eixo y), geom que mostre continuidade (linhas), sem facets desnecessários. A gramática guia você.
+
+Quando você realmente internaliza a gramática de gráficos, você se torna um comunicador visual extraordinário.
+
+---
+
+## Exemplo Interativo: Explorando com Plotly
+
+Para ficar ainda mais interessante, vamos converter nosso gráfico para interativo usando `plotly`. Passe o mouse sobre os pontos para ver os detalhes de cada paciente:
+
+```{r}
+#| label: interativo-plotly
+#| message: false
+#| fig-height: 5
+
+p_interativo <- ggplot(pacientes, aes(x = quadril, y = peso, color = sexo)) +
+  geom_point(alpha = 0.6, size = 2) +
+  scale_color_manual(values = paleta_sexo) +
+  tema_graficos() +
+  labs(
+    title = "Peso vs. Quadril (Interativo)",
+    x = "Circunferência de Quadril (cm)",
+    y = "Peso (kg)"
+  ) +
+  theme(legend.position = "top")
+
+para_plotly(p_interativo)
+```
+
+---
+
+## Quiz Interativo
+
+Teste seu entendimento sobre a Grammar of Graphics!
+
+::: {.callout-note collapse="true"}
+## Questão 1: Componentes Essenciais
+
+Qual é o componente mínimo necessário para criar um gráfico?
+
+a) Aesthetics e Geom. 
+b) Data, Aesthetics e Geom. 
+c) Data.   
+d) Theme. 
+
+<details>
+<summary>Ver resposta</summary>
+
+**Resposta: b) Data, Aesthetics e Geom**
+
+Você precisa de dados (o quê), de um mapeamento estético (para onde), e de uma geometria (como visualizar). 
+Tudo o mais — facets, statistics, coordinates especiais, themes — são adições que refinam a visualização, mas esses três são obrigatórios.
+
+</details>
+:::
+
+::: {.callout-note collapse="true"}
+## Questão 2: Mudando Coordenadas
+
+Se você pega um gráfico de barras em coordenadas cartesianas normais e aplica `coord_flip()`, o que acontece?
+
+a) O gráfico fica de cabeça para baixo. 
+b) Os eixos trocam de lugar (barras horizontais em vez de verticais). 
+c) Os dados são transformados. 
+d) O gráfico fica um gráfico de pizza. 
+
+<details>
+<summary>Ver resposta</summary>
+
+**Resposta: b) Os eixos trocam de lugar**
+
+`coord_flip()` inverte os eixos x e y. Assim, um gráfico de barras vertical vira um gráfico de barras horizontal. Os dados e a geometria permanecem exatamente os mesmos — só a apresentação muda.
+
+</details>
+:::
+
+::: {.callout-note collapse="true"}
+## Questão 3: Aesthetics vs. Geom
+
+Qual é a diferença entre `aes(color = sexo)` (aesthetics) e `geom_point()` (geometria)?
+
+a) Nenhuma — são a mesma coisa. 
+b) Aesthetics diz PARA ONDE mapear a variável; Geom diz COMO visualizá-la. 
+c) Geom diz PARA ONDE mapear; Aesthetics diz COMO visualizar. 
+d) Aesthetics é para cores; Geom é para pontos. 
+
+<details>
+<summary>Ver resposta</summary>
+
+**Resposta: b) Aesthetics diz PARA ONDE mapear a variável; Geom diz COMO visualizá-la**
+
+- `aes(color = sexo)` significa: "Vou mapear a variável 'sexo' para a propriedade visual 'cor'". Qual cor? Depende da escala de cores que você escolher.
+- `geom_point()` significa: "Vou usar pontos para visualizar esses dados".
+
+Você pode usar `aes(color = sexo)` com `geom_point()`, com `geom_line()`, com `geom_bar()` — tudo funciona. O mapeamento estético é independente da geometria.
+
+</details>
+:::
+
+::: {.callout-note collapse="true"}
+## Questão 4: Facets e Dados
+
+Quando você usa `facet_wrap(~sexo)`, os dados realmente são divididos em dois datasets separados?
+
+a) Sim, os dados são filtrados. 
+b) Não, é apenas uma visualização separada dos mesmos dados. 
+c) Sim, e cada facet tem suas próprias geometrias. 
+d) Não, facets não funcionam assim. 
+
+<details>
+<summary>Ver resposta</summary>
+
+**Resposta: b) Não, é apenas uma visualização separada dos mesmos dados**
+
+`facet_wrap()` (e `facet_grid()`) não dividem seus dados. Eles simplesmente criam múltiplos painéis, cada um mostrando uma fatia diferente dos dados mesmos, baseado na variável que você especificou. Os dados originais permanecem intactos.
+
+</details>
+:::
+
+::: {.callout-note collapse="true"}
+## Questão 5: Insight sobre Pizza Charts
+
+Um gráfico de pizza é:
+
+a) Um tipo de gráfico completamente diferente de um gráfico de barras. 
+b) Uma variação do gráfico de barras em coordenadas polares. 
+c) Melhor para medicina porque é mais bonito. 
+d) Apenas um gráfico de barras com rótulos percentuais. 
+
+<details>
+<summary>Ver resposta</summary>
+
+**Resposta: b) Uma variação do gráfico de barras em coordenadas polares**
+
+Vimos isso na prática! Um gráfico de barras + `coord_polar()` = pizza chart. Não é um tipo separado de gráfico. É uma mudança na camada de **coordenadas**.
+
+Na medicina, porém, lembre-se: gráficos de pizza geralmente **não são recomendados** porque o olho humano tem dificuldade em comparar áreas circulares com precisão.
+
+</details>
+:::
+
+---
+
+## Resumo das Camadas
+
+| Camada | O Quê | Exemplo |
+|--------|-------|---------|
+| **Data** | Seu dataset | `pacientes` |
+| **Aesthetics** | Mapeamento de variáveis para propriedades visuais | `aes(x = peso, color = sexo)` |
+| **Geom** | Forma visual usada | `geom_point()`, `geom_bar()` |
+| **Facets** | Divisão em múltiplos painéis | `facet_wrap(~sexo)` |
+| **Statistics** | Transformações dos dados | `geom_smooth()` aplica regressão |
+| **Coordinates** | Sistema de coordenadas | `coord_cartesian()`, `coord_polar()` |
+| **Theme** | Aparência visual | `tema_graficos()`, cores, fontes |
+
+---
+
+## Próximo Passo
+
+Agora que você compreende a **gramática**, no próximo capítulo vamos explorar os **tipos de dados e gráficos mais comuns na medicina**: distribuições, comparações entre grupos, relações entre variáveis, e séries temporais.
+
+A gramática é a teoria. Agora vamos colocá-la em prática.
+
+Para aprofundamento, recomendamos os livros de @wilkinson2005, @wickham2016 e @healy2018.
+
+---
+
+## Referências {.unnumbered}
+
+::: {#refs}
+:::

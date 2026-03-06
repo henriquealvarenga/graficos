@@ -1,0 +1,326 @@
+---
+title: "Gráfico de Setores (Pizza)"
+subtitle: "Capítulo 4 — Proporções de um todo"
+author: "Henrique Alvarenga da Silva"
+lang: pt-BR
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
+## História: William Playfair e o Gráfico de Pizza
+
+::: {.callout-note appearance="minimal"}
+
+## William Playfair: o inventor dos gráficos estatísticos
+
+O gráfico de setores foi criado por **William Playfair** (1759–1823), um engenheiro e economista escocês que é considerado o pai da visualização estatística moderna. Playfair publicou o primeiro gráfico de pizza no *Statistical Breviary* (1801), onde usou círculos divididos em fatias para comparar as áreas territoriais, populações e receitas fiscais de nações europeias [@playfair2005].
+
+A ideia era simples e intuitiva: se um círculo representa o todo (100%), dividi-lo em fatias permite visualizar rapidamente quanto cada categoria contribui para a totalidade. Mas o gráfico de pizza não foi a primeira invenção de Playfair — quinze anos antes, em *The Commercial and Political Atlas* [@playfair1786], ele já havia criado o gráfico de barras e o gráfico de linhas, que você encontrará nos próximos capítulos [@costiganeaves1990].
+
+![Gráfico original de William Playfair no *Statistical Breviary* (1801), comparando nações europeias por área, população e receita.](images/Playfair_Pizza.jpg)
+
+:::
+
+Durante muito tempo, especialmente no século XX, o gráfico de pizza tornou-se extremamente popular em apresentações de negócios e relatórios. Sua forma familiar e aparência agradável o tornaram um favorito em ferramentas de apresentação como PowerPoint. Porém, com o avanço da pesquisa em visualização de dados, passou-se a questionar se essa popularidade era justificada.
+
+## O que é um gráfico de setores?
+
+Um gráfico de setores representa **as proporções de um todo**. Cada "fatia" (setor) do círculo corresponde a uma categoria, e o tamanho da fatia é proporcional ao valor daquela categoria em relação ao total. O ângulo de cada setor é calculado como: $\frac{\text{valor da categoria}}{\text{valor total}} \times 360°$.
+
+Por exemplo, se temos 234 mulheres e 169 homens em uma amostra de 403 pacientes:
+
+- Mulheres: $\frac{234}{403} \times 360° = 208,4°$ (aproximadamente 58%)
+- Homens: $\frac{169}{403} \times 360° = 151,6°$ (aproximadamente 42%)
+
+## Quando usar um gráfico de pizza?
+
+Existem situações específicas onde o gráfico de pizza pode ser apropriado:
+
+1. **Poucas categorias** (2 a 4 no máximo): Quando você tem apenas 2-3 categorias e quer destacar uma delas
+2. **Proporções muito desiguais**: Se uma categoria representa claramente a maioria (ex: 85%) e as outras são muito menores
+3. **Contextos onde a forma circular é importante**: Dados cíclicos ou que naturalmente formam um "todo"
+4. **Comunicação com públicos leigos**: Em alguns contextos, a forma intuitiva do círculo facilita compreensão imediata
+
+Ainda assim, é importante questionar se o gráfico de pizza é realmente a melhor escolha em cada situação.
+
+## Quando NÃO usar um gráfico de pizza
+
+A lista de "quando não usar" é consideravelmente mais longa:
+
+1. **Muitas categorias**: Com 5 ou mais categorias, fica difícil diferenciar tamanhos de fatias
+2. **Comparações precisas**: Se o objetivo é determinar qual categoria é maior, nossos olhos são ruins em comparar ângulos
+3. **Dados que mudam ao longo do tempo**: Use linhas ou barras em vez disso
+4. **Proporções semelhantes**: Quando duas fatias têm tamanhos parecidos, é quase impossível saber qual é maior
+5. **Dados contínuos ou de distribuição**: Histogramas ou density plots são muito melhores
+6. **Relatórios científicos**: A comunidade científica geralmente prefere tabelas ou gráficos de barras
+
+## Uma crítica forte: O lugar apropriado para o gráfico de pizza
+
+O estatístico Norman H. Streiner, em suas pesquisas sobre comunicação de dados, afirmou algo que se tornou icônico:
+
+> *"The only place for a pie chart is at a baker's convention"*
+
+Essa frase reflete um consenso crescente na comunidade de visualização de dados: o gráfico de pizza é frequentemente uma escolha inadequada. Pesquisas em psicologia visual mostram que **humans são muito melhores em comparar comprimentos (como em gráficos de barras) do que em comparar ângulos (como em gráficos de pizza)**.
+
+Quando somos solicitados a responder "qual fatia é maior?", nossos olhos precisam estimar ângulos, um processo cognitivo menos preciso. Em contraste, em um gráfico de barras, a resposta é imediata: a barra mais alta claramente vence.
+
+## Exemplos práticos com R
+
+### Exemplo 1: Distribuição simples de sexo
+
+Começamos com o exemplo mais básico: mostrar a distribuição de mulheres e homens na nossa amostra de 403 pacientes.
+
+```{r}
+# Contar as frequências por sexo
+dados_sexo <- pacientes |>
+  count(sexo) |>
+  arrange(desc(n))
+
+# Criar o gráfico de pizza
+ggplot(dados_sexo, aes(x = "", y = n, fill = sexo)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  scale_fill_manual(values = paleta_sexo, labels = c("male" = "Homem", "female" = "Mulher")) +
+  labs(
+    title = "Distribuição de Sexo na Amostra",
+    subtitle = "n = 403 pacientes",
+    fill = "Sexo"
+  ) +
+  tema_graficos() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank()
+  )
+```
+
+Observe como usamos `geom_bar()` com `coord_polar()` para criar o efeito de pizza. O argumento `start = 0` define o ângulo inicial da primeira fatia.
+
+### Exemplo 2: Biotipo (quando o gráfico fica confuso)
+
+Agora vejamos um exemplo com 3 categorias: pequeno, médio e grande biotipo.
+
+```{r}
+# Contar as frequências por biotipo
+dados_biotipo <- pacientes |>
+  count(biotipo) |>
+  arrange(desc(n))
+
+# Criar o gráfico
+ggplot(dados_biotipo, aes(x = "", y = n, fill = biotipo)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 90) +
+  scale_fill_manual(
+    values = c("small" = cores$azul, "medium" = cores$verde, "large" = cores$laranja),
+    labels = c("small" = "Pequeno", "medium" = "Médio", "large" = "Grande")
+  ) +
+  labs(
+    title = "Distribuição de Biotipo",
+    subtitle = "Começando a ficar difícil de comparar visualmente",
+    fill = "Biotipo"
+  ) +
+  tema_graficos() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank()
+  )
+```
+
+Note como, mesmo com apenas 3 categorias, já não é tão óbvio qual categoria é maior quando olhamos apenas para o tamanho das fatias.
+
+### Exemplo 3: Adicionando percentuais e contagens
+
+Uma forma de melhorar o gráfico de pizza (quando você decide usá-lo) é adicionar informações numéricas:
+
+```{r}
+dados_sexo_pct <- pacientes |>
+  count(sexo) |>
+  mutate(
+    pct = n / sum(n) * 100,
+    label = paste0(
+      ifelse(sexo == "female", "Mulher", "Homem"),
+      "\nn = ", n,
+      " (", round(pct, 1), "%)"
+    )
+  ) |>
+  arrange(desc(n))
+
+ggplot(dados_sexo_pct, aes(x = "", y = n, fill = sexo)) +
+  geom_bar(stat = "identity", width = 1) +
+  geom_text(
+    aes(label = label, x = 1.0),
+    position = position_stack(vjust = 0.5),
+    size = 4,
+    fontface = "bold"
+  ) +
+  coord_polar("y", start = 0) +
+  scale_fill_manual(values = paleta_sexo) +
+  labs(
+    title = "Distribuição de Sexo na Amostra",
+    subtitle = "Com percentuais e contagens"
+  ) +
+  tema_graficos() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "none"
+  )
+```
+
+## A alternativa superior: Gráfico de barras
+
+Agora vamos fazer a comparação crucial. Usando **exatamente os mesmos dados**, vamos mostrar por que um gráfico de barras comunica melhor:
+
+```{r}
+# Preparar dados
+dados_comparacao <- pacientes |>
+  count(sexo) |>
+  mutate(
+    sexo_label = ifelse(sexo == "female", "Mulher", "Homem"),
+    pct = n / sum(n) * 100
+  ) |>
+  arrange(desc(n))
+
+# Gráfico de barras
+p_barras <- ggplot(dados_comparacao, aes(x = reorder(sexo_label, -n), y = n, fill = sexo)) +
+  geom_col(width = 0.6) +
+  geom_text(
+    aes(label = paste0(n, "\n(", round(pct, 1), "%)")),
+    vjust = -0.3,
+    fontface = "bold",
+    size = 2.5
+  ) +
+  scale_fill_manual(values = paleta_sexo) +
+  scale_y_continuous(limits = c(0, 280), breaks = seq(0, 240, 40)) +
+  labs(
+    title = "Distribuição de Sexo \nna Amostra",
+    x = "Sexo",
+    y = "Número de Pacientes"
+  ) +
+  tema_graficos() +
+  theme(plot.title = element_text(size = 10) ) 
+
+# Gráfico de pizza (mesmo dos dados)
+p_pizza <- ggplot(dados_comparacao, aes(x = "", y = n, fill = sexo)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  scale_fill_manual(values = paleta_sexo) +
+  labs(
+    title = "Distribuição de Sexo \nna Amostra",
+    fill = "Sexo"
+  ) +
+  tema_graficos() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank(),
+    plot.title = element_text(size = 10)
+  ) 
+
+# Combinar para comparação
+p_barras + p_pizza + plot_layout(ncol = 2)
+```
+
+**Observe:**
+
+- No gráfico de barras, é **imediatamente claro** que há mais mulheres (234) que homens (169)
+- No gráfico de pizza, você precisa comparar o tamanho das fatias, o que é menos direto
+
+Em pesquisas de visualização de dados, o gráfico de barras consistentemente supera o gráfico de pizza em:
+
+- Velocidade de compreensão
+- Precisão das comparações
+- Retenção de memória dos dados
+
+## Erros comuns ao usar gráficos de pizza
+
+### ❌ Erro 1: Gráficos em 3D
+
+Muitos softwares oferecem a opção de "Pizza 3D". **Nunca use isso.** A perspectiva 3D distorce as proporções de forma enganosa: fatias na frente parecem maiores do que na verdade são.
+
+### ❌ Erro 2: Muitas categorias
+
+Tentar representar 6, 7 ou mais categorias em um gráfico de pizza resulta em fatias tão pequenas que se torna impossível diferenciá-las. Neste caso, um gráfico de barras horizontal com as menores categorias agrupadas como "Outros" seria mais apropriado.
+
+### ❌ Erro 3: Cores muito semelhantes
+
+Usar cores muito parecidas torna o gráfico ainda mais difícil de interpretar. As cores devem ter contraste suficiente para que cada categoria seja imediatamente distinguível.
+
+### ❌ Erro 4: Começar a fatia em um ângulo confuso
+
+Sempre comece a primeira fatia no topo (0°) ou à direita (90°). Começar em ângulos aleatórios torna mais difícil comparar proporções com o "12 em ponto" do relógio.
+
+## Resumo: Quando reconsiderar suas escolhas
+
+| Característica | Gráfico de Pizza | Gráfico de Barras |
+|---|---|---|
+| Poucas categorias (2-3) | ✓ | ✓ |
+| Muitas categorias (5+) | ✗ | ✓ |
+| Comparações precisas | ✗ | ✓ |
+| Proporções muito desiguais | ✓ | ✓ |
+| Dados cíclicos/temporais | ✗ | ✗ |
+| Fácil de interpretar | Moderado | Excelente |
+| Aceitação científica | Baixa | Alta |
+
+---
+
+## Quiz
+
+**Questão 1:** Você está apresentando dados sobre a distribuição de 8 categorias de comorbidades em pacientes. Qual tipo de gráfico seria mais apropriado?
+
+a) Gráfico de pizza com 8 fatias
+b) Gráfico de barras horizontal com as categorias ordenadas por frequência
+c) Gráfico de pizza em 3D para destacar a apresentação
+d) Não plotar nada, apenas mostrar uma tabela
+
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: b)**
+
+Com 8 categorias, o gráfico de pizza se torna ilegível. Um gráfico de barras horizontal com as categorias ordenadas permite comparações muito mais fáceis e precisas. A opção c é particularmente má porque o 3D distorce as proporções. A opção d, embora às vezes válida, perde a oportunidade de visualização que um bom gráfico oferece.
+:::
+
+**Questão 2:** Qual era o crítica principal de Norman H. Streiner sobre gráficos de pizza?
+
+a) São muito coloridos
+b) Levam muito tempo para serem criados
+c) Usam muito espaço na página
+d) Humanos são melhores em comparar comprimentos do que ângulos
+
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: d)**
+
+A crítica fundamental é baseada em psicologia visual: nossos olhos e cérebro são muito mais eficientes em comparar comprimentos (como em barras) do que em estimar e comparar ângulos (como em fatias de pizza).
+:::
+
+**Questão 3:** Você está criando um gráfico de pizza para mostrar que 95% dos pacientes têm um certo resultado positivo e 5% têm resultado negativo. Este é um bom uso de gráfico de pizza?
+
+a) Não, porque tem muitas categorias
+b) Sim, porque destaca que a maioria tem resultado positivo
+c) Não, porque em 3D fica melhor
+d) Sim, porque a proporção é de 95% vs 5%
+
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: d)**, mas **com ressalva**.
+
+Proporções muito desiguais (95% vs 5%) é um dos poucos casos onde um gráfico de pizza pode ser aceitável, porque a diferença é tão óbvia que até o gráfico de pizza não consegue confundir. Mesmo assim, muitos prefeririam um gráfico de barras simples. A opção c está definitivamente errada: nunca use 3D.
+:::
+
+
+---
+
+## Referências {.unnumbered}
+
+::: {#refs}
+:::

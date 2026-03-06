@@ -1,0 +1,415 @@
+---
+title: "Qual Gráfico Devo Usar?"
+subtitle: "Capítulo 15 — Fluxograma de decisão"
+author: "Henrique Alvarenga da Silva"
+date: "`r Sys.Date()`"
+---
+
+## Introdução
+
+Escolher o gráfico correto é uma das habilidades mais importantes na visualização de dados. O gráfico certo comunica seu mensagem de forma clara e eficiente; o gráfico errado pode obscurecer padrões importantes ou levar a conclusões incorretas.
+
+Neste capítulo, exploraremos um **fluxograma de decisão** que o guiará através das escolhas principais: Quantas variáveis você tem? Qual é o tipo de cada variável? O que você quer comunicar com seus dados?
+
+Este fluxograma conecta-se diretamente à **Gramática dos Gráficos** (Capítulo 1). Lembre-se de que toda visualização mapeia variáveis a **estéticas** (position, cor, tamanho, forma) e depois escolhe um **geom** (ponto, linha, barra, etc.). O fluxograma a seguir essencialmente codifica essa lógica de mapeamento.
+
+---
+
+## O Fluxograma de Decisão
+
+Comece respondendo a pergunta inicial: **Quantas variáveis você deseja visualizar?**
+
+```{mermaid}
+graph TD
+    A["Quantas variáveis<br/>você deseja visualizar?"] -->|1 variável| B["Qual é o tipo<br/>de dados?"]
+    A -->|2 variáveis| C["Qual é a combinação<br/>de tipos?"]
+    A -->|3+ variáveis| D["Quais são os tipos<br/>de dados?"]
+
+    B -->|Categórica| E["Quantas<br/>categorias?"]
+    B -->|Numérica| F["O que deseja<br/>mostrar?"]
+
+    E -->|2-5 categorias| G["📊 Gráfico de Barras<br/>Cap 5"]
+    E -->|Muitas categorias| H["📊 Gráfico de Barras<br/>Horizontal<br/>Cap 5"]
+    E -->|Proporção do todo| I["🥧 Gráfico de Pizza<br/>com ressalvas<br/>Cap 4"]
+
+    F -->|Distribuição| J["📈 Histograma<br/>Cap 6"]
+    F -->|Distribuição| K["📊 Densidade<br/>Cap 7"]
+    F -->|Resumo por grupos| L["📦 Boxplot<br/>Cap 8"]
+
+    C -->|Ambas numéricas| M["📍 Scatter Plot<br/>Cap 9"]
+    C -->|Numérica +<br/>Categórica| N["📦 Boxplot<br/>Cap 8"]
+    C -->|Numérica +<br/>Categórica| O["📊 Barras de<br/>Médias<br/>Cap 5"]
+    C -->|Ambas categóricas| P["📊 Gráfico<br/>de Barras Agrupadas<br/>Cap 5"]
+    C -->|Temporal| Q["📈 Gráfico de Linha<br/>Cap 10"]
+
+    D -->|Múltiplas variáveis| R["Considere Facets<br/>Small Multiples"]
+    D -->|Cor como dimensão| S["Use cor para<br/>codificar uma<br/>variável categórica"]
+    D -->|Tamanho como dim.| T["Use tamanho para<br/>codificar uma<br/>variável numérica"]
+
+    R --> U["📊 Combine com<br/>uma das opções<br/>acima"]
+    S --> U
+    T --> U
+
+    style A fill:#e1f5ff
+    style G fill:#fff3e0
+    style H fill:#fff3e0
+    style I fill:#fff3e0
+    style J fill:#fff3e0
+    style K fill:#fff3e0
+    style L fill:#fff3e0
+    style M fill:#fff3e0
+    style N fill:#fff3e0
+    style O fill:#fff3e0
+    style P fill:#fff3e0
+    style Q fill:#fff3e0
+```
+
+---
+
+## Tabela de Referência Rápida
+
+Aqui está uma tabela abrangente que resume as decisões mais comuns em pesquisa médica:
+
+| **Objetivo** | **Tipo de Dado** | **Número de Variáveis** | **Gráfico Recomendado** | **Capítulo** | **Notas** |
+|---|---|---|---|---|---|
+| Mostrar distribuição de uma variável categórica | Categórica | 1 | Gráfico de Barras | 5 | Use horizontal para muitas categorias |
+| Mostrar proporção do todo | Categórica | 1 | Pizza (com ressalvas) | 4 | Evite se possível; barras são melhores |
+| Mostrar distribuição de uma variável numérica | Numérica | 1 | Histograma | 6 | Mostra intervalos e frequências |
+| Mostrar densidade de uma variável numérica | Numérica | 1 | Densidade | 7 | Mais suave que histograma |
+| Resumir uma variável por grupos | Numérica + Categórica | 2 | Boxplot | 8 | Mostra quartis e outliers |
+| Comparar médias entre grupos | Numérica + Categórica | 2 | Barras de Médias | 5 | Simples mas pode ocultar distribuição |
+| Mostrar relação entre duas variáveis numéricas | Ambas Numéricas | 2 | Scatter Plot | 9 | Busque correlações e agrupamentos |
+| Comparar duas variáveis categóricas | Ambas Categóricas | 2 | Barras Agrupadas | 5 | Mostre frequências cruzadas |
+| Mostrar tendência ao longo do tempo | Numérica + Temporal | 2 | Gráfico de Linha | 10 | Ideal para séries temporais |
+| Visualizar 3+ variáveis simultaneamente | Múltiplos | 3+ | Facets / Small Multiples | 11 | Combine com um gráfico base |
+| Codificar dimensão extra com cor | Categórica | 3+ | Scatter + Cor | 9, 12 | Use paleta apropriada |
+| Codificar dimensão extra com tamanho | Numérica | 3+ | Scatter + Tamanho | 9, 13 | Cuidado com percepção de área |
+
+---
+
+## Versão Interativa com Observable JS
+
+Responda as perguntas abaixo para obter uma recomendação personalizada:
+
+```{ojs}
+viewof numVariaveis = Inputs.radio(
+  ["1 variável", "2 variáveis", "3 ou mais variáveis"],
+  { value: "1 variável", label: "1. Quantas variáveis você deseja visualizar?" }
+)
+```
+
+```{ojs}
+viewof tipoVariavel = {
+  if (numVariaveis === "1 variável") {
+    return Inputs.radio(
+      ["Categórica", "Numérica"],
+      { value: "Categórica", label: "2. Qual é o tipo de dados?" }
+    );
+  }
+  if (numVariaveis === "2 variáveis") {
+    return Inputs.radio(
+      ["Ambas numéricas", "Uma numérica + Uma categórica", "Ambas categóricas", "Temporal (tempo no eixo X)"],
+      { value: "Ambas numéricas", label: "2. Qual é a combinação de tipos?" }
+    );
+  }
+  return Inputs.radio(
+    ["Usar facets (pequenos múltiplos)", "Usar cor para dimensão extra", "Usar tamanho para dimensão extra"],
+    { value: "Usar facets (pequenos múltiplos)", label: "2. Como deseja codificar as variáveis extras?" }
+  );
+}
+```
+
+```{ojs}
+viewof detalhe = {
+  if (numVariaveis === "1 variável" && tipoVariavel === "Categórica") {
+    return Inputs.radio(
+      ["2-5 categorias", "Muitas categorias", "Proporção do todo"],
+      { value: "2-5 categorias", label: "3. Quantas categorias?" }
+    );
+  }
+  if (numVariaveis === "1 variável" && tipoVariavel === "Numérica") {
+    return Inputs.radio(
+      ["Mostrar distribuição completa", "Mostrar densidade", "Resumir por grupos"],
+      { value: "Mostrar distribuição completa", label: "3. O que deseja mostrar?" }
+    );
+  }
+  return Inputs.radio(["(Não se aplica)"], { value: "(Não se aplica)", label: " " });
+}
+```
+
+```{ojs}
+recomendacao = {
+  // 1 variável categórica
+  if (numVariaveis === "1 variável" && tipoVariavel === "Categórica") {
+    if (detalhe === "2-5 categorias") return { tipo: "Gráfico de Barras", capitulo: "Capítulo 5", descricao: "Use barras verticais para mostrar a frequência de cada categoria.", obs: "Simples, claro e eficaz para a maioria das situações." };
+    if (detalhe === "Muitas categorias") return { tipo: "Gráfico de Barras Horizontal", capitulo: "Capítulo 5", descricao: "Barras horizontais dão mais espaço para rótulos longos.", obs: "Ideal quando você tem muitas categorias ou nomes longos." };
+    if (detalhe === "Proporção do todo") return { tipo: "Pizza (com ressalvas)", capitulo: "Capítulo 4", descricao: "Gráfico de pizza mostra proporções do todo.", obs: "Cuidado: barras são frequentemente mais claras. Use pizza apenas se houver poucos grupos." };
+  }
+  // 1 variável numérica
+  if (numVariaveis === "1 variável" && tipoVariavel === "Numérica") {
+    if (detalhe === "Mostrar distribuição completa") return { tipo: "Histograma", capitulo: "Capítulo 6", descricao: "Mostra a distribuição de uma variável numérica em intervalos (bins).", obs: "Escolha a largura dos bins com cuidado." };
+    if (detalhe === "Mostrar densidade") return { tipo: "Gráfico de Densidade", capitulo: "Capítulo 7", descricao: "Versão suavizada do histograma.", obs: "Mais elegante que histograma, melhor para comparações entre grupos." };
+    if (detalhe === "Resumir por grupos") return { tipo: "Boxplot", capitulo: "Capítulo 8", descricao: "Mostra quartis, mediana e outliers de uma variável por grupo.", obs: "Compacto e informativo." };
+  }
+  // 2 variáveis
+  if (numVariaveis === "2 variáveis") {
+    if (tipoVariavel === "Ambas numéricas") return { tipo: "Scatter Plot", capitulo: "Capítulo 9", descricao: "Mostra a relação entre duas variáveis numéricas.", obs: "Procure correlações, agrupamentos e outliers." };
+    if (tipoVariavel === "Uma numérica + Uma categórica") return { tipo: "Boxplot", capitulo: "Capítulo 8", descricao: "Boxplot mostra distribuição completa por grupo.", obs: "Prefira boxplot a barras de médias — mostra mais informação." };
+    if (tipoVariavel === "Ambas categóricas") return { tipo: "Barras Agrupadas", capitulo: "Capítulo 5", descricao: "Compara frequências de duas variáveis categóricas.", obs: "Bom para tabelas de contingência." };
+    if (tipoVariavel === "Temporal (tempo no eixo X)") return { tipo: "Gráfico de Linha", capitulo: "Capítulo 10", descricao: "Mostra como uma variável muda ao longo do tempo.", obs: "Natural para séries temporais." };
+  }
+  // 3+ variáveis
+  if (numVariaveis === "3 ou mais variáveis") {
+    if (tipoVariavel === "Usar facets (pequenos múltiplos)") return { tipo: "Facets / Small Multiples", capitulo: "Capítulos 3 e 5-9", descricao: "Divida em painéis por uma variável categórica.", obs: "Poderoso para visualizar interações." };
+    if (tipoVariavel === "Usar cor para dimensão extra") return { tipo: "Scatter ou Barras com Cor", capitulo: "Capítulos 5 e 9", descricao: "Use cor para representar uma variável categórica adicional.", obs: "Máximo 5-7 cores. Cuidado com daltonismo." };
+    if (tipoVariavel === "Usar tamanho para dimensão extra") return { tipo: "Scatter com Tamanho (Bubble Chart)", capitulo: "Capítulo 9", descricao: "Use tamanho dos pontos para uma variável numérica adicional.", obs: "A percepção humana de área não é linear." };
+  }
+  return { tipo: "", capitulo: "", descricao: "", obs: "" };
+}
+```
+
+```{ojs}
+html`
+<div style="border: 2px solid #2563EB; padding: 20px; border-radius: 8px; margin-top: 20px; background-color: #DBEAFE;">
+  <h3 style="color: #1D4ED8; margin-top: 0;">Recomendação</h3>
+  <p><strong>Tipo de gráfico:</strong> ${recomendacao.tipo || "Selecione as opções acima"}</p>
+  <p><strong>Referência:</strong> ${recomendacao.capitulo}</p>
+  <p>${recomendacao.descricao}</p>
+  <p><em>${recomendacao.obs}</em></p>
+</div>
+`
+```
+
+---
+
+## Conexão com a Gramática dos Gráficos
+
+Lembre-se: toda visualização de dados segue este padrão:
+
+**Dados → Estéticas → Geoms**
+
+- **Dados**: Suas variáveis (categóricas, numéricas, temporais)
+- **Estéticas**: Como as variáveis são mapeadas visualmente (posição x, posição y, cor, tamanho, forma)
+- **Geoms**: O tipo de forma geométrica (ponto, linha, barra, etc.)
+
+Por exemplo:
+- **Scatter Plot**: dados (x, y) → estéticas (posição x, posição y) → geom (ponto)
+- **Barras**: dados (categorias, contagens) → estéticas (posição y, largura) → geom (barra)
+- **Boxplot**: dados (grupos, valores) → estéticas (posição y, caixa) → geom (caixa + linhas)
+
+O fluxograma acima essencialmente codifica essa lógica: ele mapeia suas variáveis às estéticas e depois sugere um geom apropriado.
+
+---
+
+## Versão Resumo: Cheat Sheet
+
+Salve esta tabela rápida como referência:
+
+### **1 Variável**
+
+- **Categórica** → Barras
+- **Numérica** → Histograma ou Densidade
+
+### **2 Variáveis**
+
+- **Numérica + Numérica** → Scatter
+- **Numérica + Categórica** → Boxplot
+- **Categórica + Categórica** → Barras Agrupadas
+- **Tempo + Outra** → Linha
+
+### **3+ Variáveis**
+
+- Facets / Small Multiples
+- Cor como terceira variável
+- Tamanho como terceira variável
+
+---
+
+## Exemplos Práticos com Dados Médicos
+
+### Exemplo 1: Distribuição de Sexo em uma Amostra
+
+**Cenário**: Você tem dados de 500 pacientes e quer mostrar quantos são homens vs. mulheres.
+
+**Decisão**:
+1. Quantas variáveis? → 1 (Sexo)
+2. Qual tipo? → Categórica
+3. Quantas categorias? → 2 (M/F)
+4. **Recomendação**: Gráfico de Barras (Capítulo 5)
+
+```{mermaid}
+graph LR
+    A["Sexo<br/>Categórica<br/>2 categorias"] --> B["Barras"]
+```
+
+**Por quê?** Barras são claras, simples e mostram a frequência de cada grupo. Uma pizza seria aceitável aqui (apenas 2 categorias), mas barras são sempre melhores.
+
+---
+
+### Exemplo 2: Distribuição de Glicemia em 403 Pacientes
+
+**Cenário**: Você tem medidas de glicemia (mg/dL) para 403 pacientes e quer explorar a distribuição.
+
+**Decisão**:
+1. Quantas variáveis? → 1 (Glicemia)
+2. Qual tipo? → Numérica
+3. O que mostrar? → Distribuição completa
+4. **Recomendação**: Histograma (Capítulo 6)
+
+```{mermaid}
+graph LR
+    A["Glicemia<br/>Numérica<br/>Distribuição"] --> B["Histograma"]
+```
+
+**Por quê?** O histograma mostra a frequência em intervalos, revelando se a distribuição é normal, bimodal, ou enviesada. Você pode também usar densidade para uma versão mais suave.
+
+---
+
+### Exemplo 3: Circunferência de Quadril por Tipo de Corpo
+
+**Cenário**: Você tem medidas de circunferência de quadril para pacientes classificados em 3 tipos de corpo (ectomorfo, mesomorfo, endomorfo).
+
+**Decisão**:
+1. Quantas variáveis? → 2 (Circunferência de quadril, Tipo de corpo)
+2. Qual tipo? → Uma numérica + uma categórica
+3. **Recomendação**: Boxplot (Capítulo 8)
+
+```{mermaid}
+graph LR
+    A["Circ. Quadril<br/>+<br/>Tipo Corpo"] --> B["Boxplot"]
+```
+
+**Por quê?** Boxplot mostra a mediana, quartis e outliers para cada grupo, permitindo comparação visual rápida. Barras de médias seriam mais simples, mas perderiam informação sobre a distribuição.
+
+---
+
+### Exemplo 4: Peso vs. Circunferência de Quadril
+
+**Cenário**: Você quer saber se existe correlação entre peso (kg) e circunferência de quadril (cm) em 200 pacientes.
+
+**Decisão**:
+1. Quantas variáveis? → 2 (Peso, Circunferência)
+2. Qual tipo? → Ambas numéricas
+3. **Recomendação**: Scatter Plot (Capítulo 9)
+
+```{mermaid}
+graph LR
+    A["Peso<br/>+<br/>Circunferência"] --> B["Scatter Plot"]
+```
+
+**Por quê?** Scatter plot mostra a relação entre as duas variáveis. Você pode procurar por correlação (padrão linear), agrupamentos ou outliers. Se houver muitos pontos sobrepostos, considere adicionar transparência ou densidade.
+
+---
+
+## Quiz: Qual Gráfico Usar?
+
+Teste seus conhecimentos respondendo às seguintes perguntas. Para cada cenário, identifique o gráfico recomendado e o capítulo correspondente.
+
+### **Questão 1**
+Você é médico e coleta dados de pressão arterial (PA sistólica em mmHg) de 150 pacientes hipertensos. Deseja explorar como a PA é distribuída na amostra. Qual gráfico usar?
+
+A) Gráfico de Barras
+B) Histograma
+C) Scatter Plot
+D) Gráfico de Pizza
+
+<details>
+<summary>Ver resposta</summary>
+**Resposta: B) Histograma (Capítulo 6)**
+
+**Explicação**: Você tem uma variável numérica (PA sistólica) e quer mostrar sua distribuição em intervalos. Histograma é a escolha padrão para explorar distribuições de dados contínuos.
+</details>
+
+---
+
+### **Questão 2**
+Você está analisando a eficácia de um novo medicamento. Tem dados de 5 grupos de dosagem (baixa, média, alta, muito alta, controle) e quer comparar o número de pacientes que melhoraram em cada grupo. Qual gráfico usar?
+
+A) Boxplot
+B) Gráfico de Barras
+C) Scatter Plot
+D) Gráfico de Densidade
+
+<details>
+<summary>Ver resposta</summary>
+**Resposta: B) Gráfico de Barras (Capítulo 5)**
+
+**Explicação**: Você tem uma variável categórica (grupos de dosagem) e quer mostrar contagens/frequências. Gráfico de barras é ideal. Como há 5 categorias, barras verticais são apropriadas.
+</details>
+
+---
+
+### **Questão 3**
+Você coleta dados de IMC (índice de massa corporal) para pacientes estratificados por faixa etária (18-30, 31-50, 51-70, 70+). Quer comparar como o IMC varia em cada faixa etária, incluindo outliers. Qual gráfico usar?
+
+A) Scatter Plot
+B) Gráfico de Linha
+C) Boxplot
+D) Gráfico de Barras
+
+<details>
+<summary>Ver resposta</summary>
+**Resposta: C) Boxplot (Capítulo 8)**
+
+**Explicação**: Você tem uma variável numérica (IMC) que deseja comparar entre grupos categóricos (faixas etárias). Boxplot mostra a distribuição, medianas e outliers de forma compacta. É superior a "barras de médias" porque preserva informação sobre a dispersão.
+</details>
+
+---
+
+### **Questão 4**
+Você está estudando a progressão de uma doença ao longo de 12 meses. Coleta o nível de marcador inflamatório (citocinas, em pg/mL) de um grupo de pacientes a cada mês. Quer visualizar a tendência ao longo do tempo. Qual gráfico usar?
+
+A) Gráfico de Pizza
+B) Gráfico de Linha
+C) Histograma
+D) Barras Agrupadas
+
+<details>
+<summary>Ver resposta</summary>
+**Resposta: B) Gráfico de Linha (Capítulo 10)**
+
+**Explicação**: Você tem dados temporais (mês) no eixo x e uma medida numérica (citocinas) no eixo y. Gráfico de linha é natural para séries temporais e enfatiza tendências.
+</details>
+
+---
+
+## Resumo das Decisões Principais
+
+A escolha do gráfico certo começa com três perguntas:
+
+1. **Quantas variáveis** você deseja visualizar?
+2. **Qual é o tipo** (categórico, numérico, temporal)?
+3. **O que deseja comunicar** (distribuição, comparação, correlação, proporção)?
+
+Respondendo essas perguntas, o fluxograma acima guia você para a escolha correta. Lembre-se:
+
+- **Barras** para categorias
+- **Histograma/Densidade** para distribuições numéricas
+- **Boxplot** para comparar distribuições entre grupos
+- **Scatter** para relações entre duas variáveis numéricas
+- **Linha** para tendências temporais
+- **Facets** para múltiplas variáveis
+
+E sempre leve em conta a **Gramática dos Gráficos**: dados → estéticas → geoms. Um bom gráfico mapeia suas variáveis claramente às estéticas visuais e escolhe um geom que comunica seu mensagem de forma eficiente.
+
+---
+
+## Referências aos Capítulos Anteriores
+
+- **Capítulo 1**: Gramática dos Gráficos
+- **Capítulo 4**: Gráficos de Pizza (e por que evitá-los)
+- **Capítulo 5**: Gráficos de Barras
+- **Capítulo 6**: Histogramas
+- **Capítulo 7**: Gráficos de Densidade
+- **Capítulo 8**: Boxplots
+- **Capítulo 9**: Scatter Plots
+- **Capítulo 10**: Gráficos de Linha
+- **Capítulo 11**: Facets e Small Multiples
+- **Capítulo 12**: Cores em Visualização
+- **Capítulo 13**: Tamanho e Proporção
+
+---
+
+**Autor**: Henrique Alvarenga da Silva
+**Data**: 2024-2025
+**Disciplina**: Visualização de Dados para Pesquisadores Médicos

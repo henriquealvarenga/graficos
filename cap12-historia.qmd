@@ -1,0 +1,747 @@
+---
+title: "Gráficos que Mudaram a História"
+subtitle: "Capítulo 12 — Da medicina ao espaço"
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
+## Introdução
+
+Os gráficos não são apenas ferramentas bonitas para apresentar dados. Eles são instrumentos de poder que podem salvar vidas, influenciar políticas públicas e revelar verdades escondidas nos números. Neste capítulo, exploraremos histórias reais onde **uma visualização bem feita — ou mal feita — mudou completamente o curso da história**.
+
+Estas são histórias de pessoas que entenderam que *como* você mostra os dados é tão importante quanto *quais* dados você tem.
+
+---
+
+## 1. Florence Nightingale: O Diagrama de Rosa que Salvou Vidas (1858)
+
+### A História
+
+Florence Nightingale foi enfermeira durante a Guerra da Crimeia (1853-1856). Quando chegou ao Hospital Militar de Scutari, na Turquia, ficou chocada. Os soldados não morriam principalmente dos ferimentos de guerra — morriam de **doenças infecciosas** em condições sanitárias horríveis.
+
+Entre abril de 1854 e março de 1856, ela coletou dados meticulosos sobre as causas de morte de cada soldado. Então, fez algo revolucionário: **criou um gráfico** — especificamente um diagrama de área polar, que os ingleses chamam de *coxcomb chart*.
+
+Apresentou este diagrama às autoridades britânicas com uma mensagem clara: "*A maior parte das mortes não é causada por ferimentos de bala. É causada por negligência.*"
+
+O Parlamento ficou comovido. As políticas de saneamento dos hospitais militares foram reformuladas. Estima-se que **milhares de vidas** foram salvas nos anos seguintes.
+
+Florence Nightingale é considerada uma **pioneira da visualização de dados em medicina**. Mais do que enfermeira, ela foi essencialmente uma cientista de dados que dedicou a maior parte de sua vida à análise estatística, tornando-se a primeira mulher eleita *fellow* da Royal Statistical Society [@bradshaw2020; @nightingale1863]. Seu diagrama de rosa é uma obra-prima de design: cada fatia representa um mês, e a área representa o número de mortes. Cores diferentes mostram as causas.
+
+### O Gráfico: Recriando o Diagrama de Rosa
+
+```{r}
+#| message: false
+#| warning: false
+
+# Dados históricos reais de Florence Nightingale
+# Fonte: pacote HistData (Friendly, 2021), compilados a partir de
+# Nightingale, F. (1858). Notes on Matters Affecting the Health,
+# Efficiency and Hospital Administration of the British Army.
+
+library(HistData)
+data(Nightingale)
+
+# Selecionar o primeiro período: Abril 1854 a Março 1855
+# (corresponde ao diagrama direito do original de Nightingale)
+dados_nightingale <- Nightingale[1:12, ] %>%
+  select(Month, Disease, Wounds, Other) %>%
+  pivot_longer(
+    cols = c(Disease, Wounds, Other),
+    names_to = "causa",
+    values_to = "mortes"
+  ) %>%
+  mutate(
+    causa = case_match(
+      causa,
+      "Disease" ~ "Doenças infecciosas",
+      "Wounds"  ~ "Ferimentos de guerra",
+      "Other"   ~ "Outras causas"
+    ),
+    Month = factor(Month, levels = c(
+      "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+      "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"
+    ))
+  )
+
+# Cores historicamente apropriadas
+# (Nightingale usou azul para doenças, vermelho para ferimentos,
+#  preto para outras causas)
+cores_causas <- c(
+  "Doenças infecciosas" = "#1f77b4",    # Azul
+  "Ferimentos de guerra" = "#d62728",   # Vermelho
+  "Outras causas" = "#2ca02c"            # Verde
+)
+
+# Criar o diagrama de rosa
+grafico_nightingale <- dados_nightingale %>%
+  ggplot(aes(x = Month, y = mortes, fill = causa)) +
+  geom_bar(stat = "identity", width = 0.95) +
+  coord_polar(start = pi/2) +
+  scale_fill_manual(values = cores_causas, name = "Causa da Morte") +
+  labs(
+    title = "O Diagrama de Rosa de Florence Nightingale",
+    subtitle = "Mortes reais de soldados britânicos na Guerra da Crimeia (Abr 1854 – Mar 1855)",
+    x = "",
+    y = "Número de Mortes",
+    caption = "Fonte: Nightingale (1858), via pacote HistData"
+  ) +
+  tema_graficos() +
+  theme(
+    axis.text.y = element_text(size = 9),
+    axis.text.x = element_text(size = 10),
+    legend.position = "bottom",
+    plot.title = element_text(size = 14, face = "bold")
+  )
+
+print(grafico_nightingale)
+```
+
+### O Impacto
+
+Após apresentar este gráfico ao Parlamento em 1857, Florence Nightingale conseguiu:
+
+- Reformas radicais nas práticas de saneamento hospitalar
+- Estabelecimento de rigorosas normas de higiene
+- Redução dramática das mortes por doenças infecciosas nos hospitais militares
+
+**Uma mulher. Um gráfico. Milhares de vidas salvas.**
+
+---
+
+## 2. John Snow: O Mapa da Cólera que Nasceu a Epidemiologia Moderna (1854)
+
+### A História
+
+Londres, setembro de 1854. A cólera é uma das doenças mais aterrorizantes da era: começa com diarreia e vômitos, você **desidrata em poucas horas**, e a morte é terrível.
+
+No bairro de Soho, há um surto explosivo. Centenas de pessoas morrem em dias. Toda a vizinhança está em pânico.
+
+A teoria prevalente era a da **"miasma"** — a ideia de que doenças era transmitidas pelo ar poluído. Fazia sentido: Soho cheirava mal, logo, o ar tinha que estar envenenado, não é?
+
+Um jovem médico chamado **John Snow** duvidava desta teoria. Ele levantou do seu consultório, pegou um mapa da região de Soho e começou a **plotar cada morte como um ponto** no mapa.
+
+O padrão emergiu imediatamente: **todos os casos estavam concentrados ao redor de uma fonte de água específica — na Broad Street**.
+
+Snow apresentou seus achados às autoridades. Elas removeram a alça da bomba de água de Broad Street. Imediatamente, o surto parou.
+
+A cólera **não era transmitida pelo ar**. Era transmitida pela **água contaminada** [@snow1855]. John Snow havia acabado de inventar a **epidemiologia moderna**.
+
+### O Gráfico: O Mapa de Soho
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 10
+
+# Dados históricos reais de John Snow (1854)
+# Fonte: pacote HistData (Friendly, 2021), digitalizados por
+# Rusty Dodson (NCGIA, 1992) a partir do mapa original de Snow.
+# Coordenadas em unidades de ~100 metros.
+
+data(Snow.deaths)
+data(Snow.pumps)
+data(Snow.streets)
+
+# Separar bomba de Broad Street das demais
+broad_st <- Snow.pumps[Snow.pumps$pump == 7, ]
+outras_bombas <- Snow.pumps[Snow.pumps$pump != 7, ]
+
+# Criar o mapa
+grafico_snow <- ggplot() +
+  # Ruas de Soho como fundo
+  geom_path(
+    data = Snow.streets,
+    aes(x = x, y = y, group = street),
+    color = "gray75", linewidth = 0.3
+  ) +
+  # 578 mortes reais por cólera (pontos menores para mostrar densidade)
+  geom_point(
+    data = Snow.deaths,
+    aes(x = x, y = y),
+    color = "#8b0000", size = 0.9, alpha = 0.7
+  ) +
+  # Outras 12 bombas d'água
+  geom_point(
+    data = outras_bombas,
+    aes(x = x, y = y),
+    color = "#2563EB", size = 4, shape = 16
+  ) +
+  # Bomba de Broad Street (destacada)
+  geom_point(
+    data = broad_st,
+    aes(x = x, y = y),
+    color = "#2563EB", size = 7, shape = 16
+  ) +
+  geom_point(
+    data = broad_st,
+    aes(x = x, y = y),
+    color = "white", size = 3, shape = 16
+  ) +
+  annotate(
+    "text",
+    x = broad_st$x + 0.6, y = broad_st$y - 0.4,
+    label = "Broad St",
+    fontface = "bold", color = "#2563EB", size = 3.5
+  ) +
+  labs(
+    title = "O Mapa de John Snow: Epidemiologia por Visualização",
+    subtitle = "578 mortes reais por cólera em Soho, Londres (Setembro de 1854)",
+    x = "", y = "",
+    caption = "Fonte: Snow (1855), via pacote HistData  |  Pontos vermelhos = mortes  |  Círculos azuis = bombas d'água"
+  ) +
+  tema_graficos() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    plot.margin = margin(5, 5, 5, 5)
+  ) +
+  coord_equal(expand = FALSE, clip = "off")
+
+print(grafico_snow)
+```
+
+### A Revolução Silenciosa
+
+John Snow não apenas salvou Soho. Ele estabeleceu um novo princípio científico: **análise espacial de dados epidemiológicos**. Seu trabalho levou à compreensão de que doenças infecciosas têm padrões, e esses padrões podem ser *visualizados e investigados*.
+
+Hoje, toda vez que epidemiologistas criam mapas de surtos de doenças, estão seguindo o método de John Snow.
+
+---
+
+## 3. O Desastre do Challenger: Quando a Falta de um Gráfico Custou 7 Vidas (1986)
+
+### A História
+
+28 de janeiro de 1986. O ônibus espacial Challenger foi lançado de Cabo Canaveral. 73 segundos depois, a nave desintegrou. Sete astronautas morreram.
+
+A investigação posterior revelou uma falha catastrófica: **anéis de vedação (O-rings) na base do foguete falharam em temperatura baixa**.
+
+Mas aqui está o detalhe que **pode ter matado os astronautas**: a noite anterior ao lançamento, os engenheiros da Morton Thiokol fizeram uma reunião com a NASA. Eles **tinham dados** mostrando que os O-rings falhavam em temperaturas baixas. O lançamento estava previsto para 31°F (-0,6°C) — muito abaixo de qualquer lançamento anterior.
+
+Os engenheiros tentaram alertar a NASA, mas a forma como apresentaram os dados foi o problema. Na noite anterior ao lançamento, prepararam **13 gráficos** às pressas — tabelas numéricas, desenhos técnicos dos foguetes com códigos de dano e diagramas de engenharia — e os enviaram por fax à NASA [@tufte1997]. Pior ainda: os 13 gráficos mostravam **apenas os 7 voos que tiveram problemas**, omitindo os outros 16 voos sem danos nos O-rings. Sem ver o quadro completo, era impossível perceber o padrão [@dalal1989].
+
+A NASA, diante de documentos confusos que não comunicavam claramente o risco, autorizou o lançamento.
+
+O Challenger foi lançado em temperatura de -0,6°C (31°F). Os O-rings falharam. Uma das piores tragédias espaciais da história.
+
+### O Gráfico Que Poderia Ter Salvado 7 Vidas
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 7
+
+# Dados históricos reais dos O-rings do Space Shuttle
+# Fonte: pacote DAAG (Maindonald & Braun), originalmente de
+# Dalal, Fowlkes & Hoadley (1989). Risk Analysis of the Space Shuttle:
+# Pre-Challenger Prediction of Failure. JASA, 84(408), 945-957.
+
+library(DAAG)
+data(orings)
+
+# Preparar dados: variável binária de falha + adicionar o voo do Challenger
+dados_challenger <- orings %>%
+  transmute(
+    temperatura = Temperature,
+    danos = Total,
+    falha = as.integer(Total > 0),
+    tipo = "Histórico"
+  ) %>%
+  bind_rows(
+    tibble(temperatura = 31, danos = 6, falha = 1, tipo = "Challenger")
+  )
+
+# O gráfico que poderia ter salvado 7 vidas:
+# todos os 23 voos anteriores + o ponto do Challenger
+grafico_challenger <- dados_challenger %>%
+  ggplot(aes(x = temperatura, y = falha, color = tipo, size = tipo)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(
+    data = dados_challenger %>% filter(tipo == "Histórico"),
+    method = "glm",
+    method.args = list(family = "binomial"),
+    se = TRUE,
+    color = "#1f77b4",
+    linewidth = 1.2,
+    alpha = 0.2
+  ) +
+  scale_color_manual(
+    values = c("Histórico" = "#1f77b4", "Challenger" = "#d62728"),
+    name = ""
+  ) +
+  scale_size_manual(
+    values = c("Histórico" = 4, "Challenger" = 8),
+    guide = "none"
+  ) +
+  xlim(25, 85) +
+  scale_y_continuous(
+    breaks = c(0, 1),
+    labels = c("Sem falha", "Com falha")
+  ) +
+  labs(
+    title = "O Gráfico Que Poderia Ter Salvado 7 Vidas",
+    subtitle = "Temperatura vs. falha de O-ring nos 23 voos anteriores ao Challenger",
+    x = "Temperatura no lançamento (°F)",
+    y = "",
+    caption = "Fonte: Dalal, Fowlkes & Hoadley (1989), via pacote DAAG"
+  ) +
+  tema_graficos() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    legend.position = "bottom"
+  )
+
+print(grafico_challenger)
+```
+
+### A Lição Amarga
+
+Edward Tufte, o lendário especialista em visualização de dados, analisou este caso em *Visual Explanations* [@tufte1997]. Dalal, Fowlkes e Hoadley chegaram à mesma conclusão em sua análise estatística publicada no *Journal of the American Statistical Association* [@dalal1989]. Os engenheiros tinham todos os dados necessários, mas os apresentaram em 13 gráficos confusos que não comunicavam o risco — e, crucialmente, omitiram os voos sem danos. **Se alguém tivesse feito um gráfico simples como o acima — temperatura no eixo x, falha no eixo y, todos os 23 voos representados — o padrão seria inegável**.
+
+A relação é cristalina: quanto menor a temperatura, maior a probabilidade de falha. O Challenger foi lançado a 31°F — muito abaixo do voo mais frio anterior (53°F), que já havia tido 5 dos 6 O-rings danificados.
+
+Tufte usou este caso para argumentar que **a ausência de uma boa visualização pode ser tão perigosa quanto uma visualização ruim**. Os dados existiam. O padrão existia. Faltou um gráfico que o tornasse visível.
+
+---
+
+## 4. William Farr: A Primeira Curva Epidêmica (1849)
+
+### A História
+
+Contemporâneo de Nightingale e Snow, **William Farr** foi estatístico do General Register Office da Inglaterra a partir de 1839. Enquanto Snow investigava a transmissão da cólera e Nightingale reformava hospitais, Farr se dedicava a algo diferente: **medir e registrar a mortalidade sistematicamente**.
+
+Farr foi um dos primeiros a **plotar mortalidade ao longo do tempo** para diferentes doenças. Em 1852, publicou o relatório do Registrar-General sobre a epidemia de cólera de 1849 na Inglaterra, incluindo gráficos diários de mortes — provavelmente as primeiras **curvas epidêmicas** da história.
+
+Observou que epidemias geralmente seguem um padrão semelhante: começam lentamente, aumentam exponencialmente, atingem um pico, e depois diminuem. Chamamos isto de **"curva epidêmica"** — e Farr foi o primeiro a demonstrá-la com dados reais.
+
+### O Gráfico: A Curva Epidêmica de 1849
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+# Dados históricos reais de William Farr (1852)
+# Fonte: pacote HistData (Friendly, 2021), compilados a partir de
+# GRO & Farr (1852). Report on the Mortality of Cholera in England, 1848-49.
+# Mortes diárias por cólera e diarreia na Inglaterra, 1849.
+
+data(CholeraDeaths1849)
+
+# Agregar mortes semanais de cólera (suaviza o ruído diário)
+dados_farr <- CholeraDeaths1849 %>%
+  filter(cause_of_death == "Cholera") %>%
+  mutate(semana = as.Date(cut(date, breaks = "week"))) %>%
+  group_by(semana) %>%
+  summarise(mortes = sum(deaths), .groups = "drop")
+
+# Identificar o pico da epidemia
+pico <- dados_farr %>% filter(mortes == max(mortes))
+
+grafico_farr <- dados_farr %>%
+  ggplot(aes(x = semana, y = mortes)) +
+  geom_area(fill = "#e74c3c", alpha = 0.3) +
+  geom_line(color = "#c0392b", linewidth = 1) +
+  annotate(
+    "text",
+    x = pico$semana, y = pico$mortes - 150,
+    label = paste0("Pico: ", format(pico$semana, "%d/%m/%Y"),
+                   "\n", pico$mortes, " mortes/semana"),
+    fontface = "bold",
+    color = "#c0392b",
+    size = 3.5,
+    hjust = 0.5
+  ) +
+  scale_x_date(date_labels = "%b", date_breaks = "1 month") +
+  labs(
+    title = "A Curva Epidêmica de William Farr",
+    subtitle = "Mortes reais por cólera na Inglaterra, 1849 (dados semanais)",
+    x = "",
+    y = "Mortes por semana",
+    caption = "Fonte: GRO & Farr (1852), via pacote HistData"
+  ) +
+  tema_graficos() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 10)
+  )
+
+print(grafico_farr)
+```
+
+### O Legado
+
+O gráfico acima mostra exatamente o que Farr observou: a epidemia de cólera de 1849 seguiu um padrão previsível — ascensão, pico e declínio. Farr estabeleceu que epidemias não são caóticas; elas seguem **padrões matemáticos previsíveis**. Esta foi uma ideia revolucionária no século XIX.
+
+Hoje, quando você vê as "curvas epidemiológicas" de COVID-19 ou de qualquer doença infecciosa, está vendo o legado direto de William Farr.
+
+---
+
+## 5. Charles Joseph Minard: A Marcha de Napoleão e o Melhor Gráfico Já Feito (1869)
+
+### A História
+
+Em 20 de novembro de 1869, um engenheiro civil francês de 88 anos publicou aquele que Edward Tufte chamaria de "o melhor gráfico estatístico já produzido" [@tufte1983]. Seu nome era **Charles Joseph Minard**.
+
+Minard não era estatístico de formação. Formado como o primeiro da turma na prestigiada *École Nationale des Ponts et Chaussées*, trabalhou décadas como engenheiro de obras públicas e inspetor-geral de pontes e estradas da França. Só após a aposentadoria, aos 70 anos, dedicou-se inteiramente à cartografia estatística — o que chamamos hoje de **visualização de dados** [@friendly2002].
+
+Sua obra-prima é a *Carte figurative des pertes successives en hommes de l'Armée Française dans la campagne de Russie 1812-1813*: um único gráfico que conta a história devastadora da invasão da Rússia por Napoleão. O *Grande Armée* partiu com **422.000 soldados** em junho de 1812. Apenas **10.000 retornaram**.
+
+O gênio de Minard foi representar **seis variáveis** em uma única imagem: o tamanho do exército (largura da faixa), a latitude, a longitude, a direção do movimento (ida em bege, retorno em preto), e a temperatura durante a retirada. A faixa vai ficando cada vez mais fina conforme os soldados morrem de frio, fome e combate. A travessia do rio Berezina — onde milhares morreram tentando cruzar em novembro de 1812 — aparece como uma queda dramática na espessura da linha.
+
+Minard morreu em 24 de outubro de 1870, com 89 anos, em Bordeaux. Seus gráficos foram concebidos, como ele próprio escreveu, para "falar aos olhos" [@friendly2002].
+
+### O Gráfico: Recriando o Mapa de Minard
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 7
+
+# Dados históricos reais de Charles Joseph Minard (1869)
+# Fonte: pacote HistData (Friendly, 2021), digitalizados a partir do
+# mapa original de Minard por Michael Friendly.
+
+data(Minard.troops)
+data(Minard.cities)
+data(Minard.temp)
+
+# Painel superior: o mapa da marcha
+p_marcha <- ggplot() +
+  # Faixas do exército (largura = número de sobreviventes)
+  geom_path(
+    data = Minard.troops,
+    aes(x = long, y = lat, group = group,
+        color = direction, linewidth = survivors),
+    lineend = "round"
+  ) +
+  # Nomes das cidades
+  geom_point(
+    data = Minard.cities,
+    aes(x = long, y = lat),
+    color = "black", size = 1.5
+  ) +
+  geom_text(
+    data = Minard.cities,
+    aes(x = long, y = lat, label = city),
+    size = 2.5, vjust = -0.8, family = "sans"
+  ) +
+  scale_color_manual(
+    values = c("A" = "#DEB887", "R" = "#1a1a1a"),
+    labels = c("Avanço (jun–set 1812)", "Retirada (out–dez 1812)"),
+    name = ""
+  ) +
+  scale_linewidth_continuous(
+    range = c(0.3, 12),
+    labels = scales::comma,
+    name = "Sobreviventes"
+  ) +
+  labs(
+    title = "A Marcha de Napoleão sobre Moscou (1812–1813)",
+    subtitle = "422.000 partiram. 10.000 retornaram. Recriação do mapa de Charles Joseph Minard (1869)",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  tema_graficos() +
+  theme(
+    legend.position = "bottom",
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 8)
+  ) +
+  guides(
+    linewidth = guide_legend(order = 1),
+    color = guide_legend(order = 2, override.aes = list(linewidth = 3))
+  )
+
+# Painel inferior: temperaturas durante a retirada
+p_temp <- ggplot(Minard.temp, aes(x = long, y = temp)) +
+  geom_path(color = "#1a1a1a", linewidth = 1) +
+  geom_point(color = "#1a1a1a", size = 2) +
+  geom_text(
+    aes(label = paste0(temp, "°C")),
+    size = 2.5, vjust = -1
+  ) +
+  labs(
+    x = "Longitude",
+    y = "Temperatura (°C)",
+    caption = "Fonte: Minard (1869), via pacote HistData  |  Análise: Friendly (2002)"
+  ) +
+  tema_graficos() +
+  theme(axis.text = element_text(size = 8))
+
+# Combinar os dois painéis
+library(patchwork)
+grafico_minard <- p_marcha / p_temp + plot_layout(heights = c(3, 1))
+
+print(grafico_minard)
+```
+
+### O Legado
+
+O mapa de Minard é estudado até hoje em cursos de visualização de dados em todo o mundo. Ele demonstra um princípio fundamental: **um bom gráfico pode contar uma história complexa de forma imediata**. Ao olhar para a faixa que se estreita progressivamente, o leitor sente visceralmente a escala da tragédia — sem precisar de uma única palavra de explicação.
+
+Para profissionais de saúde, a lição é clara: quando você precisa comunicar a magnitude de um problema — seja uma epidemia, uma taxa de mortalidade ou a eficácia de um tratamento — a escolha certa de visualização pode transmitir mais do que páginas de texto.
+
+---
+
+## 6. A Curva de Keeling: O Gráfico que Revelou a Mudança Climática (1958–)
+
+### A História
+
+Em março de 1958, um jovem geoquímico chamado **Charles David Keeling** instalou um analisador de gás infravermelho no Observatório de Mauna Loa, no Havaí, a 3.400 metros de altitude em um vulcão ativo. O objetivo era simples: medir a concentração de dióxido de carbono (CO₂) na atmosfera com precisão inédita [@keeling1998].
+
+A história de como Keeling chegou até ali é fascinante. Nascido em 1928 perto de Chicago, formou-se em química e fez pós-doutorado no Caltech. Lá, por curiosidade pessoal, construiu um manômetro de precisão para medir CO₂ em amostras de ar e água. Ao coletar amostras em florestas e montanhas, descobriu algo surpreendente: durante as tardes, a concentração de CO₂ no ar livre era quase sempre a mesma — cerca de 310 partes por milhão (ppm) — independente do local [@keeling1998].
+
+Essa descoberta chamou a atenção do Dr. Harry Wexler, do US Weather Bureau, que convidou Keeling para participar do **Ano Geofísico Internacional (IGY, 1957–1958)**. Wexler ofereceu recursos para instalar analisadores contínuos de CO₂ em dois locais remotos: na Antártica e em Mauna Loa.
+
+Os primeiros dados de Mauna Loa revelaram dois padrões extraordinários. Primeiro, uma **oscilação sazonal** regular — o CO₂ subia no inverno e caía no verão, como se o planeta respirasse: as plantas do Hemisfério Norte absorvem CO₂ na primavera e verão e o liberam no outono e inverno. Segundo, e mais alarmante: a concentração média estava **subindo ano após ano** [@keeling1960; @keeling1976].
+
+Keeling publicou seus primeiros resultados na revista *Tellus* em 1960 — um artigo de apenas 1.200 palavras que se tornaria um dos mais citados da ciência ambiental [@keeling1960]. A série temporal, mantida continuamente desde 1958, ficou conhecida como a **Curva de Keeling** e é considerada um dos conjuntos de dados mais importantes da história da ciência.
+
+### O Gráfico: A Curva de Keeling
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+
+# Dados reais de CO2 atmosférico do Observatório de Mauna Loa
+# Fonte: dataset co2 do R base — médias mensais de Jan/1959 a Dez/1997
+# Originalmente coletados por Charles David Keeling e colaboradores,
+# Scripps Institution of Oceanography, UCSD.
+
+# Converter a série temporal em data frame
+dados_co2 <- data.frame(
+  data = seq(as.Date("1959-01-01"), by = "month", length.out = length(co2)),
+  co2 = as.numeric(co2)
+)
+
+# Primeiro e último valores para anotação
+primeiro <- dados_co2[1, ]
+ultimo <- dados_co2[nrow(dados_co2), ]
+
+grafico_keeling <- dados_co2 %>%
+  ggplot(aes(x = data, y = co2)) +
+  geom_line(color = "#2563EB", linewidth = 0.5) +
+  # Anotação do valor inicial
+  annotate(
+    "text",
+    x = primeiro$data + 365, y = primeiro$co2 + 3,
+    label = paste0(round(primeiro$co2, 1), " ppm\n(1959)"),
+    color = "#2563EB", size = 3.5, fontface = "bold", hjust = 0
+  ) +
+  # Anotação do valor final
+  annotate(
+    "text",
+    x = ultimo$data - 800, y = ultimo$co2 - 4,
+    label = paste0(round(ultimo$co2, 1), " ppm\n(1997)"),
+    color = "#d62728", size = 3.5, fontface = "bold", hjust = 1
+  ) +
+  labs(
+    title = "A Curva de Keeling: A Respiração do Planeta",
+    subtitle = "Concentração real de CO₂ atmosférico em Mauna Loa, Havaí (1959–1997)",
+    x = "",
+    y = "CO₂ (partes por milhão)",
+    caption = "Fonte: Keeling et al. (1976), via dataset co2 do R  |  Scripps Institution of Oceanography"
+  ) +
+  tema_graficos() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 10)
+  )
+
+print(grafico_keeling)
+```
+
+### O Legado
+
+A Curva de Keeling é extraordinária por combinar simplicidade visual com profundidade científica. O padrão de dentes de serra — a "respiração" sazonal do planeta — é imediatamente visível. Mas é a tendência ascendente inexorável que conta a história real: quando Keeling começou suas medições em 1958, a concentração era de cerca de 315 ppm. Em 1997, já passava de 360 ppm. Hoje, em 2025, ultrapassa 420 ppm.
+
+Este é o poder de um gráfico que se mantém atualizado por décadas. A Curva de Keeling tornou-se o símbolo visual mais reconhecível da mudança climática — e tudo começou com um jovem cientista curioso que construiu um instrumento de precisão e decidiu medir algo que ninguém achava importante medir.
+
+---
+
+## 7. Conexão com a Medicina Moderna
+
+Os pioneiros que estudamos — Nightingale, Snow, Farr, e até os engenheiros que tentaram (e falharam) comunicar o risco do Challenger — estabeleceram princípios que **continuam vitais em medicina contemporânea** [para uma visão geral, veja @freedman2007].
+
+### Curvas de Kaplan-Meier
+
+Hoje, quando oncologistas analisam a sobrevida de pacientes com câncer, usam **curvas de Kaplan-Meier** — descendentes diretas das curvas de mortalidade de Farr.
+
+```{r}
+#| message: false
+#| warning: false
+
+# Simular dados de sobrevida (Kaplan-Meier)
+set.seed(100)
+
+n_pacientes <- 200
+
+dados_km <- tibble(
+  id = 1:n_pacientes,
+  tempo_meses = c(
+    rweibull(100, shape = 1.5, scale = 60),  # Tratamento A (melhor)
+    rweibull(100, shape = 1.2, scale = 40)   # Tratamento B
+  ),
+  evento = c(
+    rbinom(100, 1, 0.6),  # Taxa de evento 60% em tratamento A
+    rbinom(100, 1, 0.75)  # Taxa de evento 75% em tratamento B
+  ),
+  tratamento = c(rep("Tratamento A", 100), rep("Tratamento B", 100))
+) %>%
+  mutate(tempo_meses = pmin(tempo_meses, 120))  # Máximo 120 meses de seguimento
+
+# Calcular a curva de Kaplan-Meier (aproximação)
+km_stats <- dados_km %>%
+  arrange(tratamento, tempo_meses) %>%
+  group_by(tratamento) %>%
+  mutate(
+    n_em_risco = n() - row_number() + 1,
+    eventos_acumulados = cumsum(evento),
+    sobrevida = cumprod(1 - (evento / n_em_risco))
+  )
+
+grafico_km <- km_stats %>%
+  ggplot(aes(x = tempo_meses, y = sobrevida, color = tratamento)) +
+  geom_step(linewidth = 1.2) +
+  geom_point(aes(shape = "Evento observado"),
+             data = km_stats %>% filter(evento == 1),
+             size = 2, alpha = 0.6) +
+  scale_color_manual(
+    values = c("Tratamento A" = "#27ae60", "Tratamento B" = "#e74c3c"),
+    name = "Grupo"
+  ) +
+  labs(
+    title = "Curva de Sobrevida de Kaplan-Meier (Exemplo Moderno)",
+    subtitle = "Comparando dois tratamentos oncológicos",
+    x = "Tempo de seguimento (meses)",
+    y = "Probabilidade de sobrevida",
+    caption = "Baseado em 200 pacientes fictícios"
+  ) +
+  tema_graficos() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    legend.position = "bottom"
+  ) +
+  ylim(0, 1)
+
+print(grafico_km)
+```
+
+### Dashboards de Epidemiologia em Tempo Real
+
+Durante a pandemia de COVID-19, visualizações de dados permitiram que formuladores de políticas públicas acompanhassem o avanço da doença em tempo real — exatamente como John Snow fez em 1854, mas com tecnologia moderna.
+
+---
+
+## 8. Reflexão Final
+
+Todos os casos que estudamos têm uma verdade central em comum:
+
+**O que você escolhe mostrar, como você escolhe mostrá-lo, determina as decisões que serão tomadas.**
+
+- Florence Nightingale salvou vidas porque seu gráfico era **claro, direto e inegável**.
+- John Snow descobriu a fonte de uma epidemia porque **visualizou espacialmente os dados**.
+- Os engenheiros do Challenger falharam não porque não tinham dados — falharam porque **a forma como apresentaram os dados não comunicava o risco de forma clara**.
+- Minard condensou **seis variáveis** em um único gráfico que conta uma história devastadora sem palavras.
+- Keeling produziu uma série temporal que, pela sua persistência e clareza, tornou-se o símbolo de uma crise planetária.
+
+Como profissional de saúde, você será responsável por comunicar informações que **podem determinar vidas**. Seja em um relatório de pesquisa, em um parecer clínico, em um pedido de políticas públicas.
+
+Lembre-se: você não é apenas um analisador de dados. Você é um **comunicador de verdades**. E a forma como você escolhe comunicar essas verdades importa.
+
+---
+
+## Quiz
+
+**Pergunta 1:** O diagrama de rosa de Florence Nightingale mostrou que a maioria das mortes de soldados na Guerra da Crimeia era causada por:
+
+- (A) Ferimentos de bala
+- (B) Doenças infecciosas em condições sanitárias precárias
+- (C) Falta de alimento
+- (D) Frio extremo
+
+<details>
+<summary>**Resposta**</summary>
+Alternativa (B). Este foi o achado crucial que levou às reformas hospitalares.
+</details>
+
+**Pergunta 2:** Qual foi a principal contribuição metodológica de John Snow para a epidemiologia moderna?
+
+- (A) A descoberta de antibióticos
+- (B) A análise espacial de casos de doença (mapeamento)
+- (C) A invenção de vacinas
+- (D) O uso de estatística paramétrica
+
+<details>
+<summary>**Resposta**</summary>
+Alternativa (B). Snow foi pioneiro em visualizar dados epidemiológicos espacialmente, revolucionando como entendemos surtos de doenças.
+</details>
+
+**Pergunta 3:** O desastre do Challenger (1986) ilustra que:
+
+- (A) A NASA foi negligente ao ignorar dados técnicos
+- (B) A falta de uma visualização clara pode contribuir para decisões fatais
+- (C) Engenheiros não devem questionar supervisores
+- (D) Dados sobre falhas de equipamento são irrelevantes
+
+<details>
+<summary>**Resposta**</summary>
+Alternativa (B). Edward Tufte e Dalal et al. argumentam que os engenheiros tinham os dados necessários, mas os apresentaram em 13 gráficos confusos que omitiam os voos sem falhas. Se tivessem feito um gráfico simples de temperatura vs. falha com todos os 23 voos, o padrão seria inegável.
+</details>
+
+**Pergunta 4:** Qual destes gráficos é mais diretamente um descendente do trabalho de William Farr?
+
+- (A) Gráficos de dispersão
+- (B) Curvas de Kaplan-Meier (sobrevida)
+- (C) Gráficos de pizza
+- (D) Histogramas de frequência
+
+<details>
+<summary>**Resposta**</summary>
+Alternativa (B). As curvas de Kaplan-Meier seguem diretamente o modelo de Farr de visualizar mortalidade/eventos ao longo do tempo.
+</details>
+
+**Pergunta 5:** O mapa de Minard sobre a marcha de Napoleão é considerado "o melhor gráfico estatístico já produzido" (Tufte, 1983) porque:
+
+- (A) Usa cores vibrantes e modernas
+- (B) Representa seis variáveis simultaneamente em uma única imagem
+- (C) Foi o primeiro gráfico da história
+- (D) Usa técnicas computacionais avançadas
+
+<details>
+<summary>**Resposta**</summary>
+Alternativa (B). O mapa de Minard combina o tamanho do exército, latitude, longitude, direção do movimento, temperatura e datas — seis variáveis em um único gráfico que conta uma história devastadora de forma imediata.
+</details>
+
+**Pergunta 6:** A Curva de Keeling mostra dois padrões simultâneos. Quais são eles?
+
+- (A) Oscilação diária e tendência descendente
+- (B) Oscilação sazonal (dentes de serra) e tendência ascendente ano a ano
+- (C) Variação aleatória e estabilidade ao longo das décadas
+- (D) Queda brusca no verão e estabilidade no inverno
+
+<details>
+<summary>**Resposta**</summary>
+Alternativa (B). A Curva de Keeling mostra a "respiração" sazonal do planeta (plantas absorvem CO₂ no verão e liberam no inverno) combinada com um aumento inexorável da concentração média ao longo das décadas, evidenciando a mudança climática.
+</details>
+
+---
+
+## Referências {.unnumbered}
+
+::: {#refs}
+:::
