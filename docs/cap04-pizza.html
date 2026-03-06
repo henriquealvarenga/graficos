@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Henrique Alvarenga da Silva">
+
+<title>Gráfico de Setores (Pizza)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cap05-barras.html" rel="next">
+<link href="./cap03-tufte.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-f938f6e5ca7bfbd6305a7d1113a49c1d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4d51be57ba27b381b31b4eadd55b0c4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/logo.svg" alt="" class="navbar-logo light-content">
+    <img src="./images/logo.svg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text">Início</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-fundamentos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Fundamentos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-fundamentos">    
+        <li>
+    <a class="dropdown-item" href="./cap00-precisa-grafico.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">Você precisa de um gráfico?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap01-gramatica.html"><i class="bi bi-layers" role="img">
+</i> 
+ <span class="dropdown-text">Gramática dos Gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap02-elementos.html"><i class="bi bi-diagram-3" role="img">
+</i> 
+ <span class="dropdown-text">Elementos de um gráfico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap03-tufte.html"><i class="bi bi-brush" role="img">
+</i> 
+ <span class="dropdown-text">Princípios de Tufte</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tipos-de-gráficos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tipos de Gráficos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tipos-de-gráficos">    
+        <li>
+    <a class="dropdown-item" href="./cap04-pizza.html"><i class="bi bi-pie-chart" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Pizza</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap05-barras.html"><i class="bi bi-bar-chart" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Barras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap06-histograma.html"><i class="bi bi-bar-chart-steps" role="img">
+</i> 
+ <span class="dropdown-text">Histograma</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap07-densidade.html"><i class="bi bi-soundwave" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Densidade</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap08-boxplot.html"><i class="bi bi-box" role="img">
+</i> 
+ <span class="dropdown-text">Boxplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap09-scatterplot.html"><i class="bi bi-scatter-chart" role="img">
+</i> 
+ <span class="dropdown-text">Scatter Plot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10-linhas.html"><i class="bi bi-graph-up" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Linha</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-pensamento-crítico" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Pensamento Crítico</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-pensamento-crítico">    
+        <li>
+    <a class="dropdown-item" href="./cap12-historia.html"><i class="bi bi-clock-history" role="img">
+</i> 
+ <span class="dropdown-text">Gráficos que Mudaram a História</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap13-mesmos-dados.html"><i class="bi bi-shuffle" role="img">
+</i> 
+ <span class="dropdown-text">Mesmos Dados, Histórias Diferentes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap14-galeria-horrores.html"><i class="bi bi-exclamation-triangle" role="img">
+</i> 
+ <span class="dropdown-text">Galeria de Horrores</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ferramentas" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ferramentas</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ferramentas">    
+        <li>
+    <a class="dropdown-item" href="./cap11-ia.html"><i class="bi bi-robot" role="img">
+</i> 
+ <span class="dropdown-text">IA para Gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap15-fluxograma.html"><i class="bi bi-signpost-split" role="img">
+</i> 
+ <span class="dropdown-text">Qual Gráfico Devo Usar?</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> <i class="bi bi-info-circle" role="img">
+</i> 
+<span class="menu-text">Sobre</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/henriquealvarenga/graficos-site"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo de leitor">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap04-pizza.html">Gráfico de Pizza</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap00-precisa-grafico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Você precisa de um gráfico?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap01-gramatica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gramática dos Gráficos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap02-elementos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Elementos de um gráfico</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap03-tufte.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Princípios de Tufte</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tipos de Gráficos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap04-pizza.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Gráfico de Pizza</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap05-barras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Barras</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap06-histograma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Histograma</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap07-densidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Densidade</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap08-boxplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Boxplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap09-scatterplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scatter Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10-linhas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Linha</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pensamento Crítico</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap12-historia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráficos que Mudaram a História</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap13-mesmos-dados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mesmos Dados, Histórias Diferentes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap14-galeria-horrores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Galeria de Horrores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Ferramentas</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap11-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">IA para Gráficos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap15-fluxograma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qual Gráfico Devo Usar?</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#história-william-playfair-e-o-gráfico-de-pizza" id="toc-história-william-playfair-e-o-gráfico-de-pizza" class="nav-link active" data-scroll-target="#história-william-playfair-e-o-gráfico-de-pizza">História: William Playfair e o Gráfico de Pizza</a></li>
+  <li><a href="#o-que-é-um-gráfico-de-setores" id="toc-o-que-é-um-gráfico-de-setores" class="nav-link" data-scroll-target="#o-que-é-um-gráfico-de-setores">O que é um gráfico de setores?</a></li>
+  <li><a href="#quando-usar-um-gráfico-de-pizza" id="toc-quando-usar-um-gráfico-de-pizza" class="nav-link" data-scroll-target="#quando-usar-um-gráfico-de-pizza">Quando usar um gráfico de pizza?</a></li>
+  <li><a href="#quando-não-usar-um-gráfico-de-pizza" id="toc-quando-não-usar-um-gráfico-de-pizza" class="nav-link" data-scroll-target="#quando-não-usar-um-gráfico-de-pizza">Quando NÃO usar um gráfico de pizza</a></li>
+  <li><a href="#uma-crítica-forte-o-lugar-apropriado-para-o-gráfico-de-pizza" id="toc-uma-crítica-forte-o-lugar-apropriado-para-o-gráfico-de-pizza" class="nav-link" data-scroll-target="#uma-crítica-forte-o-lugar-apropriado-para-o-gráfico-de-pizza">Uma crítica forte: O lugar apropriado para o gráfico de pizza</a></li>
+  <li><a href="#exemplos-práticos-com-r" id="toc-exemplos-práticos-com-r" class="nav-link" data-scroll-target="#exemplos-práticos-com-r">Exemplos práticos com R</a>
+  <ul class="collapse">
+  <li><a href="#exemplo-1-distribuição-simples-de-sexo" id="toc-exemplo-1-distribuição-simples-de-sexo" class="nav-link" data-scroll-target="#exemplo-1-distribuição-simples-de-sexo">Exemplo 1: Distribuição simples de sexo</a></li>
+  <li><a href="#exemplo-2-biotipo-quando-o-gráfico-fica-confuso" id="toc-exemplo-2-biotipo-quando-o-gráfico-fica-confuso" class="nav-link" data-scroll-target="#exemplo-2-biotipo-quando-o-gráfico-fica-confuso">Exemplo 2: Biotipo (quando o gráfico fica confuso)</a></li>
+  <li><a href="#exemplo-3-adicionando-percentuais-e-contagens" id="toc-exemplo-3-adicionando-percentuais-e-contagens" class="nav-link" data-scroll-target="#exemplo-3-adicionando-percentuais-e-contagens">Exemplo 3: Adicionando percentuais e contagens</a></li>
+  </ul></li>
+  <li><a href="#a-alternativa-superior-gráfico-de-barras" id="toc-a-alternativa-superior-gráfico-de-barras" class="nav-link" data-scroll-target="#a-alternativa-superior-gráfico-de-barras">A alternativa superior: Gráfico de barras</a></li>
+  <li><a href="#erros-comuns-ao-usar-gráficos-de-pizza" id="toc-erros-comuns-ao-usar-gráficos-de-pizza" class="nav-link" data-scroll-target="#erros-comuns-ao-usar-gráficos-de-pizza">Erros comuns ao usar gráficos de pizza</a>
+  <ul class="collapse">
+  <li><a href="#erro-1-gráficos-em-3d" id="toc-erro-1-gráficos-em-3d" class="nav-link" data-scroll-target="#erro-1-gráficos-em-3d">❌ Erro 1: Gráficos em 3D</a></li>
+  <li><a href="#erro-2-muitas-categorias" id="toc-erro-2-muitas-categorias" class="nav-link" data-scroll-target="#erro-2-muitas-categorias">❌ Erro 2: Muitas categorias</a></li>
+  <li><a href="#erro-3-cores-muito-semelhantes" id="toc-erro-3-cores-muito-semelhantes" class="nav-link" data-scroll-target="#erro-3-cores-muito-semelhantes">❌ Erro 3: Cores muito semelhantes</a></li>
+  <li><a href="#erro-4-começar-a-fatia-em-um-ângulo-confuso" id="toc-erro-4-começar-a-fatia-em-um-ângulo-confuso" class="nav-link" data-scroll-target="#erro-4-começar-a-fatia-em-um-ângulo-confuso">❌ Erro 4: Começar a fatia em um ângulo confuso</a></li>
+  </ul></li>
+  <li><a href="#resumo-quando-reconsiderar-suas-escolhas" id="toc-resumo-quando-reconsiderar-suas-escolhas" class="nav-link" data-scroll-target="#resumo-quando-reconsiderar-suas-escolhas">Resumo: Quando reconsiderar suas escolhas</a></li>
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
+  <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap04-pizza.html">Gráfico de Pizza</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Gráfico de Setores (Pizza)</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Código</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Mostrar o código</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Esconder o código</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">Ver o código fonte</a></li></ul></div></div>
+<p class="subtitle lead">Capítulo 4 — Proporções de um todo</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Henrique Alvarenga da Silva </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="história-william-playfair-e-o-gráfico-de-pizza" class="level2">
+<h2 class="anchored" data-anchor-id="história-william-playfair-e-o-gráfico-de-pizza">História: William Playfair e o Gráfico de Pizza</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>William Playfair: o inventor dos gráficos estatísticos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O gráfico de setores foi criado por <strong>William Playfair</strong> (1759–1823), um engenheiro e economista escocês que é considerado o pai da visualização estatística moderna. Playfair publicou o primeiro gráfico de pizza no <em>Statistical Breviary</em> (1801), onde usou círculos divididos em fatias para comparar as áreas territoriais, populações e receitas fiscais de nações europeias <span class="citation" data-cites="playfair2005">(<a href="#ref-playfair2005" role="doc-biblioref">Playfair, 2005</a>)</span>.</p>
+<p>A ideia era simples e intuitiva: se um círculo representa o todo (100%), dividi-lo em fatias permite visualizar rapidamente quanto cada categoria contribui para a totalidade. Mas o gráfico de pizza não foi a primeira invenção de Playfair — quinze anos antes, em <em>The Commercial and Political Atlas</em> <span class="citation" data-cites="playfair1786">(<a href="#ref-playfair1786" role="doc-biblioref">Playfair, 1786</a>)</span>, ele já havia criado o gráfico de barras e o gráfico de linhas, que você encontrará nos próximos capítulos <span class="citation" data-cites="costiganeaves1990">(<a href="#ref-costiganeaves1990" role="doc-biblioref">Costigan-Eaves; Macdonald-Ross, 1990</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Playfair_Pizza.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Gráfico original de William Playfair no Statistical Breviary (1801), comparando nações europeias por área, população e receita."><img src="images/Playfair_Pizza.jpg" class="img-fluid figure-img" alt="Gráfico original de William Playfair no Statistical Breviary (1801), comparando nações europeias por área, população e receita."></a></p>
+<figcaption>Gráfico original de William Playfair no <em>Statistical Breviary</em> (1801), comparando nações europeias por área, população e receita.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Durante muito tempo, especialmente no século XX, o gráfico de pizza tornou-se extremamente popular em apresentações de negócios e relatórios. Sua forma familiar e aparência agradável o tornaram um favorito em ferramentas de apresentação como PowerPoint. Porém, com o avanço da pesquisa em visualização de dados, passou-se a questionar se essa popularidade era justificada.</p>
+</section>
+<section id="o-que-é-um-gráfico-de-setores" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-é-um-gráfico-de-setores">O que é um gráfico de setores?</h2>
+<p>Um gráfico de setores representa <strong>as proporções de um todo</strong>. Cada “fatia” (setor) do círculo corresponde a uma categoria, e o tamanho da fatia é proporcional ao valor daquela categoria em relação ao total. O ângulo de cada setor é calculado como: <span class="math inline">\(\frac{\text{valor da categoria}}{\text{valor total}} \times 360°\)</span>.</p>
+<p>Por exemplo, se temos 234 mulheres e 169 homens em uma amostra de 403 pacientes:</p>
+<ul>
+<li>Mulheres: <span class="math inline">\(\frac{234}{403} \times 360° = 208,4°\)</span> (aproximadamente 58%)</li>
+<li>Homens: <span class="math inline">\(\frac{169}{403} \times 360° = 151,6°\)</span> (aproximadamente 42%)</li>
+</ul>
+</section>
+<section id="quando-usar-um-gráfico-de-pizza" class="level2">
+<h2 class="anchored" data-anchor-id="quando-usar-um-gráfico-de-pizza">Quando usar um gráfico de pizza?</h2>
+<p>Existem situações específicas onde o gráfico de pizza pode ser apropriado:</p>
+<ol type="1">
+<li><strong>Poucas categorias</strong> (2 a 4 no máximo): Quando você tem apenas 2-3 categorias e quer destacar uma delas</li>
+<li><strong>Proporções muito desiguais</strong>: Se uma categoria representa claramente a maioria (ex: 85%) e as outras são muito menores</li>
+<li><strong>Contextos onde a forma circular é importante</strong>: Dados cíclicos ou que naturalmente formam um “todo”</li>
+<li><strong>Comunicação com públicos leigos</strong>: Em alguns contextos, a forma intuitiva do círculo facilita compreensão imediata</li>
+</ol>
+<p>Ainda assim, é importante questionar se o gráfico de pizza é realmente a melhor escolha em cada situação.</p>
+</section>
+<section id="quando-não-usar-um-gráfico-de-pizza" class="level2">
+<h2 class="anchored" data-anchor-id="quando-não-usar-um-gráfico-de-pizza">Quando NÃO usar um gráfico de pizza</h2>
+<p>A lista de “quando não usar” é consideravelmente mais longa:</p>
+<ol type="1">
+<li><strong>Muitas categorias</strong>: Com 5 ou mais categorias, fica difícil diferenciar tamanhos de fatias</li>
+<li><strong>Comparações precisas</strong>: Se o objetivo é determinar qual categoria é maior, nossos olhos são ruins em comparar ângulos</li>
+<li><strong>Dados que mudam ao longo do tempo</strong>: Use linhas ou barras em vez disso</li>
+<li><strong>Proporções semelhantes</strong>: Quando duas fatias têm tamanhos parecidos, é quase impossível saber qual é maior</li>
+<li><strong>Dados contínuos ou de distribuição</strong>: Histogramas ou density plots são muito melhores</li>
+<li><strong>Relatórios científicos</strong>: A comunidade científica geralmente prefere tabelas ou gráficos de barras</li>
+</ol>
+</section>
+<section id="uma-crítica-forte-o-lugar-apropriado-para-o-gráfico-de-pizza" class="level2">
+<h2 class="anchored" data-anchor-id="uma-crítica-forte-o-lugar-apropriado-para-o-gráfico-de-pizza">Uma crítica forte: O lugar apropriado para o gráfico de pizza</h2>
+<p>O estatístico Norman H. Streiner, em suas pesquisas sobre comunicação de dados, afirmou algo que se tornou icônico:</p>
+<blockquote class="blockquote">
+<p><em>“The only place for a pie chart is at a baker’s convention”</em></p>
+</blockquote>
+<p>Essa frase reflete um consenso crescente na comunidade de visualização de dados: o gráfico de pizza é frequentemente uma escolha inadequada. Pesquisas em psicologia visual mostram que <strong>humans são muito melhores em comparar comprimentos (como em gráficos de barras) do que em comparar ângulos (como em gráficos de pizza)</strong>.</p>
+<p>Quando somos solicitados a responder “qual fatia é maior?”, nossos olhos precisam estimar ângulos, um processo cognitivo menos preciso. Em contraste, em um gráfico de barras, a resposta é imediata: a barra mais alta claramente vence.</p>
+</section>
+<section id="exemplos-práticos-com-r" class="level2">
+<h2 class="anchored" data-anchor-id="exemplos-práticos-com-r">Exemplos práticos com R</h2>
+<section id="exemplo-1-distribuição-simples-de-sexo" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-1-distribuição-simples-de-sexo">Exemplo 1: Distribuição simples de sexo</h3>
+<p>Começamos com o exemplo mais básico: mostrar a distribuição de mulheres e homens na nossa amostra de 403 pacientes.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Contar as frequências por sexo</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>dados_sexo <span class="ot">&lt;-</span> pacientes <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">count</span>(sexo) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Criar o gráfico de pizza</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">ggplot</span>(dados_sexo, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_sexo, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"male"</span> <span class="ot">=</span> <span class="st">"Homem"</span>, <span class="st">"female"</span> <span class="ot">=</span> <span class="st">"Mulher"</span>)) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Sexo na Amostra"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="at">subtitle =</span> <span class="st">"n = 403 pacientes"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="at">fill =</span> <span class="st">"Sexo"</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb1-21"><a href="#cb1-21"></a>  )</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="cap04-pizza_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="cap04-pizza_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Observe como usamos <code>geom_bar()</code> com <code>coord_polar()</code> para criar o efeito de pizza. O argumento <code>start = 0</code> define o ângulo inicial da primeira fatia.</p>
+</section>
+<section id="exemplo-2-biotipo-quando-o-gráfico-fica-confuso" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-2-biotipo-quando-o-gráfico-fica-confuso">Exemplo 2: Biotipo (quando o gráfico fica confuso)</h3>
+<p>Agora vejamos um exemplo com 3 categorias: pequeno, médio e grande biotipo.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Contar as frequências por biotipo</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>dados_biotipo <span class="ot">&lt;-</span> pacientes <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">count</span>(biotipo) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># Criar o gráfico</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">ggplot</span>(dados_biotipo, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, <span class="at">fill =</span> biotipo)) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"small"</span> <span class="ot">=</span> cores<span class="sc">$</span>azul, <span class="st">"medium"</span> <span class="ot">=</span> cores<span class="sc">$</span>verde, <span class="st">"large"</span> <span class="ot">=</span> cores<span class="sc">$</span>laranja),</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"small"</span> <span class="ot">=</span> <span class="st">"Pequeno"</span>, <span class="st">"medium"</span> <span class="ot">=</span> <span class="st">"Médio"</span>, <span class="st">"large"</span> <span class="ot">=</span> <span class="st">"Grande"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Biotipo"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="at">subtitle =</span> <span class="st">"Começando a ficar difícil de comparar visualmente"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    <span class="at">fill =</span> <span class="st">"Biotipo"</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb2-24"><a href="#cb2-24"></a>  )</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="cap04-pizza_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="cap04-pizza_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note como, mesmo com apenas 3 categorias, já não é tão óbvio qual categoria é maior quando olhamos apenas para o tamanho das fatias.</p>
+</section>
+<section id="exemplo-3-adicionando-percentuais-e-contagens" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-3-adicionando-percentuais-e-contagens">Exemplo 3: Adicionando percentuais e contagens</h3>
+<p>Uma forma de melhorar o gráfico de pizza (quando você decide usá-lo) é adicionar informações numéricas:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dados_sexo_pct <span class="ot">&lt;-</span> pacientes <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">count</span>(sexo) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb3-6"><a href="#cb3-6"></a>      <span class="fu">ifelse</span>(sexo <span class="sc">==</span> <span class="st">"female"</span>, <span class="st">"Mulher"</span>, <span class="st">"Homem"</span>),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>      <span class="st">"</span><span class="sc">\n</span><span class="st">n = "</span>, n,</span>
+<span id="cb3-8"><a href="#cb3-8"></a>      <span class="st">" ("</span>, <span class="fu">round</span>(pct, <span class="dv">1</span>), <span class="st">"%)"</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    )</span>
+<span id="cb3-10"><a href="#cb3-10"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="fu">ggplot</span>(dados_sexo_pct, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="fu">aes</span>(<span class="at">label =</span> label, <span class="at">x =</span> <span class="fl">1.0</span>),</span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_sexo) <span class="sc">+</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-24"><a href="#cb3-24"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Sexo na Amostra"</span>,</span>
+<span id="cb3-25"><a href="#cb3-25"></a>    <span class="at">subtitle =</span> <span class="st">"Com percentuais e contagens"</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-29"><a href="#cb3-29"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-30"><a href="#cb3-30"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-31"><a href="#cb3-31"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-32"><a href="#cb3-32"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a>  )</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="cap04-pizza_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="cap04-pizza_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="a-alternativa-superior-gráfico-de-barras" class="level2">
+<h2 class="anchored" data-anchor-id="a-alternativa-superior-gráfico-de-barras">A alternativa superior: Gráfico de barras</h2>
+<p>Agora vamos fazer a comparação crucial. Usando <strong>exatamente os mesmos dados</strong>, vamos mostrar por que um gráfico de barras comunica melhor:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Preparar dados</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>dados_comparacao <span class="ot">&lt;-</span> pacientes <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">count</span>(sexo) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">sexo_label =</span> <span class="fu">ifelse</span>(sexo <span class="sc">==</span> <span class="st">"female"</span>, <span class="st">"Mulher"</span>, <span class="st">"Homem"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co"># Gráfico de barras</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>p_barras <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados_comparacao, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(sexo_label, <span class="sc">-</span>n), <span class="at">y =</span> n, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb4-14"><a href="#cb4-14"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(n, <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, <span class="fu">round</span>(pct, <span class="dv">1</span>), <span class="st">"%)"</span>)),</span>
+<span id="cb4-15"><a href="#cb4-15"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.3</span>,</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="at">size =</span> <span class="fl">2.5</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_sexo) <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">280</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">240</span>, <span class="dv">40</span>)) <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-22"><a href="#cb4-22"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Sexo </span><span class="sc">\n</span><span class="st">na Amostra"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23"></a>    <span class="at">x =</span> <span class="st">"Sexo"</span>,</span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="at">y =</span> <span class="st">"Número de Pacientes"</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>) ) </span>
+<span id="cb4-28"><a href="#cb4-28"></a></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co"># Gráfico de pizza (mesmo dos dados)</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>p_pizza <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados_comparacao, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_sexo) <span class="sc">+</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-35"><a href="#cb4-35"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Sexo </span><span class="sc">\n</span><span class="st">na Amostra"</span>,</span>
+<span id="cb4-36"><a href="#cb4-36"></a>    <span class="at">fill =</span> <span class="st">"Sexo"</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-40"><a href="#cb4-40"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-41"><a href="#cb4-41"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-42"><a href="#cb4-42"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-43"><a href="#cb4-43"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb4-44"><a href="#cb4-44"></a>  ) </span>
+<span id="cb4-45"><a href="#cb4-45"></a></span>
+<span id="cb4-46"><a href="#cb4-46"></a><span class="co"># Combinar para comparação</span></span>
+<span id="cb4-47"><a href="#cb4-47"></a>p_barras <span class="sc">+</span> p_pizza <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="cap04-pizza_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="cap04-pizza_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observe:</strong></p>
+<ul>
+<li>No gráfico de barras, é <strong>imediatamente claro</strong> que há mais mulheres (234) que homens (169)</li>
+<li>No gráfico de pizza, você precisa comparar o tamanho das fatias, o que é menos direto</li>
+</ul>
+<p>Em pesquisas de visualização de dados, o gráfico de barras consistentemente supera o gráfico de pizza em:</p>
+<ul>
+<li>Velocidade de compreensão</li>
+<li>Precisão das comparações</li>
+<li>Retenção de memória dos dados</li>
+</ul>
+</section>
+<section id="erros-comuns-ao-usar-gráficos-de-pizza" class="level2">
+<h2 class="anchored" data-anchor-id="erros-comuns-ao-usar-gráficos-de-pizza">Erros comuns ao usar gráficos de pizza</h2>
+<section id="erro-1-gráficos-em-3d" class="level3">
+<h3 class="anchored" data-anchor-id="erro-1-gráficos-em-3d">❌ Erro 1: Gráficos em 3D</h3>
+<p>Muitos softwares oferecem a opção de “Pizza 3D”. <strong>Nunca use isso.</strong> A perspectiva 3D distorce as proporções de forma enganosa: fatias na frente parecem maiores do que na verdade são.</p>
+</section>
+<section id="erro-2-muitas-categorias" class="level3">
+<h3 class="anchored" data-anchor-id="erro-2-muitas-categorias">❌ Erro 2: Muitas categorias</h3>
+<p>Tentar representar 6, 7 ou mais categorias em um gráfico de pizza resulta em fatias tão pequenas que se torna impossível diferenciá-las. Neste caso, um gráfico de barras horizontal com as menores categorias agrupadas como “Outros” seria mais apropriado.</p>
+</section>
+<section id="erro-3-cores-muito-semelhantes" class="level3">
+<h3 class="anchored" data-anchor-id="erro-3-cores-muito-semelhantes">❌ Erro 3: Cores muito semelhantes</h3>
+<p>Usar cores muito parecidas torna o gráfico ainda mais difícil de interpretar. As cores devem ter contraste suficiente para que cada categoria seja imediatamente distinguível.</p>
+</section>
+<section id="erro-4-começar-a-fatia-em-um-ângulo-confuso" class="level3">
+<h3 class="anchored" data-anchor-id="erro-4-começar-a-fatia-em-um-ângulo-confuso">❌ Erro 4: Começar a fatia em um ângulo confuso</h3>
+<p>Sempre comece a primeira fatia no topo (0°) ou à direita (90°). Começar em ângulos aleatórios torna mais difícil comparar proporções com o “12 em ponto” do relógio.</p>
+</section>
+</section>
+<section id="resumo-quando-reconsiderar-suas-escolhas" class="level2">
+<h2 class="anchored" data-anchor-id="resumo-quando-reconsiderar-suas-escolhas">Resumo: Quando reconsiderar suas escolhas</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Gráfico de Pizza</th>
+<th>Gráfico de Barras</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Poucas categorias (2-3)</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Muitas categorias (5+)</td>
+<td>✗</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>Comparações precisas</td>
+<td>✗</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Proporções muito desiguais</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>Dados cíclicos/temporais</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr class="even">
+<td>Fácil de interpretar</td>
+<td>Moderado</td>
+<td>Excelente</td>
+</tr>
+<tr class="odd">
+<td>Aceitação científica</td>
+<td>Baixa</td>
+<td>Alta</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="quiz" class="level2">
+<h2 class="anchored" data-anchor-id="quiz">Quiz</h2>
+<p><strong>Questão 1:</strong> Você está apresentando dados sobre a distribuição de 8 categorias de comorbidades em pacientes. Qual tipo de gráfico seria mais apropriado?</p>
+<ol type="a">
+<li>Gráfico de pizza com 8 fatias</li>
+<li>Gráfico de barras horizontal com as categorias ordenadas por frequência</li>
+<li>Gráfico de pizza em 3D para destacar a apresentação</li>
+<li>Não plotar nada, apenas mostrar uma tabela</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Resposta correta: b)</strong></p>
+<p>Com 8 categorias, o gráfico de pizza se torna ilegível. Um gráfico de barras horizontal com as categorias ordenadas permite comparações muito mais fáceis e precisas. A opção c é particularmente má porque o 3D distorce as proporções. A opção d, embora às vezes válida, perde a oportunidade de visualização que um bom gráfico oferece.</p>
+</div>
+</div>
+</div>
+<p><strong>Questão 2:</strong> Qual era o crítica principal de Norman H. Streiner sobre gráficos de pizza?</p>
+<ol type="a">
+<li>São muito coloridos</li>
+<li>Levam muito tempo para serem criados</li>
+<li>Usam muito espaço na página</li>
+<li>Humanos são melhores em comparar comprimentos do que ângulos</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Resposta correta: d)</strong></p>
+<p>A crítica fundamental é baseada em psicologia visual: nossos olhos e cérebro são muito mais eficientes em comparar comprimentos (como em barras) do que em estimar e comparar ângulos (como em fatias de pizza).</p>
+</div>
+</div>
+</div>
+<p><strong>Questão 3:</strong> Você está criando um gráfico de pizza para mostrar que 95% dos pacientes têm um certo resultado positivo e 5% têm resultado negativo. Este é um bom uso de gráfico de pizza?</p>
+<ol type="a">
+<li>Não, porque tem muitas categorias</li>
+<li>Sim, porque destaca que a maioria tem resultado positivo</li>
+<li>Não, porque em 3D fica melhor</li>
+<li>Sim, porque a proporção é de 95% vs 5%</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Resposta correta: d)</strong>, mas <strong>com ressalva</strong>.</p>
+<p>Proporções muito desiguais (95% vs 5%) é um dos poucos casos onde um gráfico de pizza pode ser aceitável, porque a diferença é tão óbvia que até o gráfico de pizza não consegue confundir. Mesmo assim, muitos prefeririam um gráfico de barras simples. A opção c está definitivamente errada: nunca use 3D.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="referências" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="referências">Referências</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
+<div id="ref-costiganeaves1990" class="csl-entry" role="listitem">
+COSTIGAN-EAVES, Patricia; MACDONALD-ROSS, Michael. <a href="https://doi.org/10.1214/ss/1177012100">William Playfair (1759–1823)</a>. <strong>Statistical Science</strong>, [<em>s. l.</em>], vol. 5, nº 3, p. 318–326, 1990.
+</div>
+<div id="ref-playfair2005" class="csl-entry" role="listitem">
+PLAYFAIR, William. <strong>Playfair’s Commercial and Political Atlas and Statistical Breviary</strong>. Cambridge, UK: Cambridge University Press, 2005.
+</div>
+<div id="ref-playfair1786" class="csl-entry" role="listitem">
+PLAYFAIR, William. <strong>The Commercial and Political Atlas: Representing, by Means of Stained Copper-Plate Charts, the Progress of the Commerce, Revenues, Expenditure, and Debts of England</strong>. London: J. Debrett, 1786.
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> De volta ao topo</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/henriquealvarenga\.github\.io\/graficos-site");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cap03-tufte.html" class="pagination-link" aria-label="Princípios de Tufte">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Princípios de Tufte</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cap05-barras.html" class="pagination-link" aria-label="Gráfico de Barras">
+        <span class="nav-page-text">Gráfico de Barras</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Código fonte</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="an">title:</span><span class="co"> "Gráfico de Setores (Pizza)"</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="an">subtitle:</span><span class="co"> "Capítulo 4 — Proporções de um todo"</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="an">author:</span><span class="co"> "Henrique Alvarenga da Silva"</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="an">lang:</span><span class="co"> pt-BR</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">---</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="in">```{r}</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#| label: setup</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#| include: false</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="fu">source</span>(<span class="st">"_common.R"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="in">```</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="fu">## História: William Playfair e o Gráfico de Pizza</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a>::: {.callout-note appearance="minimal"}</span>
+<span id="cb5-19"><a href="#cb5-19"></a></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="fu">## William Playfair: o inventor dos gráficos estatísticos</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a></span>
+<span id="cb5-22"><a href="#cb5-22"></a>O gráfico de setores foi criado por **William Playfair** (1759–1823), um engenheiro e economista escocês que é considerado o pai da visualização estatística moderna. Playfair publicou o primeiro gráfico de pizza no *Statistical Breviary* (1801), onde usou círculos divididos em fatias para comparar as áreas territoriais, populações e receitas fiscais de nações europeias <span class="co">[</span><span class="ot">@playfair2005</span><span class="co">]</span>.</span>
+<span id="cb5-23"><a href="#cb5-23"></a></span>
+<span id="cb5-24"><a href="#cb5-24"></a>A ideia era simples e intuitiva: se um círculo representa o todo (100%), dividi-lo em fatias permite visualizar rapidamente quanto cada categoria contribui para a totalidade. Mas o gráfico de pizza não foi a primeira invenção de Playfair — quinze anos antes, em *The Commercial and Political Atlas* <span class="co">[</span><span class="ot">@playfair1786</span><span class="co">]</span>, ele já havia criado o gráfico de barras e o gráfico de linhas, que você encontrará nos próximos capítulos <span class="co">[</span><span class="ot">@costiganeaves1990</span><span class="co">]</span>.</span>
+<span id="cb5-25"><a href="#cb5-25"></a></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="al">![Gráfico original de William Playfair no *Statistical Breviary* (1801), comparando nações europeias por área, população e receita.](images/Playfair_Pizza.jpg)</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a></span>
+<span id="cb5-28"><a href="#cb5-28"></a>:::</span>
+<span id="cb5-29"><a href="#cb5-29"></a></span>
+<span id="cb5-30"><a href="#cb5-30"></a>Durante muito tempo, especialmente no século XX, o gráfico de pizza tornou-se extremamente popular em apresentações de negócios e relatórios. Sua forma familiar e aparência agradável o tornaram um favorito em ferramentas de apresentação como PowerPoint. Porém, com o avanço da pesquisa em visualização de dados, passou-se a questionar se essa popularidade era justificada.</span>
+<span id="cb5-31"><a href="#cb5-31"></a></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="fu">## O que é um gráfico de setores?</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a></span>
+<span id="cb5-34"><a href="#cb5-34"></a>Um gráfico de setores representa **as proporções de um todo**. Cada "fatia" (setor) do círculo corresponde a uma categoria, e o tamanho da fatia é proporcional ao valor daquela categoria em relação ao total. O ângulo de cada setor é calculado como: $\frac{\text{valor da categoria}}{\text{valor total}} \times 360°$.</span>
+<span id="cb5-35"><a href="#cb5-35"></a></span>
+<span id="cb5-36"><a href="#cb5-36"></a>Por exemplo, se temos 234 mulheres e 169 homens em uma amostra de 403 pacientes:</span>
+<span id="cb5-37"><a href="#cb5-37"></a></span>
+<span id="cb5-38"><a href="#cb5-38"></a><span class="ss">- </span>Mulheres: $\frac{234}{403} \times 360° = 208,4°$ (aproximadamente 58%)</span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="ss">- </span>Homens: $\frac{169}{403} \times 360° = 151,6°$ (aproximadamente 42%)</span>
+<span id="cb5-40"><a href="#cb5-40"></a></span>
+<span id="cb5-41"><a href="#cb5-41"></a><span class="fu">## Quando usar um gráfico de pizza?</span></span>
+<span id="cb5-42"><a href="#cb5-42"></a></span>
+<span id="cb5-43"><a href="#cb5-43"></a>Existem situações específicas onde o gráfico de pizza pode ser apropriado:</span>
+<span id="cb5-44"><a href="#cb5-44"></a></span>
+<span id="cb5-45"><a href="#cb5-45"></a><span class="ss">1. </span>**Poucas categorias** (2 a 4 no máximo): Quando você tem apenas 2-3 categorias e quer destacar uma delas</span>
+<span id="cb5-46"><a href="#cb5-46"></a><span class="ss">2. </span>**Proporções muito desiguais**: Se uma categoria representa claramente a maioria (ex: 85%) e as outras são muito menores</span>
+<span id="cb5-47"><a href="#cb5-47"></a><span class="ss">3. </span>**Contextos onde a forma circular é importante**: Dados cíclicos ou que naturalmente formam um "todo"</span>
+<span id="cb5-48"><a href="#cb5-48"></a><span class="ss">4. </span>**Comunicação com públicos leigos**: Em alguns contextos, a forma intuitiva do círculo facilita compreensão imediata</span>
+<span id="cb5-49"><a href="#cb5-49"></a></span>
+<span id="cb5-50"><a href="#cb5-50"></a>Ainda assim, é importante questionar se o gráfico de pizza é realmente a melhor escolha em cada situação.</span>
+<span id="cb5-51"><a href="#cb5-51"></a></span>
+<span id="cb5-52"><a href="#cb5-52"></a><span class="fu">## Quando NÃO usar um gráfico de pizza</span></span>
+<span id="cb5-53"><a href="#cb5-53"></a></span>
+<span id="cb5-54"><a href="#cb5-54"></a>A lista de "quando não usar" é consideravelmente mais longa:</span>
+<span id="cb5-55"><a href="#cb5-55"></a></span>
+<span id="cb5-56"><a href="#cb5-56"></a><span class="ss">1. </span>**Muitas categorias**: Com 5 ou mais categorias, fica difícil diferenciar tamanhos de fatias</span>
+<span id="cb5-57"><a href="#cb5-57"></a><span class="ss">2. </span>**Comparações precisas**: Se o objetivo é determinar qual categoria é maior, nossos olhos são ruins em comparar ângulos</span>
+<span id="cb5-58"><a href="#cb5-58"></a><span class="ss">3. </span>**Dados que mudam ao longo do tempo**: Use linhas ou barras em vez disso</span>
+<span id="cb5-59"><a href="#cb5-59"></a><span class="ss">4. </span>**Proporções semelhantes**: Quando duas fatias têm tamanhos parecidos, é quase impossível saber qual é maior</span>
+<span id="cb5-60"><a href="#cb5-60"></a><span class="ss">5. </span>**Dados contínuos ou de distribuição**: Histogramas ou density plots são muito melhores</span>
+<span id="cb5-61"><a href="#cb5-61"></a><span class="ss">6. </span>**Relatórios científicos**: A comunidade científica geralmente prefere tabelas ou gráficos de barras</span>
+<span id="cb5-62"><a href="#cb5-62"></a></span>
+<span id="cb5-63"><a href="#cb5-63"></a><span class="fu">## Uma crítica forte: O lugar apropriado para o gráfico de pizza</span></span>
+<span id="cb5-64"><a href="#cb5-64"></a></span>
+<span id="cb5-65"><a href="#cb5-65"></a>O estatístico Norman H. Streiner, em suas pesquisas sobre comunicação de dados, afirmou algo que se tornou icônico:</span>
+<span id="cb5-66"><a href="#cb5-66"></a></span>
+<span id="cb5-67"><a href="#cb5-67"></a><span class="at">&gt; *"The only place for a pie chart is at a baker's convention"*</span></span>
+<span id="cb5-68"><a href="#cb5-68"></a></span>
+<span id="cb5-69"><a href="#cb5-69"></a>Essa frase reflete um consenso crescente na comunidade de visualização de dados: o gráfico de pizza é frequentemente uma escolha inadequada. Pesquisas em psicologia visual mostram que **humans são muito melhores em comparar comprimentos (como em gráficos de barras) do que em comparar ângulos (como em gráficos de pizza)**.</span>
+<span id="cb5-70"><a href="#cb5-70"></a></span>
+<span id="cb5-71"><a href="#cb5-71"></a>Quando somos solicitados a responder "qual fatia é maior?", nossos olhos precisam estimar ângulos, um processo cognitivo menos preciso. Em contraste, em um gráfico de barras, a resposta é imediata: a barra mais alta claramente vence.</span>
+<span id="cb5-72"><a href="#cb5-72"></a></span>
+<span id="cb5-73"><a href="#cb5-73"></a><span class="fu">## Exemplos práticos com R</span></span>
+<span id="cb5-74"><a href="#cb5-74"></a></span>
+<span id="cb5-75"><a href="#cb5-75"></a><span class="fu">### Exemplo 1: Distribuição simples de sexo</span></span>
+<span id="cb5-76"><a href="#cb5-76"></a></span>
+<span id="cb5-77"><a href="#cb5-77"></a>Começamos com o exemplo mais básico: mostrar a distribuição de mulheres e homens na nossa amostra de 403 pacientes.</span>
+<span id="cb5-78"><a href="#cb5-78"></a></span>
+<span id="cb5-81"><a href="#cb5-81"></a><span class="in">```{r}</span></span>
+<span id="cb5-82"><a href="#cb5-82"></a><span class="co"># Contar as frequências por sexo</span></span>
+<span id="cb5-83"><a href="#cb5-83"></a>dados_sexo <span class="ot">&lt;-</span> pacientes <span class="sc">|&gt;</span></span>
+<span id="cb5-84"><a href="#cb5-84"></a>  <span class="fu">count</span>(sexo) <span class="sc">|&gt;</span></span>
+<span id="cb5-85"><a href="#cb5-85"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb5-86"><a href="#cb5-86"></a></span>
+<span id="cb5-87"><a href="#cb5-87"></a><span class="co"># Criar o gráfico de pizza</span></span>
+<span id="cb5-88"><a href="#cb5-88"></a><span class="fu">ggplot</span>(dados_sexo, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb5-89"><a href="#cb5-89"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-90"><a href="#cb5-90"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-91"><a href="#cb5-91"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_sexo, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"male"</span> <span class="ot">=</span> <span class="st">"Homem"</span>, <span class="st">"female"</span> <span class="ot">=</span> <span class="st">"Mulher"</span>)) <span class="sc">+</span></span>
+<span id="cb5-92"><a href="#cb5-92"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-93"><a href="#cb5-93"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Sexo na Amostra"</span>,</span>
+<span id="cb5-94"><a href="#cb5-94"></a>    <span class="at">subtitle =</span> <span class="st">"n = 403 pacientes"</span>,</span>
+<span id="cb5-95"><a href="#cb5-95"></a>    <span class="at">fill =</span> <span class="st">"Sexo"</span></span>
+<span id="cb5-96"><a href="#cb5-96"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-97"><a href="#cb5-97"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb5-98"><a href="#cb5-98"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-99"><a href="#cb5-99"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-100"><a href="#cb5-100"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-101"><a href="#cb5-101"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb5-102"><a href="#cb5-102"></a>  )</span>
+<span id="cb5-103"><a href="#cb5-103"></a><span class="in">```</span></span>
+<span id="cb5-104"><a href="#cb5-104"></a></span>
+<span id="cb5-105"><a href="#cb5-105"></a>Observe como usamos <span class="in">`geom_bar()`</span> com <span class="in">`coord_polar()`</span> para criar o efeito de pizza. O argumento <span class="in">`start = 0`</span> define o ângulo inicial da primeira fatia.</span>
+<span id="cb5-106"><a href="#cb5-106"></a></span>
+<span id="cb5-107"><a href="#cb5-107"></a><span class="fu">### Exemplo 2: Biotipo (quando o gráfico fica confuso)</span></span>
+<span id="cb5-108"><a href="#cb5-108"></a></span>
+<span id="cb5-109"><a href="#cb5-109"></a>Agora vejamos um exemplo com 3 categorias: pequeno, médio e grande biotipo.</span>
+<span id="cb5-110"><a href="#cb5-110"></a></span>
+<span id="cb5-113"><a href="#cb5-113"></a><span class="in">```{r}</span></span>
+<span id="cb5-114"><a href="#cb5-114"></a><span class="co"># Contar as frequências por biotipo</span></span>
+<span id="cb5-115"><a href="#cb5-115"></a>dados_biotipo <span class="ot">&lt;-</span> pacientes <span class="sc">|&gt;</span></span>
+<span id="cb5-116"><a href="#cb5-116"></a>  <span class="fu">count</span>(biotipo) <span class="sc">|&gt;</span></span>
+<span id="cb5-117"><a href="#cb5-117"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb5-118"><a href="#cb5-118"></a></span>
+<span id="cb5-119"><a href="#cb5-119"></a><span class="co"># Criar o gráfico</span></span>
+<span id="cb5-120"><a href="#cb5-120"></a><span class="fu">ggplot</span>(dados_biotipo, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, <span class="at">fill =</span> biotipo)) <span class="sc">+</span></span>
+<span id="cb5-121"><a href="#cb5-121"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-122"><a href="#cb5-122"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb5-123"><a href="#cb5-123"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb5-124"><a href="#cb5-124"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"small"</span> <span class="ot">=</span> cores<span class="sc">$</span>azul, <span class="st">"medium"</span> <span class="ot">=</span> cores<span class="sc">$</span>verde, <span class="st">"large"</span> <span class="ot">=</span> cores<span class="sc">$</span>laranja),</span>
+<span id="cb5-125"><a href="#cb5-125"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"small"</span> <span class="ot">=</span> <span class="st">"Pequeno"</span>, <span class="st">"medium"</span> <span class="ot">=</span> <span class="st">"Médio"</span>, <span class="st">"large"</span> <span class="ot">=</span> <span class="st">"Grande"</span>)</span>
+<span id="cb5-126"><a href="#cb5-126"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-127"><a href="#cb5-127"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-128"><a href="#cb5-128"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Biotipo"</span>,</span>
+<span id="cb5-129"><a href="#cb5-129"></a>    <span class="at">subtitle =</span> <span class="st">"Começando a ficar difícil de comparar visualmente"</span>,</span>
+<span id="cb5-130"><a href="#cb5-130"></a>    <span class="at">fill =</span> <span class="st">"Biotipo"</span></span>
+<span id="cb5-131"><a href="#cb5-131"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-132"><a href="#cb5-132"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb5-133"><a href="#cb5-133"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-134"><a href="#cb5-134"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-135"><a href="#cb5-135"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-136"><a href="#cb5-136"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb5-137"><a href="#cb5-137"></a>  )</span>
+<span id="cb5-138"><a href="#cb5-138"></a><span class="in">```</span></span>
+<span id="cb5-139"><a href="#cb5-139"></a></span>
+<span id="cb5-140"><a href="#cb5-140"></a>Note como, mesmo com apenas 3 categorias, já não é tão óbvio qual categoria é maior quando olhamos apenas para o tamanho das fatias.</span>
+<span id="cb5-141"><a href="#cb5-141"></a></span>
+<span id="cb5-142"><a href="#cb5-142"></a><span class="fu">### Exemplo 3: Adicionando percentuais e contagens</span></span>
+<span id="cb5-143"><a href="#cb5-143"></a></span>
+<span id="cb5-144"><a href="#cb5-144"></a>Uma forma de melhorar o gráfico de pizza (quando você decide usá-lo) é adicionar informações numéricas:</span>
+<span id="cb5-145"><a href="#cb5-145"></a></span>
+<span id="cb5-148"><a href="#cb5-148"></a><span class="in">```{r}</span></span>
+<span id="cb5-149"><a href="#cb5-149"></a>dados_sexo_pct <span class="ot">&lt;-</span> pacientes <span class="sc">|&gt;</span></span>
+<span id="cb5-150"><a href="#cb5-150"></a>  <span class="fu">count</span>(sexo) <span class="sc">|&gt;</span></span>
+<span id="cb5-151"><a href="#cb5-151"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-152"><a href="#cb5-152"></a>    <span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb5-153"><a href="#cb5-153"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb5-154"><a href="#cb5-154"></a>      <span class="fu">ifelse</span>(sexo <span class="sc">==</span> <span class="st">"female"</span>, <span class="st">"Mulher"</span>, <span class="st">"Homem"</span>),</span>
+<span id="cb5-155"><a href="#cb5-155"></a>      <span class="st">"</span><span class="sc">\n</span><span class="st">n = "</span>, n,</span>
+<span id="cb5-156"><a href="#cb5-156"></a>      <span class="st">" ("</span>, <span class="fu">round</span>(pct, <span class="dv">1</span>), <span class="st">"%)"</span></span>
+<span id="cb5-157"><a href="#cb5-157"></a>    )</span>
+<span id="cb5-158"><a href="#cb5-158"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-159"><a href="#cb5-159"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb5-160"><a href="#cb5-160"></a></span>
+<span id="cb5-161"><a href="#cb5-161"></a><span class="fu">ggplot</span>(dados_sexo_pct, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb5-162"><a href="#cb5-162"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-163"><a href="#cb5-163"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-164"><a href="#cb5-164"></a>    <span class="fu">aes</span>(<span class="at">label =</span> label, <span class="at">x =</span> <span class="fl">1.0</span>),</span>
+<span id="cb5-165"><a href="#cb5-165"></a>    <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb5-166"><a href="#cb5-166"></a>    <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb5-167"><a href="#cb5-167"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span></span>
+<span id="cb5-168"><a href="#cb5-168"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-169"><a href="#cb5-169"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-170"><a href="#cb5-170"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_sexo) <span class="sc">+</span></span>
+<span id="cb5-171"><a href="#cb5-171"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-172"><a href="#cb5-172"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Sexo na Amostra"</span>,</span>
+<span id="cb5-173"><a href="#cb5-173"></a>    <span class="at">subtitle =</span> <span class="st">"Com percentuais e contagens"</span></span>
+<span id="cb5-174"><a href="#cb5-174"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-175"><a href="#cb5-175"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb5-176"><a href="#cb5-176"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-177"><a href="#cb5-177"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-178"><a href="#cb5-178"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-179"><a href="#cb5-179"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-180"><a href="#cb5-180"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span></span>
+<span id="cb5-181"><a href="#cb5-181"></a>  )</span>
+<span id="cb5-182"><a href="#cb5-182"></a><span class="in">```</span></span>
+<span id="cb5-183"><a href="#cb5-183"></a></span>
+<span id="cb5-184"><a href="#cb5-184"></a><span class="fu">## A alternativa superior: Gráfico de barras</span></span>
+<span id="cb5-185"><a href="#cb5-185"></a></span>
+<span id="cb5-186"><a href="#cb5-186"></a>Agora vamos fazer a comparação crucial. Usando **exatamente os mesmos dados**, vamos mostrar por que um gráfico de barras comunica melhor:</span>
+<span id="cb5-187"><a href="#cb5-187"></a></span>
+<span id="cb5-190"><a href="#cb5-190"></a><span class="in">```{r}</span></span>
+<span id="cb5-191"><a href="#cb5-191"></a><span class="co"># Preparar dados</span></span>
+<span id="cb5-192"><a href="#cb5-192"></a>dados_comparacao <span class="ot">&lt;-</span> pacientes <span class="sc">|&gt;</span></span>
+<span id="cb5-193"><a href="#cb5-193"></a>  <span class="fu">count</span>(sexo) <span class="sc">|&gt;</span></span>
+<span id="cb5-194"><a href="#cb5-194"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-195"><a href="#cb5-195"></a>    <span class="at">sexo_label =</span> <span class="fu">ifelse</span>(sexo <span class="sc">==</span> <span class="st">"female"</span>, <span class="st">"Mulher"</span>, <span class="st">"Homem"</span>),</span>
+<span id="cb5-196"><a href="#cb5-196"></a>    <span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb5-197"><a href="#cb5-197"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-198"><a href="#cb5-198"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb5-199"><a href="#cb5-199"></a></span>
+<span id="cb5-200"><a href="#cb5-200"></a><span class="co"># Gráfico de barras</span></span>
+<span id="cb5-201"><a href="#cb5-201"></a>p_barras <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados_comparacao, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(sexo_label, <span class="sc">-</span>n), <span class="at">y =</span> n, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb5-202"><a href="#cb5-202"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb5-203"><a href="#cb5-203"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-204"><a href="#cb5-204"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(n, <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, <span class="fu">round</span>(pct, <span class="dv">1</span>), <span class="st">"%)"</span>)),</span>
+<span id="cb5-205"><a href="#cb5-205"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.3</span>,</span>
+<span id="cb5-206"><a href="#cb5-206"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb5-207"><a href="#cb5-207"></a>    <span class="at">size =</span> <span class="fl">2.5</span></span>
+<span id="cb5-208"><a href="#cb5-208"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-209"><a href="#cb5-209"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_sexo) <span class="sc">+</span></span>
+<span id="cb5-210"><a href="#cb5-210"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">280</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">240</span>, <span class="dv">40</span>)) <span class="sc">+</span></span>
+<span id="cb5-211"><a href="#cb5-211"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-212"><a href="#cb5-212"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Sexo </span><span class="sc">\n</span><span class="st">na Amostra"</span>,</span>
+<span id="cb5-213"><a href="#cb5-213"></a>    <span class="at">x =</span> <span class="st">"Sexo"</span>,</span>
+<span id="cb5-214"><a href="#cb5-214"></a>    <span class="at">y =</span> <span class="st">"Número de Pacientes"</span></span>
+<span id="cb5-215"><a href="#cb5-215"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-216"><a href="#cb5-216"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb5-217"><a href="#cb5-217"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>) ) </span>
+<span id="cb5-218"><a href="#cb5-218"></a></span>
+<span id="cb5-219"><a href="#cb5-219"></a><span class="co"># Gráfico de pizza (mesmo dos dados)</span></span>
+<span id="cb5-220"><a href="#cb5-220"></a>p_pizza <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados_comparacao, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb5-221"><a href="#cb5-221"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-222"><a href="#cb5-222"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-223"><a href="#cb5-223"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_sexo) <span class="sc">+</span></span>
+<span id="cb5-224"><a href="#cb5-224"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-225"><a href="#cb5-225"></a>    <span class="at">title =</span> <span class="st">"Distribuição de Sexo </span><span class="sc">\n</span><span class="st">na Amostra"</span>,</span>
+<span id="cb5-226"><a href="#cb5-226"></a>    <span class="at">fill =</span> <span class="st">"Sexo"</span></span>
+<span id="cb5-227"><a href="#cb5-227"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-228"><a href="#cb5-228"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb5-229"><a href="#cb5-229"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-230"><a href="#cb5-230"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-231"><a href="#cb5-231"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-232"><a href="#cb5-232"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-233"><a href="#cb5-233"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb5-234"><a href="#cb5-234"></a>  ) </span>
+<span id="cb5-235"><a href="#cb5-235"></a></span>
+<span id="cb5-236"><a href="#cb5-236"></a><span class="co"># Combinar para comparação</span></span>
+<span id="cb5-237"><a href="#cb5-237"></a>p_barras <span class="sc">+</span> p_pizza <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb5-238"><a href="#cb5-238"></a><span class="in">```</span></span>
+<span id="cb5-239"><a href="#cb5-239"></a></span>
+<span id="cb5-240"><a href="#cb5-240"></a>**Observe:**</span>
+<span id="cb5-241"><a href="#cb5-241"></a></span>
+<span id="cb5-242"><a href="#cb5-242"></a><span class="ss">- </span>No gráfico de barras, é **imediatamente claro** que há mais mulheres (234) que homens (169)</span>
+<span id="cb5-243"><a href="#cb5-243"></a><span class="ss">- </span>No gráfico de pizza, você precisa comparar o tamanho das fatias, o que é menos direto</span>
+<span id="cb5-244"><a href="#cb5-244"></a></span>
+<span id="cb5-245"><a href="#cb5-245"></a>Em pesquisas de visualização de dados, o gráfico de barras consistentemente supera o gráfico de pizza em:</span>
+<span id="cb5-246"><a href="#cb5-246"></a></span>
+<span id="cb5-247"><a href="#cb5-247"></a><span class="ss">- </span>Velocidade de compreensão</span>
+<span id="cb5-248"><a href="#cb5-248"></a><span class="ss">- </span>Precisão das comparações</span>
+<span id="cb5-249"><a href="#cb5-249"></a><span class="ss">- </span>Retenção de memória dos dados</span>
+<span id="cb5-250"><a href="#cb5-250"></a></span>
+<span id="cb5-251"><a href="#cb5-251"></a><span class="fu">## Erros comuns ao usar gráficos de pizza</span></span>
+<span id="cb5-252"><a href="#cb5-252"></a></span>
+<span id="cb5-253"><a href="#cb5-253"></a><span class="fu">### ❌ Erro 1: Gráficos em 3D</span></span>
+<span id="cb5-254"><a href="#cb5-254"></a></span>
+<span id="cb5-255"><a href="#cb5-255"></a>Muitos softwares oferecem a opção de "Pizza 3D". **Nunca use isso.** A perspectiva 3D distorce as proporções de forma enganosa: fatias na frente parecem maiores do que na verdade são.</span>
+<span id="cb5-256"><a href="#cb5-256"></a></span>
+<span id="cb5-257"><a href="#cb5-257"></a><span class="fu">### ❌ Erro 2: Muitas categorias</span></span>
+<span id="cb5-258"><a href="#cb5-258"></a></span>
+<span id="cb5-259"><a href="#cb5-259"></a>Tentar representar 6, 7 ou mais categorias em um gráfico de pizza resulta em fatias tão pequenas que se torna impossível diferenciá-las. Neste caso, um gráfico de barras horizontal com as menores categorias agrupadas como "Outros" seria mais apropriado.</span>
+<span id="cb5-260"><a href="#cb5-260"></a></span>
+<span id="cb5-261"><a href="#cb5-261"></a><span class="fu">### ❌ Erro 3: Cores muito semelhantes</span></span>
+<span id="cb5-262"><a href="#cb5-262"></a></span>
+<span id="cb5-263"><a href="#cb5-263"></a>Usar cores muito parecidas torna o gráfico ainda mais difícil de interpretar. As cores devem ter contraste suficiente para que cada categoria seja imediatamente distinguível.</span>
+<span id="cb5-264"><a href="#cb5-264"></a></span>
+<span id="cb5-265"><a href="#cb5-265"></a><span class="fu">### ❌ Erro 4: Começar a fatia em um ângulo confuso</span></span>
+<span id="cb5-266"><a href="#cb5-266"></a></span>
+<span id="cb5-267"><a href="#cb5-267"></a>Sempre comece a primeira fatia no topo (0°) ou à direita (90°). Começar em ângulos aleatórios torna mais difícil comparar proporções com o "12 em ponto" do relógio.</span>
+<span id="cb5-268"><a href="#cb5-268"></a></span>
+<span id="cb5-269"><a href="#cb5-269"></a><span class="fu">## Resumo: Quando reconsiderar suas escolhas</span></span>
+<span id="cb5-270"><a href="#cb5-270"></a></span>
+<span id="cb5-271"><a href="#cb5-271"></a><span class="pp">|</span> Característica <span class="pp">|</span> Gráfico de Pizza <span class="pp">|</span> Gráfico de Barras <span class="pp">|</span></span>
+<span id="cb5-272"><a href="#cb5-272"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb5-273"><a href="#cb5-273"></a><span class="pp">|</span> Poucas categorias (2-3) <span class="pp">|</span> ✓ <span class="pp">|</span> ✓ <span class="pp">|</span></span>
+<span id="cb5-274"><a href="#cb5-274"></a><span class="pp">|</span> Muitas categorias (5+) <span class="pp">|</span> ✗ <span class="pp">|</span> ✓ <span class="pp">|</span></span>
+<span id="cb5-275"><a href="#cb5-275"></a><span class="pp">|</span> Comparações precisas <span class="pp">|</span> ✗ <span class="pp">|</span> ✓ <span class="pp">|</span></span>
+<span id="cb5-276"><a href="#cb5-276"></a><span class="pp">|</span> Proporções muito desiguais <span class="pp">|</span> ✓ <span class="pp">|</span> ✓ <span class="pp">|</span></span>
+<span id="cb5-277"><a href="#cb5-277"></a><span class="pp">|</span> Dados cíclicos/temporais <span class="pp">|</span> ✗ <span class="pp">|</span> ✗ <span class="pp">|</span></span>
+<span id="cb5-278"><a href="#cb5-278"></a><span class="pp">|</span> Fácil de interpretar <span class="pp">|</span> Moderado <span class="pp">|</span> Excelente <span class="pp">|</span></span>
+<span id="cb5-279"><a href="#cb5-279"></a><span class="pp">|</span> Aceitação científica <span class="pp">|</span> Baixa <span class="pp">|</span> Alta <span class="pp">|</span></span>
+<span id="cb5-280"><a href="#cb5-280"></a></span>
+<span id="cb5-281"><a href="#cb5-281"></a>---</span>
+<span id="cb5-282"><a href="#cb5-282"></a></span>
+<span id="cb5-283"><a href="#cb5-283"></a><span class="fu">## Quiz</span></span>
+<span id="cb5-284"><a href="#cb5-284"></a></span>
+<span id="cb5-285"><a href="#cb5-285"></a>**Questão 1:** Você está apresentando dados sobre a distribuição de 8 categorias de comorbidades em pacientes. Qual tipo de gráfico seria mais apropriado?</span>
+<span id="cb5-286"><a href="#cb5-286"></a></span>
+<span id="cb5-287"><a href="#cb5-287"></a>a) Gráfico de pizza com 8 fatias</span>
+<span id="cb5-288"><a href="#cb5-288"></a>b) Gráfico de barras horizontal com as categorias ordenadas por frequência</span>
+<span id="cb5-289"><a href="#cb5-289"></a>c) Gráfico de pizza em 3D para destacar a apresentação</span>
+<span id="cb5-290"><a href="#cb5-290"></a>d) Não plotar nada, apenas mostrar uma tabela</span>
+<span id="cb5-291"><a href="#cb5-291"></a></span>
+<span id="cb5-292"><a href="#cb5-292"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb5-293"><a href="#cb5-293"></a><span class="fu">## Resposta</span></span>
+<span id="cb5-294"><a href="#cb5-294"></a></span>
+<span id="cb5-295"><a href="#cb5-295"></a>**Resposta correta: b)**</span>
+<span id="cb5-296"><a href="#cb5-296"></a></span>
+<span id="cb5-297"><a href="#cb5-297"></a>Com 8 categorias, o gráfico de pizza se torna ilegível. Um gráfico de barras horizontal com as categorias ordenadas permite comparações muito mais fáceis e precisas. A opção c é particularmente má porque o 3D distorce as proporções. A opção d, embora às vezes válida, perde a oportunidade de visualização que um bom gráfico oferece.</span>
+<span id="cb5-298"><a href="#cb5-298"></a>:::</span>
+<span id="cb5-299"><a href="#cb5-299"></a></span>
+<span id="cb5-300"><a href="#cb5-300"></a>**Questão 2:** Qual era o crítica principal de Norman H. Streiner sobre gráficos de pizza?</span>
+<span id="cb5-301"><a href="#cb5-301"></a></span>
+<span id="cb5-302"><a href="#cb5-302"></a>a) São muito coloridos</span>
+<span id="cb5-303"><a href="#cb5-303"></a>b) Levam muito tempo para serem criados</span>
+<span id="cb5-304"><a href="#cb5-304"></a>c) Usam muito espaço na página</span>
+<span id="cb5-305"><a href="#cb5-305"></a>d) Humanos são melhores em comparar comprimentos do que ângulos</span>
+<span id="cb5-306"><a href="#cb5-306"></a></span>
+<span id="cb5-307"><a href="#cb5-307"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb5-308"><a href="#cb5-308"></a><span class="fu">## Resposta</span></span>
+<span id="cb5-309"><a href="#cb5-309"></a></span>
+<span id="cb5-310"><a href="#cb5-310"></a>**Resposta correta: d)**</span>
+<span id="cb5-311"><a href="#cb5-311"></a></span>
+<span id="cb5-312"><a href="#cb5-312"></a>A crítica fundamental é baseada em psicologia visual: nossos olhos e cérebro são muito mais eficientes em comparar comprimentos (como em barras) do que em estimar e comparar ângulos (como em fatias de pizza).</span>
+<span id="cb5-313"><a href="#cb5-313"></a>:::</span>
+<span id="cb5-314"><a href="#cb5-314"></a></span>
+<span id="cb5-315"><a href="#cb5-315"></a>**Questão 3:** Você está criando um gráfico de pizza para mostrar que 95% dos pacientes têm um certo resultado positivo e 5% têm resultado negativo. Este é um bom uso de gráfico de pizza?</span>
+<span id="cb5-316"><a href="#cb5-316"></a></span>
+<span id="cb5-317"><a href="#cb5-317"></a>a) Não, porque tem muitas categorias</span>
+<span id="cb5-318"><a href="#cb5-318"></a>b) Sim, porque destaca que a maioria tem resultado positivo</span>
+<span id="cb5-319"><a href="#cb5-319"></a>c) Não, porque em 3D fica melhor</span>
+<span id="cb5-320"><a href="#cb5-320"></a>d) Sim, porque a proporção é de 95% vs 5%</span>
+<span id="cb5-321"><a href="#cb5-321"></a></span>
+<span id="cb5-322"><a href="#cb5-322"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb5-323"><a href="#cb5-323"></a><span class="fu">## Resposta</span></span>
+<span id="cb5-324"><a href="#cb5-324"></a></span>
+<span id="cb5-325"><a href="#cb5-325"></a>**Resposta correta: d)**, mas **com ressalva**.</span>
+<span id="cb5-326"><a href="#cb5-326"></a></span>
+<span id="cb5-327"><a href="#cb5-327"></a>Proporções muito desiguais (95% vs 5%) é um dos poucos casos onde um gráfico de pizza pode ser aceitável, porque a diferença é tão óbvia que até o gráfico de pizza não consegue confundir. Mesmo assim, muitos prefeririam um gráfico de barras simples. A opção c está definitivamente errada: nunca use 3D.</span>
+<span id="cb5-328"><a href="#cb5-328"></a>:::</span>
+<span id="cb5-329"><a href="#cb5-329"></a></span>
+<span id="cb5-330"><a href="#cb5-330"></a></span>
+<span id="cb5-331"><a href="#cb5-331"></a>---</span>
+<span id="cb5-332"><a href="#cb5-332"></a></span>
+<span id="cb5-333"><a href="#cb5-333"></a><span class="fu">## Referências {.unnumbered}</span></span>
+<span id="cb5-334"><a href="#cb5-334"></a></span>
+<span id="cb5-335"><a href="#cb5-335"></a>::: {#refs}</span>
+<span id="cb5-336"><a href="#cb5-336"></a>:::</span>
+</code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Dos Dados aos Gráficos<br> © 2026 Henrique Alvarenga da Silva · UFSJ · UNIPTAN/AFYA</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Feito com <a href="https://quarto.org/">Quarto</a> e <a href="https://www.r-project.org/">R</a></p>
+</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

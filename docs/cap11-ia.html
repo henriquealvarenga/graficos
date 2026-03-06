@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Henrique Alvarenga da Silva">
+
+<title>Criando Gráficos com IA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cap15-fluxograma.html" rel="next">
+<link href="./cap14-galeria-horrores.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-f938f6e5ca7bfbd6305a7d1113a49c1d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4d51be57ba27b381b31b4eadd55b0c4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/logo.svg" alt="" class="navbar-logo light-content">
+    <img src="./images/logo.svg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text">Início</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-fundamentos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Fundamentos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-fundamentos">    
+        <li>
+    <a class="dropdown-item" href="./cap00-precisa-grafico.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">Você precisa de um gráfico?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap01-gramatica.html"><i class="bi bi-layers" role="img">
+</i> 
+ <span class="dropdown-text">Gramática dos Gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap02-elementos.html"><i class="bi bi-diagram-3" role="img">
+</i> 
+ <span class="dropdown-text">Elementos de um gráfico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap03-tufte.html"><i class="bi bi-brush" role="img">
+</i> 
+ <span class="dropdown-text">Princípios de Tufte</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tipos-de-gráficos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tipos de Gráficos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tipos-de-gráficos">    
+        <li>
+    <a class="dropdown-item" href="./cap04-pizza.html"><i class="bi bi-pie-chart" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Pizza</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap05-barras.html"><i class="bi bi-bar-chart" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Barras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap06-histograma.html"><i class="bi bi-bar-chart-steps" role="img">
+</i> 
+ <span class="dropdown-text">Histograma</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap07-densidade.html"><i class="bi bi-soundwave" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Densidade</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap08-boxplot.html"><i class="bi bi-box" role="img">
+</i> 
+ <span class="dropdown-text">Boxplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap09-scatterplot.html"><i class="bi bi-scatter-chart" role="img">
+</i> 
+ <span class="dropdown-text">Scatter Plot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10-linhas.html"><i class="bi bi-graph-up" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Linha</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-pensamento-crítico" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Pensamento Crítico</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-pensamento-crítico">    
+        <li>
+    <a class="dropdown-item" href="./cap12-historia.html"><i class="bi bi-clock-history" role="img">
+</i> 
+ <span class="dropdown-text">Gráficos que Mudaram a História</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap13-mesmos-dados.html"><i class="bi bi-shuffle" role="img">
+</i> 
+ <span class="dropdown-text">Mesmos Dados, Histórias Diferentes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap14-galeria-horrores.html"><i class="bi bi-exclamation-triangle" role="img">
+</i> 
+ <span class="dropdown-text">Galeria de Horrores</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ferramentas" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ferramentas</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ferramentas">    
+        <li>
+    <a class="dropdown-item" href="./cap11-ia.html"><i class="bi bi-robot" role="img">
+</i> 
+ <span class="dropdown-text">IA para Gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap15-fluxograma.html"><i class="bi bi-signpost-split" role="img">
+</i> 
+ <span class="dropdown-text">Qual Gráfico Devo Usar?</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> <i class="bi bi-info-circle" role="img">
+</i> 
+<span class="menu-text">Sobre</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/henriquealvarenga/graficos-site"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo de leitor">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap11-ia.html">Ferramentas</a></li><li class="breadcrumb-item"><a href="./cap11-ia.html">IA para Gráficos</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap00-precisa-grafico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Você precisa de um gráfico?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap01-gramatica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gramática dos Gráficos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap02-elementos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Elementos de um gráfico</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap03-tufte.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Princípios de Tufte</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tipos de Gráficos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap04-pizza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Pizza</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap05-barras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Barras</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap06-histograma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Histograma</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap07-densidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Densidade</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap08-boxplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Boxplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap09-scatterplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scatter Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10-linhas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Linha</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pensamento Crítico</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap12-historia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráficos que Mudaram a História</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap13-mesmos-dados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mesmos Dados, Histórias Diferentes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap14-galeria-horrores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Galeria de Horrores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Ferramentas</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap11-ia.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">IA para Gráficos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap15-fluxograma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qual Gráfico Devo Usar?</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  <li><a href="#r-python-e-a-gramática-dos-gráficos" id="toc-r-python-e-a-gramática-dos-gráficos" class="nav-link" data-scroll-target="#r-python-e-a-gramática-dos-gráficos">R, Python e a Gramática dos Gráficos</a></li>
+  <li><a href="#inteligência-artificial" id="toc-inteligência-artificial" class="nav-link" data-scroll-target="#inteligência-artificial">Inteligência Artificial</a></li>
+  <li><a href="#três-formas-de-trabalhar-com-ia-para-gráficos" id="toc-três-formas-de-trabalhar-com-ia-para-gráficos" class="nav-link" data-scroll-target="#três-formas-de-trabalhar-com-ia-para-gráficos">Três Formas de Trabalhar com IA para Gráficos</a>
+  <ul class="collapse">
+  <li><a href="#modo-1-conversa-direta-você-envia-os-dados-recebe-o-gráfico" id="toc-modo-1-conversa-direta-você-envia-os-dados-recebe-o-gráfico" class="nav-link" data-scroll-target="#modo-1-conversa-direta-você-envia-os-dados-recebe-o-gráfico">Modo 1 — Conversa Direta: você envia os dados, recebe o gráfico</a></li>
+  <li><a href="#modo-2-ia-dentro-do-editor-o-código-aparece-enquanto-você-trabalha" id="toc-modo-2-ia-dentro-do-editor-o-código-aparece-enquanto-você-trabalha" class="nav-link" data-scroll-target="#modo-2-ia-dentro-do-editor-o-código-aparece-enquanto-você-trabalha">Modo 2 — IA dentro do Editor: o código aparece enquanto você trabalha</a></li>
+  <li><a href="#modo-3-ia-como-colaborador-autônomo-você-entrega-o-projeto-ela-trabalha" id="toc-modo-3-ia-como-colaborador-autônomo-você-entrega-o-projeto-ela-trabalha" class="nav-link" data-scroll-target="#modo-3-ia-como-colaborador-autônomo-você-entrega-o-projeto-ela-trabalha">Modo 3 — IA como Colaborador Autônomo: você entrega o projeto, ela trabalha</a></li>
+  </ul></li>
+  <li><a href="#exemplos" id="toc-exemplos" class="nav-link" data-scroll-target="#exemplos">Exemplos</a>
+  <ul class="collapse">
+  <li><a href="#o-cenário" id="toc-o-cenário" class="nav-link" data-scroll-target="#o-cenário">O Cenário</a></li>
+  <li><a href="#primeira-etapa-exploração-rápida-modo-1" id="toc-primeira-etapa-exploração-rápida-modo-1" class="nav-link" data-scroll-target="#primeira-etapa-exploração-rápida-modo-1">Primeira Etapa — Exploração Rápida (Modo 1)</a></li>
+  <li><a href="#segunda-etapa-estruturar-o-projeto-modo-3" id="toc-segunda-etapa-estruturar-o-projeto-modo-3" class="nav-link" data-scroll-target="#segunda-etapa-estruturar-o-projeto-modo-3">Segunda Etapa — Estruturar o Projeto (Modo 3)</a></li>
+  <li><a href="#terceira-etapa-produzir-os-gráficos-para-publicação-modo-2" id="toc-terceira-etapa-produzir-os-gráficos-para-publicação-modo-2" class="nav-link" data-scroll-target="#terceira-etapa-produzir-os-gráficos-para-publicação-modo-2">Terceira Etapa — Produzir os Gráficos para Publicação (Modo 2)</a></li>
+  <li><a href="#o-que-este-exemplo-ilustra" id="toc-o-que-este-exemplo-ilustra" class="nav-link" data-scroll-target="#o-que-este-exemplo-ilustra">O que Este Exemplo Ilustra</a></li>
+  </ul></li>
+  <li><a href="#como-pedir-bem-a-lógica-do-prompt-clínico" id="toc-como-pedir-bem-a-lógica-do-prompt-clínico" class="nav-link" data-scroll-target="#como-pedir-bem-a-lógica-do-prompt-clínico">Como Pedir Bem: a Lógica do Prompt Clínico</a></li>
+  <li><a href="#a-ia-ainda-erra" id="toc-a-ia-ainda-erra" class="nav-link" data-scroll-target="#a-ia-ainda-erra">A IA Ainda Erra</a>
+  <ul class="collapse">
+  <li><a href="#a-ia-não-conhece-o-contexto-clínico-dos-dados" id="toc-a-ia-não-conhece-o-contexto-clínico-dos-dados" class="nav-link" data-scroll-target="#a-ia-não-conhece-o-contexto-clínico-dos-dados">A IA não Conhece o Contexto Clínico dos Dados</a></li>
+  <li><a href="#a-ia-não-escolhe-o-tipo-de-gráfico-correto-por-você" id="toc-a-ia-não-escolhe-o-tipo-de-gráfico-correto-por-você" class="nav-link" data-scroll-target="#a-ia-não-escolhe-o-tipo-de-gráfico-correto-por-você">A IA não Escolhe o Tipo de Gráfico Correto por Você</a></li>
+  <li><a href="#a-ia-não-verifica-pressupostos-estatísticos" id="toc-a-ia-não-verifica-pressupostos-estatísticos" class="nav-link" data-scroll-target="#a-ia-não-verifica-pressupostos-estatísticos">A IA não Verifica Pressupostos Estatísticos</a></li>
+  <li><a href="#a-ia-alucina" id="toc-a-ia-alucina" class="nav-link" data-scroll-target="#a-ia-alucina">A IA Alucina</a></li>
+  <li><a href="#a-responsabilidade-como-competência" id="toc-a-responsabilidade-como-competência" class="nav-link" data-scroll-target="#a-responsabilidade-como-competência">A Responsabilidade como Competência</a></li>
+  </ul></li>
+  <li><a href="#o-momento-atual-uma-janela-que-se-abriu" id="toc-o-momento-atual-uma-janela-que-se-abriu" class="nav-link" data-scroll-target="#o-momento-atual-uma-janela-que-se-abriu">O Momento Atual: uma Janela que se Abriu</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap11-ia.html">Ferramentas</a></li><li class="breadcrumb-item"><a href="./cap11-ia.html">IA para Gráficos</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Criando Gráficos com IA</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Código</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Mostrar o código</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Esconder o código</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">Ver o código fonte</a></li></ul></div></div>
+<p class="subtitle lead">Capítulo 11 - O Fim de uma Barreira</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Henrique Alvarenga da Silva </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">5 de março de 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>A visualização de dados científicos sempre exigiu trabalho. Antes dos computadores pessoais, gráficos eram produzidos à mão: papel milimetrado, régua, tinta nanquim. Um pesquisador que desejasse apresentar a distribuição de pressão arterial em uma amostra de pacientes desenhava cada ponto manualmente, calculava médias com tabelas logarítmicas e reproduzia a figura por decalque ou fotografia. O processo era lento, caro e tecnicamente exigente.</p>
+<p>Com a chegada dos computadores pessoais nos anos 1980 e 1990, esse processo migrou para a tela. Planilhas eletrônicas — o Lotus 1-2-3 primeiro, o Microsoft Excel depois — tornaram-se o ambiente padrão para análise de dados em praticamente todas as áreas, incluindo as ciências da saúde <span class="citation" data-cites="hesse2009">(<a href="#ref-hesse2009" role="doc-biblioref">Hesse; Hesse Scerno, 2009</a>)</span>. O Excel democratizou o acesso aos dados: qualquer profissional com um computador podia calcular médias, construir tabelas e gerar gráficos de barras em minutos. Era uma ruptura real em relação ao papel milimetrado.</p>
+<p>Mas o Excel tinha limites sérios para a ciência. Os gráficos produzidos eram visualmente pobres e difíceis de personalizar com precisão. A reprodutibilidade era frágil — refazer exatamente o mesmo gráfico com dados atualizados exigia repetir manualmente cada etapa. A capacidade estatística era limitada. E, sobretudo, o Excel não foi projetado para comunicação científica: faltavam controle tipográfico, suporte a múltiplas camadas estatísticas e integração com os padrões de publicação acadêmica.</p>
+<p>Foi nesse contexto que R e Python emergiram como alternativas. Não eram ferramentas de escritório, mas linguagens de programação científica — abertas, gratuitas, construídas pela e para a comunidade acadêmica. Com elas, um pesquisador podia descrever com precisão cada elemento de uma visualização, integrar análise estatística e gráfico no mesmo fluxo de trabalho, e garantir que qualquer colega pudesse reproduzir o resultado exato a partir do mesmo código. A qualidade e o rigor que o Excel não oferecia estavam ali — mas a um preço: era necessário aprender a programar.</p>
+<p>Esse custo excluiu sistematicamente uma parcela enorme de pesquisadores na área da saúde. Profissionais tecnicamente sólidos em raciocínio clínico e metodologia, mas sem formação em programação, permaneceram dependentes de colaboradores especializados ou confinados às limitações das planilhas.</p>
+</section>
+<section id="r-python-e-a-gramática-dos-gráficos" class="level2">
+<h2 class="anchored" data-anchor-id="r-python-e-a-gramática-dos-gráficos">R, Python e a Gramática dos Gráficos</h2>
+<p>R foi criado em 1993 por Ross Ihaka e Robert Gentleman, na Universidade de Auckland <span class="citation" data-cites="ihaka1996">(<a href="#ref-ihaka1996" role="doc-biblioref">Ihaka; Gentleman, 1996</a>)</span>, como uma implementação livre da linguagem S, desenvolvida nos Bell Labs nos anos 1970 <span class="citation" data-cites="becker1994">(<a href="#ref-becker1994" role="doc-biblioref">Becker, 1994</a>)</span>. Desde o início, seu propósito era explicitamente científico: uma linguagem projetada para análise estatística, não para desenvolvimento de software comercial. Python, criado por Guido van Rossum em 1991 <span class="citation" data-cites="severance2015">(<a href="#ref-severance2015" role="doc-biblioref">Severance, 2015</a>)</span>, tinha origens mais generalistas, mas ao longo dos anos 2000 foi progressivamente adotado pela comunidade científica, especialmente após o desenvolvimento de bibliotecas como NumPy <span class="citation" data-cites="harris2020">(<a href="#ref-harris2020" role="doc-biblioref">Harris <em>et al.</em>, 2020</a>)</span>, pandas e matplotlib. As duas linguagens convergiram, por caminhos distintos, para o mesmo papel: o padrão de fato da ciência de dados moderna.</p>
+<p>No campo específico da visualização, R produziu uma contribuição que merece atenção particular. Em 1999, o estatístico Leland Wilkinson publicou <em>The Grammar of Graphics</em> <span class="citation" data-cites="wilkinson2005">(<a href="#ref-wilkinson2005" role="doc-biblioref">Wilkinson, 2005</a>)</span>, obra em que propôs uma teoria formal para descrever visualizações de dados. A ideia central era elegante: assim como a gramática de uma língua define regras para combinar palavras em frases com significado, uma gramática dos gráficos definiria regras para combinar elementos visuais — dados, geometrias, escalas, coordenadas, anotações — em representações coerentes e precisas. Um gráfico deixava de ser um objeto monolítico escolhido de um menu e passava a ser uma composição descritível em camadas.</p>
+<p>Em 2005, Hadley Wickham, então doutorando na Universidade de Iowa, traduziu essa teoria em código <span class="citation" data-cites="wickham2010">(<a href="#ref-wickham2010" role="doc-biblioref">Wickham, 2010</a>)</span>. O pacote <code>ggplot2</code>, publicado para R <span class="citation" data-cites="wickham2016">(<a href="#ref-wickham2016" role="doc-biblioref">Wickham, 2016</a>)</span>, implementava a gramática de Wilkinson de forma que qualquer pesquisador pudesse construir visualizações complexas descrevendo seus componentes em linguagem quase declarativa. Em vez de escolher “gráfico de barras” em um menu, o usuário especificava: estes são os dados, esta é a geometria, este é o mapeamento entre variáveis e elementos visuais, esta é a escala, este é o tema. A lógica era consistente e generalizável — aprendida uma vez, aplicava-se a qualquer tipo de gráfico.</p>
+<p>O impacto foi significativo. O <code>ggplot2</code> tornou-se um dos pacotes mais baixados do repositório CRAN <span class="citation" data-cites="hornik2012">(<a href="#ref-hornik2012" role="doc-biblioref">Hornik, 2012</a>)</span> e estabeleceu-se como referência em publicações científicas de alto impacto, especialmente nas ciências biológicas e da saúde. Em Python, bibliotecas como Seaborn e Plotly seguiram princípios similares, expandindo o alcance da abordagem para a comunidade que trabalhava nessa linguagem.</p>
+<p>O resultado foi um novo padrão. Pesquisadores que dominavam essas ferramentas produziam visualizações mais precisas, mais reproduzíveis e mais adequadas à comunicação científica do que qualquer alternativa baseada em planilhas. A distância entre o Excel e o <code>ggplot2</code> não era apenas estética — era epistemológica. Um gráfico produzido em código podia ser auditado, replicado e modificado por qualquer pesquisador com acesso ao mesmo arquivo. Um gráfico produzido em planilha raramente oferecia essa garantia.</p>
+<p>Mas a exigência permanecia: era necessário aprender a programar. E para um estudante de medicina com grade curricular já saturada, esse requisito continuava sendo, na prática, uma barreira bastante difícil.</p>
+<hr>
+</section>
+<section id="inteligência-artificial" class="level2">
+<h2 class="anchored" data-anchor-id="inteligência-artificial">Inteligência Artificial</h2>
+<p>Em novembro de 2022, a OpenAI lançou publicamente o ChatGPT. Em poucas semanas, o sistema havia sido adotado por milhões de usuários em contextos que seus criadores mal haviam antecipado — entre eles, a geração de código <span class="citation" data-cites="nejjar2025">(<a href="#ref-nejjar2025" role="doc-biblioref">Nejjar <em>et al.</em>, 2025</a>)</span>. Pesquisadores, estudantes e profissionais sem formação em programação — incluindo na área da saúde <span class="citation" data-cites="mesko2023 cascella2023">(<a href="#ref-cascella2023" role="doc-biblioref">Cascella <em>et al.</em>, 2023</a>; <a href="#ref-mesko2023" role="doc-biblioref">Mesko, 2023</a>)</span> — descobriram que podiam descrever em linguagem natural o que desejavam fazer computacionalmente e receber, em segundos, código funcional. A barreira que separava a intenção da execução havia mudado de natureza.</p>
+<p>Para a visualização de dados científicos, as implicações foram imediatas. Um estudante que nunca havia escrito uma linha de R podia agora descrever um gráfico em português — “quero um boxplot comparando a pressão sistólica entre homens e mulheres, com tema limpo e eixos em português” — e receber código <code>ggplot2</code> pronto para executar. Não era necessário conhecer a sintaxe do pacote, entender a lógica de camadas ou saber instalar dependências. A IA funcionava como uma intermediária entre a intenção do pesquisador e a linguagem que a ferramenta compreendia.</p>
+<hr>
+</section>
+<section id="três-formas-de-trabalhar-com-ia-para-gráficos" class="level2">
+<h2 class="anchored" data-anchor-id="três-formas-de-trabalhar-com-ia-para-gráficos">Três Formas de Trabalhar com IA para Gráficos</h2>
+<p>Nem todas as ferramentas de inteligência artificial para visualização de dados funcionam da mesma forma, nem se destinam aos mesmos contextos. Antes de apresentar as opções disponíveis, é útil estabelecer uma distinção fundamental que orientará a escolha do pesquisador em cada situação.</p>
+<p>Existem três modos distintos de trabalhar com IA para produzir gráficos científicos, e compreender a diferença entre eles é mais importante do que conhecer qualquer ferramenta específica. O primeiro é a <strong>conversa direta com os dados</strong>, em que o pesquisador envia sua planilha para uma plataforma online e recebe o gráfico como resultado, sem ver código e sem instalar nada. O segundo é a <strong>assistência dentro do ambiente de desenvolvimento</strong>, em que a IA opera dentro de um editor de código especializado, gerando código R ou Python visível e reproduzível enquanto o pesquisador trabalha. O terceiro — e mais recente — é o <strong>trabalho autônomo sobre o projeto</strong>, em que a IA recebe acesso a uma pasta de trabalho e age como um colaborador que lê arquivos, cria estruturas, edita documentos e executa tarefas encadeadas, enquanto o pesquisador dirige o processo por conversa.</p>
+<p>A distinção entre os três modos não é hierárquica. São instrumentos diferentes para momentos diferentes do trabalho científico. A pergunta relevante para escolher entre eles é simples: <strong>o que você vai fazer com o gráfico depois, e quanto controle precisa ter sobre o processo?</strong></p>
+<section id="modo-1-conversa-direta-você-envia-os-dados-recebe-o-gráfico" class="level3">
+<h3 class="anchored" data-anchor-id="modo-1-conversa-direta-você-envia-os-dados-recebe-o-gráfico">Modo 1 — Conversa Direta: você envia os dados, recebe o gráfico</h3>
+<p>Neste modo, o pesquisador não escreve código em nenhum momento. O fluxo de trabalho é direto: carregar a planilha ou arquivo de dados em uma plataforma, descrever o gráfico desejado em linguagem natural e baixar o resultado. Toda a execução técnica — escolha de bibliotecas, escrita do código, geração da figura — ocorre de forma invisível, intermediada pela plataforma.</p>
+<p>Este modo é particularmente adequado para pesquisadores sem qualquer familiaridade com programação, para situações em que o tempo disponível é limitado ou para a fase inicial de exploração de um conjunto de dados, quando o objetivo é ter uma visão geral antes de decidir quais análises aprofundar. O resultado, neste caso, é uma imagem — um arquivo estático que não documenta como foi produzido e que, portanto, não oferece garantias de reprodutibilidade para fins de publicação científica.</p>
+<p>As principais plataformas disponíveis para este modo são as seguintes.</p>
+<p><strong>ChatGPT com Análise de Dados Avançada</strong> é provavelmente o ponto de entrada mais acessível, dado que a maioria dos estudantes já possui conta na plataforma. Nas versões pagas mais recentes, é possível carregar arquivos nos formatos CSV, Excel e PDF diretamente na conversa e solicitar gráficos em linguagem natural. Os gráficos gerados podem ser baixados como imagem. A limitação principal é que o ambiente é efêmero — os dados e o código não persistem entre sessões.</p>
+<p><strong>Julius AI</strong> (julius.ai) é uma plataforma especializada em análise de dados conversacional, construída sobre modelos de linguagem de grande porte. Diferentemente do ChatGPT, que é uma ferramenta generalista, o Julius foi projetado especificamente para análise de dados e oferece suporte tanto a Python quanto a R. A plataforma executa as análises em etapas visíveis, exibindo o raciocínio intermediário antes do resultado final — comportamento que facilita a identificação de eventuais erros de interpretação. Oferece plano gratuito com limitações de uso mensal.</p>
+<p><strong>Google Gemini</strong> integra-se naturalmente ao ecossistema Google e permite análise de planilhas diretamente do Google Sheets. Para pesquisadores que já utilizam o Google Drive como repositório de dados, esta integração elimina a necessidade de exportar e importar arquivos.</p>
+<p><strong>Microsoft Copilot no Excel</strong> incorpora IA diretamente no ambiente de planilhas mais utilizado no mundo. Para pesquisadores cujos dados já residem em arquivos Excel, esta opção elimina completamente a necessidade de migração para outra plataforma. A disponibilidade desta funcionalidade depende da versão do Microsoft 365 utilizada pela instituição.</p>
+<p><strong>Powerdrill AI</strong> é uma alternativa ao Julius com foco em conjuntos de dados de maior volume, suportando arquivos que excedem os limites das demais plataformas.</p>
+</section>
+<section id="modo-2-ia-dentro-do-editor-o-código-aparece-enquanto-você-trabalha" class="level3">
+<h3 class="anchored" data-anchor-id="modo-2-ia-dentro-do-editor-o-código-aparece-enquanto-você-trabalha">Modo 2 — IA dentro do Editor: o código aparece enquanto você trabalha</h3>
+<p>Neste modo, a IA opera como um assistente dentro de um ambiente de desenvolvimento integrado. O pesquisador não precisa conhecer a sintaxe de R ou Python previamente, mas o código gerado pela IA é visível, editável e, sobretudo, reproduzível. Este modo produz resultados que podem ser auditados, compartilhados e integrados a documentos científicos com garantia de reprodutibilidade.</p>
+<p>A reprodutibilidade merece ênfase. Um gráfico gerado no Modo 1 existe como imagem — um arquivo estático que não documenta como foi produzido. Um gráfico gerado no Modo 2 existe como código: qualquer pesquisador com acesso ao mesmo arquivo pode reproduzir exatamente o mesmo resultado, modificar parâmetros e verificar cada decisão metodológica. Para publicação científica, esta diferença é fundamental.</p>
+<p>As principais ferramentas disponíveis para este modo são as seguintes.</p>
+<p><strong>Positron</strong> é o ambiente de desenvolvimento lançado pela Posit — a mesma empresa responsável pelo RStudio — e representa a evolução mais relevante para pesquisadores que trabalham com R e Python. Gratuito e de código aberto, o Positron incorpora nativamente o <em>Positron Assistant</em>, um assistente de IA com acesso ao estado real da sessão de trabalho: os dados carregados na memória, as variáveis criadas, os gráficos já gerados. Esta consciência contextual diferencia o Positron Assistant de assistentes genéricos — ao solicitar um gráfico, o assistente já sabe quais colunas existem no conjunto de dados, quais são seus tipos e o que já foi produzido anteriormente na mesma sessão. O assistente utiliza os modelos Claude, da Anthropic, e requer uma chave de API para funcionamento. O Positron suporta nativamente documentos Quarto, o que o torna o ambiente natural para pesquisadores que produzem artigos, relatórios e livros neste formato.</p>
+<p><strong>RStudio com GitHub Copilot</strong> é a opção para pesquisadores que já utilizam o RStudio e preferem não migrar de ambiente. O GitHub Copilot pode ser integrado como assistente, oferecendo sugestões de código em linha e respostas em linguagem natural, embora com acesso menos profundo ao estado da sessão R do que o Positron Assistant.</p>
+<p><strong>Visual Studio Code com GitHub Copilot</strong> é a combinação mais utilizada entre desenvolvedores em geral e funciona adequadamente para análise de dados em R e Python, com extensões maduras para ambas as linguagens.</p>
+<p><strong>Cursor</strong> é um editor construído sobre a base do VS Code, mas com integração de IA substancialmente mais profunda. Diferentemente do Copilot, que opera principalmente sobre o arquivo aberto, o Cursor indexa todo o projeto e mantém contexto sobre múltiplos arquivos simultaneamente — uma vantagem para projetos de análise com estrutura complexa.</p>
+</section>
+<section id="modo-3-ia-como-colaborador-autônomo-você-entrega-o-projeto-ela-trabalha" class="level3">
+<h3 class="anchored" data-anchor-id="modo-3-ia-como-colaborador-autônomo-você-entrega-o-projeto-ela-trabalha">Modo 3 — IA como Colaborador Autônomo: você entrega o projeto, ela trabalha</h3>
+<p>Este é o modo mais recente e, para muitos fluxos de trabalho científicos, o mais transformador. Aqui, a IA não opera dentro de um editor aberto pelo pesquisador — ela recebe acesso a uma pasta de trabalho e age com autonomia sobre o sistema de arquivos: lê os arquivos existentes, cria novos, organiza estruturas de pastas, edita documentos específicos e executa tarefas encadeadas. O pesquisador não precisa estar dentro de nenhum ambiente de desenvolvimento. Ele dirige o processo por conversa e revisa os resultados produzidos.</p>
+<p>A distinção fundamental em relação ao Modo 2 está na natureza da interação. No Modo 2, a IA sugere e o pesquisador aceita ou rejeita cada sugestão dentro do editor. No Modo 3, o pesquisador descreve o que quer — “crie a estrutura de um projeto Quarto com pastas para imagens, scripts e referências BibTeX” — e encontra o resultado já materializado na pasta, pronto para ser revisado e continuado.</p>
+<p>Para pesquisadores que trabalham com projetos Quarto de maior complexidade — livros, relatórios encadeados, artigos com múltiplas figuras e referências bibliográficas gerenciadas por BibTeX —, este modo oferece uma capacidade que os modos anteriores não alcançam: a possibilidade de delegar não apenas a geração de um gráfico, mas a organização e o desenvolvimento progressivo de um projeto inteiro.</p>
+<p>A ferramenta que atualmente oferece esta modalidade de forma mais completa é o <strong>Claude Cowork</strong>, da Anthropic. Na prática, o fluxo de trabalho típico combina o Modo 3 com o Modo 2: o Cowork é utilizado para estruturar o projeto, criar e editar arquivos específicos e executar tarefas que envolvem múltiplos componentes simultaneamente; o Positron é utilizado para edição direta de arquivos individuais quando o pesquisador prefere intervir manualmente em um ponto específico do código ou do documento. Os dois ambientes coexistem e se complementam — o Cowork cuida da arquitetura e da delegação, o Positron cuida da edição de precisão.</p>
+<p>Este fluxo híbrido representa, até onde se sabe, uma das fronteiras mais avançadas do trabalho científico assistido por IA atualmente disponíveis ao pesquisador individual. Não exige formação em programação, mas exige clareza sobre o que se quer produzir — o que, no fundo, sempre foi a competência central do bom pesquisador.</p>
+<hr>
+</section>
+</section>
+<section id="exemplos" class="level2">
+<h2 class="anchored" data-anchor-id="exemplos">Exemplos</h2>
+<p>O melhor modo de compreender como esses três modos se articulam na prática é acompanhar um cenário realista. O exemplo a seguir não é um tutorial passo a passo — é uma narrativa de como um estudante de medicina sem qualquer formação em programação poderia, hoje, produzir visualizações de qualidade científica a partir de dados reais.</p>
+<section id="o-cenário" class="level3">
+<h3 class="anchored" data-anchor-id="o-cenário">O Cenário</h3>
+<p>Carolina é estudante de medicina no quarto período. Durante o internato eletivo no ambulatório de cardiologia, coletou dados de 80 pacientes hipertensos acompanhados pela equipe: idade, sexo, pressão sistólica, pressão diastólica, IMC, tabagismo e classe de medicamento anti-hipertensivo em uso. Os dados estão organizados em uma planilha Excel. Seu orientador pediu uma análise descritiva para discutir na reunião de sexta-feira — e mencionou, de passagem, que gostaria de incluir as figuras em um artigo que está escrevendo.</p>
+<p>Carolina nunca usou R. Nunca usou Python. Conhece o Excel razoavelmente bem.</p>
+</section>
+<section id="primeira-etapa-exploração-rápida-modo-1" class="level3">
+<h3 class="anchored" data-anchor-id="primeira-etapa-exploração-rápida-modo-1">Primeira Etapa — Exploração Rápida (Modo 1)</h3>
+<p>A reunião é na sexta. É quarta-feira à noite. Carolina não tem tempo para aprender uma linguagem de programação.</p>
+<p>Ela abre o Julius AI, cria uma conta gratuita e faz o upload da planilha Excel. Em seguida, digita na caixa de conversa:</p>
+<blockquote class="blockquote">
+<p><em>“Quero um boxplot comparando a pressão sistólica entre homens e mulheres. Eixos em português, tema limpo.”</em></p>
+</blockquote>
+<p>Em menos de um minuto, o Julius executa o código internamente, exibe o raciocínio intermediário — qual biblioteca utilizou, como tratou os dados — e apresenta o gráfico. Carolina examina o resultado. A distribuição faz sentido com o que observou clinicamente: homens com mediana ligeiramente mais alta, maior dispersão nas mulheres. Ela pede um ajuste:</p>
+<blockquote class="blockquote">
+<p><em>“Adiciona o número de pacientes em cada grupo no subtítulo.”</em></p>
+</blockquote>
+<p>O gráfico é atualizado. Ela baixa a imagem e leva para a reunião.</p>
+<p>Na sexta, o orientador aprova a análise e confirma: quer incluir as figuras no artigo. Um gráfico gerado como imagem pelo Julius não é suficiente para isso — não há código, não há reprodutibilidade, não há como o revisor da revista verificar como a figura foi produzida. Carolina precisa de algo diferente para a etapa seguinte.</p>
+</section>
+<section id="segunda-etapa-estruturar-o-projeto-modo-3" class="level3">
+<h3 class="anchored" data-anchor-id="segunda-etapa-estruturar-o-projeto-modo-3">Segunda Etapa — Estruturar o Projeto (Modo 3)</h3>
+<p>De volta ao computador, Carolina abre o Claude Cowork. Ela não sabe como organizar um projeto científico em Quarto — nunca usou a ferramenta. Mas sabe descrever o que precisa:</p>
+<blockquote class="blockquote">
+<p><em>“Preciso criar um projeto Quarto para um artigo científico. Quero uma pasta para as imagens geradas, uma pasta para os scripts R, uma pasta para as referências em formato BibTeX, e um arquivo principal .qmd já configurado com título, autor e seções básicas de um artigo de medicina.”</em></p>
+</blockquote>
+<p>O Cowork lê o pedido, cria a estrutura de pastas e arquivos diretamente no diretório de trabalho de Carolina. Quando ela abre o explorador de arquivos, encontra o projeto já organizado: <code>manuscript.qmd</code>, <code>references/bibliography.bib</code>, <code>scripts/analysis.R</code>, <code>figures/</code>. O arquivo <code>.qmd</code> principal já contém o cabeçalho YAML configurado, as seções Introdução, Métodos, Resultados e Discussão, e as instruções de importação do BibTeX.</p>
+<p>Carolina não escreveu uma linha de código. Não precisou.</p>
+<p>Ao longo dos dias seguintes, ela usa o Cowork para tarefas que envolvem múltiplos arquivos: pede que o script de análise seja atualizado para incluir uma nova variável, solicita que uma referência específica seja adicionada ao arquivo BibTeX, pede que uma figura seja movida para a pasta correta e referenciada no documento principal. O Cowork executa cada uma dessas tarefas diretamente nos arquivos — Carolina revisa o resultado e decide se aprova ou pede ajuste.</p>
+</section>
+<section id="terceira-etapa-produzir-os-gráficos-para-publicação-modo-2" class="level3">
+<h3 class="anchored" data-anchor-id="terceira-etapa-produzir-os-gráficos-para-publicação-modo-2">Terceira Etapa — Produzir os Gráficos para Publicação (Modo 2)</h3>
+<p>Com o projeto estruturado, Carolina abre o Positron. O arquivo <code>analysis.R</code> já existe na pasta, criado pelo Cowork com a estrutura básica. Ela clica no painel do Positron Assistant e escreve:</p>
+<blockquote class="blockquote">
+<p><em>“Tenho um dataframe chamado ‘pacientes’ com as colunas: idade, sexo, pas, pad, imc, tabagismo, medicamento. Quero um boxplot de pressão sistólica por sexo, com tema minimalista, eixos em português e paleta de cores adequada para publicação científica.”</em></p>
+</blockquote>
+<p>O Positron Assistant responde com código <code>ggplot2</code>. Diferentemente de um assistente genérico, ele já sabe que o dataframe <code>pacientes</code> está carregado na sessão — vê as colunas, os tipos de variável, os valores presentes. O código gerado é imediatamente executável. Carolina clica em executar. O gráfico aparece no painel de visualização do Positron.</p>
+<p>Ela examina o resultado com olhar clínico, não técnico. A escala do eixo Y está adequada para os valores de pressão arterial? A distinção entre os grupos está visualmente clara? A figura comunica o que precisa comunicar para um leitor da área? Ela identifica um ponto: quer adicionar os valores medianos explicitamente sobre cada boxplot. Digita para o assistente:</p>
+<blockquote class="blockquote">
+<p><em>“Adiciona a mediana como valor numérico sobre cada boxplot.”</em></p>
+</blockquote>
+<p>O código é atualizado. Ela executa novamente. Aprova. Salva a figura na pasta <code>figures/</code> e a referencia no documento <code>.qmd</code>.</p>
+<p>O processo se repete para as demais figuras do artigo. Em nenhum momento Carolina precisou memorizar a sintaxe do <code>ggplot2</code>, entender o funcionamento interno das camadas ou consultar a documentação do pacote. Precisou, no entanto, de algo que nenhuma IA substitui: saber o que estava olhando, reconhecer quando o resultado fazia sentido clínico e estatístico, e formular perguntas precisas sobre seus próprios dados.</p>
+</section>
+<section id="o-que-este-exemplo-ilustra" class="level3">
+<h3 class="anchored" data-anchor-id="o-que-este-exemplo-ilustra">O que Este Exemplo Ilustra</h3>
+<p>O percurso de Carolina não é linear nem hierárquico. Ela transitou entre três modos conforme a necessidade de cada momento: o Modo 1 para exploração rápida quando o tempo era o fator limitante; o Modo 3 para estruturar e delegar tarefas que envolviam múltiplos arquivos; o Modo 2 para produzir código reproduzível quando o destino era a publicação científica. As ferramentas não competem entre si — complementam-se.</p>
+<p>O elemento constante em todas as etapas não foi técnico. Foi a capacidade de Carolina de formular perguntas clínicas precisas, reconhecer quando os resultados faziam sentido com o que ela sabia sobre os dados e identificar o que precisava ser ajustado. Essa capacidade não foi fornecida pela IA. Foi construída ao longo da formação médica — e é exatamente ela que transforma o acesso às ferramentas em conhecimento útil.</p>
+<hr>
+</section>
+</section>
+<section id="como-pedir-bem-a-lógica-do-prompt-clínico" class="level2">
+<h2 class="anchored" data-anchor-id="como-pedir-bem-a-lógica-do-prompt-clínico">Como Pedir Bem: a Lógica do Prompt Clínico</h2>
+<p>A qualidade do gráfico produzido pela IA depende, em larga medida, da qualidade do pedido que o pesquisador faz. Este é um ponto que merece atenção — não porque exija habilidade técnica especial, mas porque exige precisão conceitual.</p>
+<p>Para ilustrar concretamente, vamos usar um dataset fictício de 80 pacientes hipertensos — o mesmo cenário de Carolina, que conhecemos na seção anterior. Considere os dois pedidos a seguir, feitos para o mesmo conjunto de dados:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>hipertensos <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">kbl</span>(</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"ID"</span>, <span class="st">"Idade"</span>, <span class="st">"Sexo"</span>, <span class="st">"PAS (mmHg)"</span>, <span class="st">"PAD (mmHg)"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5"></a>                   <span class="st">"IMC (kg/m²)"</span>, <span class="st">"Tabagismo"</span>, <span class="st">"Medicamento"</span>),</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="at">caption =</span> <span class="st">"Dataset fictício de pacientes hipertensos (primeiros 10 registros)"</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>),</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="at">position =</span> <span class="st">"center"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="at">font_size =</span> <span class="dv">14</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#2563EB"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<caption>Dataset fictício de pacientes hipertensos (primeiros 10 registros)</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(37, 99, 235, 255) !important;">ID</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(37, 99, 235, 255) !important;">Idade</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(37, 99, 235, 255) !important;">Sexo</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(37, 99, 235, 255) !important;">PAS (mmHg)</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(37, 99, 235, 255) !important;">PAD (mmHg)</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; color: white !important; background-color: rgba(37, 99, 235, 255) !important;">IMC (kg/m²)</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(37, 99, 235, 255) !important;">Tabagismo</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; color: white !important; background-color: rgba(37, 99, 235, 255) !important;">Medicamento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">31.3</td>
+<td style="text-align: left;">Não</td>
+<td style="text-align: left;">Diurético</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold;">2</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">139</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">29.5</td>
+<td style="text-align: left;">Não</td>
+<td style="text-align: left;">Betabloqueador</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold;">3</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">122</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">34.2</td>
+<td style="text-align: left;">Não</td>
+<td style="text-align: left;">BRA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold;">4</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">29.4</td>
+<td style="text-align: left;">Sim</td>
+<td style="text-align: left;">Betabloqueador</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold;">5</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">132</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">31.1</td>
+<td style="text-align: left;">Não</td>
+<td style="text-align: left;">Inibidor da ECA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold;">6</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">146</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">26.9</td>
+<td style="text-align: left;">Não</td>
+<td style="text-align: left;">Inibidor da ECA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold;">7</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">25.2</td>
+<td style="text-align: left;">Não</td>
+<td style="text-align: left;">Betabloqueador</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold;">8</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">28.8</td>
+<td style="text-align: left;">Sim</td>
+<td style="text-align: left;">Inibidor da ECA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold;">9</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">33.1</td>
+<td style="text-align: left;">Não</td>
+<td style="text-align: left;">BRA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold;">10</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">154</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: left;">Não</td>
+<td style="text-align: left;">Betabloqueador</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Agora, observe a diferença entre um pedido vago e um pedido preciso — e o que cada um produz.</p>
+<blockquote class="blockquote">
+<p><em>“Faça um gráfico de pressão arterial.”</em></p>
+</blockquote>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Resultado provável de um prompt vago</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">ggplot</span>(hipertensos, <span class="fu">aes</span>(<span class="at">x =</span> medicamento, <span class="at">y =</span> pas, <span class="at">fill =</span> medicamento)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> mean, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="at">title =</span> <span class="st">"Pressão Arterial por Medicamento"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="at">x =</span> <span class="st">"Medicamento"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="at">y =</span> <span class="st">"Pressão Arterial Sistólica (mmHg)"</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="cap11-ia_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="cap11-ia_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>O resultado é um gráfico genérico: barras com médias, sem medida de dispersão, sem foco em nenhuma comparação clínica específica. A IA fez <em>algo</em> — mas não fez o que o pesquisador precisava.</p>
+<p>Agora, o mesmo dataset com um pedido preciso:</p>
+<blockquote class="blockquote">
+<p><em>“Quero um boxplot comparando a pressão arterial sistólica entre pacientes em uso de betabloqueadores e pacientes em uso de inibidores da ECA. Os dados estão na coluna ‘pas’ e a classe do medicamento está na coluna ‘medicamento’. Usa tema minimalista, eixos em português, sem legenda. Inclui o número de pacientes em cada grupo abaixo do rótulo do eixo X.”</em></p>
+</blockquote>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Resultado de um prompt preciso</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>hipertensos_filtrado <span class="ot">&lt;-</span> hipertensos <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">filter</span>(medicamento <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Betabloqueador"</span>, <span class="st">"Inibidor da ECA"</span>))</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># Calcular n por grupo para rótulos do eixo X</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>n_por_grupo <span class="ot">&lt;-</span> hipertensos_filtrado <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">count</span>(medicamento) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">paste0</span>(medicamento, <span class="st">"</span><span class="sc">\n</span><span class="st">(n = "</span>, n, <span class="st">")"</span>))</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a>rotulos <span class="ot">&lt;-</span> <span class="fu">setNames</span>(n_por_grupo<span class="sc">$</span>label, n_por_grupo<span class="sc">$</span>medicamento)</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="fu">ggplot</span>(hipertensos_filtrado, <span class="fu">aes</span>(<span class="at">x =</span> medicamento, <span class="at">y =</span> pas, <span class="at">fill =</span> medicamento)) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">outlier.color =</span> <span class="st">"red"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> rotulos) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Betabloqueador"</span> <span class="ot">=</span> <span class="st">"#2E86AB"</span>, <span class="st">"Inibidor da ECA"</span> <span class="ot">=</span> <span class="st">"#A23B72"</span>)) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="at">title =</span> <span class="st">"Pressão Arterial Sistólica por Classe de Anti-hipertensivo"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="at">subtitle =</span> <span class="st">"Comparação entre betabloqueadores e inibidores da ECA"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="at">y =</span> <span class="st">"PAS (mmHg)"</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="cap11-ia_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="cap11-ia_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A diferença é evidente. O primeiro pedido deixa para a IA todas as decisões relevantes: que variável usar, que tipo de gráfico, que comparação fazer, que estética adotar. O resultado é um gráfico — mas não o gráfico que o pesquisador precisava. O segundo pedido especifica a pergunta clínica subjacente, as variáveis envolvidas, o tipo de visualização adequado e as exigências de apresentação. O resultado é exatamente o que o pesquisador queria.</p>
+<p>A estrutura de um bom pedido para geração de gráficos pode ser organizada em quatro elementos, que correspondem a quatro perguntas que o pesquisador deve ser capaz de responder antes de abrir qualquer ferramenta.</p>
+<p><strong>Qual é a pergunta clínica ou científica que o gráfico responde?</strong> Esta é a pergunta mais importante — e a que a IA menos consegue responder sozinha. Um gráfico não é uma decoração; é um argumento visual. Antes de pedir qualquer visualização, o pesquisador deve saber exatamente o que quer demonstrar ou explorar. “A pressão sistólica difere entre as classes de medicamento?” é uma pergunta. “Fazer um gráfico de pressão arterial” não é.</p>
+<p><strong>Que variáveis estão envolvidas, e de que tipo são?</strong> A escolha do tipo de gráfico mais adequado depende da natureza das variáveis. Uma variável contínua comparada entre grupos categóricos sugere boxplot ou violin plot. Duas variáveis contínuas sugerem diagrama de dispersão. Uma variável categórica com frequências sugere gráfico de barras. A IA pode fazer essa escolha automaticamente — mas frequentemente erra quando o pedido é ambíguo. Especificar as variáveis pelo nome exato que aparecem na planilha, e informar seu tipo, elimina grande parte dos erros.</p>
+<p><strong>Para que contexto é o gráfico?</strong> Um gráfico para uma apresentação em reunião de equipe tem exigências diferentes de um gráfico para submissão a um periódico científico. O primeiro pode ser mais informal, com cores mais vivas e menos precisão nos detalhes. O segundo precisa atender a padrões tipográficos, ter resolução adequada para impressão e documentar as escolhas metodológicas em código reproduzível. Informar o contexto ao assistente melhora significativamente a adequação do resultado.</p>
+<p><strong>Há alguma exigência específica de apresentação?</strong> Idioma dos rótulos, paleta de cores, presença ou ausência de legenda, inclusão de valores estatísticos sobre o gráfico, número de pacientes por grupo — esses detalhes fazem a diferença entre um gráfico funcional e um gráfico publicável. Quanto mais desses elementos forem especificados no pedido inicial, menos ciclos de refinamento serão necessários.</p>
+<p>Esses quatro elementos não precisam ser apresentados em formato de lista no pedido — podem ser incorporados naturalmente em um parágrafo de linguagem corrente. O que importa é que o pesquisador tenha as respostas antes de começar. Um pedido bem formulado para a IA é, antes de tudo, evidência de que o pesquisador entende seus próprios dados.</p>
+<p>Vale registrar uma observação sobre idioma. As ferramentas de IA contemporâneas compreendem e respondem adequadamente em português. Não é necessário formular pedidos em inglês para obter melhores resultados — e formular em português tem a vantagem de produzir rótulos, títulos e legendas já no idioma correto, sem necessidade de tradução posterior. Para pesquisadores que produzem em português, esta é a abordagem mais eficiente.</p>
+<hr>
+</section>
+<section id="a-ia-ainda-erra" class="level2">
+<h2 class="anchored" data-anchor-id="a-ia-ainda-erra">A IA Ainda Erra</h2>
+<p>A apresentação das ferramentas nas seções anteriores pode criar uma impressão equivocada: a de que a IA é um sistema confiável que produz resultados corretos desde que receba pedidos bem formulados. Essa impressão precisa ser corrigida antes de encerrar o capítulo.</p>
+<p>A IA erra. Erra com frequência, erra de formas específicas e previsíveis, e — o que é mais relevante — erra silenciosamente. Diferentemente de um erro de sintaxe em R, que interrompe a execução e exibe uma mensagem de aviso, um erro conceitual da IA produz um gráfico visualmente impecável que está estatisticamente ou clinicamente errado. O pesquisador que não sabe o que está olhando não tem como detectar o problema.</p>
+<p>Esta seção não tem o objetivo de desencorajar o uso das ferramentas. Tem o objetivo de calibrar as expectativas e tornar explícita a responsabilidade que permanece intransferível: a do pesquisador que conhece seus dados, seu contexto clínico e sua pergunta científica.</p>
+<section id="a-ia-não-conhece-o-contexto-clínico-dos-dados" class="level3">
+<h3 class="anchored" data-anchor-id="a-ia-não-conhece-o-contexto-clínico-dos-dados">A IA não Conhece o Contexto Clínico dos Dados</h3>
+<p>As ferramentas de IA trabalham com estrutura — colunas, tipos de variável, distribuições numéricas. Não trabalham com significado clínico. Isso cria uma categoria de erros que nenhum refinamento de prompt elimina completamente.</p>
+<p>Se uma coluna chamada “glicose” contém o valor 340 mg/dL em um registro, a IA não sabe se esse é um valor real de um paciente diabético descompensado, um erro de digitação ou um outlier que deve ser excluído antes da análise. Se uma coluna chamada “sexo” contém as entradas “M”, “masculino” e “Masculino”, a IA pode tratar essas como três categorias distintas — e produzir um gráfico com três grupos onde deveriam existir dois, sem qualquer aviso. Se os dados incluem medidas repetidas do mesmo paciente em momentos diferentes, a IA não sabe que comparar esses grupos como amostras independentes seria metodologicamente inadequado.</p>
+<p>Esses erros não são falhas das ferramentas — são consequências inevitáveis da ausência de contexto clínico. A solução não é técnica: é o pesquisador examinar seus dados antes de pedir qualquer gráfico, verificar inconsistências, confirmar que os valores estão dentro de limites biologicamente plausíveis e entender a estrutura do conjunto de dados que está analisando.</p>
+</section>
+<section id="a-ia-não-escolhe-o-tipo-de-gráfico-correto-por-você" class="level3">
+<h3 class="anchored" data-anchor-id="a-ia-não-escolhe-o-tipo-de-gráfico-correto-por-você">A IA não Escolhe o Tipo de Gráfico Correto por Você</h3>
+<p>A escolha do tipo de visualização mais adequado para uma determinada pergunta científica é uma decisão metodológica, não estética. A IA tende a produzir o gráfico mais comum para o tipo de variável que detecta — o que frequentemente é adequado, mas nem sempre.</p>
+<p>Um exemplo recorrente: ao receber uma variável categórica no eixo X e uma variável contínua no eixo Y, sem instruções adicionais, alguns modelos de linguagem geram gráficos de linha conectando as categorias. Isso está errado. Linhas implicam continuidade e ordenação — adequadas para séries temporais ou variáveis ordinais com progressão clara, não para categorias nominais como tipos de medicamento, diagnósticos ou especialidades médicas. O gráfico resultante é visualmente fluente e analiticamente incorreto.</p>
+<p>O pesquisador que compreende minimamente os princípios de visualização de dados — apresentados nos capítulos anteriores deste livro — está equipado para identificar esse tipo de erro imediatamente. O pesquisador que delega também a decisão sobre o tipo de gráfico à IA está vulnerável a erros que não saberá detectar.</p>
+</section>
+<section id="a-ia-não-verifica-pressupostos-estatísticos" class="level3">
+<h3 class="anchored" data-anchor-id="a-ia-não-verifica-pressupostos-estatísticos">A IA não Verifica Pressupostos Estatísticos</h3>
+<p>Quando solicitada a adicionar uma linha de regressão linear a um diagrama de dispersão, a IA adiciona. Se não for explicitamente solicitado, a IA não verifica se a relação entre as variáveis é de fato linear; não testa a normalidade dos resíduos, não identifica pontos influentes que distorcem a estimativa; não avisa que, com aquela distribuição específica, uma transformação logarítmica seria mais apropriada.</p>
+<p>O mesmo vale para outros elementos estatísticos que a IA incorpora automaticamente em gráficos: intervalos de confiança calculados sem verificação de pressupostos, barras de erro que podem representar desvio padrão ou erro padrão sem distinção clara, testes de significância aplicados sem consideração sobre o poder estatístico da amostra.</p>
+<p>A IA executa o que foi pedido — e frequentemente executa bem. Mas a responsabilidade de verificar se o que foi pedido é estatisticamente adequado para os dados em questão continua sendo do pesquisador.</p>
+</section>
+<section id="a-ia-alucina" class="level3">
+<h3 class="anchored" data-anchor-id="a-ia-alucina">A IA Alucina</h3>
+<p>Modelos de linguagem de grande porte produzem, ocasionalmente, código que contém referências a funções inexistentes, argumentos inválidos ou pacotes que não existem. Este fenômeno — denominado alucinação no vocabulário técnico da área <span class="citation" data-cites="ji2023">(<a href="#ref-ji2023" role="doc-biblioref">Ji <em>et al.</em>, 2023</a>)</span> — ocorre com frequência suficiente para merecer atenção sistemática.</p>
+<p>Na prática, isso significa que nem todo código gerado pela IA executa sem erros. Antes de incorporar qualquer figura produzida por IA em um documento científico, o pesquisador deve executar o código em seu ambiente local e verificar que o resultado corresponde ao esperado.</p>
+<p>A verificação não exige expertise em programação. Exige o hábito de testar antes de confiar — o mesmo hábito que a medicina clínica desenvolve em relação a qualquer resultado de exame complementar.</p>
+</section>
+<section id="a-responsabilidade-como-competência" class="level3">
+<h3 class="anchored" data-anchor-id="a-responsabilidade-como-competência">A Responsabilidade como Competência</h3>
+<p>Seria possível apresentar esses limites como uma lista de advertências — um conjunto de ressalvas que o pesquisador deve memorizar antes de usar as ferramentas. Esta não é, no entanto, a perspectiva mais útil.</p>
+<p>Os limites descritos acima não são peculiaridades das ferramentas de IA. São, em sua maioria, os mesmos limites que existiam quando o pesquisador dependia de um colaborador humano para produzir seus gráficos: o colaborador também não conhecia o contexto clínico dos dados, também podia escolher o tipo errado de visualização, também podia aplicar uma regressão sem verificar os pressupostos. A diferença é que o colaborador humano estava presente para receber perguntas e oferecer justificativas — e essa presença criava um circuito de verificação que a IA não reproduz automaticamente.</p>
+<p>O que a IA exige do pesquisador é, portanto, o mesmo que qualquer ferramenta poderosa exige: que quem a utiliza saiba o suficiente para avaliar o resultado. Não é necessário saber construir a ferramenta. É necessário saber julgar o que ela produziu.</p>
+<p>Esta é, no fundo, a competência que distingue o pesquisador do usuário passivo — e é uma competência que a formação médica, com sua ênfase em raciocínio diagnóstico, avaliação crítica de evidências e responsabilidade sobre decisões com consequências reais, está particularmente bem posicionada para desenvolver.</p>
+<hr>
+</section>
+</section>
+<section id="o-momento-atual-uma-janela-que-se-abriu" class="level2">
+<h2 class="anchored" data-anchor-id="o-momento-atual-uma-janela-que-se-abriu">O Momento Atual: uma Janela que se Abriu</h2>
+<p>Durante décadas, produzir visualizações científicas de qualidade exigiu um investimento técnico que a maioria dos pesquisadores na área da saúde simplesmente não tinha condições de fazer. O papel milimetrado cedeu lugar ao Excel, o Excel cedeu lugar ao R e ao Python — mas cada transição manteve, de formas diferentes, uma barreira de entrada que separava quem sabia programar de quem não sabia. A qualidade estava disponível, mas não era acessível.</p>
+<p>Essa barreira não foi gradualmente reduzida. Foi removida de forma abrupta, em um período de menos de três anos, por ferramentas que transformaram linguagem natural em código executável. O estudante de medicina que hoje descreve em português o gráfico que precisa e recebe código <code>ggplot2</code> funcional em segundos não está usando um atalho — está usando o estado atual da tecnologia disponível. A exigência de que pesquisadores clínicos internalizassem sintaxe de programação antes de produzir ciência de qualidade nunca foi uma necessidade intrínseca à boa pesquisa. Era um custo de acesso. Esse custo desapareceu.</p>
+<p>O que permanece — e o que este capítulo buscou tornar explícito — é que o desaparecimento da barreira técnica não eliminou a necessidade de competência intelectual. Pelo contrário: ao remover o obstáculo da sintaxe, as ferramentas de IA tornaram mais visível o que sempre foi o núcleo do trabalho científico. Formular a pergunta certa. Conhecer os dados com suficiente profundidade para reconhecer quando um resultado não faz sentido. Escolher a representação visual que comunica com honestidade o que os dados dizem — nem mais, nem menos. Assumir responsabilidade sobre cada decisão metodológica, mesmo quando a execução foi delegada a uma ferramenta.</p>
+<p>Essas competências não são técnicas. São intelectuais. E são exatamente as que a formação médica desenvolve ao longo de anos de treinamento em raciocínio diagnóstico, avaliação crítica de evidências e tomada de decisão sob incerteza.</p>
+<p>Há uma ironia produtiva nessa convergência. As ferramentas de IA foram desenvolvidas, em sua maioria, por engenheiros e cientistas da computação — não por médicos ou pesquisadores clínicos. Mas ao democratizar o acesso à visualização de dados científicos, essas ferramentas acabaram por valorizar precisamente o tipo de raciocínio que a medicina cultiva. O médico que sabe formular uma pergunta clínica precisa, que reconhece um resultado biologicamente implausível e que assume responsabilidade sobre suas conclusões está, sem perceber, bem preparado para trabalhar com IA de forma competente.</p>
+<p>O ecossistema de ferramentas continuará evoluindo. As plataformas descritas neste capítulo serão substituídas ou transformadas por versões mais capazes. Os modelos de linguagem que hoje geram código <code>ggplot2</code> a partir de descrições em português gerarão, em breve, análises estatísticas completas <span class="citation" data-cites="hoerl2025">(<a href="#ref-hoerl2025" role="doc-biblioref">Hoerl, 2025</a>)</span>, documentos Quarto estruturados e figuras prontas para submissão — com ainda menos fricção técnica. Essa evolução não torna o conhecimento metodológico obsoleto. Torna-o mais necessário: quanto mais poderosa a ferramenta, maior a responsabilidade de quem a dirige.</p>
+<p>A janela que se abriu nos últimos anos é real e significativa. Aproveitá-la bem não exige que o pesquisador clínico se torne um programador. Exige que ele continue sendo o que a formação médica o preparou para ser: alguém que pensa com rigor sobre perguntas difíceis e assume responsabilidade sobre as respostas que oferece.</p>
+
+
+<!-- -->
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> De volta ao topo</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
+<div id="ref-becker1994" class="csl-entry" role="listitem">
+BECKER, Richard A. <strong>A Brief History of <span>S</span></strong>. Murray Hill, NJ: AT&amp;T Bell Laboratories, 1994.
+</div>
+<div id="ref-cascella2023" class="csl-entry" role="listitem">
+CASCELLA, Marco <em>et al.</em> <a href="https://doi.org/10.1007/s10916-023-01925-4">Evaluating the Feasibility of <span>ChatGPT</span> in Healthcare: <span>An</span> Analysis of Multiple Clinical and Research Scenarios</a>. <strong>Journal of Medical Systems</strong>, [<em>s.l.</em>], vol. 47, n.º 1, p. 33, 2023.
+</div>
+<div id="ref-harris2020" class="csl-entry" role="listitem">
+HARRIS, Charles R. <em>et al.</em> <a href="https://doi.org/10.1038/s41586-020-2649-2">Array Programming with <span>NumPy</span></a>. <strong>Nature</strong>, [<em>s.l.</em>], vol. 585, pp. 357–362, 2020.
+</div>
+<div id="ref-hesse2009" class="csl-entry" role="listitem">
+HESSE, Rick; HESSE SCERNO, Deborah. <a href="https://doi.org/10.1287/inte.1080.0376">How Electronic Spreadsheets Changed the World</a>. <strong>Interfaces</strong>, [<em>s.l.</em>], vol. 39, n.º 2, pp. 159–167, 2009.
+</div>
+<div id="ref-hoerl2025" class="csl-entry" role="listitem">
+HOERL, Roger W. <strong>The Future of Statistics in an <span>AI</span> Era</strong>. 2025.
+</div>
+<div id="ref-hornik2012" class="csl-entry" role="listitem">
+HORNIK, Kurt. <a href="https://doi.org/10.1002/wics.1212">The Comprehensive <span>R</span> Archive Network</a>. <strong>WIREs Computational Statistics</strong>, [<em>s.l.</em>], vol. 4, pp. 394–398, 2012.
+</div>
+<div id="ref-ihaka1996" class="csl-entry" role="listitem">
+IHAKA, Ross; GENTLEMAN, Robert. <a href="https://doi.org/10.1080/10618600.1996.10474713"><span>R</span>: A Language for Data Analysis and Graphics</a>. <strong>Journal of Computational and Graphical Statistics</strong>, [<em>s.l.</em>], vol. 5, n.º 3, pp. 299–314, 1996.
+</div>
+<div id="ref-ji2023" class="csl-entry" role="listitem">
+JI, Ziwei <em>et al.</em> <a href="https://doi.org/10.1145/3571730">Survey of Hallucination in Natural Language Generation</a>. <strong>ACM Computing Surveys</strong>, [<em>s.l.</em>], vol. 55, n.º 12, pp. 1–38, 2023.
+</div>
+<div id="ref-mesko2023" class="csl-entry" role="listitem">
+MESKO, Bertalan. <a href="https://doi.org/10.2196/48392">The <span>ChatGPT</span> (Generative Artificial Intelligence) Revolution Has Made Artificial Intelligence Approachable for Medical Professionals</a>. <strong>Journal of Medical Internet Research</strong>, [<em>s.l.</em>], vol. 25, p. e48392, 2023.
+</div>
+<div id="ref-nejjar2025" class="csl-entry" role="listitem">
+NEJJAR, Mohamed <em>et al.</em> <a href="https://doi.org/10.1002/smr.2723"><span>LLMs</span> for Science: Usage for Code Generation and Data Analysis</a>. <strong>Journal of Software: Evolution and Process</strong>, [<em>s.l.</em>], vol. 37, n.º 1, 2025.
+</div>
+<div id="ref-severance2015" class="csl-entry" role="listitem">
+SEVERANCE, Charles. <a href="https://doi.org/10.1109/MC.2015.45">Guido van <span>Rossum</span>: The Early Years of <span>Python</span></a>. <strong>Computer</strong>, [<em>s.l.</em>], vol. 48, n.º 2, pp. 7–9, 2015.
+</div>
+<div id="ref-wickham2010" class="csl-entry" role="listitem">
+WICKHAM, Hadley. <a href="https://doi.org/10.1198/jcgs.2009.07098">A Layered Grammar of Graphics</a>. <strong>Journal of Computational and Graphical Statistics</strong>, [<em>s.l.</em>], vol. 19, n.º 1, pp. 3–28, 2010.
+</div>
+<div id="ref-wickham2016" class="csl-entry" role="listitem">
+WICKHAM, Hadley. <strong><a href="https://doi.org/10.1007/978-3-319-24277-4">ggplot2: Elegant Graphics for Data Analysis</a></strong>. 2. ed. [<em>S.l.</em>]: Springer-Verlag New York, 2016.
+</div>
+<div id="ref-wilkinson2005" class="csl-entry" role="listitem">
+WILKINSON, Leland. <strong><a href="https://doi.org/10.1007/0-387-28695-0">The Grammar of Graphics</a></strong>. 2. ed. New York: Springer, 2005.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/henriquealvarenga\.github\.io\/graficos-site");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cap14-galeria-horrores.html" class="pagination-link" aria-label="Galeria de Horrores">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Galeria de Horrores</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cap15-fluxograma.html" class="pagination-link" aria-label="Qual Gráfico Devo Usar?">
+        <span class="nav-page-text">Qual Gráfico Devo Usar?</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Código fonte</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">---</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="an">title:</span><span class="co"> "Criando Gráficos com IA"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="an">subtitle:</span><span class="co"> "Capítulo 11 - O Fim de uma Barreira"</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="an">author:</span><span class="co"> "Henrique Alvarenga da Silva"</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="an">date:</span><span class="co"> last-modified</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">---</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="in">```{r}</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#| label: setup</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#| include: false</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="fu">source</span>(<span class="st">"_common.R"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="in">```</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="fu">## Introdução</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a>A visualização de dados científicos sempre exigiu trabalho. Antes dos computadores pessoais, gráficos eram produzidos à mão: papel milimetrado, régua, tinta nanquim. Um pesquisador que desejasse apresentar a distribuição de pressão arterial em uma amostra de pacientes desenhava cada ponto manualmente, calculava médias com tabelas logarítmicas e reproduzia a figura por decalque ou fotografia. O processo era lento, caro e tecnicamente exigente.</span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a>Com a chegada dos computadores pessoais nos anos 1980 e 1990, esse processo migrou para a tela. Planilhas eletrônicas — o Lotus 1-2-3 primeiro, o Microsoft Excel depois — tornaram-se o ambiente padrão para análise de dados em praticamente todas as áreas, incluindo as ciências da saúde <span class="co">[</span><span class="ot">@hesse2009</span><span class="co">]</span>. O Excel democratizou o acesso aos dados: qualquer profissional com um computador podia calcular médias, construir tabelas e gerar gráficos de barras em minutos. Era uma ruptura real em relação ao papel milimetrado.</span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a>Mas o Excel tinha limites sérios para a ciência. Os gráficos produzidos eram visualmente pobres e difíceis de personalizar com precisão. A reprodutibilidade era frágil — refazer exatamente o mesmo gráfico com dados atualizados exigia repetir manualmente cada etapa. A capacidade estatística era limitada. E, sobretudo, o Excel não foi projetado para comunicação científica: faltavam controle tipográfico, suporte a múltiplas camadas estatísticas e integração com os padrões de publicação acadêmica.</span>
+<span id="cb4-23"><a href="#cb4-23"></a></span>
+<span id="cb4-24"><a href="#cb4-24"></a>Foi nesse contexto que R e Python emergiram como alternativas. Não eram ferramentas de escritório, mas linguagens de programação científica — abertas, gratuitas, construídas pela e para a comunidade acadêmica. Com elas, um pesquisador podia descrever com precisão cada elemento de uma visualização, integrar análise estatística e gráfico no mesmo fluxo de trabalho, e garantir que qualquer colega pudesse reproduzir o resultado exato a partir do mesmo código. A qualidade e o rigor que o Excel não oferecia estavam ali — mas a um preço: era necessário aprender a programar.</span>
+<span id="cb4-25"><a href="#cb4-25"></a></span>
+<span id="cb4-26"><a href="#cb4-26"></a>Esse custo excluiu sistematicamente uma parcela enorme de pesquisadores na área da saúde. Profissionais tecnicamente sólidos em raciocínio clínico e metodologia, mas sem formação em programação, permaneceram dependentes de colaboradores especializados ou confinados às limitações das planilhas. </span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="fu">## R, Python e a Gramática dos Gráficos</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a></span>
+<span id="cb4-31"><a href="#cb4-31"></a>R foi criado em 1993 por Ross Ihaka e Robert Gentleman, na Universidade de Auckland <span class="co">[</span><span class="ot">@ihaka1996</span><span class="co">]</span>, como uma implementação livre da linguagem S, desenvolvida nos Bell Labs nos anos 1970 <span class="co">[</span><span class="ot">@becker1994</span><span class="co">]</span>. Desde o início, seu propósito era explicitamente científico: uma linguagem projetada para análise estatística, não para desenvolvimento de software comercial. Python, criado por Guido van Rossum em 1991 <span class="co">[</span><span class="ot">@severance2015</span><span class="co">]</span>, tinha origens mais generalistas, mas ao longo dos anos 2000 foi progressivamente adotado pela comunidade científica, especialmente após o desenvolvimento de bibliotecas como NumPy <span class="co">[</span><span class="ot">@harris2020</span><span class="co">]</span>, pandas e matplotlib. As duas linguagens convergiram, por caminhos distintos, para o mesmo papel: o padrão de fato da ciência de dados moderna.</span>
+<span id="cb4-32"><a href="#cb4-32"></a></span>
+<span id="cb4-33"><a href="#cb4-33"></a>No campo específico da visualização, R produziu uma contribuição que merece atenção particular. Em 1999, o estatístico Leland Wilkinson publicou *The Grammar of Graphics* <span class="co">[</span><span class="ot">@wilkinson2005</span><span class="co">]</span>, obra em que propôs uma teoria formal para descrever visualizações de dados. A ideia central era elegante: assim como a gramática de uma língua define regras para combinar palavras em frases com significado, uma gramática dos gráficos definiria regras para combinar elementos visuais — dados, geometrias, escalas, coordenadas, anotações — em representações coerentes e precisas. Um gráfico deixava de ser um objeto monolítico escolhido de um menu e passava a ser uma composição descritível em camadas.</span>
+<span id="cb4-34"><a href="#cb4-34"></a></span>
+<span id="cb4-35"><a href="#cb4-35"></a>Em 2005, Hadley Wickham, então doutorando na Universidade de Iowa, traduziu essa teoria em código <span class="co">[</span><span class="ot">@wickham2010</span><span class="co">]</span>. O pacote <span class="in">`ggplot2`</span>, publicado para R <span class="co">[</span><span class="ot">@wickham2016</span><span class="co">]</span>, implementava a gramática de Wilkinson de forma que qualquer pesquisador pudesse construir visualizações complexas descrevendo seus componentes em linguagem quase declarativa. Em vez de escolher "gráfico de barras" em um menu, o usuário especificava: estes são os dados, esta é a geometria, este é o mapeamento entre variáveis e elementos visuais, esta é a escala, este é o tema. A lógica era consistente e generalizável — aprendida uma vez, aplicava-se a qualquer tipo de gráfico.</span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-37"><a href="#cb4-37"></a>O impacto foi significativo. O <span class="in">`ggplot2`</span> tornou-se um dos pacotes mais baixados do repositório CRAN <span class="co">[</span><span class="ot">@hornik2012</span><span class="co">]</span> e estabeleceu-se como referência em publicações científicas de alto impacto, especialmente nas ciências biológicas e da saúde. Em Python, bibliotecas como Seaborn e Plotly seguiram princípios similares, expandindo o alcance da abordagem para a comunidade que trabalhava nessa linguagem.</span>
+<span id="cb4-38"><a href="#cb4-38"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a>O resultado foi um novo padrão. Pesquisadores que dominavam essas ferramentas produziam visualizações mais precisas, mais reproduzíveis e mais adequadas à comunicação científica do que qualquer alternativa baseada em planilhas. A distância entre o Excel e o <span class="in">`ggplot2`</span> não era apenas estética — era epistemológica. Um gráfico produzido em código podia ser auditado, replicado e modificado por qualquer pesquisador com acesso ao mesmo arquivo. Um gráfico produzido em planilha raramente oferecia essa garantia.</span>
+<span id="cb4-40"><a href="#cb4-40"></a></span>
+<span id="cb4-41"><a href="#cb4-41"></a>Mas a exigência permanecia: era necessário aprender a programar. E para um estudante de medicina com grade curricular já saturada, esse requisito continuava sendo, na prática, uma barreira bastante difícil.</span>
+<span id="cb4-42"><a href="#cb4-42"></a></span>
+<span id="cb4-43"><a href="#cb4-43"></a>---</span>
+<span id="cb4-44"><a href="#cb4-44"></a></span>
+<span id="cb4-45"><a href="#cb4-45"></a><span class="fu">## Inteligência Artificial </span></span>
+<span id="cb4-46"><a href="#cb4-46"></a></span>
+<span id="cb4-47"><a href="#cb4-47"></a>Em novembro de 2022, a OpenAI lançou publicamente o ChatGPT. Em poucas semanas, o sistema havia sido adotado por milhões de usuários em contextos que seus criadores mal haviam antecipado — entre eles, a geração de código <span class="co">[</span><span class="ot">@nejjar2025</span><span class="co">]</span>. Pesquisadores, estudantes e profissionais sem formação em programação — incluindo na área da saúde <span class="co">[</span><span class="ot">@mesko2023; @cascella2023</span><span class="co">]</span> — descobriram que podiam descrever em linguagem natural o que desejavam fazer computacionalmente e receber, em segundos, código funcional. A barreira que separava a intenção da execução havia mudado de natureza.</span>
+<span id="cb4-48"><a href="#cb4-48"></a></span>
+<span id="cb4-49"><a href="#cb4-49"></a>Para a visualização de dados científicos, as implicações foram imediatas. Um estudante que nunca havia escrito uma linha de R podia agora descrever um gráfico em português — "quero um boxplot comparando a pressão sistólica entre homens e mulheres, com tema limpo e eixos em português" — e receber código <span class="in">`ggplot2`</span> pronto para executar. Não era necessário conhecer a sintaxe do pacote, entender a lógica de camadas ou saber instalar dependências. A IA funcionava como uma intermediária entre a intenção do pesquisador e a linguagem que a ferramenta compreendia.</span>
+<span id="cb4-50"><a href="#cb4-50"></a></span>
+<span id="cb4-51"><a href="#cb4-51"></a>---</span>
+<span id="cb4-52"><a href="#cb4-52"></a></span>
+<span id="cb4-53"><a href="#cb4-53"></a><span class="fu">## Três Formas de Trabalhar com IA para Gráficos</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a></span>
+<span id="cb4-55"><a href="#cb4-55"></a>Nem todas as ferramentas de inteligência artificial para visualização de dados funcionam da mesma forma, nem se destinam aos mesmos contextos. Antes de apresentar as opções disponíveis, é útil estabelecer uma distinção fundamental que orientará a escolha do pesquisador em cada situação.</span>
+<span id="cb4-56"><a href="#cb4-56"></a></span>
+<span id="cb4-57"><a href="#cb4-57"></a>Existem três modos distintos de trabalhar com IA para produzir gráficos científicos, e compreender a diferença entre eles é mais importante do que conhecer qualquer ferramenta específica. O primeiro é a **conversa direta com os dados**, em que o pesquisador envia sua planilha para uma plataforma online e recebe o gráfico como resultado, sem ver código e sem instalar nada. O segundo é a **assistência dentro do ambiente de desenvolvimento**, em que a IA opera dentro de um editor de código especializado, gerando código R ou Python visível e reproduzível enquanto o pesquisador trabalha. O terceiro — e mais recente — é o **trabalho autônomo sobre o projeto**, em que a IA recebe acesso a uma pasta de trabalho e age como um colaborador que lê arquivos, cria estruturas, edita documentos e executa tarefas encadeadas, enquanto o pesquisador dirige o processo por conversa.</span>
+<span id="cb4-58"><a href="#cb4-58"></a></span>
+<span id="cb4-59"><a href="#cb4-59"></a>A distinção entre os três modos não é hierárquica. São instrumentos diferentes para momentos diferentes do trabalho científico. A pergunta relevante para escolher entre eles é simples: **o que você vai fazer com o gráfico depois, e quanto controle precisa ter sobre o processo?**</span>
+<span id="cb4-60"><a href="#cb4-60"></a></span>
+<span id="cb4-61"><a href="#cb4-61"></a><span class="fu">### Modo 1 — Conversa Direta: você envia os dados, recebe o gráfico</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a></span>
+<span id="cb4-63"><a href="#cb4-63"></a>Neste modo, o pesquisador não escreve código em nenhum momento. O fluxo de trabalho é direto: carregar a planilha ou arquivo de dados em uma plataforma, descrever o gráfico desejado em linguagem natural e baixar o resultado. Toda a execução técnica — escolha de bibliotecas, escrita do código, geração da figura — ocorre de forma invisível, intermediada pela plataforma.</span>
+<span id="cb4-64"><a href="#cb4-64"></a></span>
+<span id="cb4-65"><a href="#cb4-65"></a>Este modo é particularmente adequado para pesquisadores sem qualquer familiaridade com programação, para situações em que o tempo disponível é limitado ou para a fase inicial de exploração de um conjunto de dados, quando o objetivo é ter uma visão geral antes de decidir quais análises aprofundar. O resultado, neste caso, é uma imagem — um arquivo estático que não documenta como foi produzido e que, portanto, não oferece garantias de reprodutibilidade para fins de publicação científica.</span>
+<span id="cb4-66"><a href="#cb4-66"></a></span>
+<span id="cb4-67"><a href="#cb4-67"></a>As principais plataformas disponíveis para este modo são as seguintes.</span>
+<span id="cb4-68"><a href="#cb4-68"></a></span>
+<span id="cb4-69"><a href="#cb4-69"></a>**ChatGPT com Análise de Dados Avançada** é provavelmente o ponto de entrada mais acessível, dado que a maioria dos estudantes já possui conta na plataforma. Nas versões pagas mais recentes, é possível carregar arquivos nos formatos CSV, Excel e PDF diretamente na conversa e solicitar gráficos em linguagem natural. Os gráficos gerados podem ser baixados como imagem. A limitação principal é que o ambiente é efêmero — os dados e o código não persistem entre sessões.</span>
+<span id="cb4-70"><a href="#cb4-70"></a></span>
+<span id="cb4-71"><a href="#cb4-71"></a>**Julius AI** (julius.ai) é uma plataforma especializada em análise de dados conversacional, construída sobre modelos de linguagem de grande porte. Diferentemente do ChatGPT, que é uma ferramenta generalista, o Julius foi projetado especificamente para análise de dados e oferece suporte tanto a Python quanto a R. A plataforma executa as análises em etapas visíveis, exibindo o raciocínio intermediário antes do resultado final — comportamento que facilita a identificação de eventuais erros de interpretação. Oferece plano gratuito com limitações de uso mensal.</span>
+<span id="cb4-72"><a href="#cb4-72"></a></span>
+<span id="cb4-73"><a href="#cb4-73"></a>**Google Gemini** integra-se naturalmente ao ecossistema Google e permite análise de planilhas diretamente do Google Sheets. Para pesquisadores que já utilizam o Google Drive como repositório de dados, esta integração elimina a necessidade de exportar e importar arquivos.</span>
+<span id="cb4-74"><a href="#cb4-74"></a></span>
+<span id="cb4-75"><a href="#cb4-75"></a>**Microsoft Copilot no Excel** incorpora IA diretamente no ambiente de planilhas mais utilizado no mundo. Para pesquisadores cujos dados já residem em arquivos Excel, esta opção elimina completamente a necessidade de migração para outra plataforma. A disponibilidade desta funcionalidade depende da versão do Microsoft 365 utilizada pela instituição.</span>
+<span id="cb4-76"><a href="#cb4-76"></a></span>
+<span id="cb4-77"><a href="#cb4-77"></a>**Powerdrill AI** é uma alternativa ao Julius com foco em conjuntos de dados de maior volume, suportando arquivos que excedem os limites das demais plataformas.</span>
+<span id="cb4-78"><a href="#cb4-78"></a></span>
+<span id="cb4-79"><a href="#cb4-79"></a><span class="fu">### Modo 2 — IA dentro do Editor: o código aparece enquanto você trabalha</span></span>
+<span id="cb4-80"><a href="#cb4-80"></a></span>
+<span id="cb4-81"><a href="#cb4-81"></a>Neste modo, a IA opera como um assistente dentro de um ambiente de desenvolvimento integrado. O pesquisador não precisa conhecer a sintaxe de R ou Python previamente, mas o código gerado pela IA é visível, editável e, sobretudo, reproduzível. Este modo produz resultados que podem ser auditados, compartilhados e integrados a documentos científicos com garantia de reprodutibilidade.</span>
+<span id="cb4-82"><a href="#cb4-82"></a></span>
+<span id="cb4-83"><a href="#cb4-83"></a>A reprodutibilidade merece ênfase. Um gráfico gerado no Modo 1 existe como imagem — um arquivo estático que não documenta como foi produzido. Um gráfico gerado no Modo 2 existe como código: qualquer pesquisador com acesso ao mesmo arquivo pode reproduzir exatamente o mesmo resultado, modificar parâmetros e verificar cada decisão metodológica. Para publicação científica, esta diferença é fundamental.</span>
+<span id="cb4-84"><a href="#cb4-84"></a></span>
+<span id="cb4-85"><a href="#cb4-85"></a>As principais ferramentas disponíveis para este modo são as seguintes.</span>
+<span id="cb4-86"><a href="#cb4-86"></a></span>
+<span id="cb4-87"><a href="#cb4-87"></a>**Positron** é o ambiente de desenvolvimento lançado pela Posit — a mesma empresa responsável pelo RStudio — e representa a evolução mais relevante para pesquisadores que trabalham com R e Python. Gratuito e de código aberto, o Positron incorpora nativamente o *Positron Assistant*, um assistente de IA com acesso ao estado real da sessão de trabalho: os dados carregados na memória, as variáveis criadas, os gráficos já gerados. Esta consciência contextual diferencia o Positron Assistant de assistentes genéricos — ao solicitar um gráfico, o assistente já sabe quais colunas existem no conjunto de dados, quais são seus tipos e o que já foi produzido anteriormente na mesma sessão. O assistente utiliza os modelos Claude, da Anthropic, e requer uma chave de API para funcionamento. O Positron suporta nativamente documentos Quarto, o que o torna o ambiente natural para pesquisadores que produzem artigos, relatórios e livros neste formato.</span>
+<span id="cb4-88"><a href="#cb4-88"></a></span>
+<span id="cb4-89"><a href="#cb4-89"></a>**RStudio com GitHub Copilot** é a opção para pesquisadores que já utilizam o RStudio e preferem não migrar de ambiente. O GitHub Copilot pode ser integrado como assistente, oferecendo sugestões de código em linha e respostas em linguagem natural, embora com acesso menos profundo ao estado da sessão R do que o Positron Assistant.</span>
+<span id="cb4-90"><a href="#cb4-90"></a></span>
+<span id="cb4-91"><a href="#cb4-91"></a>**Visual Studio Code com GitHub Copilot** é a combinação mais utilizada entre desenvolvedores em geral e funciona adequadamente para análise de dados em R e Python, com extensões maduras para ambas as linguagens.</span>
+<span id="cb4-92"><a href="#cb4-92"></a></span>
+<span id="cb4-93"><a href="#cb4-93"></a>**Cursor** é um editor construído sobre a base do VS Code, mas com integração de IA substancialmente mais profunda. Diferentemente do Copilot, que opera principalmente sobre o arquivo aberto, o Cursor indexa todo o projeto e mantém contexto sobre múltiplos arquivos simultaneamente — uma vantagem para projetos de análise com estrutura complexa.</span>
+<span id="cb4-94"><a href="#cb4-94"></a></span>
+<span id="cb4-95"><a href="#cb4-95"></a><span class="fu">### Modo 3 — IA como Colaborador Autônomo: você entrega o projeto, ela trabalha</span></span>
+<span id="cb4-96"><a href="#cb4-96"></a></span>
+<span id="cb4-97"><a href="#cb4-97"></a>Este é o modo mais recente e, para muitos fluxos de trabalho científicos, o mais transformador. Aqui, a IA não opera dentro de um editor aberto pelo pesquisador — ela recebe acesso a uma pasta de trabalho e age com autonomia sobre o sistema de arquivos: lê os arquivos existentes, cria novos, organiza estruturas de pastas, edita documentos específicos e executa tarefas encadeadas. O pesquisador não precisa estar dentro de nenhum ambiente de desenvolvimento. Ele dirige o processo por conversa e revisa os resultados produzidos.</span>
+<span id="cb4-98"><a href="#cb4-98"></a></span>
+<span id="cb4-99"><a href="#cb4-99"></a>A distinção fundamental em relação ao Modo 2 está na natureza da interação. No Modo 2, a IA sugere e o pesquisador aceita ou rejeita cada sugestão dentro do editor. No Modo 3, o pesquisador descreve o que quer — "crie a estrutura de um projeto Quarto com pastas para imagens, scripts e referências BibTeX" — e encontra o resultado já materializado na pasta, pronto para ser revisado e continuado.</span>
+<span id="cb4-100"><a href="#cb4-100"></a></span>
+<span id="cb4-101"><a href="#cb4-101"></a>Para pesquisadores que trabalham com projetos Quarto de maior complexidade — livros, relatórios encadeados, artigos com múltiplas figuras e referências bibliográficas gerenciadas por BibTeX —, este modo oferece uma capacidade que os modos anteriores não alcançam: a possibilidade de delegar não apenas a geração de um gráfico, mas a organização e o desenvolvimento progressivo de um projeto inteiro.</span>
+<span id="cb4-102"><a href="#cb4-102"></a></span>
+<span id="cb4-103"><a href="#cb4-103"></a>A ferramenta que atualmente oferece esta modalidade de forma mais completa é o **Claude Cowork**, da Anthropic. Na prática, o fluxo de trabalho típico combina o Modo 3 com o Modo 2: o Cowork é utilizado para estruturar o projeto, criar e editar arquivos específicos e executar tarefas que envolvem múltiplos componentes simultaneamente; o Positron é utilizado para edição direta de arquivos individuais quando o pesquisador prefere intervir manualmente em um ponto específico do código ou do documento. Os dois ambientes coexistem e se complementam — o Cowork cuida da arquitetura e da delegação, o Positron cuida da edição de precisão.</span>
+<span id="cb4-104"><a href="#cb4-104"></a></span>
+<span id="cb4-105"><a href="#cb4-105"></a>Este fluxo híbrido representa, até onde se sabe, uma das fronteiras mais avançadas do trabalho científico assistido por IA atualmente disponíveis ao pesquisador individual. Não exige formação em programação, mas exige clareza sobre o que se quer produzir — o que, no fundo, sempre foi a competência central do bom pesquisador.</span>
+<span id="cb4-106"><a href="#cb4-106"></a></span>
+<span id="cb4-107"><a href="#cb4-107"></a>---</span>
+<span id="cb4-108"><a href="#cb4-108"></a></span>
+<span id="cb4-109"><a href="#cb4-109"></a><span class="fu">## Exemplos</span></span>
+<span id="cb4-110"><a href="#cb4-110"></a></span>
+<span id="cb4-111"><a href="#cb4-111"></a>O melhor modo de compreender como esses três modos se articulam na prática é acompanhar um cenário realista. O exemplo a seguir não é um tutorial passo a passo — é uma narrativa de como um estudante de medicina sem qualquer formação em programação poderia, hoje, produzir visualizações de qualidade científica a partir de dados reais.</span>
+<span id="cb4-112"><a href="#cb4-112"></a></span>
+<span id="cb4-113"><a href="#cb4-113"></a><span class="fu">### O Cenário</span></span>
+<span id="cb4-114"><a href="#cb4-114"></a></span>
+<span id="cb4-115"><a href="#cb4-115"></a>Carolina é estudante de medicina no quarto período. Durante o internato eletivo no ambulatório de cardiologia, coletou dados de 80 pacientes hipertensos acompanhados pela equipe: idade, sexo, pressão sistólica, pressão diastólica, IMC, tabagismo e classe de medicamento anti-hipertensivo em uso. Os dados estão organizados em uma planilha Excel. Seu orientador pediu uma análise descritiva para discutir na reunião de sexta-feira — e mencionou, de passagem, que gostaria de incluir as figuras em um artigo que está escrevendo.</span>
+<span id="cb4-116"><a href="#cb4-116"></a></span>
+<span id="cb4-117"><a href="#cb4-117"></a>Carolina nunca usou R. Nunca usou Python. Conhece o Excel razoavelmente bem.</span>
+<span id="cb4-118"><a href="#cb4-118"></a></span>
+<span id="cb4-119"><a href="#cb4-119"></a><span class="fu">### Primeira Etapa — Exploração Rápida (Modo 1)</span></span>
+<span id="cb4-120"><a href="#cb4-120"></a></span>
+<span id="cb4-121"><a href="#cb4-121"></a>A reunião é na sexta. É quarta-feira à noite. Carolina não tem tempo para aprender uma linguagem de programação.</span>
+<span id="cb4-122"><a href="#cb4-122"></a></span>
+<span id="cb4-123"><a href="#cb4-123"></a>Ela abre o Julius AI, cria uma conta gratuita e faz o upload da planilha Excel. Em seguida, digita na caixa de conversa:</span>
+<span id="cb4-124"><a href="#cb4-124"></a></span>
+<span id="cb4-125"><a href="#cb4-125"></a><span class="at">&gt; *"Quero um boxplot comparando a pressão sistólica entre homens e mulheres. Eixos em português, tema limpo."*</span></span>
+<span id="cb4-126"><a href="#cb4-126"></a></span>
+<span id="cb4-127"><a href="#cb4-127"></a>Em menos de um minuto, o Julius executa o código internamente, exibe o raciocínio intermediário — qual biblioteca utilizou, como tratou os dados — e apresenta o gráfico. Carolina examina o resultado. A distribuição faz sentido com o que observou clinicamente: homens com mediana ligeiramente mais alta, maior dispersão nas mulheres. Ela pede um ajuste:</span>
+<span id="cb4-128"><a href="#cb4-128"></a></span>
+<span id="cb4-129"><a href="#cb4-129"></a><span class="at">&gt; *"Adiciona o número de pacientes em cada grupo no subtítulo."*</span></span>
+<span id="cb4-130"><a href="#cb4-130"></a></span>
+<span id="cb4-131"><a href="#cb4-131"></a>O gráfico é atualizado. Ela baixa a imagem e leva para a reunião.</span>
+<span id="cb4-132"><a href="#cb4-132"></a></span>
+<span id="cb4-133"><a href="#cb4-133"></a>Na sexta, o orientador aprova a análise e confirma: quer incluir as figuras no artigo. Um gráfico gerado como imagem pelo Julius não é suficiente para isso — não há código, não há reprodutibilidade, não há como o revisor da revista verificar como a figura foi produzida. Carolina precisa de algo diferente para a etapa seguinte.</span>
+<span id="cb4-134"><a href="#cb4-134"></a></span>
+<span id="cb4-135"><a href="#cb4-135"></a><span class="fu">### Segunda Etapa — Estruturar o Projeto (Modo 3)</span></span>
+<span id="cb4-136"><a href="#cb4-136"></a></span>
+<span id="cb4-137"><a href="#cb4-137"></a>De volta ao computador, Carolina abre o Claude Cowork. Ela não sabe como organizar um projeto científico em Quarto — nunca usou a ferramenta. Mas sabe descrever o que precisa:</span>
+<span id="cb4-138"><a href="#cb4-138"></a></span>
+<span id="cb4-139"><a href="#cb4-139"></a><span class="at">&gt; *"Preciso criar um projeto Quarto para um artigo científico. Quero uma pasta para as imagens geradas, uma pasta para os scripts R, uma pasta para as referências em formato BibTeX, e um arquivo principal .qmd já configurado com título, autor e seções básicas de um artigo de medicina."*</span></span>
+<span id="cb4-140"><a href="#cb4-140"></a></span>
+<span id="cb4-141"><a href="#cb4-141"></a>O Cowork lê o pedido, cria a estrutura de pastas e arquivos diretamente no diretório de trabalho de Carolina. Quando ela abre o explorador de arquivos, encontra o projeto já organizado: <span class="in">`manuscript.qmd`</span>, <span class="in">`references/bibliography.bib`</span>, <span class="in">`scripts/analysis.R`</span>, <span class="in">`figures/`</span>. O arquivo <span class="in">`.qmd`</span> principal já contém o cabeçalho YAML configurado, as seções Introdução, Métodos, Resultados e Discussão, e as instruções de importação do BibTeX.</span>
+<span id="cb4-142"><a href="#cb4-142"></a></span>
+<span id="cb4-143"><a href="#cb4-143"></a>Carolina não escreveu uma linha de código. Não precisou.</span>
+<span id="cb4-144"><a href="#cb4-144"></a></span>
+<span id="cb4-145"><a href="#cb4-145"></a>Ao longo dos dias seguintes, ela usa o Cowork para tarefas que envolvem múltiplos arquivos: pede que o script de análise seja atualizado para incluir uma nova variável, solicita que uma referência específica seja adicionada ao arquivo BibTeX, pede que uma figura seja movida para a pasta correta e referenciada no documento principal. O Cowork executa cada uma dessas tarefas diretamente nos arquivos — Carolina revisa o resultado e decide se aprova ou pede ajuste.</span>
+<span id="cb4-146"><a href="#cb4-146"></a></span>
+<span id="cb4-147"><a href="#cb4-147"></a><span class="fu">### Terceira Etapa — Produzir os Gráficos para Publicação (Modo 2)</span></span>
+<span id="cb4-148"><a href="#cb4-148"></a></span>
+<span id="cb4-149"><a href="#cb4-149"></a>Com o projeto estruturado, Carolina abre o Positron. O arquivo <span class="in">`analysis.R`</span> já existe na pasta, criado pelo Cowork com a estrutura básica. Ela clica no painel do Positron Assistant e escreve:</span>
+<span id="cb4-150"><a href="#cb4-150"></a></span>
+<span id="cb4-151"><a href="#cb4-151"></a><span class="at">&gt; *"Tenho um dataframe chamado 'pacientes' com as colunas: idade, sexo, pas, pad, imc, tabagismo, medicamento. Quero um boxplot de pressão sistólica por sexo, com tema minimalista, eixos em português e paleta de cores adequada para publicação científica."*</span></span>
+<span id="cb4-152"><a href="#cb4-152"></a></span>
+<span id="cb4-153"><a href="#cb4-153"></a>O Positron Assistant responde com código <span class="in">`ggplot2`</span>. Diferentemente de um assistente genérico, ele já sabe que o dataframe <span class="in">`pacientes`</span> está carregado na sessão — vê as colunas, os tipos de variável, os valores presentes. O código gerado é imediatamente executável. Carolina clica em executar. O gráfico aparece no painel de visualização do Positron.</span>
+<span id="cb4-154"><a href="#cb4-154"></a></span>
+<span id="cb4-155"><a href="#cb4-155"></a>Ela examina o resultado com olhar clínico, não técnico. A escala do eixo Y está adequada para os valores de pressão arterial? A distinção entre os grupos está visualmente clara? A figura comunica o que precisa comunicar para um leitor da área? Ela identifica um ponto: quer adicionar os valores medianos explicitamente sobre cada boxplot. Digita para o assistente:</span>
+<span id="cb4-156"><a href="#cb4-156"></a></span>
+<span id="cb4-157"><a href="#cb4-157"></a><span class="at">&gt; *"Adiciona a mediana como valor numérico sobre cada boxplot."*</span></span>
+<span id="cb4-158"><a href="#cb4-158"></a></span>
+<span id="cb4-159"><a href="#cb4-159"></a>O código é atualizado. Ela executa novamente. Aprova. Salva a figura na pasta <span class="in">`figures/`</span> e a referencia no documento <span class="in">`.qmd`</span>.</span>
+<span id="cb4-160"><a href="#cb4-160"></a></span>
+<span id="cb4-161"><a href="#cb4-161"></a>O processo se repete para as demais figuras do artigo. Em nenhum momento Carolina precisou memorizar a sintaxe do <span class="in">`ggplot2`</span>, entender o funcionamento interno das camadas ou consultar a documentação do pacote. Precisou, no entanto, de algo que nenhuma IA substitui: saber o que estava olhando, reconhecer quando o resultado fazia sentido clínico e estatístico, e formular perguntas precisas sobre seus próprios dados.</span>
+<span id="cb4-162"><a href="#cb4-162"></a></span>
+<span id="cb4-163"><a href="#cb4-163"></a><span class="fu">### O que Este Exemplo Ilustra</span></span>
+<span id="cb4-164"><a href="#cb4-164"></a></span>
+<span id="cb4-165"><a href="#cb4-165"></a>O percurso de Carolina não é linear nem hierárquico. Ela transitou entre três modos conforme a necessidade de cada momento: o Modo 1 para exploração rápida quando o tempo era o fator limitante; o Modo 3 para estruturar e delegar tarefas que envolviam múltiplos arquivos; o Modo 2 para produzir código reproduzível quando o destino era a publicação científica. As ferramentas não competem entre si — complementam-se.</span>
+<span id="cb4-166"><a href="#cb4-166"></a></span>
+<span id="cb4-167"><a href="#cb4-167"></a>O elemento constante em todas as etapas não foi técnico. Foi a capacidade de Carolina de formular perguntas clínicas precisas, reconhecer quando os resultados faziam sentido com o que ela sabia sobre os dados e identificar o que precisava ser ajustado. Essa capacidade não foi fornecida pela IA. Foi construída ao longo da formação médica — e é exatamente ela que transforma o acesso às ferramentas em conhecimento útil.</span>
+<span id="cb4-168"><a href="#cb4-168"></a></span>
+<span id="cb4-169"><a href="#cb4-169"></a>---</span>
+<span id="cb4-170"><a href="#cb4-170"></a></span>
+<span id="cb4-171"><a href="#cb4-171"></a><span class="fu">## Como Pedir Bem: a Lógica do Prompt Clínico</span></span>
+<span id="cb4-172"><a href="#cb4-172"></a></span>
+<span id="cb4-173"><a href="#cb4-173"></a>A qualidade do gráfico produzido pela IA depende, em larga medida, da qualidade do pedido que o pesquisador faz. Este é um ponto que merece atenção — não porque exija habilidade técnica especial, mas porque exige precisão conceitual. </span>
+<span id="cb4-174"><a href="#cb4-174"></a></span>
+<span id="cb4-175"><a href="#cb4-175"></a>Para ilustrar concretamente, vamos usar um dataset fictício de 80 pacientes hipertensos — o mesmo cenário de Carolina, que conhecemos na seção anterior. Considere os dois pedidos a seguir, feitos para o mesmo conjunto de dados:</span>
+<span id="cb4-176"><a href="#cb4-176"></a></span>
+<span id="cb4-179"><a href="#cb4-179"></a><span class="in">```{r}</span></span>
+<span id="cb4-180"><a href="#cb4-180"></a><span class="co">#| include: false</span></span>
+<span id="cb4-181"><a href="#cb4-181"></a></span>
+<span id="cb4-182"><a href="#cb4-182"></a><span class="co"># Dataset fictício: 80 pacientes hipertensos</span></span>
+<span id="cb4-183"><a href="#cb4-183"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb4-184"><a href="#cb4-184"></a>n <span class="ot">&lt;-</span> <span class="dv">80</span></span>
+<span id="cb4-185"><a href="#cb4-185"></a></span>
+<span id="cb4-186"><a href="#cb4-186"></a>hipertensos <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb4-187"><a href="#cb4-187"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span>n,</span>
+<span id="cb4-188"><a href="#cb4-188"></a>  <span class="at">idade =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">58</span>, <span class="at">sd =</span> <span class="dv">12</span>)),</span>
+<span id="cb4-189"><a href="#cb4-189"></a>  <span class="at">sexo =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Masculino"</span>, <span class="st">"Feminino"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.55</span>, <span class="fl">0.45</span>)),</span>
+<span id="cb4-190"><a href="#cb4-190"></a>  <span class="at">pas =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">145</span>, <span class="at">sd =</span> <span class="dv">18</span>)),</span>
+<span id="cb4-191"><a href="#cb4-191"></a>  <span class="at">pad =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">88</span>, <span class="at">sd =</span> <span class="dv">12</span>)),</span>
+<span id="cb4-192"><a href="#cb4-192"></a>  <span class="at">imc =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="fl">28.5</span>, <span class="at">sd =</span> <span class="fl">4.2</span>), <span class="dv">1</span>),</span>
+<span id="cb4-193"><a href="#cb4-193"></a>  <span class="at">tabagismo =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Sim"</span>, <span class="st">"Não"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>)),</span>
+<span id="cb4-194"><a href="#cb4-194"></a>  <span class="at">medicamento =</span> <span class="fu">sample</span>(</span>
+<span id="cb4-195"><a href="#cb4-195"></a>    <span class="fu">c</span>(<span class="st">"Betabloqueador"</span>, <span class="st">"Inibidor da ECA"</span>, <span class="st">"BRA"</span>, <span class="st">"Diurético"</span>),</span>
+<span id="cb4-196"><a href="#cb4-196"></a>    n, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.30</span>, <span class="fl">0.30</span>, <span class="fl">0.25</span>, <span class="fl">0.15</span>)</span>
+<span id="cb4-197"><a href="#cb4-197"></a>  )</span>
+<span id="cb4-198"><a href="#cb4-198"></a>)</span>
+<span id="cb4-199"><a href="#cb4-199"></a><span class="in">```</span></span>
+<span id="cb4-200"><a href="#cb4-200"></a></span>
+<span id="cb4-203"><a href="#cb4-203"></a><span class="in">```{r}</span></span>
+<span id="cb4-204"><a href="#cb4-204"></a>hipertensos <span class="sc">|&gt;</span></span>
+<span id="cb4-205"><a href="#cb4-205"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-206"><a href="#cb4-206"></a>  <span class="fu">kbl</span>(</span>
+<span id="cb4-207"><a href="#cb4-207"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"ID"</span>, <span class="st">"Idade"</span>, <span class="st">"Sexo"</span>, <span class="st">"PAS (mmHg)"</span>, <span class="st">"PAD (mmHg)"</span>,</span>
+<span id="cb4-208"><a href="#cb4-208"></a>                   <span class="st">"IMC (kg/m²)"</span>, <span class="st">"Tabagismo"</span>, <span class="st">"Medicamento"</span>),</span>
+<span id="cb4-209"><a href="#cb4-209"></a>    <span class="at">caption =</span> <span class="st">"Dataset fictício de pacientes hipertensos (primeiros 10 registros)"</span></span>
+<span id="cb4-210"><a href="#cb4-210"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-211"><a href="#cb4-211"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb4-212"><a href="#cb4-212"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>),</span>
+<span id="cb4-213"><a href="#cb4-213"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-214"><a href="#cb4-214"></a>    <span class="at">position =</span> <span class="st">"center"</span>,</span>
+<span id="cb4-215"><a href="#cb4-215"></a>    <span class="at">font_size =</span> <span class="dv">14</span></span>
+<span id="cb4-216"><a href="#cb4-216"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-217"><a href="#cb4-217"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#2563EB"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-218"><a href="#cb4-218"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-219"><a href="#cb4-219"></a><span class="in">```</span></span>
+<span id="cb4-220"><a href="#cb4-220"></a></span>
+<span id="cb4-221"><a href="#cb4-221"></a>Agora, observe a diferença entre um pedido vago e um pedido preciso — e o que cada um produz.</span>
+<span id="cb4-222"><a href="#cb4-222"></a></span>
+<span id="cb4-223"><a href="#cb4-223"></a><span class="at">&gt; *"Faça um gráfico de pressão arterial."*</span></span>
+<span id="cb4-224"><a href="#cb4-224"></a></span>
+<span id="cb4-227"><a href="#cb4-227"></a><span class="in">```{r}</span></span>
+<span id="cb4-228"><a href="#cb4-228"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb4-229"><a href="#cb4-229"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb4-230"><a href="#cb4-230"></a></span>
+<span id="cb4-231"><a href="#cb4-231"></a><span class="co"># Resultado provável de um prompt vago</span></span>
+<span id="cb4-232"><a href="#cb4-232"></a><span class="fu">ggplot</span>(hipertensos, <span class="fu">aes</span>(<span class="at">x =</span> medicamento, <span class="at">y =</span> pas, <span class="at">fill =</span> medicamento)) <span class="sc">+</span></span>
+<span id="cb4-233"><a href="#cb4-233"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> mean, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb4-234"><a href="#cb4-234"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb4-235"><a href="#cb4-235"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-236"><a href="#cb4-236"></a>    <span class="at">title =</span> <span class="st">"Pressão Arterial por Medicamento"</span>,</span>
+<span id="cb4-237"><a href="#cb4-237"></a>    <span class="at">x =</span> <span class="st">"Medicamento"</span>,</span>
+<span id="cb4-238"><a href="#cb4-238"></a>    <span class="at">y =</span> <span class="st">"Pressão Arterial Sistólica (mmHg)"</span></span>
+<span id="cb4-239"><a href="#cb4-239"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-240"><a href="#cb4-240"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb4-241"><a href="#cb4-241"></a><span class="in">```</span></span>
+<span id="cb4-242"><a href="#cb4-242"></a></span>
+<span id="cb4-243"><a href="#cb4-243"></a>O resultado é um gráfico genérico: barras com médias, sem medida de dispersão, sem foco em nenhuma comparação clínica específica. A IA fez *algo* — mas não fez o que o pesquisador precisava.</span>
+<span id="cb4-244"><a href="#cb4-244"></a></span>
+<span id="cb4-245"><a href="#cb4-245"></a>Agora, o mesmo dataset com um pedido preciso:</span>
+<span id="cb4-246"><a href="#cb4-246"></a></span>
+<span id="cb4-247"><a href="#cb4-247"></a><span class="at">&gt; *"Quero um boxplot comparando a pressão arterial sistólica entre pacientes em uso de betabloqueadores e pacientes em uso de inibidores da ECA. Os dados estão na coluna 'pas' e a classe do medicamento está na coluna 'medicamento'. Usa tema minimalista, eixos em português, sem legenda. Inclui o número de pacientes em cada grupo abaixo do rótulo do eixo X."*</span></span>
+<span id="cb4-248"><a href="#cb4-248"></a></span>
+<span id="cb4-251"><a href="#cb4-251"></a><span class="in">```{r}</span></span>
+<span id="cb4-252"><a href="#cb4-252"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb4-253"><a href="#cb4-253"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb4-254"><a href="#cb4-254"></a></span>
+<span id="cb4-255"><a href="#cb4-255"></a><span class="co"># Resultado de um prompt preciso</span></span>
+<span id="cb4-256"><a href="#cb4-256"></a>hipertensos_filtrado <span class="ot">&lt;-</span> hipertensos <span class="sc">|&gt;</span></span>
+<span id="cb4-257"><a href="#cb4-257"></a>  <span class="fu">filter</span>(medicamento <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Betabloqueador"</span>, <span class="st">"Inibidor da ECA"</span>))</span>
+<span id="cb4-258"><a href="#cb4-258"></a></span>
+<span id="cb4-259"><a href="#cb4-259"></a><span class="co"># Calcular n por grupo para rótulos do eixo X</span></span>
+<span id="cb4-260"><a href="#cb4-260"></a>n_por_grupo <span class="ot">&lt;-</span> hipertensos_filtrado <span class="sc">|&gt;</span></span>
+<span id="cb4-261"><a href="#cb4-261"></a>  <span class="fu">count</span>(medicamento) <span class="sc">|&gt;</span></span>
+<span id="cb4-262"><a href="#cb4-262"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">paste0</span>(medicamento, <span class="st">"</span><span class="sc">\n</span><span class="st">(n = "</span>, n, <span class="st">")"</span>))</span>
+<span id="cb4-263"><a href="#cb4-263"></a></span>
+<span id="cb4-264"><a href="#cb4-264"></a>rotulos <span class="ot">&lt;-</span> <span class="fu">setNames</span>(n_por_grupo<span class="sc">$</span>label, n_por_grupo<span class="sc">$</span>medicamento)</span>
+<span id="cb4-265"><a href="#cb4-265"></a></span>
+<span id="cb4-266"><a href="#cb4-266"></a><span class="fu">ggplot</span>(hipertensos_filtrado, <span class="fu">aes</span>(<span class="at">x =</span> medicamento, <span class="at">y =</span> pas, <span class="at">fill =</span> medicamento)) <span class="sc">+</span></span>
+<span id="cb4-267"><a href="#cb4-267"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">outlier.color =</span> <span class="st">"red"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb4-268"><a href="#cb4-268"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> rotulos) <span class="sc">+</span></span>
+<span id="cb4-269"><a href="#cb4-269"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Betabloqueador"</span> <span class="ot">=</span> <span class="st">"#2E86AB"</span>, <span class="st">"Inibidor da ECA"</span> <span class="ot">=</span> <span class="st">"#A23B72"</span>)) <span class="sc">+</span></span>
+<span id="cb4-270"><a href="#cb4-270"></a>  <span class="fu">tema_graficos</span>() <span class="sc">+</span></span>
+<span id="cb4-271"><a href="#cb4-271"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-272"><a href="#cb4-272"></a>    <span class="at">title =</span> <span class="st">"Pressão Arterial Sistólica por Classe de Anti-hipertensivo"</span>,</span>
+<span id="cb4-273"><a href="#cb4-273"></a>    <span class="at">subtitle =</span> <span class="st">"Comparação entre betabloqueadores e inibidores da ECA"</span>,</span>
+<span id="cb4-274"><a href="#cb4-274"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb4-275"><a href="#cb4-275"></a>    <span class="at">y =</span> <span class="st">"PAS (mmHg)"</span></span>
+<span id="cb4-276"><a href="#cb4-276"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-277"><a href="#cb4-277"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb4-278"><a href="#cb4-278"></a><span class="in">```</span></span>
+<span id="cb4-279"><a href="#cb4-279"></a></span>
+<span id="cb4-280"><a href="#cb4-280"></a>A diferença é evidente. O primeiro pedido deixa para a IA todas as decisões relevantes: que variável usar, que tipo de gráfico, que comparação fazer, que estética adotar. O resultado é um gráfico — mas não o gráfico que o pesquisador precisava. O segundo pedido especifica a pergunta clínica subjacente, as variáveis envolvidas, o tipo de visualização adequado e as exigências de apresentação. O resultado é exatamente o que o pesquisador queria.</span>
+<span id="cb4-281"><a href="#cb4-281"></a></span>
+<span id="cb4-282"><a href="#cb4-282"></a>A estrutura de um bom pedido para geração de gráficos pode ser organizada em quatro elementos, que correspondem a quatro perguntas que o pesquisador deve ser capaz de responder antes de abrir qualquer ferramenta.</span>
+<span id="cb4-283"><a href="#cb4-283"></a></span>
+<span id="cb4-284"><a href="#cb4-284"></a>**Qual é a pergunta clínica ou científica que o gráfico responde?** Esta é a pergunta mais importante — e a que a IA menos consegue responder sozinha. Um gráfico não é uma decoração; é um argumento visual. Antes de pedir qualquer visualização, o pesquisador deve saber exatamente o que quer demonstrar ou explorar. "A pressão sistólica difere entre as classes de medicamento?" é uma pergunta. "Fazer um gráfico de pressão arterial" não é.</span>
+<span id="cb4-285"><a href="#cb4-285"></a></span>
+<span id="cb4-286"><a href="#cb4-286"></a>**Que variáveis estão envolvidas, e de que tipo são?** A escolha do tipo de gráfico mais adequado depende da natureza das variáveis. Uma variável contínua comparada entre grupos categóricos sugere boxplot ou violin plot. Duas variáveis contínuas sugerem diagrama de dispersão. Uma variável categórica com frequências sugere gráfico de barras. A IA pode fazer essa escolha automaticamente — mas frequentemente erra quando o pedido é ambíguo. Especificar as variáveis pelo nome exato que aparecem na planilha, e informar seu tipo, elimina grande parte dos erros.</span>
+<span id="cb4-287"><a href="#cb4-287"></a></span>
+<span id="cb4-288"><a href="#cb4-288"></a>**Para que contexto é o gráfico?** Um gráfico para uma apresentação em reunião de equipe tem exigências diferentes de um gráfico para submissão a um periódico científico. O primeiro pode ser mais informal, com cores mais vivas e menos precisão nos detalhes. O segundo precisa atender a padrões tipográficos, ter resolução adequada para impressão e documentar as escolhas metodológicas em código reproduzível. Informar o contexto ao assistente melhora significativamente a adequação do resultado.</span>
+<span id="cb4-289"><a href="#cb4-289"></a></span>
+<span id="cb4-290"><a href="#cb4-290"></a>**Há alguma exigência específica de apresentação?** Idioma dos rótulos, paleta de cores, presença ou ausência de legenda, inclusão de valores estatísticos sobre o gráfico, número de pacientes por grupo — esses detalhes fazem a diferença entre um gráfico funcional e um gráfico publicável. Quanto mais desses elementos forem especificados no pedido inicial, menos ciclos de refinamento serão necessários.</span>
+<span id="cb4-291"><a href="#cb4-291"></a></span>
+<span id="cb4-292"><a href="#cb4-292"></a>Esses quatro elementos não precisam ser apresentados em formato de lista no pedido — podem ser incorporados naturalmente em um parágrafo de linguagem corrente. O que importa é que o pesquisador tenha as respostas antes de começar. Um pedido bem formulado para a IA é, antes de tudo, evidência de que o pesquisador entende seus próprios dados.</span>
+<span id="cb4-293"><a href="#cb4-293"></a></span>
+<span id="cb4-294"><a href="#cb4-294"></a>Vale registrar uma observação sobre idioma. As ferramentas de IA contemporâneas compreendem e respondem adequadamente em português. Não é necessário formular pedidos em inglês para obter melhores resultados — e formular em português tem a vantagem de produzir rótulos, títulos e legendas já no idioma correto, sem necessidade de tradução posterior. Para pesquisadores que produzem em português, esta é a abordagem mais eficiente.</span>
+<span id="cb4-295"><a href="#cb4-295"></a></span>
+<span id="cb4-296"><a href="#cb4-296"></a>---</span>
+<span id="cb4-297"><a href="#cb4-297"></a></span>
+<span id="cb4-298"><a href="#cb4-298"></a><span class="fu">## A IA Ainda Erra</span></span>
+<span id="cb4-299"><a href="#cb4-299"></a></span>
+<span id="cb4-300"><a href="#cb4-300"></a>A apresentação das ferramentas nas seções anteriores pode criar uma impressão equivocada: a de que a IA é um sistema confiável que produz resultados corretos desde que receba pedidos bem formulados. Essa impressão precisa ser corrigida antes de encerrar o capítulo.</span>
+<span id="cb4-301"><a href="#cb4-301"></a></span>
+<span id="cb4-302"><a href="#cb4-302"></a>A IA erra. Erra com frequência, erra de formas específicas e previsíveis, e — o que é mais relevante — erra silenciosamente. Diferentemente de um erro de sintaxe em R, que interrompe a execução e exibe uma mensagem de aviso, um erro conceitual da IA produz um gráfico visualmente impecável que está estatisticamente ou clinicamente errado. O pesquisador que não sabe o que está olhando não tem como detectar o problema.</span>
+<span id="cb4-303"><a href="#cb4-303"></a></span>
+<span id="cb4-304"><a href="#cb4-304"></a>Esta seção não tem o objetivo de desencorajar o uso das ferramentas. Tem o objetivo de calibrar as expectativas e tornar explícita a responsabilidade que permanece intransferível: a do pesquisador que conhece seus dados, seu contexto clínico e sua pergunta científica.</span>
+<span id="cb4-305"><a href="#cb4-305"></a></span>
+<span id="cb4-306"><a href="#cb4-306"></a><span class="fu">### A IA não Conhece o Contexto Clínico dos Dados</span></span>
+<span id="cb4-307"><a href="#cb4-307"></a></span>
+<span id="cb4-308"><a href="#cb4-308"></a>As ferramentas de IA trabalham com estrutura — colunas, tipos de variável, distribuições numéricas. Não trabalham com significado clínico. Isso cria uma categoria de erros que nenhum refinamento de prompt elimina completamente.</span>
+<span id="cb4-309"><a href="#cb4-309"></a></span>
+<span id="cb4-310"><a href="#cb4-310"></a>Se uma coluna chamada "glicose" contém o valor 340 mg/dL em um registro, a IA não sabe se esse é um valor real de um paciente diabético descompensado, um erro de digitação ou um outlier que deve ser excluído antes da análise. Se uma coluna chamada "sexo" contém as entradas "M", "masculino" e "Masculino", a IA pode tratar essas como três categorias distintas — e produzir um gráfico com três grupos onde deveriam existir dois, sem qualquer aviso. Se os dados incluem medidas repetidas do mesmo paciente em momentos diferentes, a IA não sabe que comparar esses grupos como amostras independentes seria metodologicamente inadequado.</span>
+<span id="cb4-311"><a href="#cb4-311"></a></span>
+<span id="cb4-312"><a href="#cb4-312"></a>Esses erros não são falhas das ferramentas — são consequências inevitáveis da ausência de contexto clínico. A solução não é técnica: é o pesquisador examinar seus dados antes de pedir qualquer gráfico, verificar inconsistências, confirmar que os valores estão dentro de limites biologicamente plausíveis e entender a estrutura do conjunto de dados que está analisando.</span>
+<span id="cb4-313"><a href="#cb4-313"></a></span>
+<span id="cb4-314"><a href="#cb4-314"></a><span class="fu">### A IA não Escolhe o Tipo de Gráfico Correto por Você</span></span>
+<span id="cb4-315"><a href="#cb4-315"></a></span>
+<span id="cb4-316"><a href="#cb4-316"></a>A escolha do tipo de visualização mais adequado para uma determinada pergunta científica é uma decisão metodológica, não estética. A IA tende a produzir o gráfico mais comum para o tipo de variável que detecta — o que frequentemente é adequado, mas nem sempre.</span>
+<span id="cb4-317"><a href="#cb4-317"></a></span>
+<span id="cb4-318"><a href="#cb4-318"></a>Um exemplo recorrente: ao receber uma variável categórica no eixo X e uma variável contínua no eixo Y, sem instruções adicionais, alguns modelos de linguagem geram gráficos de linha conectando as categorias. Isso está errado. Linhas implicam continuidade e ordenação — adequadas para séries temporais ou variáveis ordinais com progressão clara, não para categorias nominais como tipos de medicamento, diagnósticos ou especialidades médicas. O gráfico resultante é visualmente fluente e analiticamente incorreto.</span>
+<span id="cb4-319"><a href="#cb4-319"></a></span>
+<span id="cb4-320"><a href="#cb4-320"></a>O pesquisador que compreende minimamente os princípios de visualização de dados — apresentados nos capítulos anteriores deste livro — está equipado para identificar esse tipo de erro imediatamente. O pesquisador que delega também a decisão sobre o tipo de gráfico à IA está vulnerável a erros que não saberá detectar.</span>
+<span id="cb4-321"><a href="#cb4-321"></a></span>
+<span id="cb4-322"><a href="#cb4-322"></a><span class="fu">### A IA não Verifica Pressupostos Estatísticos</span></span>
+<span id="cb4-323"><a href="#cb4-323"></a></span>
+<span id="cb4-324"><a href="#cb4-324"></a>Quando solicitada a adicionar uma linha de regressão linear a um diagrama de dispersão, a IA adiciona. Se não for explicitamente solicitado, a IA não verifica se a relação entre as variáveis é de fato linear; não testa a normalidade dos resíduos, não identifica pontos influentes que distorcem a estimativa; não avisa que, com aquela distribuição específica, uma transformação logarítmica seria mais apropriada.</span>
+<span id="cb4-325"><a href="#cb4-325"></a></span>
+<span id="cb4-326"><a href="#cb4-326"></a>O mesmo vale para outros elementos estatísticos que a IA incorpora automaticamente em gráficos: intervalos de confiança calculados sem verificação de pressupostos, barras de erro que podem representar desvio padrão ou erro padrão sem distinção clara, testes de significância aplicados sem consideração sobre o poder estatístico da amostra.</span>
+<span id="cb4-327"><a href="#cb4-327"></a></span>
+<span id="cb4-328"><a href="#cb4-328"></a>A IA executa o que foi pedido — e frequentemente executa bem. Mas a responsabilidade de verificar se o que foi pedido é estatisticamente adequado para os dados em questão continua sendo do pesquisador.</span>
+<span id="cb4-329"><a href="#cb4-329"></a></span>
+<span id="cb4-330"><a href="#cb4-330"></a><span class="fu">### A IA Alucina</span></span>
+<span id="cb4-331"><a href="#cb4-331"></a></span>
+<span id="cb4-332"><a href="#cb4-332"></a>Modelos de linguagem de grande porte produzem, ocasionalmente, código que contém referências a funções inexistentes, argumentos inválidos ou pacotes que não existem. Este fenômeno — denominado alucinação no vocabulário técnico da área <span class="co">[</span><span class="ot">@ji2023</span><span class="co">]</span> — ocorre com frequência suficiente para merecer atenção sistemática.</span>
+<span id="cb4-333"><a href="#cb4-333"></a></span>
+<span id="cb4-334"><a href="#cb4-334"></a>Na prática, isso significa que nem todo código gerado pela IA executa sem erros. Antes de incorporar qualquer figura produzida por IA em um documento científico, o pesquisador deve executar o código em seu ambiente local e verificar que o resultado corresponde ao esperado. </span>
+<span id="cb4-335"><a href="#cb4-335"></a></span>
+<span id="cb4-336"><a href="#cb4-336"></a>A verificação não exige expertise em programação. Exige o hábito de testar antes de confiar — o mesmo hábito que a medicina clínica desenvolve em relação a qualquer resultado de exame complementar.</span>
+<span id="cb4-337"><a href="#cb4-337"></a></span>
+<span id="cb4-338"><a href="#cb4-338"></a><span class="fu">### A Responsabilidade como Competência</span></span>
+<span id="cb4-339"><a href="#cb4-339"></a></span>
+<span id="cb4-340"><a href="#cb4-340"></a>Seria possível apresentar esses limites como uma lista de advertências — um conjunto de ressalvas que o pesquisador deve memorizar antes de usar as ferramentas. Esta não é, no entanto, a perspectiva mais útil.</span>
+<span id="cb4-341"><a href="#cb4-341"></a></span>
+<span id="cb4-342"><a href="#cb4-342"></a>Os limites descritos acima não são peculiaridades das ferramentas de IA. São, em sua maioria, os mesmos limites que existiam quando o pesquisador dependia de um colaborador humano para produzir seus gráficos: o colaborador também não conhecia o contexto clínico dos dados, também podia escolher o tipo errado de visualização, também podia aplicar uma regressão sem verificar os pressupostos. A diferença é que o colaborador humano estava presente para receber perguntas e oferecer justificativas — e essa presença criava um circuito de verificação que a IA não reproduz automaticamente.</span>
+<span id="cb4-343"><a href="#cb4-343"></a></span>
+<span id="cb4-344"><a href="#cb4-344"></a>O que a IA exige do pesquisador é, portanto, o mesmo que qualquer ferramenta poderosa exige: que quem a utiliza saiba o suficiente para avaliar o resultado. Não é necessário saber construir a ferramenta. É necessário saber julgar o que ela produziu.</span>
+<span id="cb4-345"><a href="#cb4-345"></a></span>
+<span id="cb4-346"><a href="#cb4-346"></a>Esta é, no fundo, a competência que distingue o pesquisador do usuário passivo — e é uma competência que a formação médica, com sua ênfase em raciocínio diagnóstico, avaliação crítica de evidências e responsabilidade sobre decisões com consequências reais, está particularmente bem posicionada para desenvolver.</span>
+<span id="cb4-347"><a href="#cb4-347"></a></span>
+<span id="cb4-348"><a href="#cb4-348"></a>---</span>
+<span id="cb4-349"><a href="#cb4-349"></a></span>
+<span id="cb4-350"><a href="#cb4-350"></a><span class="fu">## O Momento Atual: uma Janela que se Abriu</span></span>
+<span id="cb4-351"><a href="#cb4-351"></a></span>
+<span id="cb4-352"><a href="#cb4-352"></a>Durante décadas, produzir visualizações científicas de qualidade exigiu um investimento técnico que a maioria dos pesquisadores na área da saúde simplesmente não tinha condições de fazer. O papel milimetrado cedeu lugar ao Excel, o Excel cedeu lugar ao R e ao Python — mas cada transição manteve, de formas diferentes, uma barreira de entrada que separava quem sabia programar de quem não sabia. A qualidade estava disponível, mas não era acessível.</span>
+<span id="cb4-353"><a href="#cb4-353"></a></span>
+<span id="cb4-354"><a href="#cb4-354"></a>Essa barreira não foi gradualmente reduzida. Foi removida de forma abrupta, em um período de menos de três anos, por ferramentas que transformaram linguagem natural em código executável. O estudante de medicina que hoje descreve em português o gráfico que precisa e recebe código <span class="in">`ggplot2`</span> funcional em segundos não está usando um atalho — está usando o estado atual da tecnologia disponível. A exigência de que pesquisadores clínicos internalizassem sintaxe de programação antes de produzir ciência de qualidade nunca foi uma necessidade intrínseca à boa pesquisa. Era um custo de acesso. Esse custo desapareceu.</span>
+<span id="cb4-355"><a href="#cb4-355"></a></span>
+<span id="cb4-356"><a href="#cb4-356"></a>O que permanece — e o que este capítulo buscou tornar explícito — é que o desaparecimento da barreira técnica não eliminou a necessidade de competência intelectual. Pelo contrário: ao remover o obstáculo da sintaxe, as ferramentas de IA tornaram mais visível o que sempre foi o núcleo do trabalho científico. Formular a pergunta certa. Conhecer os dados com suficiente profundidade para reconhecer quando um resultado não faz sentido. Escolher a representação visual que comunica com honestidade o que os dados dizem — nem mais, nem menos. Assumir responsabilidade sobre cada decisão metodológica, mesmo quando a execução foi delegada a uma ferramenta.</span>
+<span id="cb4-357"><a href="#cb4-357"></a></span>
+<span id="cb4-358"><a href="#cb4-358"></a>Essas competências não são técnicas. São intelectuais. E são exatamente as que a formação médica desenvolve ao longo de anos de treinamento em raciocínio diagnóstico, avaliação crítica de evidências e tomada de decisão sob incerteza.</span>
+<span id="cb4-359"><a href="#cb4-359"></a></span>
+<span id="cb4-360"><a href="#cb4-360"></a>Há uma ironia produtiva nessa convergência. As ferramentas de IA foram desenvolvidas, em sua maioria, por engenheiros e cientistas da computação — não por médicos ou pesquisadores clínicos. Mas ao democratizar o acesso à visualização de dados científicos, essas ferramentas acabaram por valorizar precisamente o tipo de raciocínio que a medicina cultiva. O médico que sabe formular uma pergunta clínica precisa, que reconhece um resultado biologicamente implausível e que assume responsabilidade sobre suas conclusões está, sem perceber, bem preparado para trabalhar com IA de forma competente.</span>
+<span id="cb4-361"><a href="#cb4-361"></a></span>
+<span id="cb4-362"><a href="#cb4-362"></a>O ecossistema de ferramentas continuará evoluindo. As plataformas descritas neste capítulo serão substituídas ou transformadas por versões mais capazes. Os modelos de linguagem que hoje geram código <span class="in">`ggplot2`</span> a partir de descrições em português gerarão, em breve, análises estatísticas completas <span class="co">[</span><span class="ot">@hoerl2025</span><span class="co">]</span>, documentos Quarto estruturados e figuras prontas para submissão — com ainda menos fricção técnica. Essa evolução não torna o conhecimento metodológico obsoleto. Torna-o mais necessário: quanto mais poderosa a ferramenta, maior a responsabilidade de quem a dirige.</span>
+<span id="cb4-363"><a href="#cb4-363"></a></span>
+<span id="cb4-364"><a href="#cb4-364"></a>A janela que se abriu nos últimos anos é real e significativa. Aproveitá-la bem não exige que o pesquisador clínico se torne um programador. Exige que ele continue sendo o que a formação médica o preparou para ser: alguém que pensa com rigor sobre perguntas difíceis e assume responsabilidade sobre as respostas que oferece.</span>
+</code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Dos Dados aos Gráficos<br> © 2026 Henrique Alvarenga da Silva · UFSJ · UNIPTAN/AFYA</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Feito com <a href="https://quarto.org/">Quarto</a> e <a href="https://www.r-project.org/">R</a></p>
+</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

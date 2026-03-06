@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Henrique Alvarenga da Silva">
+
+<title>Qual Gráfico Devo Usar?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cap11-ia.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-f938f6e5ca7bfbd6305a7d1113a49c1d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4d51be57ba27b381b31b4eadd55b0c4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/logo.svg" alt="" class="navbar-logo light-content">
+    <img src="./images/logo.svg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text">Início</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-fundamentos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Fundamentos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-fundamentos">    
+        <li>
+    <a class="dropdown-item" href="./cap00-precisa-grafico.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">Você precisa de um gráfico?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap01-gramatica.html"><i class="bi bi-layers" role="img">
+</i> 
+ <span class="dropdown-text">Gramática dos Gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap02-elementos.html"><i class="bi bi-diagram-3" role="img">
+</i> 
+ <span class="dropdown-text">Elementos de um gráfico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap03-tufte.html"><i class="bi bi-brush" role="img">
+</i> 
+ <span class="dropdown-text">Princípios de Tufte</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tipos-de-gráficos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tipos de Gráficos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tipos-de-gráficos">    
+        <li>
+    <a class="dropdown-item" href="./cap04-pizza.html"><i class="bi bi-pie-chart" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Pizza</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap05-barras.html"><i class="bi bi-bar-chart" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Barras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap06-histograma.html"><i class="bi bi-bar-chart-steps" role="img">
+</i> 
+ <span class="dropdown-text">Histograma</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap07-densidade.html"><i class="bi bi-soundwave" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Densidade</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap08-boxplot.html"><i class="bi bi-box" role="img">
+</i> 
+ <span class="dropdown-text">Boxplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap09-scatterplot.html"><i class="bi bi-scatter-chart" role="img">
+</i> 
+ <span class="dropdown-text">Scatter Plot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10-linhas.html"><i class="bi bi-graph-up" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Linha</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-pensamento-crítico" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Pensamento Crítico</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-pensamento-crítico">    
+        <li>
+    <a class="dropdown-item" href="./cap12-historia.html"><i class="bi bi-clock-history" role="img">
+</i> 
+ <span class="dropdown-text">Gráficos que Mudaram a História</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap13-mesmos-dados.html"><i class="bi bi-shuffle" role="img">
+</i> 
+ <span class="dropdown-text">Mesmos Dados, Histórias Diferentes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap14-galeria-horrores.html"><i class="bi bi-exclamation-triangle" role="img">
+</i> 
+ <span class="dropdown-text">Galeria de Horrores</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ferramentas" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ferramentas</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ferramentas">    
+        <li>
+    <a class="dropdown-item" href="./cap11-ia.html"><i class="bi bi-robot" role="img">
+</i> 
+ <span class="dropdown-text">IA para Gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap15-fluxograma.html"><i class="bi bi-signpost-split" role="img">
+</i> 
+ <span class="dropdown-text">Qual Gráfico Devo Usar?</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> <i class="bi bi-info-circle" role="img">
+</i> 
+<span class="menu-text">Sobre</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/henriquealvarenga/graficos-site"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo de leitor">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap11-ia.html">Ferramentas</a></li><li class="breadcrumb-item"><a href="./cap15-fluxograma.html">Qual Gráfico Devo Usar?</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap00-precisa-grafico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Você precisa de um gráfico?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap01-gramatica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gramática dos Gráficos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap02-elementos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Elementos de um gráfico</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap03-tufte.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Princípios de Tufte</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tipos de Gráficos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap04-pizza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Pizza</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap05-barras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Barras</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap06-histograma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Histograma</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap07-densidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Densidade</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap08-boxplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Boxplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap09-scatterplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scatter Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10-linhas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Linha</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pensamento Crítico</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap12-historia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráficos que Mudaram a História</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap13-mesmos-dados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mesmos Dados, Histórias Diferentes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap14-galeria-horrores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Galeria de Horrores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Ferramentas</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap11-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">IA para Gráficos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap15-fluxograma.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Qual Gráfico Devo Usar?</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  <li><a href="#o-fluxograma-de-decisão" id="toc-o-fluxograma-de-decisão" class="nav-link" data-scroll-target="#o-fluxograma-de-decisão">O Fluxograma de Decisão</a></li>
+  <li><a href="#tabela-de-referência-rápida" id="toc-tabela-de-referência-rápida" class="nav-link" data-scroll-target="#tabela-de-referência-rápida">Tabela de Referência Rápida</a></li>
+  <li><a href="#versão-interativa-com-observable-js" id="toc-versão-interativa-com-observable-js" class="nav-link" data-scroll-target="#versão-interativa-com-observable-js">Versão Interativa com Observable JS</a></li>
+  <li><a href="#conexão-com-a-gramática-dos-gráficos" id="toc-conexão-com-a-gramática-dos-gráficos" class="nav-link" data-scroll-target="#conexão-com-a-gramática-dos-gráficos">Conexão com a Gramática dos Gráficos</a></li>
+  <li><a href="#versão-resumo-cheat-sheet" id="toc-versão-resumo-cheat-sheet" class="nav-link" data-scroll-target="#versão-resumo-cheat-sheet">Versão Resumo: Cheat Sheet</a>
+  <ul class="collapse">
+  <li><a href="#variável" id="toc-variável" class="nav-link" data-scroll-target="#variável"><strong>1 Variável</strong></a></li>
+  <li><a href="#variáveis" id="toc-variáveis" class="nav-link" data-scroll-target="#variáveis"><strong>2 Variáveis</strong></a></li>
+  <li><a href="#variáveis-1" id="toc-variáveis-1" class="nav-link" data-scroll-target="#variáveis-1"><strong>3+ Variáveis</strong></a></li>
+  </ul></li>
+  <li><a href="#exemplos-práticos-com-dados-médicos" id="toc-exemplos-práticos-com-dados-médicos" class="nav-link" data-scroll-target="#exemplos-práticos-com-dados-médicos">Exemplos Práticos com Dados Médicos</a>
+  <ul class="collapse">
+  <li><a href="#exemplo-1-distribuição-de-sexo-em-uma-amostra" id="toc-exemplo-1-distribuição-de-sexo-em-uma-amostra" class="nav-link" data-scroll-target="#exemplo-1-distribuição-de-sexo-em-uma-amostra">Exemplo 1: Distribuição de Sexo em uma Amostra</a></li>
+  <li><a href="#exemplo-2-distribuição-de-glicemia-em-403-pacientes" id="toc-exemplo-2-distribuição-de-glicemia-em-403-pacientes" class="nav-link" data-scroll-target="#exemplo-2-distribuição-de-glicemia-em-403-pacientes">Exemplo 2: Distribuição de Glicemia em 403 Pacientes</a></li>
+  <li><a href="#exemplo-3-circunferência-de-quadril-por-tipo-de-corpo" id="toc-exemplo-3-circunferência-de-quadril-por-tipo-de-corpo" class="nav-link" data-scroll-target="#exemplo-3-circunferência-de-quadril-por-tipo-de-corpo">Exemplo 3: Circunferência de Quadril por Tipo de Corpo</a></li>
+  <li><a href="#exemplo-4-peso-vs.-circunferência-de-quadril" id="toc-exemplo-4-peso-vs.-circunferência-de-quadril" class="nav-link" data-scroll-target="#exemplo-4-peso-vs.-circunferência-de-quadril">Exemplo 4: Peso vs.&nbsp;Circunferência de Quadril</a></li>
+  </ul></li>
+  <li><a href="#quiz-qual-gráfico-usar" id="toc-quiz-qual-gráfico-usar" class="nav-link" data-scroll-target="#quiz-qual-gráfico-usar">Quiz: Qual Gráfico Usar?</a>
+  <ul class="collapse">
+  <li><a href="#questão-1" id="toc-questão-1" class="nav-link" data-scroll-target="#questão-1"><strong>Questão 1</strong></a></li>
+  <li><a href="#questão-2" id="toc-questão-2" class="nav-link" data-scroll-target="#questão-2"><strong>Questão 2</strong></a></li>
+  <li><a href="#questão-3" id="toc-questão-3" class="nav-link" data-scroll-target="#questão-3"><strong>Questão 3</strong></a></li>
+  <li><a href="#questão-4" id="toc-questão-4" class="nav-link" data-scroll-target="#questão-4"><strong>Questão 4</strong></a></li>
+  </ul></li>
+  <li><a href="#resumo-das-decisões-principais" id="toc-resumo-das-decisões-principais" class="nav-link" data-scroll-target="#resumo-das-decisões-principais">Resumo das Decisões Principais</a></li>
+  <li><a href="#referências-aos-capítulos-anteriores" id="toc-referências-aos-capítulos-anteriores" class="nav-link" data-scroll-target="#referências-aos-capítulos-anteriores">Referências aos Capítulos Anteriores</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap11-ia.html">Ferramentas</a></li><li class="breadcrumb-item"><a href="./cap15-fluxograma.html">Qual Gráfico Devo Usar?</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Qual Gráfico Devo Usar?</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Código</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Mostrar o código</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Esconder o código</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">Ver o código fonte</a></li></ul></div></div>
+<p class="subtitle lead">Capítulo 15 — Fluxograma de decisão</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Henrique Alvarenga da Silva </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Invalid Date</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>Escolher o gráfico correto é uma das habilidades mais importantes na visualização de dados. O gráfico certo comunica seu mensagem de forma clara e eficiente; o gráfico errado pode obscurecer padrões importantes ou levar a conclusões incorretas.</p>
+<p>Neste capítulo, exploraremos um <strong>fluxograma de decisão</strong> que o guiará através das escolhas principais: Quantas variáveis você tem? Qual é o tipo de cada variável? O que você quer comunicar com seus dados?</p>
+<p>Este fluxograma conecta-se diretamente à <strong>Gramática dos Gráficos</strong> (Capítulo 1). Lembre-se de que toda visualização mapeia variáveis a <strong>estéticas</strong> (position, cor, tamanho, forma) e depois escolhe um <strong>geom</strong> (ponto, linha, barra, etc.). O fluxograma a seguir essencialmente codifica essa lógica de mapeamento.</p>
+<hr>
+</section>
+<section id="o-fluxograma-de-decisão" class="level2">
+<h2 class="anchored" data-anchor-id="o-fluxograma-de-decisão">O Fluxograma de Decisão</h2>
+<p>Comece respondendo a pergunta inicial: <strong>Quantas variáveis você deseja visualizar?</strong></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A["Quantas variáveis&lt;br/&gt;você deseja visualizar?"] --&gt;|1 variável| B["Qual é o tipo&lt;br/&gt;de dados?"]
+    A --&gt;|2 variáveis| C["Qual é a combinação&lt;br/&gt;de tipos?"]
+    A --&gt;|3+ variáveis| D["Quais são os tipos&lt;br/&gt;de dados?"]
+
+    B --&gt;|Categórica| E["Quantas&lt;br/&gt;categorias?"]
+    B --&gt;|Numérica| F["O que deseja&lt;br/&gt;mostrar?"]
+
+    E --&gt;|2-5 categorias| G["📊 Gráfico de Barras&lt;br/&gt;Cap 5"]
+    E --&gt;|Muitas categorias| H["📊 Gráfico de Barras&lt;br/&gt;Horizontal&lt;br/&gt;Cap 5"]
+    E --&gt;|Proporção do todo| I["🥧 Gráfico de Pizza&lt;br/&gt;com ressalvas&lt;br/&gt;Cap 4"]
+
+    F --&gt;|Distribuição| J["📈 Histograma&lt;br/&gt;Cap 6"]
+    F --&gt;|Distribuição| K["📊 Densidade&lt;br/&gt;Cap 7"]
+    F --&gt;|Resumo por grupos| L["📦 Boxplot&lt;br/&gt;Cap 8"]
+
+    C --&gt;|Ambas numéricas| M["📍 Scatter Plot&lt;br/&gt;Cap 9"]
+    C --&gt;|Numérica +&lt;br/&gt;Categórica| N["📦 Boxplot&lt;br/&gt;Cap 8"]
+    C --&gt;|Numérica +&lt;br/&gt;Categórica| O["📊 Barras de&lt;br/&gt;Médias&lt;br/&gt;Cap 5"]
+    C --&gt;|Ambas categóricas| P["📊 Gráfico&lt;br/&gt;de Barras Agrupadas&lt;br/&gt;Cap 5"]
+    C --&gt;|Temporal| Q["📈 Gráfico de Linha&lt;br/&gt;Cap 10"]
+
+    D --&gt;|Múltiplas variáveis| R["Considere Facets&lt;br/&gt;Small Multiples"]
+    D --&gt;|Cor como dimensão| S["Use cor para&lt;br/&gt;codificar uma&lt;br/&gt;variável categórica"]
+    D --&gt;|Tamanho como dim.| T["Use tamanho para&lt;br/&gt;codificar uma&lt;br/&gt;variável numérica"]
+
+    R --&gt; U["📊 Combine com&lt;br/&gt;uma das opções&lt;br/&gt;acima"]
+    S --&gt; U
+    T --&gt; U
+
+    style A fill:#e1f5ff
+    style G fill:#fff3e0
+    style H fill:#fff3e0
+    style I fill:#fff3e0
+    style J fill:#fff3e0
+    style K fill:#fff3e0
+    style L fill:#fff3e0
+    style M fill:#fff3e0
+    style N fill:#fff3e0
+    style O fill:#fff3e0
+    style P fill:#fff3e0
+    style Q fill:#fff3e0
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="tabela-de-referência-rápida" class="level2">
+<h2 class="anchored" data-anchor-id="tabela-de-referência-rápida">Tabela de Referência Rápida</h2>
+<p>Aqui está uma tabela abrangente que resume as decisões mais comuns em pesquisa médica:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Objetivo</strong></th>
+<th><strong>Tipo de Dado</strong></th>
+<th><strong>Número de Variáveis</strong></th>
+<th><strong>Gráfico Recomendado</strong></th>
+<th><strong>Capítulo</strong></th>
+<th><strong>Notas</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mostrar distribuição de uma variável categórica</td>
+<td>Categórica</td>
+<td>1</td>
+<td>Gráfico de Barras</td>
+<td>5</td>
+<td>Use horizontal para muitas categorias</td>
+</tr>
+<tr class="even">
+<td>Mostrar proporção do todo</td>
+<td>Categórica</td>
+<td>1</td>
+<td>Pizza (com ressalvas)</td>
+<td>4</td>
+<td>Evite se possível; barras são melhores</td>
+</tr>
+<tr class="odd">
+<td>Mostrar distribuição de uma variável numérica</td>
+<td>Numérica</td>
+<td>1</td>
+<td>Histograma</td>
+<td>6</td>
+<td>Mostra intervalos e frequências</td>
+</tr>
+<tr class="even">
+<td>Mostrar densidade de uma variável numérica</td>
+<td>Numérica</td>
+<td>1</td>
+<td>Densidade</td>
+<td>7</td>
+<td>Mais suave que histograma</td>
+</tr>
+<tr class="odd">
+<td>Resumir uma variável por grupos</td>
+<td>Numérica + Categórica</td>
+<td>2</td>
+<td>Boxplot</td>
+<td>8</td>
+<td>Mostra quartis e outliers</td>
+</tr>
+<tr class="even">
+<td>Comparar médias entre grupos</td>
+<td>Numérica + Categórica</td>
+<td>2</td>
+<td>Barras de Médias</td>
+<td>5</td>
+<td>Simples mas pode ocultar distribuição</td>
+</tr>
+<tr class="odd">
+<td>Mostrar relação entre duas variáveis numéricas</td>
+<td>Ambas Numéricas</td>
+<td>2</td>
+<td>Scatter Plot</td>
+<td>9</td>
+<td>Busque correlações e agrupamentos</td>
+</tr>
+<tr class="even">
+<td>Comparar duas variáveis categóricas</td>
+<td>Ambas Categóricas</td>
+<td>2</td>
+<td>Barras Agrupadas</td>
+<td>5</td>
+<td>Mostre frequências cruzadas</td>
+</tr>
+<tr class="odd">
+<td>Mostrar tendência ao longo do tempo</td>
+<td>Numérica + Temporal</td>
+<td>2</td>
+<td>Gráfico de Linha</td>
+<td>10</td>
+<td>Ideal para séries temporais</td>
+</tr>
+<tr class="even">
+<td>Visualizar 3+ variáveis simultaneamente</td>
+<td>Múltiplos</td>
+<td>3+</td>
+<td>Facets / Small Multiples</td>
+<td>11</td>
+<td>Combine com um gráfico base</td>
+</tr>
+<tr class="odd">
+<td>Codificar dimensão extra com cor</td>
+<td>Categórica</td>
+<td>3+</td>
+<td>Scatter + Cor</td>
+<td>9, 12</td>
+<td>Use paleta apropriada</td>
+</tr>
+<tr class="even">
+<td>Codificar dimensão extra com tamanho</td>
+<td>Numérica</td>
+<td>3+</td>
+<td>Scatter + Tamanho</td>
+<td>9, 13</td>
+<td>Cuidado com percepção de área</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="versão-interativa-com-observable-js" class="level2">
+<h2 class="anchored" data-anchor-id="versão-interativa-com-observable-js">Versão Interativa com Observable JS</h2>
+<p>Responda as perguntas abaixo para obter uma recomendação personalizada:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="94" data-source-offset="0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 93;"><span id="cb1-94"><a href="#cb1-94"></a>viewof numVariaveis <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb1-95"><a href="#cb1-95"></a>  [<span class="st">"1 variável"</span><span class="op">,</span> <span class="st">"2 variáveis"</span><span class="op">,</span> <span class="st">"3 ou mais variáveis"</span>]<span class="op">,</span></span>
+<span id="cb1-96"><a href="#cb1-96"></a>  { <span class="dt">value</span><span class="op">:</span> <span class="st">"1 variável"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"1. Quantas variáveis você deseja visualizar?"</span> }</span>
+<span id="cb1-97"><a href="#cb1-97"></a>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="101" data-source-offset="0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 100;"><span id="cb2-101"><a href="#cb2-101"></a>viewof tipoVariavel <span class="op">=</span> {</span>
+<span id="cb2-102"><a href="#cb2-102"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span>) {</span>
+<span id="cb2-103"><a href="#cb2-103"></a>    <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb2-104"><a href="#cb2-104"></a>      [<span class="st">"Categórica"</span><span class="op">,</span> <span class="st">"Numérica"</span>]<span class="op">,</span></span>
+<span id="cb2-105"><a href="#cb2-105"></a>      { <span class="dt">value</span><span class="op">:</span> <span class="st">"Categórica"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"2. Qual é o tipo de dados?"</span> }</span>
+<span id="cb2-106"><a href="#cb2-106"></a>    )<span class="op">;</span></span>
+<span id="cb2-107"><a href="#cb2-107"></a>  }</span>
+<span id="cb2-108"><a href="#cb2-108"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"2 variáveis"</span>) {</span>
+<span id="cb2-109"><a href="#cb2-109"></a>    <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb2-110"><a href="#cb2-110"></a>      [<span class="st">"Ambas numéricas"</span><span class="op">,</span> <span class="st">"Uma numérica + Uma categórica"</span><span class="op">,</span> <span class="st">"Ambas categóricas"</span><span class="op">,</span> <span class="st">"Temporal (tempo no eixo X)"</span>]<span class="op">,</span></span>
+<span id="cb2-111"><a href="#cb2-111"></a>      { <span class="dt">value</span><span class="op">:</span> <span class="st">"Ambas numéricas"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"2. Qual é a combinação de tipos?"</span> }</span>
+<span id="cb2-112"><a href="#cb2-112"></a>    )<span class="op">;</span></span>
+<span id="cb2-113"><a href="#cb2-113"></a>  }</span>
+<span id="cb2-114"><a href="#cb2-114"></a>  <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb2-115"><a href="#cb2-115"></a>    [<span class="st">"Usar facets (pequenos múltiplos)"</span><span class="op">,</span> <span class="st">"Usar cor para dimensão extra"</span><span class="op">,</span> <span class="st">"Usar tamanho para dimensão extra"</span>]<span class="op">,</span></span>
+<span id="cb2-116"><a href="#cb2-116"></a>    { <span class="dt">value</span><span class="op">:</span> <span class="st">"Usar facets (pequenos múltiplos)"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"2. Como deseja codificar as variáveis extras?"</span> }</span>
+<span id="cb2-117"><a href="#cb2-117"></a>  )<span class="op">;</span></span>
+<span id="cb2-118"><a href="#cb2-118"></a>}</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="122" data-source-offset="0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 121;"><span id="cb3-122"><a href="#cb3-122"></a>viewof detalhe <span class="op">=</span> {</span>
+<span id="cb3-123"><a href="#cb3-123"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span> <span class="op">&amp;&amp;</span> tipoVariavel <span class="op">===</span> <span class="st">"Categórica"</span>) {</span>
+<span id="cb3-124"><a href="#cb3-124"></a>    <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb3-125"><a href="#cb3-125"></a>      [<span class="st">"2-5 categorias"</span><span class="op">,</span> <span class="st">"Muitas categorias"</span><span class="op">,</span> <span class="st">"Proporção do todo"</span>]<span class="op">,</span></span>
+<span id="cb3-126"><a href="#cb3-126"></a>      { <span class="dt">value</span><span class="op">:</span> <span class="st">"2-5 categorias"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"3. Quantas categorias?"</span> }</span>
+<span id="cb3-127"><a href="#cb3-127"></a>    )<span class="op">;</span></span>
+<span id="cb3-128"><a href="#cb3-128"></a>  }</span>
+<span id="cb3-129"><a href="#cb3-129"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span> <span class="op">&amp;&amp;</span> tipoVariavel <span class="op">===</span> <span class="st">"Numérica"</span>) {</span>
+<span id="cb3-130"><a href="#cb3-130"></a>    <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb3-131"><a href="#cb3-131"></a>      [<span class="st">"Mostrar distribuição completa"</span><span class="op">,</span> <span class="st">"Mostrar densidade"</span><span class="op">,</span> <span class="st">"Resumir por grupos"</span>]<span class="op">,</span></span>
+<span id="cb3-132"><a href="#cb3-132"></a>      { <span class="dt">value</span><span class="op">:</span> <span class="st">"Mostrar distribuição completa"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"3. O que deseja mostrar?"</span> }</span>
+<span id="cb3-133"><a href="#cb3-133"></a>    )<span class="op">;</span></span>
+<span id="cb3-134"><a href="#cb3-134"></a>  }</span>
+<span id="cb3-135"><a href="#cb3-135"></a>  <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"(Não se aplica)"</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="st">"(Não se aplica)"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">" "</span> })<span class="op">;</span></span>
+<span id="cb3-136"><a href="#cb3-136"></a>}</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="140" data-source-offset="0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 139;"><span id="cb4-140"><a href="#cb4-140"></a>recomendacao <span class="op">=</span> {</span>
+<span id="cb4-141"><a href="#cb4-141"></a>  <span class="co">// 1 variável categórica</span></span>
+<span id="cb4-142"><a href="#cb4-142"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span> <span class="op">&amp;&amp;</span> tipoVariavel <span class="op">===</span> <span class="st">"Categórica"</span>) {</span>
+<span id="cb4-143"><a href="#cb4-143"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"2-5 categorias"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Gráfico de Barras"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 5"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Use barras verticais para mostrar a frequência de cada categoria."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Simples, claro e eficaz para a maioria das situações."</span> }<span class="op">;</span></span>
+<span id="cb4-144"><a href="#cb4-144"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Muitas categorias"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Gráfico de Barras Horizontal"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 5"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Barras horizontais dão mais espaço para rótulos longos."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Ideal quando você tem muitas categorias ou nomes longos."</span> }<span class="op">;</span></span>
+<span id="cb4-145"><a href="#cb4-145"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Proporção do todo"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Pizza (com ressalvas)"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 4"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Gráfico de pizza mostra proporções do todo."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Cuidado: barras são frequentemente mais claras. Use pizza apenas se houver poucos grupos."</span> }<span class="op">;</span></span>
+<span id="cb4-146"><a href="#cb4-146"></a>  }</span>
+<span id="cb4-147"><a href="#cb4-147"></a>  <span class="co">// 1 variável numérica</span></span>
+<span id="cb4-148"><a href="#cb4-148"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span> <span class="op">&amp;&amp;</span> tipoVariavel <span class="op">===</span> <span class="st">"Numérica"</span>) {</span>
+<span id="cb4-149"><a href="#cb4-149"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Mostrar distribuição completa"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Histograma"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 6"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Mostra a distribuição de uma variável numérica em intervalos (bins)."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Escolha a largura dos bins com cuidado."</span> }<span class="op">;</span></span>
+<span id="cb4-150"><a href="#cb4-150"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Mostrar densidade"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Gráfico de Densidade"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 7"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Versão suavizada do histograma."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Mais elegante que histograma, melhor para comparações entre grupos."</span> }<span class="op">;</span></span>
+<span id="cb4-151"><a href="#cb4-151"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Resumir por grupos"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Boxplot"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 8"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Mostra quartis, mediana e outliers de uma variável por grupo."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Compacto e informativo."</span> }<span class="op">;</span></span>
+<span id="cb4-152"><a href="#cb4-152"></a>  }</span>
+<span id="cb4-153"><a href="#cb4-153"></a>  <span class="co">// 2 variáveis</span></span>
+<span id="cb4-154"><a href="#cb4-154"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"2 variáveis"</span>) {</span>
+<span id="cb4-155"><a href="#cb4-155"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Ambas numéricas"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Scatter Plot"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 9"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Mostra a relação entre duas variáveis numéricas."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Procure correlações, agrupamentos e outliers."</span> }<span class="op">;</span></span>
+<span id="cb4-156"><a href="#cb4-156"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Uma numérica + Uma categórica"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Boxplot"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 8"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Boxplot mostra distribuição completa por grupo."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Prefira boxplot a barras de médias — mostra mais informação."</span> }<span class="op">;</span></span>
+<span id="cb4-157"><a href="#cb4-157"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Ambas categóricas"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Barras Agrupadas"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 5"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Compara frequências de duas variáveis categóricas."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Bom para tabelas de contingência."</span> }<span class="op">;</span></span>
+<span id="cb4-158"><a href="#cb4-158"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Temporal (tempo no eixo X)"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Gráfico de Linha"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 10"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Mostra como uma variável muda ao longo do tempo."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Natural para séries temporais."</span> }<span class="op">;</span></span>
+<span id="cb4-159"><a href="#cb4-159"></a>  }</span>
+<span id="cb4-160"><a href="#cb4-160"></a>  <span class="co">// 3+ variáveis</span></span>
+<span id="cb4-161"><a href="#cb4-161"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"3 ou mais variáveis"</span>) {</span>
+<span id="cb4-162"><a href="#cb4-162"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Usar facets (pequenos múltiplos)"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Facets / Small Multiples"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulos 3 e 5-9"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Divida em painéis por uma variável categórica."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Poderoso para visualizar interações."</span> }<span class="op">;</span></span>
+<span id="cb4-163"><a href="#cb4-163"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Usar cor para dimensão extra"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Scatter ou Barras com Cor"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulos 5 e 9"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Use cor para representar uma variável categórica adicional."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Máximo 5-7 cores. Cuidado com daltonismo."</span> }<span class="op">;</span></span>
+<span id="cb4-164"><a href="#cb4-164"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Usar tamanho para dimensão extra"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Scatter com Tamanho (Bubble Chart)"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 9"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Use tamanho dos pontos para uma variável numérica adicional."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"A percepção humana de área não é linear."</span> }<span class="op">;</span></span>
+<span id="cb4-165"><a href="#cb4-165"></a>  }</span>
+<span id="cb4-166"><a href="#cb4-166"></a>  <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">""</span> }<span class="op">;</span></span>
+<span id="cb4-167"><a href="#cb4-167"></a>}</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-startfrom="171" data-source-offset="0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 170;"><span id="cb5-171"><a href="#cb5-171"></a><span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb5-172"><a href="#cb5-172"></a><span class="vs">&lt;div style="border: 2px solid #2563EB; padding: 20px; border-radius: 8px; margin-top: 20px; background-color: #DBEAFE;"&gt;</span></span>
+<span id="cb5-173"><a href="#cb5-173"></a><span class="vs">  &lt;h3 style="color: #1D4ED8; margin-top: 0;"&gt;Recomendação&lt;/h3&gt;</span></span>
+<span id="cb5-174"><a href="#cb5-174"></a><span class="vs">  &lt;p&gt;&lt;strong&gt;Tipo de gráfico:&lt;/strong&gt; </span><span class="sc">${</span>recomendacao<span class="op">.</span><span class="at">tipo</span> <span class="op">||</span> <span class="st">"Selecione as opções acima"</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb5-175"><a href="#cb5-175"></a><span class="vs">  &lt;p&gt;&lt;strong&gt;Referência:&lt;/strong&gt; </span><span class="sc">${</span>recomendacao<span class="op">.</span><span class="at">capitulo</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb5-176"><a href="#cb5-176"></a><span class="vs">  &lt;p&gt;</span><span class="sc">${</span>recomendacao<span class="op">.</span><span class="at">descricao</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb5-177"><a href="#cb5-177"></a><span class="vs">  &lt;p&gt;&lt;em&gt;</span><span class="sc">${</span>recomendacao<span class="op">.</span><span class="at">obs</span><span class="sc">}</span><span class="vs">&lt;/em&gt;&lt;/p&gt;</span></span>
+<span id="cb5-178"><a href="#cb5-178"></a><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb5-179"><a href="#cb5-179"></a><span class="vs">`</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="conexão-com-a-gramática-dos-gráficos" class="level2">
+<h2 class="anchored" data-anchor-id="conexão-com-a-gramática-dos-gráficos">Conexão com a Gramática dos Gráficos</h2>
+<p>Lembre-se: toda visualização de dados segue este padrão:</p>
+<p><strong>Dados → Estéticas → Geoms</strong></p>
+<ul>
+<li><strong>Dados</strong>: Suas variáveis (categóricas, numéricas, temporais)</li>
+<li><strong>Estéticas</strong>: Como as variáveis são mapeadas visualmente (posição x, posição y, cor, tamanho, forma)</li>
+<li><strong>Geoms</strong>: O tipo de forma geométrica (ponto, linha, barra, etc.)</li>
+</ul>
+<p>Por exemplo: - <strong>Scatter Plot</strong>: dados (x, y) → estéticas (posição x, posição y) → geom (ponto) - <strong>Barras</strong>: dados (categorias, contagens) → estéticas (posição y, largura) → geom (barra) - <strong>Boxplot</strong>: dados (grupos, valores) → estéticas (posição y, caixa) → geom (caixa + linhas)</p>
+<p>O fluxograma acima essencialmente codifica essa lógica: ele mapeia suas variáveis às estéticas e depois sugere um geom apropriado.</p>
+<hr>
+</section>
+<section id="versão-resumo-cheat-sheet" class="level2">
+<h2 class="anchored" data-anchor-id="versão-resumo-cheat-sheet">Versão Resumo: Cheat Sheet</h2>
+<p>Salve esta tabela rápida como referência:</p>
+<section id="variável" class="level3">
+<h3 class="anchored" data-anchor-id="variável"><strong>1 Variável</strong></h3>
+<ul>
+<li><strong>Categórica</strong> → Barras</li>
+<li><strong>Numérica</strong> → Histograma ou Densidade</li>
+</ul>
+</section>
+<section id="variáveis" class="level3">
+<h3 class="anchored" data-anchor-id="variáveis"><strong>2 Variáveis</strong></h3>
+<ul>
+<li><strong>Numérica + Numérica</strong> → Scatter</li>
+<li><strong>Numérica + Categórica</strong> → Boxplot</li>
+<li><strong>Categórica + Categórica</strong> → Barras Agrupadas</li>
+<li><strong>Tempo + Outra</strong> → Linha</li>
+</ul>
+</section>
+<section id="variáveis-1" class="level3">
+<h3 class="anchored" data-anchor-id="variáveis-1"><strong>3+ Variáveis</strong></h3>
+<ul>
+<li>Facets / Small Multiples</li>
+<li>Cor como terceira variável</li>
+<li>Tamanho como terceira variável</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="exemplos-práticos-com-dados-médicos" class="level2">
+<h2 class="anchored" data-anchor-id="exemplos-práticos-com-dados-médicos">Exemplos Práticos com Dados Médicos</h2>
+<section id="exemplo-1-distribuição-de-sexo-em-uma-amostra" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-1-distribuição-de-sexo-em-uma-amostra">Exemplo 1: Distribuição de Sexo em uma Amostra</h3>
+<p><strong>Cenário</strong>: Você tem dados de 500 pacientes e quer mostrar quantos são homens vs.&nbsp;mulheres.</p>
+<p><strong>Decisão</strong>: 1. Quantas variáveis? → 1 (Sexo) 2. Qual tipo? → Categórica 3. Quantas categorias? → 2 (M/F) 4. <strong>Recomendação</strong>: Gráfico de Barras (Capítulo 5)</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A["Sexo&lt;br/&gt;Categórica&lt;br/&gt;2 categorias"] --&gt; B["Barras"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>Por quê?</strong> Barras são claras, simples e mostram a frequência de cada grupo. Uma pizza seria aceitável aqui (apenas 2 categorias), mas barras são sempre melhores.</p>
+<hr>
+</section>
+<section id="exemplo-2-distribuição-de-glicemia-em-403-pacientes" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-2-distribuição-de-glicemia-em-403-pacientes">Exemplo 2: Distribuição de Glicemia em 403 Pacientes</h3>
+<p><strong>Cenário</strong>: Você tem medidas de glicemia (mg/dL) para 403 pacientes e quer explorar a distribuição.</p>
+<p><strong>Decisão</strong>: 1. Quantas variáveis? → 1 (Glicemia) 2. Qual tipo? → Numérica 3. O que mostrar? → Distribuição completa 4. <strong>Recomendação</strong>: Histograma (Capítulo 6)</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A["Glicemia&lt;br/&gt;Numérica&lt;br/&gt;Distribuição"] --&gt; B["Histograma"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>Por quê?</strong> O histograma mostra a frequência em intervalos, revelando se a distribuição é normal, bimodal, ou enviesada. Você pode também usar densidade para uma versão mais suave.</p>
+<hr>
+</section>
+<section id="exemplo-3-circunferência-de-quadril-por-tipo-de-corpo" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-3-circunferência-de-quadril-por-tipo-de-corpo">Exemplo 3: Circunferência de Quadril por Tipo de Corpo</h3>
+<p><strong>Cenário</strong>: Você tem medidas de circunferência de quadril para pacientes classificados em 3 tipos de corpo (ectomorfo, mesomorfo, endomorfo).</p>
+<p><strong>Decisão</strong>: 1. Quantas variáveis? → 2 (Circunferência de quadril, Tipo de corpo) 2. Qual tipo? → Uma numérica + uma categórica 3. <strong>Recomendação</strong>: Boxplot (Capítulo 8)</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A["Circ. Quadril&lt;br/&gt;+&lt;br/&gt;Tipo Corpo"] --&gt; B["Boxplot"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>Por quê?</strong> Boxplot mostra a mediana, quartis e outliers para cada grupo, permitindo comparação visual rápida. Barras de médias seriam mais simples, mas perderiam informação sobre a distribuição.</p>
+<hr>
+</section>
+<section id="exemplo-4-peso-vs.-circunferência-de-quadril" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-4-peso-vs.-circunferência-de-quadril">Exemplo 4: Peso vs.&nbsp;Circunferência de Quadril</h3>
+<p><strong>Cenário</strong>: Você quer saber se existe correlação entre peso (kg) e circunferência de quadril (cm) em 200 pacientes.</p>
+<p><strong>Decisão</strong>: 1. Quantas variáveis? → 2 (Peso, Circunferência) 2. Qual tipo? → Ambas numéricas 3. <strong>Recomendação</strong>: Scatter Plot (Capítulo 9)</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A["Peso&lt;br/&gt;+&lt;br/&gt;Circunferência"] --&gt; B["Scatter Plot"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>Por quê?</strong> Scatter plot mostra a relação entre as duas variáveis. Você pode procurar por correlação (padrão linear), agrupamentos ou outliers. Se houver muitos pontos sobrepostos, considere adicionar transparência ou densidade.</p>
+<hr>
+</section>
+</section>
+<section id="quiz-qual-gráfico-usar" class="level2">
+<h2 class="anchored" data-anchor-id="quiz-qual-gráfico-usar">Quiz: Qual Gráfico Usar?</h2>
+<p>Teste seus conhecimentos respondendo às seguintes perguntas. Para cada cenário, identifique o gráfico recomendado e o capítulo correspondente.</p>
+<section id="questão-1" class="level3">
+<h3 class="anchored" data-anchor-id="questão-1"><strong>Questão 1</strong></h3>
+<p>Você é médico e coleta dados de pressão arterial (PA sistólica em mmHg) de 150 pacientes hipertensos. Deseja explorar como a PA é distribuída na amostra. Qual gráfico usar?</p>
+<ol type="A">
+<li>Gráfico de Barras</li>
+<li>Histograma</li>
+<li>Scatter Plot</li>
+<li>Gráfico de Pizza</li>
+</ol>
+<details>
+<summary>
+Ver resposta
+</summary>
+<p><strong>Resposta: B) Histograma (Capítulo 6)</strong></p>
+<strong>Explicação</strong>: Você tem uma variável numérica (PA sistólica) e quer mostrar sua distribuição em intervalos. Histograma é a escolha padrão para explorar distribuições de dados contínuos.
+</details>
+<hr>
+</section>
+<section id="questão-2" class="level3">
+<h3 class="anchored" data-anchor-id="questão-2"><strong>Questão 2</strong></h3>
+<p>Você está analisando a eficácia de um novo medicamento. Tem dados de 5 grupos de dosagem (baixa, média, alta, muito alta, controle) e quer comparar o número de pacientes que melhoraram em cada grupo. Qual gráfico usar?</p>
+<ol type="A">
+<li>Boxplot</li>
+<li>Gráfico de Barras</li>
+<li>Scatter Plot</li>
+<li>Gráfico de Densidade</li>
+</ol>
+<details>
+<summary>
+Ver resposta
+</summary>
+<p><strong>Resposta: B) Gráfico de Barras (Capítulo 5)</strong></p>
+<strong>Explicação</strong>: Você tem uma variável categórica (grupos de dosagem) e quer mostrar contagens/frequências. Gráfico de barras é ideal. Como há 5 categorias, barras verticais são apropriadas.
+</details>
+<hr>
+</section>
+<section id="questão-3" class="level3">
+<h3 class="anchored" data-anchor-id="questão-3"><strong>Questão 3</strong></h3>
+<p>Você coleta dados de IMC (índice de massa corporal) para pacientes estratificados por faixa etária (18-30, 31-50, 51-70, 70+). Quer comparar como o IMC varia em cada faixa etária, incluindo outliers. Qual gráfico usar?</p>
+<ol type="A">
+<li>Scatter Plot</li>
+<li>Gráfico de Linha</li>
+<li>Boxplot</li>
+<li>Gráfico de Barras</li>
+</ol>
+<details>
+<summary>
+Ver resposta
+</summary>
+<p><strong>Resposta: C) Boxplot (Capítulo 8)</strong></p>
+<strong>Explicação</strong>: Você tem uma variável numérica (IMC) que deseja comparar entre grupos categóricos (faixas etárias). Boxplot mostra a distribuição, medianas e outliers de forma compacta. É superior a “barras de médias” porque preserva informação sobre a dispersão.
+</details>
+<hr>
+</section>
+<section id="questão-4" class="level3">
+<h3 class="anchored" data-anchor-id="questão-4"><strong>Questão 4</strong></h3>
+<p>Você está estudando a progressão de uma doença ao longo de 12 meses. Coleta o nível de marcador inflamatório (citocinas, em pg/mL) de um grupo de pacientes a cada mês. Quer visualizar a tendência ao longo do tempo. Qual gráfico usar?</p>
+<ol type="A">
+<li>Gráfico de Pizza</li>
+<li>Gráfico de Linha</li>
+<li>Histograma</li>
+<li>Barras Agrupadas</li>
+</ol>
+<details>
+<summary>
+Ver resposta
+</summary>
+<p><strong>Resposta: B) Gráfico de Linha (Capítulo 10)</strong></p>
+<strong>Explicação</strong>: Você tem dados temporais (mês) no eixo x e uma medida numérica (citocinas) no eixo y. Gráfico de linha é natural para séries temporais e enfatiza tendências.
+</details>
+<hr>
+</section>
+</section>
+<section id="resumo-das-decisões-principais" class="level2">
+<h2 class="anchored" data-anchor-id="resumo-das-decisões-principais">Resumo das Decisões Principais</h2>
+<p>A escolha do gráfico certo começa com três perguntas:</p>
+<ol type="1">
+<li><strong>Quantas variáveis</strong> você deseja visualizar?</li>
+<li><strong>Qual é o tipo</strong> (categórico, numérico, temporal)?</li>
+<li><strong>O que deseja comunicar</strong> (distribuição, comparação, correlação, proporção)?</li>
+</ol>
+<p>Respondendo essas perguntas, o fluxograma acima guia você para a escolha correta. Lembre-se:</p>
+<ul>
+<li><strong>Barras</strong> para categorias</li>
+<li><strong>Histograma/Densidade</strong> para distribuições numéricas</li>
+<li><strong>Boxplot</strong> para comparar distribuições entre grupos</li>
+<li><strong>Scatter</strong> para relações entre duas variáveis numéricas</li>
+<li><strong>Linha</strong> para tendências temporais</li>
+<li><strong>Facets</strong> para múltiplas variáveis</li>
+</ul>
+<p>E sempre leve em conta a <strong>Gramática dos Gráficos</strong>: dados → estéticas → geoms. Um bom gráfico mapeia suas variáveis claramente às estéticas visuais e escolhe um geom que comunica seu mensagem de forma eficiente.</p>
+<hr>
+</section>
+<section id="referências-aos-capítulos-anteriores" class="level2">
+<h2 class="anchored" data-anchor-id="referências-aos-capítulos-anteriores">Referências aos Capítulos Anteriores</h2>
+<ul>
+<li><strong>Capítulo 1</strong>: Gramática dos Gráficos</li>
+<li><strong>Capítulo 4</strong>: Gráficos de Pizza (e por que evitá-los)</li>
+<li><strong>Capítulo 5</strong>: Gráficos de Barras</li>
+<li><strong>Capítulo 6</strong>: Histogramas</li>
+<li><strong>Capítulo 7</strong>: Gráficos de Densidade</li>
+<li><strong>Capítulo 8</strong>: Boxplots</li>
+<li><strong>Capítulo 9</strong>: Scatter Plots</li>
+<li><strong>Capítulo 10</strong>: Gráficos de Linha</li>
+<li><strong>Capítulo 11</strong>: Facets e Small Multiples</li>
+<li><strong>Capítulo 12</strong>: Cores em Visualização</li>
+<li><strong>Capítulo 13</strong>: Tamanho e Proporção</li>
+</ul>
+<hr>
+<p><strong>Autor</strong>: Henrique Alvarenga da Silva <strong>Data</strong>: 2024-2025 <strong>Disciplina</strong>: Visualização de Dados para Pesquisadores Médicos</p>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> De volta ao topo</a></main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBudW1WYXJpYXZlaXMgPSBJbnB1dHMucmFkaW8oXG4gIFtcIjEgdmFyacOhdmVsXCIsIFwiMiB2YXJpw6F2ZWlzXCIsIFwiMyBvdSBtYWlzIHZhcmnDoXZlaXNcIl0sXG4gIHsgdmFsdWU6IFwiMSB2YXJpw6F2ZWxcIiwgbGFiZWw6IFwiMS4gUXVhbnRhcyB2YXJpw6F2ZWlzIHZvY8OqIGRlc2VqYSB2aXN1YWxpemFyP1wiIH1cbilcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB0aXBvVmFyaWF2ZWwgPSB7XG4gIGlmIChudW1WYXJpYXZlaXMgPT09IFwiMSB2YXJpw6F2ZWxcIikge1xuICAgIHJldHVybiBJbnB1dHMucmFkaW8oXG4gICAgICBbXCJDYXRlZ8OzcmljYVwiLCBcIk51bcOpcmljYVwiXSxcbiAgICAgIHsgdmFsdWU6IFwiQ2F0ZWfDs3JpY2FcIiwgbGFiZWw6IFwiMi4gUXVhbCDDqSBvIHRpcG8gZGUgZGFkb3M/XCIgfVxuICAgICk7XG4gIH1cbiAgaWYgKG51bVZhcmlhdmVpcyA9PT0gXCIyIHZhcmnDoXZlaXNcIikge1xuICAgIHJldHVybiBJbnB1dHMucmFkaW8oXG4gICAgICBbXCJBbWJhcyBudW3DqXJpY2FzXCIsIFwiVW1hIG51bcOpcmljYSArIFVtYSBjYXRlZ8OzcmljYVwiLCBcIkFtYmFzIGNhdGVnw7NyaWNhc1wiLCBcIlRlbXBvcmFsICh0ZW1wbyBubyBlaXhvIFgpXCJdLFxuICAgICAgeyB2YWx1ZTogXCJBbWJhcyBudW3DqXJpY2FzXCIsIGxhYmVsOiBcIjIuIFF1YWwgw6kgYSBjb21iaW5hw6fDo28gZGUgdGlwb3M/XCIgfVxuICAgICk7XG4gIH1cbiAgcmV0dXJuIElucHV0cy5yYWRpbyhcbiAgICBbXCJVc2FyIGZhY2V0cyAocGVxdWVub3MgbcO6bHRpcGxvcylcIiwgXCJVc2FyIGNvciBwYXJhIGRpbWVuc8OjbyBleHRyYVwiLCBcIlVzYXIgdGFtYW5obyBwYXJhIGRpbWVuc8OjbyBleHRyYVwiXSxcbiAgICB7IHZhbHVlOiBcIlVzYXIgZmFjZXRzIChwZXF1ZW5vcyBtw7psdGlwbG9zKVwiLCBsYWJlbDogXCIyLiBDb21vIGRlc2VqYSBjb2RpZmljYXIgYXMgdmFyacOhdmVpcyBleHRyYXM/XCIgfVxuICApO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIGRldGFsaGUgPSB7XG4gIGlmIChudW1WYXJpYXZlaXMgPT09IFwiMSB2YXJpw6F2ZWxcIiAmJiB0aXBvVmFyaWF2ZWwgPT09IFwiQ2F0ZWfDs3JpY2FcIikge1xuICAgIHJldHVybiBJbnB1dHMucmFkaW8oXG4gICAgICBbXCIyLTUgY2F0ZWdvcmlhc1wiLCBcIk11aXRhcyBjYXRlZ29yaWFzXCIsIFwiUHJvcG9yw6fDo28gZG8gdG9kb1wiXSxcbiAgICAgIHsgdmFsdWU6IFwiMi01IGNhdGVnb3JpYXNcIiwgbGFiZWw6IFwiMy4gUXVhbnRhcyBjYXRlZ29yaWFzP1wiIH1cbiAgICApO1xuICB9XG4gIGlmIChudW1WYXJpYXZlaXMgPT09IFwiMSB2YXJpw6F2ZWxcIiAmJiB0aXBvVmFyaWF2ZWwgPT09IFwiTnVtw6lyaWNhXCIpIHtcbiAgICByZXR1cm4gSW5wdXRzLnJhZGlvKFxuICAgICAgW1wiTW9zdHJhciBkaXN0cmlidWnDp8OjbyBjb21wbGV0YVwiLCBcIk1vc3RyYXIgZGVuc2lkYWRlXCIsIFwiUmVzdW1pciBwb3IgZ3J1cG9zXCJdLFxuICAgICAgeyB2YWx1ZTogXCJNb3N0cmFyIGRpc3RyaWJ1acOnw6NvIGNvbXBsZXRhXCIsIGxhYmVsOiBcIjMuIE8gcXVlIGRlc2VqYSBtb3N0cmFyP1wiIH1cbiAgICApO1xuICB9XG4gIHJldHVybiBJbnB1dHMucmFkaW8oW1wiKE7Do28gc2UgYXBsaWNhKVwiXSwgeyB2YWx1ZTogXCIoTsOjbyBzZSBhcGxpY2EpXCIsIGxhYmVsOiBcIiBcIiB9KTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InJlY29tZW5kYWNhbyA9IHtcbiAgLy8gMSB2YXJpw6F2ZWwgY2F0ZWfDs3JpY2FcbiAgaWYgKG51bVZhcmlhdmVpcyA9PT0gXCIxIHZhcmnDoXZlbFwiICYmIHRpcG9WYXJpYXZlbCA9PT0gXCJDYXRlZ8OzcmljYVwiKSB7XG4gICAgaWYgKGRldGFsaGUgPT09IFwiMi01IGNhdGVnb3JpYXNcIikgcmV0dXJuIHsgdGlwbzogXCJHcsOhZmljbyBkZSBCYXJyYXNcIiwgY2FwaXR1bG86IFwiQ2Fww610dWxvIDVcIiwgZGVzY3JpY2FvOiBcIlVzZSBiYXJyYXMgdmVydGljYWlzIHBhcmEgbW9zdHJhciBhIGZyZXF1w6puY2lhIGRlIGNhZGEgY2F0ZWdvcmlhLlwiLCBvYnM6IFwiU2ltcGxlcywgY2xhcm8gZSBlZmljYXogcGFyYSBhIG1haW9yaWEgZGFzIHNpdHVhw6fDtWVzLlwiIH07XG4gICAgaWYgKGRldGFsaGUgPT09IFwiTXVpdGFzIGNhdGVnb3JpYXNcIikgcmV0dXJuIHsgdGlwbzogXCJHcsOhZmljbyBkZSBCYXJyYXMgSG9yaXpvbnRhbFwiLCBjYXBpdHVsbzogXCJDYXDDrXR1bG8gNVwiLCBkZXNjcmljYW86IFwiQmFycmFzIGhvcml6b250YWlzIGTDo28gbWFpcyBlc3Bhw6dvIHBhcmEgcsOzdHVsb3MgbG9uZ29zLlwiLCBvYnM6IFwiSWRlYWwgcXVhbmRvIHZvY8OqIHRlbSBtdWl0YXMgY2F0ZWdvcmlhcyBvdSBub21lcyBsb25nb3MuXCIgfTtcbiAgICBpZiAoZGV0YWxoZSA9PT0gXCJQcm9wb3LDp8OjbyBkbyB0b2RvXCIpIHJldHVybiB7IHRpcG86IFwiUGl6emEgKGNvbSByZXNzYWx2YXMpXCIsIGNhcGl0dWxvOiBcIkNhcMOtdHVsbyA0XCIsIGRlc2NyaWNhbzogXCJHcsOhZmljbyBkZSBwaXp6YSBtb3N0cmEgcHJvcG9yw6fDtWVzIGRvIHRvZG8uXCIsIG9iczogXCJDdWlkYWRvOiBiYXJyYXMgc8OjbyBmcmVxdWVudGVtZW50ZSBtYWlzIGNsYXJhcy4gVXNlIHBpenphIGFwZW5hcyBzZSBob3V2ZXIgcG91Y29zIGdydXBvcy5cIiB9O1xuICB9XG4gIC8vIDEgdmFyacOhdmVsIG51bcOpcmljYVxuICBpZiAobnVtVmFyaWF2ZWlzID09PSBcIjEgdmFyacOhdmVsXCIgJiYgdGlwb1ZhcmlhdmVsID09PSBcIk51bcOpcmljYVwiKSB7XG4gICAgaWYgKGRldGFsaGUgPT09IFwiTW9zdHJhciBkaXN0cmlidWnDp8OjbyBjb21wbGV0YVwiKSByZXR1cm4geyB0aXBvOiBcIkhpc3RvZ3JhbWFcIiwgY2FwaXR1bG86IFwiQ2Fww610dWxvIDZcIiwgZGVzY3JpY2FvOiBcIk1vc3RyYSBhIGRpc3RyaWJ1acOnw6NvIGRlIHVtYSB2YXJpw6F2ZWwgbnVtw6lyaWNhIGVtIGludGVydmFsb3MgKGJpbnMpLlwiLCBvYnM6IFwiRXNjb2xoYSBhIGxhcmd1cmEgZG9zIGJpbnMgY29tIGN1aWRhZG8uXCIgfTtcbiAgICBpZiAoZGV0YWxoZSA9PT0gXCJNb3N0cmFyIGRlbnNpZGFkZVwiKSByZXR1cm4geyB0aXBvOiBcIkdyw6FmaWNvIGRlIERlbnNpZGFkZVwiLCBjYXBpdHVsbzogXCJDYXDDrXR1bG8gN1wiLCBkZXNjcmljYW86IFwiVmVyc8OjbyBzdWF2aXphZGEgZG8gaGlzdG9ncmFtYS5cIiwgb2JzOiBcIk1haXMgZWxlZ2FudGUgcXVlIGhpc3RvZ3JhbWEsIG1lbGhvciBwYXJhIGNvbXBhcmHDp8O1ZXMgZW50cmUgZ3J1cG9zLlwiIH07XG4gICAgaWYgKGRldGFsaGUgPT09IFwiUmVzdW1pciBwb3IgZ3J1cG9zXCIpIHJldHVybiB7IHRpcG86IFwiQm94cGxvdFwiLCBjYXBpdHVsbzogXCJDYXDDrXR1bG8gOFwiLCBkZXNjcmljYW86IFwiTW9zdHJhIHF1YXJ0aXMsIG1lZGlhbmEgZSBvdXRsaWVycyBkZSB1bWEgdmFyacOhdmVsIHBvciBncnVwby5cIiwgb2JzOiBcIkNvbXBhY3RvIGUgaW5mb3JtYXRpdm8uXCIgfTtcbiAgfVxuICAvLyAyIHZhcmnDoXZlaXNcbiAgaWYgKG51bVZhcmlhdmVpcyA9PT0gXCIyIHZhcmnDoXZlaXNcIikge1xuICAgIGlmICh0aXBvVmFyaWF2ZWwgPT09IFwiQW1iYXMgbnVtw6lyaWNhc1wiKSByZXR1cm4geyB0aXBvOiBcIlNjYXR0ZXIgUGxvdFwiLCBjYXBpdHVsbzogXCJDYXDDrXR1bG8gOVwiLCBkZXNjcmljYW86IFwiTW9zdHJhIGEgcmVsYcOnw6NvIGVudHJlIGR1YXMgdmFyacOhdmVpcyBudW3DqXJpY2FzLlwiLCBvYnM6IFwiUHJvY3VyZSBjb3JyZWxhw6fDtWVzLCBhZ3J1cGFtZW50b3MgZSBvdXRsaWVycy5cIiB9O1xuICAgIGlmICh0aXBvVmFyaWF2ZWwgPT09IFwiVW1hIG51bcOpcmljYSArIFVtYSBjYXRlZ8OzcmljYVwiKSByZXR1cm4geyB0aXBvOiBcIkJveHBsb3RcIiwgY2FwaXR1bG86IFwiQ2Fww610dWxvIDhcIiwgZGVzY3JpY2FvOiBcIkJveHBsb3QgbW9zdHJhIGRpc3RyaWJ1acOnw6NvIGNvbXBsZXRhIHBvciBncnVwby5cIiwgb2JzOiBcIlByZWZpcmEgYm94cGxvdCBhIGJhcnJhcyBkZSBtw6lkaWFzIOKAlCBtb3N0cmEgbWFpcyBpbmZvcm1hw6fDo28uXCIgfTtcbiAgICBpZiAodGlwb1ZhcmlhdmVsID09PSBcIkFtYmFzIGNhdGVnw7NyaWNhc1wiKSByZXR1cm4geyB0aXBvOiBcIkJhcnJhcyBBZ3J1cGFkYXNcIiwgY2FwaXR1bG86IFwiQ2Fww610dWxvIDVcIiwgZGVzY3JpY2FvOiBcIkNvbXBhcmEgZnJlcXXDqm5jaWFzIGRlIGR1YXMgdmFyacOhdmVpcyBjYXRlZ8OzcmljYXMuXCIsIG9iczogXCJCb20gcGFyYSB0YWJlbGFzIGRlIGNvbnRpbmfDqm5jaWEuXCIgfTtcbiAgICBpZiAodGlwb1ZhcmlhdmVsID09PSBcIlRlbXBvcmFsICh0ZW1wbyBubyBlaXhvIFgpXCIpIHJldHVybiB7IHRpcG86IFwiR3LDoWZpY28gZGUgTGluaGFcIiwgY2FwaXR1bG86IFwiQ2Fww610dWxvIDEwXCIsIGRlc2NyaWNhbzogXCJNb3N0cmEgY29tbyB1bWEgdmFyacOhdmVsIG11ZGEgYW8gbG9uZ28gZG8gdGVtcG8uXCIsIG9iczogXCJOYXR1cmFsIHBhcmEgc8OpcmllcyB0ZW1wb3JhaXMuXCIgfTtcbiAgfVxuICAvLyAzKyB2YXJpw6F2ZWlzXG4gIGlmIChudW1WYXJpYXZlaXMgPT09IFwiMyBvdSBtYWlzIHZhcmnDoXZlaXNcIikge1xuICAgIGlmICh0aXBvVmFyaWF2ZWwgPT09IFwiVXNhciBmYWNldHMgKHBlcXVlbm9zIG3Dumx0aXBsb3MpXCIpIHJldHVybiB7IHRpcG86IFwiRmFjZXRzIC8gU21hbGwgTXVsdGlwbGVzXCIsIGNhcGl0dWxvOiBcIkNhcMOtdHVsb3MgMyBlIDUtOVwiLCBkZXNjcmljYW86IFwiRGl2aWRhIGVtIHBhaW7DqWlzIHBvciB1bWEgdmFyacOhdmVsIGNhdGVnw7NyaWNhLlwiLCBvYnM6IFwiUG9kZXJvc28gcGFyYSB2aXN1YWxpemFyIGludGVyYcOnw7Vlcy5cIiB9O1xuICAgIGlmICh0aXBvVmFyaWF2ZWwgPT09IFwiVXNhciBjb3IgcGFyYSBkaW1lbnPDo28gZXh0cmFcIikgcmV0dXJuIHsgdGlwbzogXCJTY2F0dGVyIG91IEJhcnJhcyBjb20gQ29yXCIsIGNhcGl0dWxvOiBcIkNhcMOtdHVsb3MgNSBlIDlcIiwgZGVzY3JpY2FvOiBcIlVzZSBjb3IgcGFyYSByZXByZXNlbnRhciB1bWEgdmFyacOhdmVsIGNhdGVnw7NyaWNhIGFkaWNpb25hbC5cIiwgb2JzOiBcIk3DoXhpbW8gNS03IGNvcmVzLiBDdWlkYWRvIGNvbSBkYWx0b25pc21vLlwiIH07XG4gICAgaWYgKHRpcG9WYXJpYXZlbCA9PT0gXCJVc2FyIHRhbWFuaG8gcGFyYSBkaW1lbnPDo28gZXh0cmFcIikgcmV0dXJuIHsgdGlwbzogXCJTY2F0dGVyIGNvbSBUYW1hbmhvIChCdWJibGUgQ2hhcnQpXCIsIGNhcGl0dWxvOiBcIkNhcMOtdHVsbyA5XCIsIGRlc2NyaWNhbzogXCJVc2UgdGFtYW5obyBkb3MgcG9udG9zIHBhcmEgdW1hIHZhcmnDoXZlbCBudW3DqXJpY2EgYWRpY2lvbmFsLlwiLCBvYnM6IFwiQSBwZXJjZXDDp8OjbyBodW1hbmEgZGUgw6FyZWEgbsOjbyDDqSBsaW5lYXIuXCIgfTtcbiAgfVxuICByZXR1cm4geyB0aXBvOiBcIlwiLCBjYXBpdHVsbzogXCJcIiwgZGVzY3JpY2FvOiBcIlwiLCBvYnM6IFwiXCIgfTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Imh0bWxgXG48ZGl2IHN0eWxlPVwiYm9yZGVyOiAycHggc29saWQgIzI1NjNFQjsgcGFkZGluZzogMjBweDsgYm9yZGVyLXJhZGl1czogOHB4OyBtYXJnaW4tdG9wOiAyMHB4OyBiYWNrZ3JvdW5kLWNvbG9yOiAjREJFQUZFO1wiPlxuICA8aDMgc3R5bGU9XCJjb2xvcjogIzFENEVEODsgbWFyZ2luLXRvcDogMDtcIj5SZWNvbWVuZGHDp8OjbzwvaDM+XG4gIDxwPjxzdHJvbmc+VGlwbyBkZSBncsOhZmljbzo8L3N0cm9uZz4gJHtyZWNvbWVuZGFjYW8udGlwbyB8fCBcIlNlbGVjaW9uZSBhcyBvcMOnw7VlcyBhY2ltYVwifTwvcD5cbiAgPHA+PHN0cm9uZz5SZWZlcsOqbmNpYTo8L3N0cm9uZz4gJHtyZWNvbWVuZGFjYW8uY2FwaXR1bG99PC9wPlxuICA8cD4ke3JlY29tZW5kYWNhby5kZXNjcmljYW99PC9wPlxuICA8cD48ZW0+JHtyZWNvbWVuZGFjYW8ub2JzfTwvZW0+PC9wPlxuPC9kaXY+XG5gXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ251bVZhcmlhdmVpcycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd0aXBvVmFyaWF2ZWwnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZGV0YWxoZScpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/henriquealvarenga\.github\.io\/graficos-site");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cap11-ia.html" class="pagination-link" aria-label="IA para Gráficos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">IA para Gráficos</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Código fonte</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="an">title:</span><span class="co"> "Qual Gráfico Devo Usar?"</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="an">subtitle:</span><span class="co"> "Capítulo 15 — Fluxograma de decisão"</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="an">author:</span><span class="co"> "Henrique Alvarenga da Silva"</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="an">date:</span><span class="co"> "`r Sys.Date()`"</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">---</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="fu">## Introdução</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a></span>
+<span id="cb6-10"><a href="#cb6-10"></a>Escolher o gráfico correto é uma das habilidades mais importantes na visualização de dados. O gráfico certo comunica seu mensagem de forma clara e eficiente; o gráfico errado pode obscurecer padrões importantes ou levar a conclusões incorretas.</span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a>Neste capítulo, exploraremos um **fluxograma de decisão** que o guiará através das escolhas principais: Quantas variáveis você tem? Qual é o tipo de cada variável? O que você quer comunicar com seus dados?</span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a>Este fluxograma conecta-se diretamente à **Gramática dos Gráficos** (Capítulo 1). Lembre-se de que toda visualização mapeia variáveis a **estéticas** (position, cor, tamanho, forma) e depois escolhe um **geom** (ponto, linha, barra, etc.). O fluxograma a seguir essencialmente codifica essa lógica de mapeamento.</span>
+<span id="cb6-15"><a href="#cb6-15"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a>---</span>
+<span id="cb6-17"><a href="#cb6-17"></a></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="fu">## O Fluxograma de Decisão</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a>Comece respondendo a pergunta inicial: **Quantas variáveis você deseja visualizar?**</span>
+<span id="cb6-21"><a href="#cb6-21"></a></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="in">```{mermaid}</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a>graph TD</span>
+<span id="cb6-26"><a href="#cb6-26"></a>    A[<span class="ot">"</span><span class="st">Quantas variáveis&lt;br/&gt;você deseja visualizar?</span><span class="ot">"</span>] --&gt;|<span class="dv">1</span> variável| B[<span class="ot">"</span><span class="st">Qual é o tipo&lt;br/&gt;de dados?</span><span class="ot">"</span>]</span>
+<span id="cb6-27"><a href="#cb6-27"></a>    A --&gt;|<span class="dv">2</span> variáveis| C[<span class="ot">"</span><span class="st">Qual é a combinação&lt;br/&gt;de tipos?</span><span class="ot">"</span>]</span>
+<span id="cb6-28"><a href="#cb6-28"></a>    A --&gt;|<span class="dv">3</span>+ variáveis| D[<span class="ot">"</span><span class="st">Quais são os tipos&lt;br/&gt;de dados?</span><span class="ot">"</span>]</span>
+<span id="cb6-29"><a href="#cb6-29"></a></span>
+<span id="cb6-30"><a href="#cb6-30"></a>    B --&gt;|Categórica| E[<span class="ot">"</span><span class="st">Quantas&lt;br/&gt;categorias?</span><span class="ot">"</span>]</span>
+<span id="cb6-31"><a href="#cb6-31"></a>    B --&gt;|Numérica| F[<span class="ot">"</span><span class="st">O que deseja&lt;br/&gt;mostrar?</span><span class="ot">"</span>]</span>
+<span id="cb6-32"><a href="#cb6-32"></a></span>
+<span id="cb6-33"><a href="#cb6-33"></a>    E --&gt;|<span class="dv">2-5</span> categorias| G[<span class="ot">"</span><span class="st">📊 Gráfico de Barras&lt;br/&gt;Cap 5</span><span class="ot">"</span>]</span>
+<span id="cb6-34"><a href="#cb6-34"></a>    E --&gt;|Muitas categorias| H[<span class="ot">"</span><span class="st">📊 Gráfico de Barras&lt;br/&gt;Horizontal&lt;br/&gt;Cap 5</span><span class="ot">"</span>]</span>
+<span id="cb6-35"><a href="#cb6-35"></a>    E --&gt;|Proporção <span class="kw">do</span> todo| I[<span class="ot">"</span><span class="st">🥧 Gráfico de Pizza&lt;br/&gt;com ressalvas&lt;br/&gt;Cap 4</span><span class="ot">"</span>]</span>
+<span id="cb6-36"><a href="#cb6-36"></a></span>
+<span id="cb6-37"><a href="#cb6-37"></a>    F --&gt;|Distribuição| J[<span class="ot">"</span><span class="st">📈 Histograma&lt;br/&gt;Cap 6</span><span class="ot">"</span>]</span>
+<span id="cb6-38"><a href="#cb6-38"></a>    F --&gt;|Distribuição| K[<span class="ot">"</span><span class="st">📊 Densidade&lt;br/&gt;Cap 7</span><span class="ot">"</span>]</span>
+<span id="cb6-39"><a href="#cb6-39"></a>    F --&gt;|Resumo por grupos| L[<span class="ot">"</span><span class="st">📦 Boxplot&lt;br/&gt;Cap 8</span><span class="ot">"</span>]</span>
+<span id="cb6-40"><a href="#cb6-40"></a></span>
+<span id="cb6-41"><a href="#cb6-41"></a>    C --&gt;|Ambas numéricas| M[<span class="ot">"</span><span class="st">📍 Scatter Plot&lt;br/&gt;Cap 9</span><span class="ot">"</span>]</span>
+<span id="cb6-42"><a href="#cb6-42"></a>    C --&gt;|Numérica +&lt;br/&gt;Categórica| N[<span class="ot">"</span><span class="st">📦 Boxplot&lt;br/&gt;Cap 8</span><span class="ot">"</span>]</span>
+<span id="cb6-43"><a href="#cb6-43"></a>    C --&gt;|Numérica +&lt;br/&gt;Categórica| O[<span class="ot">"</span><span class="st">📊 Barras de&lt;br/&gt;Médias&lt;br/&gt;Cap 5</span><span class="ot">"</span>]</span>
+<span id="cb6-44"><a href="#cb6-44"></a>    C --&gt;|Ambas categóricas| P[<span class="ot">"</span><span class="st">📊 Gráfico&lt;br/&gt;de Barras Agrupadas&lt;br/&gt;Cap 5</span><span class="ot">"</span>]</span>
+<span id="cb6-45"><a href="#cb6-45"></a>    C --&gt;|Temporal| Q[<span class="ot">"</span><span class="st">📈 Gráfico de Linha&lt;br/&gt;Cap 10</span><span class="ot">"</span>]</span>
+<span id="cb6-46"><a href="#cb6-46"></a></span>
+<span id="cb6-47"><a href="#cb6-47"></a>    D --&gt;|Múltiplas variáveis| R[<span class="ot">"</span><span class="st">Considere Facets&lt;br/&gt;Small Multiples</span><span class="ot">"</span>]</span>
+<span id="cb6-48"><a href="#cb6-48"></a>    D --&gt;|Cor como dimensão| S[<span class="ot">"</span><span class="st">Use cor para&lt;br/&gt;codificar uma&lt;br/&gt;variável categórica</span><span class="ot">"</span>]</span>
+<span id="cb6-49"><a href="#cb6-49"></a>    D --&gt;|Tamanho como dim.| T[<span class="ot">"</span><span class="st">Use tamanho para&lt;br/&gt;codificar uma&lt;br/&gt;variável numérica</span><span class="ot">"</span>]</span>
+<span id="cb6-50"><a href="#cb6-50"></a></span>
+<span id="cb6-51"><a href="#cb6-51"></a>    R --&gt; U[<span class="ot">"</span><span class="st">📊 Combine com&lt;br/&gt;uma das opções&lt;br/&gt;acima</span><span class="ot">"</span>]</span>
+<span id="cb6-52"><a href="#cb6-52"></a>    S --&gt; U</span>
+<span id="cb6-53"><a href="#cb6-53"></a>    T --&gt; U</span>
+<span id="cb6-54"><a href="#cb6-54"></a></span>
+<span id="cb6-55"><a href="#cb6-55"></a>    style A fill:<span class="co">#e1f5ff</span></span>
+<span id="cb6-56"><a href="#cb6-56"></a>    style G fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-57"><a href="#cb6-57"></a>    style H fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-58"><a href="#cb6-58"></a>    style I fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-59"><a href="#cb6-59"></a>    style J fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-60"><a href="#cb6-60"></a>    style K fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-61"><a href="#cb6-61"></a>    style L fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-62"><a href="#cb6-62"></a>    style M fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-63"><a href="#cb6-63"></a>    style N fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-64"><a href="#cb6-64"></a>    style O fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-65"><a href="#cb6-65"></a>    style P fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-66"><a href="#cb6-66"></a>    style Q fill:<span class="co">#fff3e0</span></span>
+<span id="cb6-67"><a href="#cb6-67"></a><span class="in">```</span></span>
+<span id="cb6-68"><a href="#cb6-68"></a></span>
+<span id="cb6-69"><a href="#cb6-69"></a>---</span>
+<span id="cb6-70"><a href="#cb6-70"></a></span>
+<span id="cb6-71"><a href="#cb6-71"></a><span class="fu">## Tabela de Referência Rápida</span></span>
+<span id="cb6-72"><a href="#cb6-72"></a></span>
+<span id="cb6-73"><a href="#cb6-73"></a>Aqui está uma tabela abrangente que resume as decisões mais comuns em pesquisa médica:</span>
+<span id="cb6-74"><a href="#cb6-74"></a></span>
+<span id="cb6-75"><a href="#cb6-75"></a><span class="pp">|</span> **Objetivo** | **Tipo de Dado** | **Número de Variáveis** | **Gráfico Recomendado** | **Capítulo** | **Notas** <span class="pp">|</span></span>
+<span id="cb6-76"><a href="#cb6-76"></a><span class="pp">|---|---|---|---|---|---|</span></span>
+<span id="cb6-77"><a href="#cb6-77"></a><span class="pp">|</span> Mostrar distribuição de uma variável categórica <span class="pp">|</span> Categórica <span class="pp">|</span> 1 <span class="pp">|</span> Gráfico de Barras <span class="pp">|</span> 5 <span class="pp">|</span> Use horizontal para muitas categorias <span class="pp">|</span></span>
+<span id="cb6-78"><a href="#cb6-78"></a><span class="pp">|</span> Mostrar proporção do todo <span class="pp">|</span> Categórica <span class="pp">|</span> 1 <span class="pp">|</span> Pizza (com ressalvas) <span class="pp">|</span> 4 <span class="pp">|</span> Evite se possível; barras são melhores <span class="pp">|</span></span>
+<span id="cb6-79"><a href="#cb6-79"></a><span class="pp">|</span> Mostrar distribuição de uma variável numérica <span class="pp">|</span> Numérica <span class="pp">|</span> 1 <span class="pp">|</span> Histograma <span class="pp">|</span> 6 <span class="pp">|</span> Mostra intervalos e frequências <span class="pp">|</span></span>
+<span id="cb6-80"><a href="#cb6-80"></a><span class="pp">|</span> Mostrar densidade de uma variável numérica <span class="pp">|</span> Numérica <span class="pp">|</span> 1 <span class="pp">|</span> Densidade <span class="pp">|</span> 7 <span class="pp">|</span> Mais suave que histograma <span class="pp">|</span></span>
+<span id="cb6-81"><a href="#cb6-81"></a><span class="pp">|</span> Resumir uma variável por grupos <span class="pp">|</span> Numérica + Categórica <span class="pp">|</span> 2 <span class="pp">|</span> Boxplot <span class="pp">|</span> 8 <span class="pp">|</span> Mostra quartis e outliers <span class="pp">|</span></span>
+<span id="cb6-82"><a href="#cb6-82"></a><span class="pp">|</span> Comparar médias entre grupos <span class="pp">|</span> Numérica + Categórica <span class="pp">|</span> 2 <span class="pp">|</span> Barras de Médias <span class="pp">|</span> 5 <span class="pp">|</span> Simples mas pode ocultar distribuição <span class="pp">|</span></span>
+<span id="cb6-83"><a href="#cb6-83"></a><span class="pp">|</span> Mostrar relação entre duas variáveis numéricas <span class="pp">|</span> Ambas Numéricas <span class="pp">|</span> 2 <span class="pp">|</span> Scatter Plot <span class="pp">|</span> 9 <span class="pp">|</span> Busque correlações e agrupamentos <span class="pp">|</span></span>
+<span id="cb6-84"><a href="#cb6-84"></a><span class="pp">|</span> Comparar duas variáveis categóricas <span class="pp">|</span> Ambas Categóricas <span class="pp">|</span> 2 <span class="pp">|</span> Barras Agrupadas <span class="pp">|</span> 5 <span class="pp">|</span> Mostre frequências cruzadas <span class="pp">|</span></span>
+<span id="cb6-85"><a href="#cb6-85"></a><span class="pp">|</span> Mostrar tendência ao longo do tempo <span class="pp">|</span> Numérica + Temporal <span class="pp">|</span> 2 <span class="pp">|</span> Gráfico de Linha <span class="pp">|</span> 10 <span class="pp">|</span> Ideal para séries temporais <span class="pp">|</span></span>
+<span id="cb6-86"><a href="#cb6-86"></a><span class="pp">|</span> Visualizar 3+ variáveis simultaneamente <span class="pp">|</span> Múltiplos <span class="pp">|</span> 3+ <span class="pp">|</span> Facets / Small Multiples <span class="pp">|</span> 11 <span class="pp">|</span> Combine com um gráfico base <span class="pp">|</span></span>
+<span id="cb6-87"><a href="#cb6-87"></a><span class="pp">|</span> Codificar dimensão extra com cor <span class="pp">|</span> Categórica <span class="pp">|</span> 3+ <span class="pp">|</span> Scatter + Cor <span class="pp">|</span> 9, 12 <span class="pp">|</span> Use paleta apropriada <span class="pp">|</span></span>
+<span id="cb6-88"><a href="#cb6-88"></a><span class="pp">|</span> Codificar dimensão extra com tamanho <span class="pp">|</span> Numérica <span class="pp">|</span> 3+ <span class="pp">|</span> Scatter + Tamanho <span class="pp">|</span> 9, 13 <span class="pp">|</span> Cuidado com percepção de área <span class="pp">|</span></span>
+<span id="cb6-89"><a href="#cb6-89"></a></span>
+<span id="cb6-90"><a href="#cb6-90"></a>---</span>
+<span id="cb6-91"><a href="#cb6-91"></a></span>
+<span id="cb6-92"><a href="#cb6-92"></a><span class="fu">## Versão Interativa com Observable JS</span></span>
+<span id="cb6-93"><a href="#cb6-93"></a></span>
+<span id="cb6-94"><a href="#cb6-94"></a>Responda as perguntas abaixo para obter uma recomendação personalizada:</span>
+<span id="cb6-95"><a href="#cb6-95"></a></span>
+<span id="cb6-98"><a href="#cb6-98"></a><span class="in">```{ojs}</span></span>
+<span id="cb6-99"><a href="#cb6-99"></a>viewof numVariaveis <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb6-100"><a href="#cb6-100"></a>  [<span class="st">"1 variável"</span><span class="op">,</span> <span class="st">"2 variáveis"</span><span class="op">,</span> <span class="st">"3 ou mais variáveis"</span>]<span class="op">,</span></span>
+<span id="cb6-101"><a href="#cb6-101"></a>  { <span class="dt">value</span><span class="op">:</span> <span class="st">"1 variável"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"1. Quantas variáveis você deseja visualizar?"</span> }</span>
+<span id="cb6-102"><a href="#cb6-102"></a>)</span>
+<span id="cb6-103"><a href="#cb6-103"></a><span class="in">```</span></span>
+<span id="cb6-104"><a href="#cb6-104"></a></span>
+<span id="cb6-107"><a href="#cb6-107"></a><span class="in">```{ojs}</span></span>
+<span id="cb6-108"><a href="#cb6-108"></a>viewof tipoVariavel <span class="op">=</span> {</span>
+<span id="cb6-109"><a href="#cb6-109"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span>) {</span>
+<span id="cb6-110"><a href="#cb6-110"></a>    <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb6-111"><a href="#cb6-111"></a>      [<span class="st">"Categórica"</span><span class="op">,</span> <span class="st">"Numérica"</span>]<span class="op">,</span></span>
+<span id="cb6-112"><a href="#cb6-112"></a>      { <span class="dt">value</span><span class="op">:</span> <span class="st">"Categórica"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"2. Qual é o tipo de dados?"</span> }</span>
+<span id="cb6-113"><a href="#cb6-113"></a>    )<span class="op">;</span></span>
+<span id="cb6-114"><a href="#cb6-114"></a>  }</span>
+<span id="cb6-115"><a href="#cb6-115"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"2 variáveis"</span>) {</span>
+<span id="cb6-116"><a href="#cb6-116"></a>    <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb6-117"><a href="#cb6-117"></a>      [<span class="st">"Ambas numéricas"</span><span class="op">,</span> <span class="st">"Uma numérica + Uma categórica"</span><span class="op">,</span> <span class="st">"Ambas categóricas"</span><span class="op">,</span> <span class="st">"Temporal (tempo no eixo X)"</span>]<span class="op">,</span></span>
+<span id="cb6-118"><a href="#cb6-118"></a>      { <span class="dt">value</span><span class="op">:</span> <span class="st">"Ambas numéricas"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"2. Qual é a combinação de tipos?"</span> }</span>
+<span id="cb6-119"><a href="#cb6-119"></a>    )<span class="op">;</span></span>
+<span id="cb6-120"><a href="#cb6-120"></a>  }</span>
+<span id="cb6-121"><a href="#cb6-121"></a>  <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb6-122"><a href="#cb6-122"></a>    [<span class="st">"Usar facets (pequenos múltiplos)"</span><span class="op">,</span> <span class="st">"Usar cor para dimensão extra"</span><span class="op">,</span> <span class="st">"Usar tamanho para dimensão extra"</span>]<span class="op">,</span></span>
+<span id="cb6-123"><a href="#cb6-123"></a>    { <span class="dt">value</span><span class="op">:</span> <span class="st">"Usar facets (pequenos múltiplos)"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"2. Como deseja codificar as variáveis extras?"</span> }</span>
+<span id="cb6-124"><a href="#cb6-124"></a>  )<span class="op">;</span></span>
+<span id="cb6-125"><a href="#cb6-125"></a>}</span>
+<span id="cb6-126"><a href="#cb6-126"></a><span class="in">```</span></span>
+<span id="cb6-127"><a href="#cb6-127"></a></span>
+<span id="cb6-130"><a href="#cb6-130"></a><span class="in">```{ojs}</span></span>
+<span id="cb6-131"><a href="#cb6-131"></a>viewof detalhe <span class="op">=</span> {</span>
+<span id="cb6-132"><a href="#cb6-132"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span> <span class="op">&amp;&amp;</span> tipoVariavel <span class="op">===</span> <span class="st">"Categórica"</span>) {</span>
+<span id="cb6-133"><a href="#cb6-133"></a>    <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb6-134"><a href="#cb6-134"></a>      [<span class="st">"2-5 categorias"</span><span class="op">,</span> <span class="st">"Muitas categorias"</span><span class="op">,</span> <span class="st">"Proporção do todo"</span>]<span class="op">,</span></span>
+<span id="cb6-135"><a href="#cb6-135"></a>      { <span class="dt">value</span><span class="op">:</span> <span class="st">"2-5 categorias"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"3. Quantas categorias?"</span> }</span>
+<span id="cb6-136"><a href="#cb6-136"></a>    )<span class="op">;</span></span>
+<span id="cb6-137"><a href="#cb6-137"></a>  }</span>
+<span id="cb6-138"><a href="#cb6-138"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span> <span class="op">&amp;&amp;</span> tipoVariavel <span class="op">===</span> <span class="st">"Numérica"</span>) {</span>
+<span id="cb6-139"><a href="#cb6-139"></a>    <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb6-140"><a href="#cb6-140"></a>      [<span class="st">"Mostrar distribuição completa"</span><span class="op">,</span> <span class="st">"Mostrar densidade"</span><span class="op">,</span> <span class="st">"Resumir por grupos"</span>]<span class="op">,</span></span>
+<span id="cb6-141"><a href="#cb6-141"></a>      { <span class="dt">value</span><span class="op">:</span> <span class="st">"Mostrar distribuição completa"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"3. O que deseja mostrar?"</span> }</span>
+<span id="cb6-142"><a href="#cb6-142"></a>    )<span class="op">;</span></span>
+<span id="cb6-143"><a href="#cb6-143"></a>  }</span>
+<span id="cb6-144"><a href="#cb6-144"></a>  <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"(Não se aplica)"</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="st">"(Não se aplica)"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">" "</span> })<span class="op">;</span></span>
+<span id="cb6-145"><a href="#cb6-145"></a>}</span>
+<span id="cb6-146"><a href="#cb6-146"></a><span class="in">```</span></span>
+<span id="cb6-147"><a href="#cb6-147"></a></span>
+<span id="cb6-150"><a href="#cb6-150"></a><span class="in">```{ojs}</span></span>
+<span id="cb6-151"><a href="#cb6-151"></a>recomendacao <span class="op">=</span> {</span>
+<span id="cb6-152"><a href="#cb6-152"></a>  <span class="co">// 1 variável categórica</span></span>
+<span id="cb6-153"><a href="#cb6-153"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span> <span class="op">&amp;&amp;</span> tipoVariavel <span class="op">===</span> <span class="st">"Categórica"</span>) {</span>
+<span id="cb6-154"><a href="#cb6-154"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"2-5 categorias"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Gráfico de Barras"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 5"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Use barras verticais para mostrar a frequência de cada categoria."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Simples, claro e eficaz para a maioria das situações."</span> }<span class="op">;</span></span>
+<span id="cb6-155"><a href="#cb6-155"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Muitas categorias"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Gráfico de Barras Horizontal"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 5"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Barras horizontais dão mais espaço para rótulos longos."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Ideal quando você tem muitas categorias ou nomes longos."</span> }<span class="op">;</span></span>
+<span id="cb6-156"><a href="#cb6-156"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Proporção do todo"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Pizza (com ressalvas)"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 4"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Gráfico de pizza mostra proporções do todo."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Cuidado: barras são frequentemente mais claras. Use pizza apenas se houver poucos grupos."</span> }<span class="op">;</span></span>
+<span id="cb6-157"><a href="#cb6-157"></a>  }</span>
+<span id="cb6-158"><a href="#cb6-158"></a>  <span class="co">// 1 variável numérica</span></span>
+<span id="cb6-159"><a href="#cb6-159"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"1 variável"</span> <span class="op">&amp;&amp;</span> tipoVariavel <span class="op">===</span> <span class="st">"Numérica"</span>) {</span>
+<span id="cb6-160"><a href="#cb6-160"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Mostrar distribuição completa"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Histograma"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 6"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Mostra a distribuição de uma variável numérica em intervalos (bins)."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Escolha a largura dos bins com cuidado."</span> }<span class="op">;</span></span>
+<span id="cb6-161"><a href="#cb6-161"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Mostrar densidade"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Gráfico de Densidade"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 7"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Versão suavizada do histograma."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Mais elegante que histograma, melhor para comparações entre grupos."</span> }<span class="op">;</span></span>
+<span id="cb6-162"><a href="#cb6-162"></a>    <span class="cf">if</span> (detalhe <span class="op">===</span> <span class="st">"Resumir por grupos"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Boxplot"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 8"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Mostra quartis, mediana e outliers de uma variável por grupo."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Compacto e informativo."</span> }<span class="op">;</span></span>
+<span id="cb6-163"><a href="#cb6-163"></a>  }</span>
+<span id="cb6-164"><a href="#cb6-164"></a>  <span class="co">// 2 variáveis</span></span>
+<span id="cb6-165"><a href="#cb6-165"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"2 variáveis"</span>) {</span>
+<span id="cb6-166"><a href="#cb6-166"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Ambas numéricas"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Scatter Plot"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 9"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Mostra a relação entre duas variáveis numéricas."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Procure correlações, agrupamentos e outliers."</span> }<span class="op">;</span></span>
+<span id="cb6-167"><a href="#cb6-167"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Uma numérica + Uma categórica"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Boxplot"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 8"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Boxplot mostra distribuição completa por grupo."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Prefira boxplot a barras de médias — mostra mais informação."</span> }<span class="op">;</span></span>
+<span id="cb6-168"><a href="#cb6-168"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Ambas categóricas"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Barras Agrupadas"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 5"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Compara frequências de duas variáveis categóricas."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Bom para tabelas de contingência."</span> }<span class="op">;</span></span>
+<span id="cb6-169"><a href="#cb6-169"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Temporal (tempo no eixo X)"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Gráfico de Linha"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 10"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Mostra como uma variável muda ao longo do tempo."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Natural para séries temporais."</span> }<span class="op">;</span></span>
+<span id="cb6-170"><a href="#cb6-170"></a>  }</span>
+<span id="cb6-171"><a href="#cb6-171"></a>  <span class="co">// 3+ variáveis</span></span>
+<span id="cb6-172"><a href="#cb6-172"></a>  <span class="cf">if</span> (numVariaveis <span class="op">===</span> <span class="st">"3 ou mais variáveis"</span>) {</span>
+<span id="cb6-173"><a href="#cb6-173"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Usar facets (pequenos múltiplos)"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Facets / Small Multiples"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulos 3 e 5-9"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Divida em painéis por uma variável categórica."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Poderoso para visualizar interações."</span> }<span class="op">;</span></span>
+<span id="cb6-174"><a href="#cb6-174"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Usar cor para dimensão extra"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Scatter ou Barras com Cor"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulos 5 e 9"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Use cor para representar uma variável categórica adicional."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"Máximo 5-7 cores. Cuidado com daltonismo."</span> }<span class="op">;</span></span>
+<span id="cb6-175"><a href="#cb6-175"></a>    <span class="cf">if</span> (tipoVariavel <span class="op">===</span> <span class="st">"Usar tamanho para dimensão extra"</span>) <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">"Scatter com Tamanho (Bubble Chart)"</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">"Capítulo 9"</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">"Use tamanho dos pontos para uma variável numérica adicional."</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">"A percepção humana de área não é linear."</span> }<span class="op">;</span></span>
+<span id="cb6-176"><a href="#cb6-176"></a>  }</span>
+<span id="cb6-177"><a href="#cb6-177"></a>  <span class="cf">return</span> { <span class="dt">tipo</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">capitulo</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">descricao</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">obs</span><span class="op">:</span> <span class="st">""</span> }<span class="op">;</span></span>
+<span id="cb6-178"><a href="#cb6-178"></a>}</span>
+<span id="cb6-179"><a href="#cb6-179"></a><span class="in">```</span></span>
+<span id="cb6-180"><a href="#cb6-180"></a></span>
+<span id="cb6-183"><a href="#cb6-183"></a><span class="in">```{ojs}</span></span>
+<span id="cb6-184"><a href="#cb6-184"></a><span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb6-185"><a href="#cb6-185"></a><span class="vs">&lt;div style="border: 2px solid #2563EB; padding: 20px; border-radius: 8px; margin-top: 20px; background-color: #DBEAFE;"&gt;</span></span>
+<span id="cb6-186"><a href="#cb6-186"></a><span class="vs">  &lt;h3 style="color: #1D4ED8; margin-top: 0;"&gt;Recomendação&lt;/h3&gt;</span></span>
+<span id="cb6-187"><a href="#cb6-187"></a><span class="vs">  &lt;p&gt;&lt;strong&gt;Tipo de gráfico:&lt;/strong&gt; </span><span class="sc">${</span>recomendacao<span class="op">.</span><span class="at">tipo</span> <span class="op">||</span> <span class="st">"Selecione as opções acima"</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb6-188"><a href="#cb6-188"></a><span class="vs">  &lt;p&gt;&lt;strong&gt;Referência:&lt;/strong&gt; </span><span class="sc">${</span>recomendacao<span class="op">.</span><span class="at">capitulo</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb6-189"><a href="#cb6-189"></a><span class="vs">  &lt;p&gt;</span><span class="sc">${</span>recomendacao<span class="op">.</span><span class="at">descricao</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb6-190"><a href="#cb6-190"></a><span class="vs">  &lt;p&gt;&lt;em&gt;</span><span class="sc">${</span>recomendacao<span class="op">.</span><span class="at">obs</span><span class="sc">}</span><span class="vs">&lt;/em&gt;&lt;/p&gt;</span></span>
+<span id="cb6-191"><a href="#cb6-191"></a><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb6-192"><a href="#cb6-192"></a><span class="vs">`</span></span>
+<span id="cb6-193"><a href="#cb6-193"></a><span class="in">```</span></span>
+<span id="cb6-194"><a href="#cb6-194"></a></span>
+<span id="cb6-195"><a href="#cb6-195"></a>---</span>
+<span id="cb6-196"><a href="#cb6-196"></a></span>
+<span id="cb6-197"><a href="#cb6-197"></a><span class="fu">## Conexão com a Gramática dos Gráficos</span></span>
+<span id="cb6-198"><a href="#cb6-198"></a></span>
+<span id="cb6-199"><a href="#cb6-199"></a>Lembre-se: toda visualização de dados segue este padrão:</span>
+<span id="cb6-200"><a href="#cb6-200"></a></span>
+<span id="cb6-201"><a href="#cb6-201"></a>**Dados → Estéticas → Geoms**</span>
+<span id="cb6-202"><a href="#cb6-202"></a></span>
+<span id="cb6-203"><a href="#cb6-203"></a><span class="ss">- </span>**Dados**: Suas variáveis (categóricas, numéricas, temporais)</span>
+<span id="cb6-204"><a href="#cb6-204"></a><span class="ss">- </span>**Estéticas**: Como as variáveis são mapeadas visualmente (posição x, posição y, cor, tamanho, forma)</span>
+<span id="cb6-205"><a href="#cb6-205"></a><span class="ss">- </span>**Geoms**: O tipo de forma geométrica (ponto, linha, barra, etc.)</span>
+<span id="cb6-206"><a href="#cb6-206"></a></span>
+<span id="cb6-207"><a href="#cb6-207"></a>Por exemplo:</span>
+<span id="cb6-208"><a href="#cb6-208"></a><span class="ss">- </span>**Scatter Plot**: dados (x, y) → estéticas (posição x, posição y) → geom (ponto)</span>
+<span id="cb6-209"><a href="#cb6-209"></a><span class="ss">- </span>**Barras**: dados (categorias, contagens) → estéticas (posição y, largura) → geom (barra)</span>
+<span id="cb6-210"><a href="#cb6-210"></a><span class="ss">- </span>**Boxplot**: dados (grupos, valores) → estéticas (posição y, caixa) → geom (caixa + linhas)</span>
+<span id="cb6-211"><a href="#cb6-211"></a></span>
+<span id="cb6-212"><a href="#cb6-212"></a>O fluxograma acima essencialmente codifica essa lógica: ele mapeia suas variáveis às estéticas e depois sugere um geom apropriado.</span>
+<span id="cb6-213"><a href="#cb6-213"></a></span>
+<span id="cb6-214"><a href="#cb6-214"></a>---</span>
+<span id="cb6-215"><a href="#cb6-215"></a></span>
+<span id="cb6-216"><a href="#cb6-216"></a><span class="fu">## Versão Resumo: Cheat Sheet</span></span>
+<span id="cb6-217"><a href="#cb6-217"></a></span>
+<span id="cb6-218"><a href="#cb6-218"></a>Salve esta tabela rápida como referência:</span>
+<span id="cb6-219"><a href="#cb6-219"></a></span>
+<span id="cb6-220"><a href="#cb6-220"></a><span class="fu">### **1 Variável**</span></span>
+<span id="cb6-221"><a href="#cb6-221"></a></span>
+<span id="cb6-222"><a href="#cb6-222"></a><span class="ss">- </span>**Categórica** → Barras</span>
+<span id="cb6-223"><a href="#cb6-223"></a><span class="ss">- </span>**Numérica** → Histograma ou Densidade</span>
+<span id="cb6-224"><a href="#cb6-224"></a></span>
+<span id="cb6-225"><a href="#cb6-225"></a><span class="fu">### **2 Variáveis**</span></span>
+<span id="cb6-226"><a href="#cb6-226"></a></span>
+<span id="cb6-227"><a href="#cb6-227"></a><span class="ss">- </span>**Numérica + Numérica** → Scatter</span>
+<span id="cb6-228"><a href="#cb6-228"></a><span class="ss">- </span>**Numérica + Categórica** → Boxplot</span>
+<span id="cb6-229"><a href="#cb6-229"></a><span class="ss">- </span>**Categórica + Categórica** → Barras Agrupadas</span>
+<span id="cb6-230"><a href="#cb6-230"></a><span class="ss">- </span>**Tempo + Outra** → Linha</span>
+<span id="cb6-231"><a href="#cb6-231"></a></span>
+<span id="cb6-232"><a href="#cb6-232"></a><span class="fu">### **3+ Variáveis**</span></span>
+<span id="cb6-233"><a href="#cb6-233"></a></span>
+<span id="cb6-234"><a href="#cb6-234"></a><span class="ss">- </span>Facets / Small Multiples</span>
+<span id="cb6-235"><a href="#cb6-235"></a><span class="ss">- </span>Cor como terceira variável</span>
+<span id="cb6-236"><a href="#cb6-236"></a><span class="ss">- </span>Tamanho como terceira variável</span>
+<span id="cb6-237"><a href="#cb6-237"></a></span>
+<span id="cb6-238"><a href="#cb6-238"></a>---</span>
+<span id="cb6-239"><a href="#cb6-239"></a></span>
+<span id="cb6-240"><a href="#cb6-240"></a><span class="fu">## Exemplos Práticos com Dados Médicos</span></span>
+<span id="cb6-241"><a href="#cb6-241"></a></span>
+<span id="cb6-242"><a href="#cb6-242"></a><span class="fu">### Exemplo 1: Distribuição de Sexo em uma Amostra</span></span>
+<span id="cb6-243"><a href="#cb6-243"></a></span>
+<span id="cb6-244"><a href="#cb6-244"></a>**Cenário**: Você tem dados de 500 pacientes e quer mostrar quantos são homens vs. mulheres.</span>
+<span id="cb6-245"><a href="#cb6-245"></a></span>
+<span id="cb6-246"><a href="#cb6-246"></a>**Decisão**:</span>
+<span id="cb6-247"><a href="#cb6-247"></a><span class="ss">1. </span>Quantas variáveis? → 1 (Sexo)</span>
+<span id="cb6-248"><a href="#cb6-248"></a><span class="ss">2. </span>Qual tipo? → Categórica</span>
+<span id="cb6-249"><a href="#cb6-249"></a><span class="ss">3. </span>Quantas categorias? → 2 (M/F)</span>
+<span id="cb6-250"><a href="#cb6-250"></a><span class="ss">4. </span>**Recomendação**: Gráfico de Barras (Capítulo 5)</span>
+<span id="cb6-251"><a href="#cb6-251"></a></span>
+<span id="cb6-254"><a href="#cb6-254"></a><span class="in">```{mermaid}</span></span>
+<span id="cb6-255"><a href="#cb6-255"></a>graph LR</span>
+<span id="cb6-256"><a href="#cb6-256"></a>    A[<span class="ot">"</span><span class="st">Sexo&lt;br/&gt;Categórica&lt;br/&gt;2 categorias</span><span class="ot">"</span>] --&gt; B[<span class="ot">"</span><span class="st">Barras</span><span class="ot">"</span>]</span>
+<span id="cb6-257"><a href="#cb6-257"></a><span class="in">```</span></span>
+<span id="cb6-258"><a href="#cb6-258"></a></span>
+<span id="cb6-259"><a href="#cb6-259"></a>**Por quê?** Barras são claras, simples e mostram a frequência de cada grupo. Uma pizza seria aceitável aqui (apenas 2 categorias), mas barras são sempre melhores.</span>
+<span id="cb6-260"><a href="#cb6-260"></a></span>
+<span id="cb6-261"><a href="#cb6-261"></a>---</span>
+<span id="cb6-262"><a href="#cb6-262"></a></span>
+<span id="cb6-263"><a href="#cb6-263"></a><span class="fu">### Exemplo 2: Distribuição de Glicemia em 403 Pacientes</span></span>
+<span id="cb6-264"><a href="#cb6-264"></a></span>
+<span id="cb6-265"><a href="#cb6-265"></a>**Cenário**: Você tem medidas de glicemia (mg/dL) para 403 pacientes e quer explorar a distribuição.</span>
+<span id="cb6-266"><a href="#cb6-266"></a></span>
+<span id="cb6-267"><a href="#cb6-267"></a>**Decisão**:</span>
+<span id="cb6-268"><a href="#cb6-268"></a><span class="ss">1. </span>Quantas variáveis? → 1 (Glicemia)</span>
+<span id="cb6-269"><a href="#cb6-269"></a><span class="ss">2. </span>Qual tipo? → Numérica</span>
+<span id="cb6-270"><a href="#cb6-270"></a><span class="ss">3. </span>O que mostrar? → Distribuição completa</span>
+<span id="cb6-271"><a href="#cb6-271"></a><span class="ss">4. </span>**Recomendação**: Histograma (Capítulo 6)</span>
+<span id="cb6-272"><a href="#cb6-272"></a></span>
+<span id="cb6-275"><a href="#cb6-275"></a><span class="in">```{mermaid}</span></span>
+<span id="cb6-276"><a href="#cb6-276"></a>graph LR</span>
+<span id="cb6-277"><a href="#cb6-277"></a>    A[<span class="ot">"</span><span class="st">Glicemia&lt;br/&gt;Numérica&lt;br/&gt;Distribuição</span><span class="ot">"</span>] --&gt; B[<span class="ot">"</span><span class="st">Histograma</span><span class="ot">"</span>]</span>
+<span id="cb6-278"><a href="#cb6-278"></a><span class="in">```</span></span>
+<span id="cb6-279"><a href="#cb6-279"></a></span>
+<span id="cb6-280"><a href="#cb6-280"></a>**Por quê?** O histograma mostra a frequência em intervalos, revelando se a distribuição é normal, bimodal, ou enviesada. Você pode também usar densidade para uma versão mais suave.</span>
+<span id="cb6-281"><a href="#cb6-281"></a></span>
+<span id="cb6-282"><a href="#cb6-282"></a>---</span>
+<span id="cb6-283"><a href="#cb6-283"></a></span>
+<span id="cb6-284"><a href="#cb6-284"></a><span class="fu">### Exemplo 3: Circunferência de Quadril por Tipo de Corpo</span></span>
+<span id="cb6-285"><a href="#cb6-285"></a></span>
+<span id="cb6-286"><a href="#cb6-286"></a>**Cenário**: Você tem medidas de circunferência de quadril para pacientes classificados em 3 tipos de corpo (ectomorfo, mesomorfo, endomorfo).</span>
+<span id="cb6-287"><a href="#cb6-287"></a></span>
+<span id="cb6-288"><a href="#cb6-288"></a>**Decisão**:</span>
+<span id="cb6-289"><a href="#cb6-289"></a><span class="ss">1. </span>Quantas variáveis? → 2 (Circunferência de quadril, Tipo de corpo)</span>
+<span id="cb6-290"><a href="#cb6-290"></a><span class="ss">2. </span>Qual tipo? → Uma numérica + uma categórica</span>
+<span id="cb6-291"><a href="#cb6-291"></a><span class="ss">3. </span>**Recomendação**: Boxplot (Capítulo 8)</span>
+<span id="cb6-292"><a href="#cb6-292"></a></span>
+<span id="cb6-295"><a href="#cb6-295"></a><span class="in">```{mermaid}</span></span>
+<span id="cb6-296"><a href="#cb6-296"></a>graph LR</span>
+<span id="cb6-297"><a href="#cb6-297"></a>    A[<span class="ot">"</span><span class="st">Circ. Quadril&lt;br/&gt;+&lt;br/&gt;Tipo Corpo</span><span class="ot">"</span>] --&gt; B[<span class="ot">"</span><span class="st">Boxplot</span><span class="ot">"</span>]</span>
+<span id="cb6-298"><a href="#cb6-298"></a><span class="in">```</span></span>
+<span id="cb6-299"><a href="#cb6-299"></a></span>
+<span id="cb6-300"><a href="#cb6-300"></a>**Por quê?** Boxplot mostra a mediana, quartis e outliers para cada grupo, permitindo comparação visual rápida. Barras de médias seriam mais simples, mas perderiam informação sobre a distribuição.</span>
+<span id="cb6-301"><a href="#cb6-301"></a></span>
+<span id="cb6-302"><a href="#cb6-302"></a>---</span>
+<span id="cb6-303"><a href="#cb6-303"></a></span>
+<span id="cb6-304"><a href="#cb6-304"></a><span class="fu">### Exemplo 4: Peso vs. Circunferência de Quadril</span></span>
+<span id="cb6-305"><a href="#cb6-305"></a></span>
+<span id="cb6-306"><a href="#cb6-306"></a>**Cenário**: Você quer saber se existe correlação entre peso (kg) e circunferência de quadril (cm) em 200 pacientes.</span>
+<span id="cb6-307"><a href="#cb6-307"></a></span>
+<span id="cb6-308"><a href="#cb6-308"></a>**Decisão**:</span>
+<span id="cb6-309"><a href="#cb6-309"></a><span class="ss">1. </span>Quantas variáveis? → 2 (Peso, Circunferência)</span>
+<span id="cb6-310"><a href="#cb6-310"></a><span class="ss">2. </span>Qual tipo? → Ambas numéricas</span>
+<span id="cb6-311"><a href="#cb6-311"></a><span class="ss">3. </span>**Recomendação**: Scatter Plot (Capítulo 9)</span>
+<span id="cb6-312"><a href="#cb6-312"></a></span>
+<span id="cb6-315"><a href="#cb6-315"></a><span class="in">```{mermaid}</span></span>
+<span id="cb6-316"><a href="#cb6-316"></a>graph LR</span>
+<span id="cb6-317"><a href="#cb6-317"></a>    A[<span class="ot">"</span><span class="st">Peso&lt;br/&gt;+&lt;br/&gt;Circunferência</span><span class="ot">"</span>] --&gt; B[<span class="ot">"</span><span class="st">Scatter Plot</span><span class="ot">"</span>]</span>
+<span id="cb6-318"><a href="#cb6-318"></a><span class="in">```</span></span>
+<span id="cb6-319"><a href="#cb6-319"></a></span>
+<span id="cb6-320"><a href="#cb6-320"></a>**Por quê?** Scatter plot mostra a relação entre as duas variáveis. Você pode procurar por correlação (padrão linear), agrupamentos ou outliers. Se houver muitos pontos sobrepostos, considere adicionar transparência ou densidade.</span>
+<span id="cb6-321"><a href="#cb6-321"></a></span>
+<span id="cb6-322"><a href="#cb6-322"></a>---</span>
+<span id="cb6-323"><a href="#cb6-323"></a></span>
+<span id="cb6-324"><a href="#cb6-324"></a><span class="fu">## Quiz: Qual Gráfico Usar?</span></span>
+<span id="cb6-325"><a href="#cb6-325"></a></span>
+<span id="cb6-326"><a href="#cb6-326"></a>Teste seus conhecimentos respondendo às seguintes perguntas. Para cada cenário, identifique o gráfico recomendado e o capítulo correspondente.</span>
+<span id="cb6-327"><a href="#cb6-327"></a></span>
+<span id="cb6-328"><a href="#cb6-328"></a><span class="fu">### **Questão 1**</span></span>
+<span id="cb6-329"><a href="#cb6-329"></a>Você é médico e coleta dados de pressão arterial (PA sistólica em mmHg) de 150 pacientes hipertensos. Deseja explorar como a PA é distribuída na amostra. Qual gráfico usar?</span>
+<span id="cb6-330"><a href="#cb6-330"></a></span>
+<span id="cb6-331"><a href="#cb6-331"></a>A) Gráfico de Barras</span>
+<span id="cb6-332"><a href="#cb6-332"></a>B) Histograma</span>
+<span id="cb6-333"><a href="#cb6-333"></a>C) Scatter Plot</span>
+<span id="cb6-334"><a href="#cb6-334"></a>D) Gráfico de Pizza</span>
+<span id="cb6-335"><a href="#cb6-335"></a></span>
+<span id="cb6-336"><a href="#cb6-336"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb6-337"><a href="#cb6-337"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver resposta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb6-338"><a href="#cb6-338"></a>**Resposta: B) Histograma (Capítulo 6)**</span>
+<span id="cb6-339"><a href="#cb6-339"></a></span>
+<span id="cb6-340"><a href="#cb6-340"></a>**Explicação**: Você tem uma variável numérica (PA sistólica) e quer mostrar sua distribuição em intervalos. Histograma é a escolha padrão para explorar distribuições de dados contínuos.</span>
+<span id="cb6-341"><a href="#cb6-341"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb6-342"><a href="#cb6-342"></a></span>
+<span id="cb6-343"><a href="#cb6-343"></a>---</span>
+<span id="cb6-344"><a href="#cb6-344"></a></span>
+<span id="cb6-345"><a href="#cb6-345"></a><span class="fu">### **Questão 2**</span></span>
+<span id="cb6-346"><a href="#cb6-346"></a>Você está analisando a eficácia de um novo medicamento. Tem dados de 5 grupos de dosagem (baixa, média, alta, muito alta, controle) e quer comparar o número de pacientes que melhoraram em cada grupo. Qual gráfico usar?</span>
+<span id="cb6-347"><a href="#cb6-347"></a></span>
+<span id="cb6-348"><a href="#cb6-348"></a>A) Boxplot</span>
+<span id="cb6-349"><a href="#cb6-349"></a>B) Gráfico de Barras</span>
+<span id="cb6-350"><a href="#cb6-350"></a>C) Scatter Plot</span>
+<span id="cb6-351"><a href="#cb6-351"></a>D) Gráfico de Densidade</span>
+<span id="cb6-352"><a href="#cb6-352"></a></span>
+<span id="cb6-353"><a href="#cb6-353"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb6-354"><a href="#cb6-354"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver resposta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb6-355"><a href="#cb6-355"></a>**Resposta: B) Gráfico de Barras (Capítulo 5)**</span>
+<span id="cb6-356"><a href="#cb6-356"></a></span>
+<span id="cb6-357"><a href="#cb6-357"></a>**Explicação**: Você tem uma variável categórica (grupos de dosagem) e quer mostrar contagens/frequências. Gráfico de barras é ideal. Como há 5 categorias, barras verticais são apropriadas.</span>
+<span id="cb6-358"><a href="#cb6-358"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb6-359"><a href="#cb6-359"></a></span>
+<span id="cb6-360"><a href="#cb6-360"></a>---</span>
+<span id="cb6-361"><a href="#cb6-361"></a></span>
+<span id="cb6-362"><a href="#cb6-362"></a><span class="fu">### **Questão 3**</span></span>
+<span id="cb6-363"><a href="#cb6-363"></a>Você coleta dados de IMC (índice de massa corporal) para pacientes estratificados por faixa etária (18-30, 31-50, 51-70, 70+). Quer comparar como o IMC varia em cada faixa etária, incluindo outliers. Qual gráfico usar?</span>
+<span id="cb6-364"><a href="#cb6-364"></a></span>
+<span id="cb6-365"><a href="#cb6-365"></a>A) Scatter Plot</span>
+<span id="cb6-366"><a href="#cb6-366"></a>B) Gráfico de Linha</span>
+<span id="cb6-367"><a href="#cb6-367"></a>C) Boxplot</span>
+<span id="cb6-368"><a href="#cb6-368"></a>D) Gráfico de Barras</span>
+<span id="cb6-369"><a href="#cb6-369"></a></span>
+<span id="cb6-370"><a href="#cb6-370"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb6-371"><a href="#cb6-371"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver resposta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb6-372"><a href="#cb6-372"></a>**Resposta: C) Boxplot (Capítulo 8)**</span>
+<span id="cb6-373"><a href="#cb6-373"></a></span>
+<span id="cb6-374"><a href="#cb6-374"></a>**Explicação**: Você tem uma variável numérica (IMC) que deseja comparar entre grupos categóricos (faixas etárias). Boxplot mostra a distribuição, medianas e outliers de forma compacta. É superior a "barras de médias" porque preserva informação sobre a dispersão.</span>
+<span id="cb6-375"><a href="#cb6-375"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb6-376"><a href="#cb6-376"></a></span>
+<span id="cb6-377"><a href="#cb6-377"></a>---</span>
+<span id="cb6-378"><a href="#cb6-378"></a></span>
+<span id="cb6-379"><a href="#cb6-379"></a><span class="fu">### **Questão 4**</span></span>
+<span id="cb6-380"><a href="#cb6-380"></a>Você está estudando a progressão de uma doença ao longo de 12 meses. Coleta o nível de marcador inflamatório (citocinas, em pg/mL) de um grupo de pacientes a cada mês. Quer visualizar a tendência ao longo do tempo. Qual gráfico usar?</span>
+<span id="cb6-381"><a href="#cb6-381"></a></span>
+<span id="cb6-382"><a href="#cb6-382"></a>A) Gráfico de Pizza</span>
+<span id="cb6-383"><a href="#cb6-383"></a>B) Gráfico de Linha</span>
+<span id="cb6-384"><a href="#cb6-384"></a>C) Histograma</span>
+<span id="cb6-385"><a href="#cb6-385"></a>D) Barras Agrupadas</span>
+<span id="cb6-386"><a href="#cb6-386"></a></span>
+<span id="cb6-387"><a href="#cb6-387"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb6-388"><a href="#cb6-388"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Ver resposta<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
+<span id="cb6-389"><a href="#cb6-389"></a>**Resposta: B) Gráfico de Linha (Capítulo 10)**</span>
+<span id="cb6-390"><a href="#cb6-390"></a></span>
+<span id="cb6-391"><a href="#cb6-391"></a>**Explicação**: Você tem dados temporais (mês) no eixo x e uma medida numérica (citocinas) no eixo y. Gráfico de linha é natural para séries temporais e enfatiza tendências.</span>
+<span id="cb6-392"><a href="#cb6-392"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
+<span id="cb6-393"><a href="#cb6-393"></a></span>
+<span id="cb6-394"><a href="#cb6-394"></a>---</span>
+<span id="cb6-395"><a href="#cb6-395"></a></span>
+<span id="cb6-396"><a href="#cb6-396"></a><span class="fu">## Resumo das Decisões Principais</span></span>
+<span id="cb6-397"><a href="#cb6-397"></a></span>
+<span id="cb6-398"><a href="#cb6-398"></a>A escolha do gráfico certo começa com três perguntas:</span>
+<span id="cb6-399"><a href="#cb6-399"></a></span>
+<span id="cb6-400"><a href="#cb6-400"></a><span class="ss">1. </span>**Quantas variáveis** você deseja visualizar?</span>
+<span id="cb6-401"><a href="#cb6-401"></a><span class="ss">2. </span>**Qual é o tipo** (categórico, numérico, temporal)?</span>
+<span id="cb6-402"><a href="#cb6-402"></a><span class="ss">3. </span>**O que deseja comunicar** (distribuição, comparação, correlação, proporção)?</span>
+<span id="cb6-403"><a href="#cb6-403"></a></span>
+<span id="cb6-404"><a href="#cb6-404"></a>Respondendo essas perguntas, o fluxograma acima guia você para a escolha correta. Lembre-se:</span>
+<span id="cb6-405"><a href="#cb6-405"></a></span>
+<span id="cb6-406"><a href="#cb6-406"></a><span class="ss">- </span>**Barras** para categorias</span>
+<span id="cb6-407"><a href="#cb6-407"></a><span class="ss">- </span>**Histograma/Densidade** para distribuições numéricas</span>
+<span id="cb6-408"><a href="#cb6-408"></a><span class="ss">- </span>**Boxplot** para comparar distribuições entre grupos</span>
+<span id="cb6-409"><a href="#cb6-409"></a><span class="ss">- </span>**Scatter** para relações entre duas variáveis numéricas</span>
+<span id="cb6-410"><a href="#cb6-410"></a><span class="ss">- </span>**Linha** para tendências temporais</span>
+<span id="cb6-411"><a href="#cb6-411"></a><span class="ss">- </span>**Facets** para múltiplas variáveis</span>
+<span id="cb6-412"><a href="#cb6-412"></a></span>
+<span id="cb6-413"><a href="#cb6-413"></a>E sempre leve em conta a **Gramática dos Gráficos**: dados → estéticas → geoms. Um bom gráfico mapeia suas variáveis claramente às estéticas visuais e escolhe um geom que comunica seu mensagem de forma eficiente.</span>
+<span id="cb6-414"><a href="#cb6-414"></a></span>
+<span id="cb6-415"><a href="#cb6-415"></a>---</span>
+<span id="cb6-416"><a href="#cb6-416"></a></span>
+<span id="cb6-417"><a href="#cb6-417"></a><span class="fu">## Referências aos Capítulos Anteriores</span></span>
+<span id="cb6-418"><a href="#cb6-418"></a></span>
+<span id="cb6-419"><a href="#cb6-419"></a><span class="ss">- </span>**Capítulo 1**: Gramática dos Gráficos</span>
+<span id="cb6-420"><a href="#cb6-420"></a><span class="ss">- </span>**Capítulo 4**: Gráficos de Pizza (e por que evitá-los)</span>
+<span id="cb6-421"><a href="#cb6-421"></a><span class="ss">- </span>**Capítulo 5**: Gráficos de Barras</span>
+<span id="cb6-422"><a href="#cb6-422"></a><span class="ss">- </span>**Capítulo 6**: Histogramas</span>
+<span id="cb6-423"><a href="#cb6-423"></a><span class="ss">- </span>**Capítulo 7**: Gráficos de Densidade</span>
+<span id="cb6-424"><a href="#cb6-424"></a><span class="ss">- </span>**Capítulo 8**: Boxplots</span>
+<span id="cb6-425"><a href="#cb6-425"></a><span class="ss">- </span>**Capítulo 9**: Scatter Plots</span>
+<span id="cb6-426"><a href="#cb6-426"></a><span class="ss">- </span>**Capítulo 10**: Gráficos de Linha</span>
+<span id="cb6-427"><a href="#cb6-427"></a><span class="ss">- </span>**Capítulo 11**: Facets e Small Multiples</span>
+<span id="cb6-428"><a href="#cb6-428"></a><span class="ss">- </span>**Capítulo 12**: Cores em Visualização</span>
+<span id="cb6-429"><a href="#cb6-429"></a><span class="ss">- </span>**Capítulo 13**: Tamanho e Proporção</span>
+<span id="cb6-430"><a href="#cb6-430"></a></span>
+<span id="cb6-431"><a href="#cb6-431"></a>---</span>
+<span id="cb6-432"><a href="#cb6-432"></a></span>
+<span id="cb6-433"><a href="#cb6-433"></a>**Autor**: Henrique Alvarenga da Silva</span>
+<span id="cb6-434"><a href="#cb6-434"></a>**Data**: 2024-2025</span>
+<span id="cb6-435"><a href="#cb6-435"></a>**Disciplina**: Visualização de Dados para Pesquisadores Médicos</span>
+</code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Dos Dados aos Gráficos<br> © 2026 Henrique Alvarenga da Silva · UFSJ · UNIPTAN/AFYA</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Feito com <a href="https://quarto.org/">Quarto</a> e <a href="https://www.r-project.org/">R</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
