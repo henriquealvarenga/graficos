@@ -21,3 +21,4 @@ Thumbs.db
 
 /.quarto/
 **/*.quarto_ipynb
+data/wines.csv
