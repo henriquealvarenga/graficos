@@ -305,71 +305,65 @@ graph LR
 
 Teste seus conhecimentos respondendo às seguintes perguntas. Para cada cenário, identifique o gráfico recomendado e o capítulo correspondente.
 
-### **Questão 1**
-Você é médico e coleta dados de pressão arterial (PA sistólica em mmHg) de 150 pacientes hipertensos. Deseja explorar como a PA é distribuída na amostra. Qual gráfico usar?
+**Questão 1:** Você é médico e coleta dados de pressão arterial (PA sistólica em mmHg) de 150 pacientes hipertensos. Deseja explorar como a PA é distribuída na amostra. Qual gráfico usar?
 
-A) Gráfico de Barras
-B) Histograma
-C) Scatter Plot
-D) Gráfico de Pizza
+a) Gráfico de Barras
+b) Histograma
+c) Scatter Plot
+d) Gráfico de Pizza
 
-<details>
-<summary>Ver resposta</summary>
-**Resposta: B) Histograma (Capítulo 6)**
+::: {.callout-note collapse="true"}
+## Resposta
 
-**Explicação**: Você tem uma variável numérica (PA sistólica) e quer mostrar sua distribuição em intervalos. Histograma é a escolha padrão para explorar distribuições de dados contínuos.
-</details>
+**Resposta correta: b) Histograma (Capítulo 6)**
 
----
+Você tem uma variável numérica (PA sistólica) e quer mostrar sua distribuição em intervalos. Histograma é a escolha padrão para explorar distribuições de dados contínuos.
+:::
 
-### **Questão 2**
-Você está analisando a eficácia de um novo medicamento. Tem dados de 5 grupos de dosagem (baixa, média, alta, muito alta, controle) e quer comparar o número de pacientes que melhoraram em cada grupo. Qual gráfico usar?
+**Questão 2:** Você está analisando a eficácia de um novo medicamento. Tem dados de 5 grupos de dosagem (baixa, média, alta, muito alta, controle) e quer comparar o número de pacientes que melhoraram em cada grupo. Qual gráfico usar?
 
-A) Boxplot
-B) Gráfico de Barras
-C) Scatter Plot
-D) Gráfico de Densidade
+a) Boxplot
+b) Gráfico de Barras
+c) Scatter Plot
+d) Gráfico de Densidade
 
-<details>
-<summary>Ver resposta</summary>
-**Resposta: B) Gráfico de Barras (Capítulo 5)**
+::: {.callout-note collapse="true"}
+## Resposta
 
-**Explicação**: Você tem uma variável categórica (grupos de dosagem) e quer mostrar contagens/frequências. Gráfico de barras é ideal. Como há 5 categorias, barras verticais são apropriadas.
-</details>
+**Resposta correta: b) Gráfico de Barras (Capítulo 5)**
 
----
+Você tem uma variável categórica (grupos de dosagem) e quer mostrar contagens/frequências. Gráfico de barras é ideal. Como há 5 categorias, barras verticais são apropriadas.
+:::
 
-### **Questão 3**
-Você coleta dados de IMC (índice de massa corporal) para pacientes estratificados por faixa etária (18-30, 31-50, 51-70, 70+). Quer comparar como o IMC varia em cada faixa etária, incluindo outliers. Qual gráfico usar?
+**Questão 3:** Você coleta dados de IMC (índice de massa corporal) para pacientes estratificados por faixa etária (18-30, 31-50, 51-70, 70+). Quer comparar como o IMC varia em cada faixa etária, incluindo outliers. Qual gráfico usar?
 
-A) Scatter Plot
-B) Gráfico de Linha
-C) Boxplot
-D) Gráfico de Barras
+a) Scatter Plot
+b) Gráfico de Linha
+c) Boxplot
+d) Gráfico de Barras
 
-<details>
-<summary>Ver resposta</summary>
-**Resposta: C) Boxplot (Capítulo 8)**
+::: {.callout-note collapse="true"}
+## Resposta
 
-**Explicação**: Você tem uma variável numérica (IMC) que deseja comparar entre grupos categóricos (faixas etárias). Boxplot mostra a distribuição, medianas e outliers de forma compacta. É superior a "barras de médias" porque preserva informação sobre a dispersão.
-</details>
+**Resposta correta: c) Boxplot (Capítulo 8)**
 
----
+Você tem uma variável numérica (IMC) que deseja comparar entre grupos categóricos (faixas etárias). Boxplot mostra a distribuição, medianas e outliers de forma compacta. É superior a "barras de médias" porque preserva informação sobre a dispersão.
+:::
 
-### **Questão 4**
-Você está estudando a progressão de uma doença ao longo de 12 meses. Coleta o nível de marcador inflamatório (citocinas, em pg/mL) de um grupo de pacientes a cada mês. Quer visualizar a tendência ao longo do tempo. Qual gráfico usar?
+**Questão 4:** Você está estudando a progressão de uma doença ao longo de 12 meses. Coleta o nível de marcador inflamatório (citocinas, em pg/mL) de um grupo de pacientes a cada mês. Quer visualizar a tendência ao longo do tempo. Qual gráfico usar?
 
-A) Gráfico de Pizza
-B) Gráfico de Linha
-C) Histograma
-D) Barras Agrupadas
+a) Gráfico de Pizza
+b) Gráfico de Linha
+c) Histograma
+d) Barras Agrupadas
 
-<details>
-<summary>Ver resposta</summary>
-**Resposta: B) Gráfico de Linha (Capítulo 10)**
+::: {.callout-note collapse="true"}
+## Resposta
 
-**Explicação**: Você tem dados temporais (mês) no eixo x e uma medida numérica (citocinas) no eixo y. Gráfico de linha é natural para séries temporais e enfatiza tendências.
-</details>
+**Resposta correta: b) Gráfico de Linha (Capítulo 10)**
+
+Você tem dados temporais (mês) no eixo x e uma medida numérica (citocinas) no eixo y. Gráfico de linha é natural para séries temporais e enfatiza tendências.
+:::
 
 ---
 

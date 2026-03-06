@@ -1,0 +1,66 @@
+project:
+  type: book
+  output-dir: ~/Mesa
+
+book:
+  title: "Dos Dados aos Gráficos"
+  subtitle: "Visualização Estatística para Profissionais de Saúde"
+  author: "Henrique Alvarenga da Silva"
+  date: today
+  chapters:
+    - index.qmd
+    - part: "Fundamentos"
+      chapters:
+        - cap00-precisa-grafico.qmd
+        - cap01-gramatica.qmd
+        - cap02-elementos.qmd
+        - cap03-tufte.qmd
+    - part: "Tipos de Gráficos"
+      chapters:
+        - cap04-pizza.qmd
+        - cap05-barras.qmd
+        - cap06-histograma.qmd
+        - cap07-densidade.qmd
+        - cap08-boxplot.qmd
+        - cap09-scatterplot.qmd
+        - cap10-linhas.qmd
+    - part: "Pensamento Crítico"
+      chapters:
+        - cap12-historia.qmd
+        - cap13-mesmos-dados.qmd
+        - cap14-galeria-horrores.qmd
+    - part: "Ferramentas"
+      chapters:
+        - cap11-ia.qmd
+        - cap15-fluxograma.qmd
+
+bibliography: references/references.bib
+csl: references/csl_styles/ABNT.csl
+
+execute:
+  freeze: false
+  warning: false
+  message: false
+
+format:
+  pdf:
+    documentclass: scrreprt
+    papersize: a4
+    fontsize: 11pt
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    colorlinks: true
+    lang: pt
+    code-fold: true
+    prefer-html: true
+    fig-width: 8
+    fig-height: 5
+
+knitr:
+  opts_chunk:
+    fig.width: 8
+    fig.height: 5
+    fig.retina: 2
+    dpi: 150
+    out.width: "90%"

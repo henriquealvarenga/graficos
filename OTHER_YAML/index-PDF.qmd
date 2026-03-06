@@ -1,0 +1,11 @@
+# Prefácio {.unnumbered}
+
+Este livro foi desenvolvido como recurso educacional para estudantes de medicina, residentes e profissionais da área da saúde que desejam compreender os fundamentos da visualização de dados estatísticos e aplicá-los em suas pesquisas e prática clínica.
+
+Ao longo dos capítulos, exploraremos desde os princípios fundamentais da gramática dos gráficos até tipos específicos de visualização, passando por histórias fascinantes de gráficos que mudaram o mundo e armadilhas comuns na apresentação de dados.
+
+Todos os gráficos são reproduzidos com **dados reais** utilizando a linguagem R e o pacote ggplot2, com código aberto e reprodutível.
+
+**Henrique Alvarenga da Silva**\
+Universidade Federal de São João del-Rei (UFSJ)\
+UNIPTAN/AFYA

@@ -1,75 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap00-precisa-grafico.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap00-precisa-grafico.html</loc>
     <lastmod>2026-03-01T23:12:54.248Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap04-pizza.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap04-pizza.html</loc>
     <lastmod>2026-03-01T23:14:39.291Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap07-densidade.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap07-densidade.html</loc>
     <lastmod>2026-03-01T23:14:39.273Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap13-mesmos-dados.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap13-mesmos-dados.html</loc>
     <lastmod>2026-03-06T00:37:54.733Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap05-barras.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap05-barras.html</loc>
     <lastmod>2026-03-01T23:14:39.290Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap03-tufte.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap03-tufte.html</loc>
     <lastmod>2026-03-01T23:14:39.296Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap12-historia.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap12-historia.html</loc>
     <lastmod>2026-03-06T11:36:55.742Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap14-galeria-horrores.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap14-galeria-horrores.html</loc>
     <lastmod>2026-02-26T23:08:51.107Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap11-ia.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap11-ia.html</loc>
     <lastmod>2026-03-05T21:43:25.008Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap15-fluxograma.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap15-fluxograma.html</loc>
     <lastmod>2026-02-26T23:08:53.868Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap06-histograma.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/OTHER_YAML/index-PDF.html</loc>
+    <lastmod>2026-03-06T13:00:39.895Z</lastmod>
+  </url>
+  <url>
+    <loc>https://henriquealvarenga.github.io/graficos/cap06-histograma.html</loc>
     <lastmod>2026-03-01T23:14:39.280Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap02-elementos.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap02-elementos.html</loc>
     <lastmod>2026-03-01T23:14:39.299Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/index.html</loc>
-    <lastmod>2026-02-26T22:03:36.414Z</lastmod>
+    <loc>https://henriquealvarenga.github.io/graficos/index.html</loc>
+    <lastmod>2026-03-06T13:55:15.881Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/about.html</loc>
-    <lastmod>2026-02-26T22:01:32.646Z</lastmod>
+    <loc>https://henriquealvarenga.github.io/graficos/about.html</loc>
+    <lastmod>2026-03-06T11:47:45.279Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap09-scatterplot.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap09-scatterplot.html</loc>
     <lastmod>2026-03-01T23:14:39.273Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap08-boxplot.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap08-boxplot.html</loc>
     <lastmod>2026-03-01T23:14:39.277Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap10-linhas.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap10-linhas.html</loc>
     <lastmod>2026-03-01T23:14:39.273Z</lastmod>
   </url>
   <url>
-    <loc>https://henriquealvarenga.github.io/graficos-site/cap01-gramatica.html</loc>
+    <loc>https://henriquealvarenga.github.io/graficos/cap01-gramatica.html</loc>
     <lastmod>2026-03-01T23:12:54.246Z</lastmod>
   </url>
 </urlset>

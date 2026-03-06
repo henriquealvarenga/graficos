@@ -427,62 +427,56 @@ Densidade é uma unidade abstrata. Sempre rotule o eixo Y como "Densidade".
 
 ## Quiz
 
-::: {.callout-note title="Teste seu conhecimento" icon="false"}
-
-**Pergunta 1**: Qual é a vantagem principal de um gráfico de densidade sobre um histograma?
+**Pergunta 1:** Qual é a vantagem principal de um gráfico de densidade sobre um histograma?
 
 a) Densidade requer menos dados
 b) Densidade mostra curvas suaves que facilitam comparação de múltiplos grupos quando sobrepostos
 c) Densidade é sempre mais precisa
 d) Densidade não tem vantagens, são equivalentes
 
-<details>
-<summary>Resposta</summary>
-**b)** A suavização contínua da densidade facilita enormemente a comparação visual de grupos. Quando múltiplos histogramas são sobrepostos, eles se tornam confusos; densidades sobreposta com transparência revelam diferenças claramente.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
 
----
+**Resposta correta: b)** A suavização contínua da densidade facilita enormemente a comparação visual de grupos. Quando múltiplos histogramas são sobrepostos, eles se tornam confusos; densidades sobrepostas com transparência revelam diferenças claramente.
+:::
 
-**Pergunta 2**: Qual é o tamanho mínimo de amostra para confiar em um gráfico de densidade?
+**Pergunta 2:** Qual é o tamanho mínimo de amostra para confiar em um gráfico de densidade?
 
 a) 10 observações
 b) 30 observações
 c) ~100 observações
 d) Não importa o tamanho
 
-<details>
-<summary>Resposta</summary>
-**c)** A estimação de densidade por kernel funciona melhor com pelo menos 100 observações. Com menos, a curva pode ser instável e enganosa. Para 20-50 observações, use histograma.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
 
----
+**Resposta correta: c)** A estimação de densidade por kernel funciona melhor com pelo menos 100 observações. Com menos, a curva pode ser instável e enganosa. Para 20-50 observações, use histograma.
+:::
 
-**Pergunta 3**: Qual parâmetro em `geom_density()` controla o suavismo da curva?
+**Pergunta 3:** Qual parâmetro em `geom_density()` controla o suavismo da curva?
 
 a) `smooth`
 b) `adjust`
 c) `bandwidth`
 d) `kernel`
 
-<details>
-<summary>Resposta</summary>
-**b)** O parâmetro `adjust` em ggplot2 controla o suavismo. Valores < 1 criam curvas mais "nervosas"; valores > 1 criam curvas mais suavizadas.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
 
----
+**Resposta correta: b)** O parâmetro `adjust` em ggplot2 controla o suavismo. Valores < 1 criam curvas mais "nervosas"; valores > 1 criam curvas mais suavizadas.
+:::
 
-**Pergunta 4**: No gráfico COVID-19 apresentado, por que o isolamento social "achata a curva"?
+**Pergunta 4:** No gráfico COVID-19 apresentado, por que o isolamento social "achata a curva"?
 
 a) Reduz o número total de casos
 b) Mantém aproximadamente o mesmo número de casos, mas os distribui ao longo de mais tempo
 c) Cura as pessoas mais rápido
 d) Aumenta a imunidade da população
 
-<details>
-<summary>Resposta</summary>
-**b)** O isolamento não reduz casos totais significativamente, mas estende a duração da epidemia. Um pico menor permite que hospitais e profissionais de saúde lidem com a demanda, evitando colapso.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
 
+**Resposta correta: b)** O isolamento não reduz casos totais significativamente, mas estende a duração da epidemia. Um pico menor permite que hospitais e profissionais de saúde lidem com a demanda, evitando colapso.
 :::
 
 ---

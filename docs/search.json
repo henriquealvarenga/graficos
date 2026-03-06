@@ -1500,6 +1500,13 @@
     ]
   },
   {
+    "objectID": "OTHER_YAML/index-PDF.html",
+    "href": "OTHER_YAML/index-PDF.html",
+    "title": "",
+    "section": "",
+    "text": "Código\n\n\n\n\n\nPrefácio\nEste livro foi desenvolvido como recurso educacional para estudantes de medicina, residentes e profissionais da área da saúde que desejam compreender os fundamentos da visualização de dados estatísticos e aplicá-los em suas pesquisas e prática clínica.\nAo longo dos capítulos, exploraremos desde os princípios fundamentais da gramática dos gráficos até tipos específicos de visualização, passando por histórias fascinantes de gráficos que mudaram o mundo e armadilhas comuns na apresentação de dados.\nTodos os gráficos são reproduzidos com dados reais utilizando a linguagem R e o pacote ggplot2, com código aberto e reprodutível.\nHenrique Alvarenga da Silva\nUniversidade Federal de São João del-Rei (UFSJ)\nUNIPTAN/AFYA\n\n\n\n\n\n\n De volta ao topo"
+  },
+  {
     "objectID": "cap06-histograma.html",
     "href": "cap06-histograma.html",
     "title": "Histograma",
@@ -1772,14 +1779,14 @@
     "href": "about.html#tecnologias-utilizadas",
     "title": "Sobre este projeto",
     "section": "Tecnologias utilizadas",
-    "text": "Tecnologias utilizadas\nEste material foi produzido utilizando ferramentas de código aberto e ciência aberta:\n\n\n\nTecnologia\nFinalidade\n\n\n\n\nR\nLinguagem de programação estatística\n\n\nggplot2\nCriação de gráficos baseados na Grammar of Graphics\n\n\nPlotly\nGráficos interativos\n\n\nQuarto\nSistema de publicação científica e técnica\n\n\nPositron\nAmbiente de desenvolvimento integrado (IDE)\n\n\nGit\nControle de versão\n\n\nGitHub\nHospedagem do repositório\n\n\nGitHub Pages\nPublicação e hospedagem do site\n\n\nBibTeX\nGerenciamento de referências bibliográficas\n\n\n\n\nInteligência artificial\nO desenvolvimento deste material contou com o auxílio de ferramentas de inteligência artificial generativa:\n\nClaude (Anthropic) — assistência na estruturação do conteúdo, geração de código R, revisão textual e organização das referências\n\nO uso dessas ferramentas seguiu princípios de transparência e verificação: todo o conteúdo gerado foi revisado, verificado e validado pelo autor. As referências bibliográficas foram conferidas individualmente para garantir precisão e veracidade.\n\n\n\n\n\n\nNotaNota sobre o uso de IA\n\n\n\nA inteligência artificial foi utilizada como ferramenta de apoio, não como substituto do trabalho intelectual. A responsabilidade pelo conteúdo final, incluindo a precisão das informações, do código e a adequação das referências, é integralmente do autor."
+    "text": "Tecnologias utilizadas\nEste material foi produzido utilizando ferramentas de código aberto e ciência aberta:\n\n\n\nTecnologia\nFinalidade\n\n\n\n\nR\nLinguagem de programação estatística\n\n\nggplot2\nCriação de gráficos baseados na Grammar of Graphics\n\n\nPlotly\nGráficos interativos\n\n\nQuarto\nSistema de publicação científica e técnica\n\n\nMarkdown\nLinguagem de marcação para escrita do conteúdo\n\n\nPositron\nAmbiente de desenvolvimento integrado (IDE)\n\n\nGit\nControle de versão\n\n\nGitHub\nHospedagem do repositório e controle de versão\n\n\nGitHub Pages\nPublicação e hospedagem do site\n\n\nBibTeX\nGerenciamento de referências bibliográficas\n\n\n\n\nInteligência artificial\nO desenvolvimento deste material contou com o auxílio de ferramentas de inteligência artificial generativa:\n\nClaude (Anthropic) — assistência na estruturação do conteúdo, geração de código R, revisão textual e organização das referências\nChatGPT (OpenAI) — apoio na elaboração de seções específicas e revisão de conteúdo\n\nO uso dessas ferramentas seguiu princípios de transparência e verificação: todo o conteúdo gerado foi revisado, verificado e validado pelo autor. As referências bibliográficas foram conferidas individualmente para garantir precisão e veracidade.\n\n\n\n\n\n\nNotaNota sobre o uso de IA\n\n\n\nA inteligência artificial foi utilizada como ferramenta de apoio, não como substituto do trabalho intelectual. A responsabilidade pelo conteúdo final, incluindo a precisão das informações, do código e a adequação das referências, é integralmente do autor."
   },
   {
     "objectID": "about.html#repositório",
     "href": "about.html#repositório",
     "title": "Sobre este projeto",
     "section": "Repositório",
-    "text": "Repositório\nO código-fonte deste projeto está disponível publicamente:\n🔗 Repositório: github.com/henriquealvarenga/graficos-site\nContribuições, sugestões e correções são bem-vindas por meio de issues ou pull requests."
+    "text": "Repositório\nO código-fonte deste projeto está disponível publicamente:\n🔗 Repositório: github.com/henriquealvarenga/graficos\nContribuições, sugestões e correções são bem-vindas por meio de issues ou pull requests."
   },
   {
     "objectID": "about.html#licença",
@@ -1793,7 +1800,7 @@
     "href": "about.html#citação",
     "title": "Sobre este projeto",
     "section": "Citação",
-    "text": "Citação\nPara citar este material, utilize:\n\nSilva, H. A. (2026). Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde. Disponível em: https://henriquealvarenga.github.io/graficos-site/\n\nFormato BibTeX:\n@book{silva2026graficos,\n  author    = {Silva, Henrique Alvarenga da},\n  title     = {Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde},\n  year      = {2026},\n  publisher = {Publicação independente},\n  url       = {https://henriquealvarenga.github.io/graficos-site/},\n  note      = {Recurso educacional aberto}\n}"
+    "text": "Citação\nPara citar este material, utilize:\n\nSilva, H. A. (2026). Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde. Disponível em: https://henriquealvarenga.github.io/graficos/\n\nFormato BibTeX:\n@book{silva2026graficos,\n  author    = {Silva, Henrique Alvarenga da},\n  title     = {Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde},\n  year      = {2026},\n  publisher = {Publicação independente},\n  url       = {https://henriquealvarenga.github.io/graficos/},\n  note      = {Recurso educacional aberto}\n}"
   },
   {
     "objectID": "about.html#isbn",
@@ -1801,6 +1808,13 @@
     "title": "Sobre este projeto",
     "section": "ISBN",
     "text": "ISBN\n\n\n\n\n\n\nAviso\n\n\n\nISBN: (a ser registrado)"
+  },
+  {
+    "objectID": "about.html#ficha-catalográfica",
+    "href": "about.html#ficha-catalográfica",
+    "title": "Sobre este projeto",
+    "section": "Ficha catalográfica",
+    "text": "Ficha catalográfica\n\n\n\n\n\n\nAviso\n\n\n\n(a ser incluída)"
   },
   {
     "objectID": "about.html#agradecimentos",

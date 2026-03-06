@@ -669,75 +669,93 @@ Lembre-se: você não é apenas um analisador de dados. Você é um **comunicado
 
 **Pergunta 1:** O diagrama de rosa de Florence Nightingale mostrou que a maioria das mortes de soldados na Guerra da Crimeia era causada por:
 
-- (A) Ferimentos de bala
-- (B) Doenças infecciosas em condições sanitárias precárias
-- (C) Falta de alimento
-- (D) Frio extremo
+a) Ferimentos de bala
+b) Doenças infecciosas em condições sanitárias precárias
+c) Falta de alimento
+d) Frio extremo
 
-<details>
-<summary>**Resposta**</summary>
-Alternativa (B). Este foi o achado crucial que levou às reformas hospitalares.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: b) Doenças infecciosas em condições sanitárias precárias**
+
+Este foi o achado crucial que levou às reformas hospitalares.
+:::
 
 **Pergunta 2:** Qual foi a principal contribuição metodológica de John Snow para a epidemiologia moderna?
 
-- (A) A descoberta de antibióticos
-- (B) A análise espacial de casos de doença (mapeamento)
-- (C) A invenção de vacinas
-- (D) O uso de estatística paramétrica
+a) A descoberta de antibióticos
+b) A análise espacial de casos de doença (mapeamento)
+c) A invenção de vacinas
+d) O uso de estatística paramétrica
 
-<details>
-<summary>**Resposta**</summary>
-Alternativa (B). Snow foi pioneiro em visualizar dados epidemiológicos espacialmente, revolucionando como entendemos surtos de doenças.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: b) A análise espacial de casos de doença (mapeamento)**
+
+Snow foi pioneiro em visualizar dados epidemiológicos espacialmente, revolucionando como entendemos surtos de doenças.
+:::
 
 **Pergunta 3:** O desastre do Challenger (1986) ilustra que:
 
-- (A) A NASA foi negligente ao ignorar dados técnicos
-- (B) A falta de uma visualização clara pode contribuir para decisões fatais
-- (C) Engenheiros não devem questionar supervisores
-- (D) Dados sobre falhas de equipamento são irrelevantes
+a) A NASA foi negligente ao ignorar dados técnicos
+b) A falta de uma visualização clara pode contribuir para decisões fatais
+c) Engenheiros não devem questionar supervisores
+d) Dados sobre falhas de equipamento são irrelevantes
 
-<details>
-<summary>**Resposta**</summary>
-Alternativa (B). Edward Tufte e Dalal et al. argumentam que os engenheiros tinham os dados necessários, mas os apresentaram em 13 gráficos confusos que omitiam os voos sem falhas. Se tivessem feito um gráfico simples de temperatura vs. falha com todos os 23 voos, o padrão seria inegável.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: b) A falta de uma visualização clara pode contribuir para decisões fatais**
+
+Edward Tufte e Dalal et al. argumentam que os engenheiros tinham os dados necessários, mas os apresentaram em 13 gráficos confusos que omitiam os voos sem falhas. Se tivessem feito um gráfico simples de temperatura vs. falha com todos os 23 voos, o padrão seria inegável.
+:::
 
 **Pergunta 4:** Qual destes gráficos é mais diretamente um descendente do trabalho de William Farr?
 
-- (A) Gráficos de dispersão
-- (B) Curvas de Kaplan-Meier (sobrevida)
-- (C) Gráficos de pizza
-- (D) Histogramas de frequência
+a) Gráficos de dispersão
+b) Curvas de Kaplan-Meier (sobrevida)
+c) Gráficos de pizza
+d) Histogramas de frequência
 
-<details>
-<summary>**Resposta**</summary>
-Alternativa (B). As curvas de Kaplan-Meier seguem diretamente o modelo de Farr de visualizar mortalidade/eventos ao longo do tempo.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: b) Curvas de Kaplan-Meier (sobrevida)**
+
+As curvas de Kaplan-Meier seguem diretamente o modelo de Farr de visualizar mortalidade/eventos ao longo do tempo.
+:::
 
 **Pergunta 5:** O mapa de Minard sobre a marcha de Napoleão é considerado "o melhor gráfico estatístico já produzido" (Tufte, 1983) porque:
 
-- (A) Usa cores vibrantes e modernas
-- (B) Representa seis variáveis simultaneamente em uma única imagem
-- (C) Foi o primeiro gráfico da história
-- (D) Usa técnicas computacionais avançadas
+a) Usa cores vibrantes e modernas
+b) Representa seis variáveis simultaneamente em uma única imagem
+c) Foi o primeiro gráfico da história
+d) Usa técnicas computacionais avançadas
 
-<details>
-<summary>**Resposta**</summary>
-Alternativa (B). O mapa de Minard combina o tamanho do exército, latitude, longitude, direção do movimento, temperatura e datas — seis variáveis em um único gráfico que conta uma história devastadora de forma imediata.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: b) Representa seis variáveis simultaneamente em uma única imagem**
+
+O mapa de Minard combina o tamanho do exército, latitude, longitude, direção do movimento, temperatura e datas — seis variáveis em um único gráfico que conta uma história devastadora de forma imediata.
+:::
 
 **Pergunta 6:** A Curva de Keeling mostra dois padrões simultâneos. Quais são eles?
 
-- (A) Oscilação diária e tendência descendente
-- (B) Oscilação sazonal (dentes de serra) e tendência ascendente ano a ano
-- (C) Variação aleatória e estabilidade ao longo das décadas
-- (D) Queda brusca no verão e estabilidade no inverno
+a) Oscilação diária e tendência descendente
+b) Oscilação sazonal (dentes de serra) e tendência ascendente ano a ano
+c) Variação aleatória e estabilidade ao longo das décadas
+d) Queda brusca no verão e estabilidade no inverno
 
-<details>
-<summary>**Resposta**</summary>
-Alternativa (B). A Curva de Keeling mostra a "respiração" sazonal do planeta (plantas absorvem CO₂ no verão e liberam no inverno) combinada com um aumento inexorável da concentração média ao longo das décadas, evidenciando a mudança climática.
-</details>
+::: {.callout-note collapse="true"}
+## Resposta
+
+**Resposta correta: b) Oscilação sazonal (dentes de serra) e tendência ascendente ano a ano**
+
+A Curva de Keeling mostra a "respiração" sazonal do planeta (plantas absorvem CO₂ no verão e liberam no inverno) combinada com um aumento inexorável da concentração média ao longo das décadas, evidenciando a mudança climática.
+:::
 
 ---
 

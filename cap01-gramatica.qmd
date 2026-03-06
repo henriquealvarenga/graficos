@@ -522,110 +522,85 @@ para_plotly(p_interativo)
 
 Teste seu entendimento sobre a Grammar of Graphics!
 
+**Questão 1:** Qual é o componente mínimo necessário para criar um gráfico?
+
+a) Aesthetics e Geom.
+b) Data, Aesthetics e Geom.
+c) Data.
+d) Theme.
+
 ::: {.callout-note collapse="true"}
-## Questão 1: Componentes Essenciais
+## Resposta
 
-Qual é o componente mínimo necessário para criar um gráfico?
+**Resposta correta: b) Data, Aesthetics e Geom**
 
-a) Aesthetics e Geom. 
-b) Data, Aesthetics e Geom. 
-c) Data.   
-d) Theme. 
-
-<details>
-<summary>Ver resposta</summary>
-
-**Resposta: b) Data, Aesthetics e Geom**
-
-Você precisa de dados (o quê), de um mapeamento estético (para onde), e de uma geometria (como visualizar). 
+Você precisa de dados (o quê), de um mapeamento estético (para onde), e de uma geometria (como visualizar).
 Tudo o mais — facets, statistics, coordinates especiais, themes — são adições que refinam a visualização, mas esses três são obrigatórios.
-
-</details>
 :::
 
+**Questão 2:** Se você pega um gráfico de barras em coordenadas cartesianas normais e aplica `coord_flip()`, o que acontece?
+
+a) O gráfico fica de cabeça para baixo.
+b) Os eixos trocam de lugar (barras horizontais em vez de verticais).
+c) Os dados são transformados.
+d) O gráfico fica um gráfico de pizza.
+
 ::: {.callout-note collapse="true"}
-## Questão 2: Mudando Coordenadas
+## Resposta
 
-Se você pega um gráfico de barras em coordenadas cartesianas normais e aplica `coord_flip()`, o que acontece?
-
-a) O gráfico fica de cabeça para baixo. 
-b) Os eixos trocam de lugar (barras horizontais em vez de verticais). 
-c) Os dados são transformados. 
-d) O gráfico fica um gráfico de pizza. 
-
-<details>
-<summary>Ver resposta</summary>
-
-**Resposta: b) Os eixos trocam de lugar**
+**Resposta correta: b) Os eixos trocam de lugar**
 
 `coord_flip()` inverte os eixos x e y. Assim, um gráfico de barras vertical vira um gráfico de barras horizontal. Os dados e a geometria permanecem exatamente os mesmos — só a apresentação muda.
-
-</details>
 :::
 
+**Questão 3:** Qual é a diferença entre `aes(color = sexo)` (aesthetics) e `geom_point()` (geometria)?
+
+a) Nenhuma — são a mesma coisa.
+b) Aesthetics diz PARA ONDE mapear a variável; Geom diz COMO visualizá-la.
+c) Geom diz PARA ONDE mapear; Aesthetics diz COMO visualizar.
+d) Aesthetics é para cores; Geom é para pontos.
+
 ::: {.callout-note collapse="true"}
-## Questão 3: Aesthetics vs. Geom
+## Resposta
 
-Qual é a diferença entre `aes(color = sexo)` (aesthetics) e `geom_point()` (geometria)?
-
-a) Nenhuma — são a mesma coisa. 
-b) Aesthetics diz PARA ONDE mapear a variável; Geom diz COMO visualizá-la. 
-c) Geom diz PARA ONDE mapear; Aesthetics diz COMO visualizar. 
-d) Aesthetics é para cores; Geom é para pontos. 
-
-<details>
-<summary>Ver resposta</summary>
-
-**Resposta: b) Aesthetics diz PARA ONDE mapear a variável; Geom diz COMO visualizá-la**
+**Resposta correta: b) Aesthetics diz PARA ONDE mapear a variável; Geom diz COMO visualizá-la**
 
 - `aes(color = sexo)` significa: "Vou mapear a variável 'sexo' para a propriedade visual 'cor'". Qual cor? Depende da escala de cores que você escolher.
 - `geom_point()` significa: "Vou usar pontos para visualizar esses dados".
 
 Você pode usar `aes(color = sexo)` com `geom_point()`, com `geom_line()`, com `geom_bar()` — tudo funciona. O mapeamento estético é independente da geometria.
-
-</details>
 :::
 
+**Questão 4:** Quando você usa `facet_wrap(~sexo)`, os dados realmente são divididos em dois datasets separados?
+
+a) Sim, os dados são filtrados.
+b) Não, é apenas uma visualização separada dos mesmos dados.
+c) Sim, e cada facet tem suas próprias geometrias.
+d) Não, facets não funcionam assim.
+
 ::: {.callout-note collapse="true"}
-## Questão 4: Facets e Dados
+## Resposta
 
-Quando você usa `facet_wrap(~sexo)`, os dados realmente são divididos em dois datasets separados?
-
-a) Sim, os dados são filtrados. 
-b) Não, é apenas uma visualização separada dos mesmos dados. 
-c) Sim, e cada facet tem suas próprias geometrias. 
-d) Não, facets não funcionam assim. 
-
-<details>
-<summary>Ver resposta</summary>
-
-**Resposta: b) Não, é apenas uma visualização separada dos mesmos dados**
+**Resposta correta: b) Não, é apenas uma visualização separada dos mesmos dados**
 
 `facet_wrap()` (e `facet_grid()`) não dividem seus dados. Eles simplesmente criam múltiplos painéis, cada um mostrando uma fatia diferente dos dados mesmos, baseado na variável que você especificou. Os dados originais permanecem intactos.
-
-</details>
 :::
 
+**Questão 5:** Um gráfico de pizza é:
+
+a) Um tipo de gráfico completamente diferente de um gráfico de barras.
+b) Uma variação do gráfico de barras em coordenadas polares.
+c) Melhor para medicina porque é mais bonito.
+d) Apenas um gráfico de barras com rótulos percentuais.
+
 ::: {.callout-note collapse="true"}
-## Questão 5: Insight sobre Pizza Charts
+## Resposta
 
-Um gráfico de pizza é:
-
-a) Um tipo de gráfico completamente diferente de um gráfico de barras. 
-b) Uma variação do gráfico de barras em coordenadas polares. 
-c) Melhor para medicina porque é mais bonito. 
-d) Apenas um gráfico de barras com rótulos percentuais. 
-
-<details>
-<summary>Ver resposta</summary>
-
-**Resposta: b) Uma variação do gráfico de barras em coordenadas polares**
+**Resposta correta: b) Uma variação do gráfico de barras em coordenadas polares**
 
 Vimos isso na prática! Um gráfico de barras + `coord_polar()` = pizza chart. Não é um tipo separado de gráfico. É uma mudança na camada de **coordenadas**.
 
 Na medicina, porém, lembre-se: gráficos de pizza geralmente **não são recomendados** porque o olho humano tem dificuldade em comparar áreas circulares com precisão.
-
-</details>
 :::
 
 ---
