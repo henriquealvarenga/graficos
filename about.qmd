@@ -88,31 +88,31 @@ Selecione o formato desejado e clique em **Copiar** para copiar a citação:
     <button onclick="showCitation('apa')" id="btn-apa" style="padding: 8px 18px; border: 2px solid #3B82F6; background: white; color: #3B82F6; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9em;">APA 7ª ed.</button>
     <button onclick="showCitation('bibtex')" id="btn-bibtex" style="padding: 8px 18px; border: 2px solid #3B82F6; background: white; color: #3B82F6; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9em;">BibTeX</button>
   </div>
-  <div id="citation-box" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 16px; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; font-size: 0.85em; line-height: 1.6; white-space: pre-wrap; min-height: 60px;">SILVA, Henrique Alvarenga da. <b>Dos Dados aos Gráficos</b>: Visualização Estatística para Profissionais de Saúde. Publicação independente, 2026. ISBN 978-65-01-98049-2. Disponível em: https://henriquealvarenga.github.io/graficos/</div>
+  <div id="citation-box" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 16px; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; font-size: 0.85em; line-height: 1.6; white-space: pre-wrap; min-height: 60px;">SILVA, Henrique Alvarenga da. <b>Dos Dados aos Gráficos</b>: Visualização Estatística para Profissionais de Saúde. Publicação independente, 2026. ISBN 978-65-01-98049-2. Disponível em: https://henriquealvarenga.com/graficos/</div>
   <button onclick="copyCitation()" id="btn-copy" style="margin-top: 10px; padding: 8px 20px; background: #10B981; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9em;">📋 Copiar</button>
   <span id="copy-msg" style="margin-left: 10px; color: #10B981; font-weight: 600; display: none;">Copiado!</span>
 </div>
 
 <script>
 const citations = {
-  abnt: 'SILVA, Henrique Alvarenga da. <b>Dos Dados aos Gráficos</b>: Visualização Estatística para Profissionais de Saúde. Publicação independente, 2026. ISBN 978-65-01-98049-2. Disponível em: https://henriquealvarenga.github.io/graficos/',
-  vancouver: 'Silva HA. Dos dados aos gráficos: visualização estatística para profissionais de saúde [Internet]. Publicação independente; 2026 [cited ' + new Date().getFullYear() + ']. Available from: https://henriquealvarenga.github.io/graficos/',
-  apa: 'Silva, H. A. (2026). <i>Dos dados aos gráficos: Visualização estatística para profissionais de saúde</i>. Publicação independente. ISBN 978-65-01-98049-2. https://henriquealvarenga.github.io/graficos/',
+  abnt: 'SILVA, Henrique Alvarenga da. <b>Dos Dados aos Gráficos</b>: Visualização Estatística para Profissionais de Saúde. Publicação independente, 2026. ISBN 978-65-01-98049-2. Disponível em: https://henriquealvarenga.com/graficos/',
+  vancouver: 'Silva HA. Dos dados aos gráficos: visualização estatística para profissionais de saúde [Internet]. Publicação independente; 2026 [cited ' + new Date().getFullYear() + ']. Available from: https://henriquealvarenga.com/graficos/',
+  apa: 'Silva, H. A. (2026). <i>Dos dados aos gráficos: Visualização estatística para profissionais de saúde</i>. Publicação independente. ISBN 978-65-01-98049-2. https://henriquealvarenga.com/graficos/',
   bibtex: `@book{silva2026graficos,
   author    = {Silva, Henrique Alvarenga da},
   title     = {Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde},
   year      = {2026},
   publisher = {Publicação independente},
-  url       = {https://henriquealvarenga.github.io/graficos/},
+  url       = {https://henriquealvarenga.com/graficos/},
   isbn      = {978-65-01-98049-2},
   note      = {Recurso educacional aberto}
 }`
 };
 
 const citationsPlain = {
-  abnt: 'SILVA, Henrique Alvarenga da. Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde. Publicação independente, 2026. ISBN 978-65-01-98049-2. Disponível em: https://henriquealvarenga.github.io/graficos/',
-  vancouver: 'Silva HA. Dos dados aos gráficos: visualização estatística para profissionais de saúde [Internet]. Publicação independente; 2026 [cited ' + new Date().getFullYear() + ']. Available from: https://henriquealvarenga.github.io/graficos/',
-  apa: 'Silva, H. A. (2026). Dos dados aos gráficos: Visualização estatística para profissionais de saúde. Publicação independente. ISBN 978-65-01-98049-2. https://henriquealvarenga.github.io/graficos/',
+  abnt: 'SILVA, Henrique Alvarenga da. Dos Dados aos Gráficos: Visualização Estatística para Profissionais de Saúde. Publicação independente, 2026. ISBN 978-65-01-98049-2. Disponível em: https://henriquealvarenga.com/graficos/',
+  vancouver: 'Silva HA. Dos dados aos gráficos: visualização estatística para profissionais de saúde [Internet]. Publicação independente; 2026 [cited ' + new Date().getFullYear() + ']. Available from: https://henriquealvarenga.com/graficos/',
+  apa: 'Silva, H. A. (2026). Dos dados aos gráficos: Visualização estatística para profissionais de saúde. Publicação independente. ISBN 978-65-01-98049-2. https://henriquealvarenga.com/graficos/',
   bibtex: citations.bibtex
 };
 
