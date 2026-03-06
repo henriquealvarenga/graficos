@@ -1,1 +1,1 @@
-Sitemap: https://henriquealvarenga.com/graficos/sitemap.xml
+Sitemap: https://henriquealvarenga.github.io/graficos/sitemap.xml

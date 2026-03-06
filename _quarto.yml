@@ -145,7 +145,7 @@ format:
     toc-depth: 3
     toc-title: "Nesta página"
     code-fold: true
-    code-tools: true
+    code-tools: false
     code-summary: "Ver código R"
     code-overflow: wrap
     code-line-numbers: true
