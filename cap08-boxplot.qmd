@@ -1,6 +1,6 @@
 ---
 title: "Boxplot"
-subtitle: "Capítulo 8 — O resumo dos cinco números"
+subtitle: "O resumo dos cinco números"
 ---
 
 ```{r}
@@ -870,65 +870,60 @@ Neste capítulo, você aprendeu:
 
 Lembre-se: o boxplot é uma **ferramenta de exploração**. Use-o para fazer perguntas, não necessariamente para responder. Quando seus dados mostram outliers inesperados ou padrões curiosos, o boxplot é seu aliado para investigação adicional.
 
-## Quiz: Teste Sua Compreensão
+## Quiz
 
-::: {.callout-note collapse="true"}
+::: {.callout-note title="Quizz"}
 ### Questão 1: Interpretando a Mediana
 
 Se em um boxplot a linha da mediana está muito próxima do topo da caixa (Q3), o que isso nos diz sobre a distribuição dos dados?
 
-**Resposta**: A mediana estar próxima do Q3 indica que 50% dos dados estão comprimidos no topo (entre Q3 e máximo), enquanto a outra metade (Q1 a mediana) está espalhada em um intervalo maior. Isso significa a distribuição é **assimétrica para baixo** (cauda à esquerda). A maioria dos valores está alta, com alguns valores baixos.
-
+::: {.callout-note  title="Resposta" collapse="true"}
+A mediana estar próxima do Q3 indica que 50% dos dados estão comprimidos no topo (entre Q3 e máximo), enquanto a outra metade (Q1 a mediana) está espalhada em um intervalo maior. Isso significa a distribuição é **assimétrica para baixo** (cauda à esquerda). A maioria dos valores está alta, com alguns valores baixos.
 :::
 
-::: {.callout-note collapse="true"}
 ### Questão 2: O IQR e Variabilidade
 
 Dois grupos têm o mesmo intervalo (mínimo ao máximo) de 40 a 100 kg, mas diferentes IQRs: Grupo A tem IQR = 8 kg, Grupo B tem IQR = 25 kg. Qual grupo é mais variável?
 
-**Resposta**: O Grupo B é **mais variável** no seu centro (50% dos dados). Um IQR menor significa que a metade central dos dados está mais concentrada em um intervalo pequeno, indicando menos variabilidade. O Grupo A, com IQR pequeno, tem dados muito agrupados.
-
+::: {.callout-note  title="Resposta" collapse="true"}
+O Grupo B é **mais variável** no seu centro (50% dos dados). Um IQR menor significa que a metade central dos dados está mais concentrada em um intervalo pequeno, indicando menos variabilidade. O Grupo A, com IQR pequeno, tem dados muito agrupados.
 :::
 
-::: {.callout-note collapse="true"}
 ### Questão 3: Calculando Whiskers
 
 Se um grupo tem Q1 = 50 kg, Q3 = 70 kg, qual é o intervalo do whisker inferior?
 
-**Resposta**:
+::: {.callout-note  title="Resposta" collapse="true"}
 - IQR = Q3 - Q1 = 70 - 50 = 20 kg
 - Whisker inferior = Q1 - 1.5 × IQR = 50 - 1.5 × 20 = 50 - 30 = **20 kg**
 - Qualquer valor abaixo de 20 kg seria um outlier.
-
 :::
 
-::: {.callout-note collapse="true"}
 ### Questão 4: Comparando Boxplots
 
 Você tem dois boxplots lado a lado para colesterol em homens e mulheres. Os boxplots têm praticamente o mesmo tamanho (IQR similar) e mesma mediana, mas o boxplot dos homens tem muito mais outliers visíveis. O que isso sugere?
 
-**Resposta**: O IQR e mediana similares sugerem que as duas populações têm distribuições centrais similares. Os outliers adicionais nos homens sugerem:
+::: {.callout-note  title="Resposta" collapse="true"}
+O IQR e mediana similares sugerem que as duas populações têm distribuições centrais similares. Os outliers adicionais nos homens sugerem:
 1. Há mais homens na amostra (mais chance estatística de outliers)
 2. Há mais variabilidade nas extremidades para homens (cauda mais pesada)
 3. Pode haver um subgrupo distinto de homens com colesterol muito alto
-
 Seria útil investigar se há fatores clínicos explicando esses outliers.
-
 :::
 
-::: {.callout-note collapse="true"}
+
 ### Questão 5: Boxplot vs Densidade
 
 Para uma análise de períodos de incubação de dengue entre 4 sorotipos, com n = 300 observações, você deveria usar boxplot, densidade, ou ambos?
 
-**Resposta**: **Ambos**, mas por razões diferentes:
-- **Boxplot**: Excelente para comparar 4 grupos lado a lado. Mostra rapidamente se há diferenças nas medianas e IQRs. Identifica outliers.
-- **Densidade**: Revela se algum sorotipo tem distribuição bimodal ou padrões que o boxplot não mostra.
-
+::: {.callout-note  title="Resposta" collapse="true"}
+**Ambos**, mas por razões diferentes:  
+- **Boxplot**: Excelente para comparar 4 grupos lado a lado. Mostra rapidamente se há diferenças nas medianas e IQRs. Identifica outliers.  
+- **Densidade**: Revela se algum sorotipo tem distribuição bimodal ou padrões que o boxplot não mostra.  
 Use boxplot como visualização principal para comparação entre grupos, e densidade como complemento se suspeitar de multimodalidade.
-
 :::
 
+:::
 
 ---
 

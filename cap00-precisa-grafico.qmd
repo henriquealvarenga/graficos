@@ -1,6 +1,6 @@
 ---
 title: "Você Precisa Mesmo de um Gráfico?"
-subtitle: "Capítulo 0 — Quando visualizar (e quando não)"
+subtitle: "Quando visualizar (e quando não)"
 ---
 
 ```{r}

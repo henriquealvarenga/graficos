@@ -1,6 +1,6 @@
 ---
 title: "Scatter Plot e Correlação"
-subtitle: "Capítulo 9 — Relações entre variáveis numéricas"
+subtitle: "Relações entre variáveis numéricas"
 ---
 
 ```{r}
@@ -696,7 +696,7 @@ Por exemplo, a correlação forte entre peso e colesterol pode ser parcialmente 
 
 ## Um Lembrete: Anscombe Revisited
 
-Lembra do Quarteto de Anscombe [-@anscombe1973] e do **Datasaurus Dozen**  de Matejka e Fitzmaurice [-@matejka2017] que vimos no Capítulo 0? É um lembrete perfeito aqui:
+Lembra do Quarteto de Anscombe [-@anscombe1973] e do **Datasaurus Dozen**  de Matejka e Fitzmaurice [-@matejka2017] que vimos no capítulo [Você Precisa Mesmo de um Gráfico?](cap00-precisa-grafico.qmd)? É um lembrete perfeito aqui:
 
 Datasets completamente diferentes podem ter:
 - A mesma correlação (r ≈ 0.816)
@@ -717,9 +717,9 @@ Isso reforça nossa mensagem central: **sempre visualize os dados antes de confi
 | **Cuidado** | Correlação ≠ Causalidade; sempre visualize |
 | **Matriz** | `cor()` em múltiplas variáveis cria matriz de correlação |
 
-## Quiz: Teste Seu Conhecimento
+## Quiz
 
-::: {.callout-note collapse="true"}
+::: {.callout-note title="Quizz"}
 ### Questão 1: O que é Regressão?
 
 Qual é o principal objetivo de uma linha de regressão em um scatter plot?
@@ -729,10 +729,11 @@ b) Descrever o padrão geral e fazer previsões
 c) Eliminar outliers dos dados
 d) Transformar dados não-normais
 
-**Resposta:** b) A regressão descreve a tendência geral e nos permite fazer previsões.
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Descrever o padrão geral e fazer previsões.**
+A linha de regressão (ou *best fit line*) resume a tendência geral dos dados — por exemplo, "a cada centímetro a mais no quadril, o peso tende a aumentar X quilos". Isso nos permite fazer previsões para novos indivíduos. Importante: a regressão **não prova causalidade** (alternativa a). Ela apenas descreve a associação observada nos dados. Também não elimina outliers (alternativa c) — eles continuam lá, apenas não influenciam tanto a direção da reta.
 :::
 
-::: {.callout-note collapse="true"}
 ### Questão 2: Interpretando Correlação
 
 Se r = -0.78 entre idade e função renal, o que isso significa?
@@ -742,10 +743,11 @@ b) Quanto maior a idade, pior a função renal (relação forte)
 c) Não há relação entre idade e função renal
 d) A idade causa queda na função renal
 
-**Resposta:** b) Uma correlação negativa significa que as variáveis variam em direções opostas. O valor 0.78 indica uma relação forte.
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Quanto maior a idade, pior a função renal (relação forte).**
+O sinal negativo do coeficiente indica que as variáveis variam em **direções opostas**: quando uma sobe, a outra tende a descer. O valor absoluto (0,78) indica a **força** da relação — quanto mais próximo de 1, mais forte. Um r = −0,78 é uma correlação negativa forte: à medida que a idade aumenta, a função renal tende a diminuir. A alternativa d está errada porque correlação **não é causalidade** — mesmo que clinicamente saibamos que a idade de fato afeta a função renal, o coeficiente r sozinho não prova isso.
 :::
 
-::: {.callout-note collapse="true"}
 ### Questão 3: Correlação vs Causalidade
 
 Um estudo observa correlação r = 0.65 entre número de piscinas em uma cidade e taxa de desemprego. O que você conclui?
@@ -755,10 +757,11 @@ b) Desemprego causa falta de piscinas
 c) Há uma terceira variável (tamanho/riqueza da cidade) explicando ambas
 d) As variáveis não têm relação alguma
 
-**Resposta:** c) Ambas as variáveis são provavelmente afetadas pelo tamanho e riqueza da cidade (uma variável confundidora).
+::: {.callout-note  title="Resposta" collapse="true"}
+**c) Há uma terceira variável (tamanho/riqueza da cidade) explicando ambas.**
+Este é um exemplo clássico de **variável confundidora** (*confounding variable*): cidades maiores e mais ricas tendem a ter mais piscinas *e* mais pessoas desempregadas (simplesmente porque têm mais população). A correlação é real, mas não há relação causal entre piscinas e desemprego. Como vimos com as correlações espúrias do projeto de Tyler Vigen, correlações estatisticamente fortes podem ser completamente sem sentido quando existe uma terceira variável influenciando ambas.
 :::
 
-::: {.callout-note collapse="true"}
 ### Questão 4: Observando o Scatter Plot
 
 Você vê um scatter plot com pontos formando um padrão de U perfeito (curva parabólica). O que você espera do coeficiente r?
@@ -768,10 +771,11 @@ b) r ≈ 0.00 (nenhuma correlação linear)
 c) r ≈ -0.95 (correlação negativa forte)
 d) r não pode ser calculado para padrões não-lineares
 
-**Resposta:** b) O coeficiente de Pearson mede apenas correlação LINEAR. Um padrão de U tem correlação linear próxima de zero, mesmo havendo uma relação clara.
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) r ≈ 0.00 (nenhuma correlação linear).**
+O coeficiente de Pearson mede apenas a correlação **linear** — ou seja, o quanto os dados se aproximam de uma reta. Em um padrão de U, os valores sobem de um lado e descem do outro, de modo que os efeitos se cancelam e r fica próximo de zero. Mas isso **não significa** que não haja relação entre as variáveis! Existe uma relação clara, porém **não linear**. Por isso é tão importante olhar o scatter plot antes de confiar cegamente no r — como nos ensina o Quarteto de Anscombe. A alternativa d está errada: o r *pode* ser calculado, apenas não capta relações curvilíneas e não faz sentido fazer esse cálculo.
 :::
 
-::: {.callout-note collapse="true"}
 ### Questão 5: Escolha de Variável X vs Y
 
 Em um scatter plot de "Pressão Arterial × Idade", qual variável deve estar no eixo X?
@@ -781,14 +785,14 @@ b) Idade (variável explicativa/tempo) deve estar em X
 c) Não importa a orientação
 d) Depende do tamanho dos valores
 
-**Resposta:** b) Convencionalmente, a variável explicativa (independente) vai no eixo X e a variável de resultado (dependente) no eixo Y. Idade é anterior a pressão arterial, então deve estar em X.
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Idade (variável explicativa/tempo) deve estar em X.**
+A convenção em scatter plots é colocar a variável **explicativa** (independente, preditora) no eixo X e a variável **de resposta** (dependente, desfecho) no eixo Y. A pergunta que fazemos é: "como a pressão arterial varia *em função da* idade?" — e não o contrário. A idade vem primeiro (não podemos mudar a idade de alguém alterando sua pressão), então ela é a variável explicativa e vai no eixo X. Essa convenção ajuda o leitor a interpretar o gráfico intuitivamente: a "causa" ou "preditor" na horizontal, o "efeito" ou "resultado" na vertical.
 :::
 
-## Próximo Capítulo
 
-Matriz de Correlação e Análise Multivariada.
+:::
 
-Para aprofundamento, veja os trabalhos fundacionais de @galton1886 e @pearson1895 sobre regressão e correlação, e o clássico de @anscombe1973 sobre a importância da visualização.
 
 ---
 

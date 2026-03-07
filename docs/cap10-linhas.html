@@ -86,7 +86,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./cap12-historia.html" rel="next">
+<link href="./cap10b-kaplanmeier.html" rel="next">
 <link href="./cap09-scatterplot.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -235,6 +235,11 @@ div.csl-indent {
     <a class="dropdown-item" href="./cap10-linhas.html"><i class="bi bi-graph-up" role="img">
 </i> 
  <span class="dropdown-text">Gráfico de Linha</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10b-kaplanmeier.html"><i class="bi bi-heart-pulse" role="img">
+</i> 
+ <span class="dropdown-text">Curvas de Kaplan–Meier</span></a>
   </li>  
     </ul>
   </li>
@@ -411,6 +416,12 @@ div.csl-indent {
  <span class="menu-text">Gráfico de Linha</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10b-kaplanmeier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curvas de Kaplan–Meier</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -512,7 +523,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap10-linhas.html">Gráfico de Linha</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Gráficos de Linha</h1>
-<p class="subtitle lead">Capítulo 10 — Tendências ao longo do tempo</p>
+<p class="subtitle lead">Tendências ao longo do tempo</p>
 </div>
 
 
@@ -529,7 +540,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">1 de março de 2026</p>
+      <p class="date">7 de março de 2026</p>
     </div>
   </div>
   
@@ -553,7 +564,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Chegamos ao último tipo de gráfico deste livro — e, ironicamente, ao <em>primeiro</em> que <strong>William Playfair</strong> inventou. O gráfico de linhas foi publicado em <em>The Commercial and Political Atlas</em> <span class="citation" data-cites="playfair1786">(<a href="#ref-playfair1786" role="doc-biblioref">Playfair, 1786</a>)</span>, onde Playfair apresentou 43 séries temporais da balança comercial inglesa com diversas nações ao longo do século XVIII. A mesma obra continha o gráfico de barras (que vimos no Capítulo 5); o gráfico de pizza viria quinze anos depois, no <em>Statistical Breviary</em> de 1801 (Capítulo 4).</p>
+<p>Chegamos ao último tipo de gráfico deste livro — e, ironicamente, ao <em>primeiro</em> que <strong>William Playfair</strong> inventou. O gráfico de linhas foi publicado em <em>The Commercial and Political Atlas</em> <span class="citation" data-cites="playfair1786">(<a href="#ref-playfair1786" role="doc-biblioref">Playfair, 1786</a>)</span>, onde Playfair apresentou 43 séries temporais da balança comercial inglesa com diversas nações ao longo do século XVIII. A mesma obra continha o gráfico de barras (que vimos no capítulo sobre <a href="./cap05-barras.html">Barras</a>); o gráfico de pizza viria quinze anos depois, no <em>Statistical Breviary</em> de 1801 (capítulo sobre <a href="./cap04-pizza.html">Pizza</a>).</p>
 <p>Se o gráfico de linhas é historicamente o primeiro, por que aparece por último neste livro? Porque, dos três, é o mais complexo conceitualmente: envolve séries temporais, continuidade, sazonalidade e a noção de que a <em>ordem</em> dos pontos importa. Barras e pizza comparam categorias; linhas revelam <em>tendências</em>. Essa complexidade justifica deixá-lo para o final — quando o leitor já domina os fundamentos da visualização <span class="citation" data-cites="costiganeaves1990">(<a href="#ref-costiganeaves1990" role="doc-biblioref">Costigan-Eaves; Macdonald-Ross, 1990</a>)</span>. Uma reprodução comentada da obra original, com introdução de Howard Wainer e Ian Spence, está disponível em <span class="citation" data-cites="playfair2005">Playfair (<a href="#ref-playfair2005" role="doc-biblioref">2005</a>)</span>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -751,7 +762,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="cap10-linhas_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="cap10-linhas_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -897,7 +908,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="cap10-linhas_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="cap10-linhas_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -934,7 +945,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="cap10-linhas_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="cap10-linhas_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -968,7 +979,7 @@ div.csl-indent {
 </details>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-fd0b7f9928c041379761" style="width:100%;height:900px;"></div>
-<script type="application/json" data-for="htmlwidget-fd0b7f9928c041379761">{"x":{"data":[{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[75,46,64,55,54,60,66,63,57,54,61,61,57,71,63,66,65,65,53,62,50,59,71,71],"text":"","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(37,99,235,1)","dash":"solid"},"hoveron":"points","name":"Cardiologia","legendgroup":"Cardiologia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[37,44,46,44,33,42,34,34,45,53,42,16,41,34,48,32,32,46,31,41,45,47,36,31],"text":"","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(5,150,105,1)","dash":"solid"},"hoveron":"points","name":"Neurologia","legendgroup":"Neurologia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[53,56,73,50,40,49,33,50,38,41,47,51,61,73,72,63,54,54,55,36,33,43,48,43],"text":"","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(217,119,6,1)","dash":"solid"},"hoveron":"points","name":"Pneumologia","legendgroup":"Pneumologia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[75,46,64,55,54,60,66,63,57,54,61,61,57,71,63,66,65,65,53,62,50,59,71,71],"text":["Cardiologia<br>Data: Jan 2022<br>Admissões: 75","Cardiologia<br>Data: Feb 2022<br>Admissões: 46","Cardiologia<br>Data: Mar 2022<br>Admissões: 64","Cardiologia<br>Data: Apr 2022<br>Admissões: 55","Cardiologia<br>Data: May 2022<br>Admissões: 54","Cardiologia<br>Data: Jun 2022<br>Admissões: 60","Cardiologia<br>Data: Jul 2022<br>Admissões: 66","Cardiologia<br>Data: Aug 2022<br>Admissões: 63","Cardiologia<br>Data: Sep 2022<br>Admissões: 57","Cardiologia<br>Data: Oct 2022<br>Admissões: 54","Cardiologia<br>Data: Nov 2022<br>Admissões: 61","Cardiologia<br>Data: Dec 2022<br>Admissões: 61","Cardiologia<br>Data: Jan 2023<br>Admissões: 57","Cardiologia<br>Data: Feb 2023<br>Admissões: 71","Cardiologia<br>Data: Mar 2023<br>Admissões: 63","Cardiologia<br>Data: Apr 2023<br>Admissões: 66","Cardiologia<br>Data: May 2023<br>Admissões: 65","Cardiologia<br>Data: Jun 2023<br>Admissões: 65","Cardiologia<br>Data: Jul 2023<br>Admissões: 53","Cardiologia<br>Data: Aug 2023<br>Admissões: 62","Cardiologia<br>Data: Sep 2023<br>Admissões: 50","Cardiologia<br>Data: Oct 2023<br>Admissões: 59","Cardiologia<br>Data: Nov 2023<br>Admissões: 71","Cardiologia<br>Data: Dec 2023<br>Admissões: 71"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(37,99,235,1)","opacity":1,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(37,99,235,1)"}},"hoveron":"points","name":"Cardiologia","legendgroup":"Cardiologia","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[37,44,46,44,33,42,34,34,45,53,42,16,41,34,48,32,32,46,31,41,45,47,36,31],"text":["Neurologia<br>Data: Jan 2022<br>Admissões: 37","Neurologia<br>Data: Feb 2022<br>Admissões: 44","Neurologia<br>Data: Mar 2022<br>Admissões: 46","Neurologia<br>Data: Apr 2022<br>Admissões: 44","Neurologia<br>Data: May 2022<br>Admissões: 33","Neurologia<br>Data: Jun 2022<br>Admissões: 42","Neurologia<br>Data: Jul 2022<br>Admissões: 34","Neurologia<br>Data: Aug 2022<br>Admissões: 34","Neurologia<br>Data: Sep 2022<br>Admissões: 45","Neurologia<br>Data: Oct 2022<br>Admissões: 53","Neurologia<br>Data: Nov 2022<br>Admissões: 42","Neurologia<br>Data: Dec 2022<br>Admissões: 16","Neurologia<br>Data: Jan 2023<br>Admissões: 41","Neurologia<br>Data: Feb 2023<br>Admissões: 34","Neurologia<br>Data: Mar 2023<br>Admissões: 48","Neurologia<br>Data: Apr 2023<br>Admissões: 32","Neurologia<br>Data: May 2023<br>Admissões: 32","Neurologia<br>Data: Jun 2023<br>Admissões: 46","Neurologia<br>Data: Jul 2023<br>Admissões: 31","Neurologia<br>Data: Aug 2023<br>Admissões: 41","Neurologia<br>Data: Sep 2023<br>Admissões: 45","Neurologia<br>Data: Oct 2023<br>Admissões: 47","Neurologia<br>Data: Nov 2023<br>Admissões: 36","Neurologia<br>Data: Dec 2023<br>Admissões: 31"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(5,150,105,1)","opacity":1,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(5,150,105,1)"}},"hoveron":"points","name":"Neurologia","legendgroup":"Neurologia","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[53,56,73,50,40,49,33,50,38,41,47,51,61,73,72,63,54,54,55,36,33,43,48,43],"text":["Pneumologia<br>Data: Jan 2022<br>Admissões: 53","Pneumologia<br>Data: Feb 2022<br>Admissões: 56","Pneumologia<br>Data: Mar 2022<br>Admissões: 73","Pneumologia<br>Data: Apr 2022<br>Admissões: 50","Pneumologia<br>Data: May 2022<br>Admissões: 40","Pneumologia<br>Data: Jun 2022<br>Admissões: 49","Pneumologia<br>Data: Jul 2022<br>Admissões: 33","Pneumologia<br>Data: Aug 2022<br>Admissões: 50","Pneumologia<br>Data: Sep 2022<br>Admissões: 38","Pneumologia<br>Data: Oct 2022<br>Admissões: 41","Pneumologia<br>Data: Nov 2022<br>Admissões: 47","Pneumologia<br>Data: Dec 2022<br>Admissões: 51","Pneumologia<br>Data: Jan 2023<br>Admissões: 61","Pneumologia<br>Data: Feb 2023<br>Admissões: 73","Pneumologia<br>Data: Mar 2023<br>Admissões: 72","Pneumologia<br>Data: Apr 2023<br>Admissões: 63","Pneumologia<br>Data: May 2023<br>Admissões: 54","Pneumologia<br>Data: Jun 2023<br>Admissões: 54","Pneumologia<br>Data: Jul 2023<br>Admissões: 55","Pneumologia<br>Data: Aug 2023<br>Admissões: 36","Pneumologia<br>Data: Sep 2023<br>Admissões: 33","Pneumologia<br>Data: Oct 2023<br>Admissões: 43","Pneumologia<br>Data: Nov 2023<br>Admissões: 48","Pneumologia<br>Data: Dec 2023<br>Admissões: 43"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(217,119,6,1)","opacity":1,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(217,119,6,1)"}},"hoveron":"points","name":"Pneumologia","legendgroup":"Pneumologia","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":58.374429223744308,"r":19.925280199252807,"b":54.462432544624342,"l":54.462432544624342},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(51,65,85,1)","family":"Inter, sans-serif","size":17.268576172685766},"title":{"text":"<b> Admissões por Departamento (Interativo) <\/b>","font":{"color":"rgba(15,23,42,1)","family":"sans","size":22.449149024491501},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[18958.049999999999,19726.950000000001],"tickmode":"array","ticktext":["2022-01","2022-07","2023-01","2023-07","2024-01"],"tickvals":[18993,19174,19358,19539,19723],"categoryorder":"array","categoryarray":["2022-01","2022-07","2023-01","2023-07","2024-01"],"nticks":null,"ticks":"outside","tickcolor":"rgba(203,213,225,1)","ticklen":4.3171440431714414,"tickwidth":0.39850560398505613,"showticklabels":true,"tickfont":{"color":"rgba(100,116,139,1)","family":"sans","size":14.6782897467829},"tickangle":-0,"showline":true,"linecolor":"rgba(203,213,225,1)","linewidth":0.66417600664176002,"showgrid":true,"gridcolor":"rgba(241,245,249,1)","gridwidth":0.5313408053134081,"zeroline":false,"anchor":"y","title":{"text":"<b> Data <\/b>","font":{"color":"rgba(71,85,105,1)","family":"sans","size":15.541718555417191}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[13.050000000000001,77.950000000000003],"tickmode":"array","ticktext":["20","40","60"],"tickvals":[20,40,60],"categoryorder":"array","categoryarray":["20","40","60"],"nticks":null,"ticks":"outside","tickcolor":"rgba(203,213,225,1)","ticklen":4.3171440431714423,"tickwidth":0.39850560398505613,"showticklabels":true,"tickfont":{"color":"rgba(100,116,139,1)","family":"sans","size":14.6782897467829},"tickangle":-0,"showline":true,"linecolor":"rgba(203,213,225,1)","linewidth":0.66417600664176002,"showgrid":true,"gridcolor":"rgba(241,245,249,1)","gridwidth":0.5313408053134081,"zeroline":false,"anchor":"x","title":{"text":"<b> Número de Admissões <\/b>","font":{"color":"rgba(71,85,105,1)","family":"sans","size":15.541718555417191}},"hoverformat":".2f"},"shapes":[],"showlegend":true,"legend":{"bgcolor":"transparent","bordercolor":"rgba(0,0,0,1)","borderwidth":2.2333571939871155,"font":{"color":"rgba(51,65,85,1)","family":"sans","size":13.814860938148611},"orientation":"h","x":0.5,"y":-0.14999999999999999,"xanchor":"center","yanchor":"top","title":{"text":"Departamento","font":{"color":"rgba(51,65,85,1)","family":"sans","size":14.6782897467829}}},"hovermode":"closest","barmode":"relative","hoverlabel":{"bgcolor":"white","font":{"family":"Inter, sans-serif","size":13}}},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"locale":"pt-BR","displayModeBar":true,"modeBarButtonsToRemove":["lasso2d","select2d"],"displaylogo":false},"source":"A","attrs":{"a85463915a4c":{"x":{},"y":{},"colour":{},"type":"scatter"},"a8545bbf66a5":{"x":{},"y":{},"colour":{},"text":{}}},"cur_data":"a85463915a4c","visdat":{"a85463915a4c":["function (y) ","x"],"a8545bbf66a5":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-fd0b7f9928c041379761">{"x":{"data":[{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[75,46,64,55,54,60,66,63,57,54,61,61,57,71,63,66,65,65,53,62,50,59,71,71],"text":"","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(37,99,235,1)","dash":"solid"},"hoveron":"points","name":"Cardiologia","legendgroup":"Cardiologia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[37,44,46,44,33,42,34,34,45,53,42,16,41,34,48,32,32,46,31,41,45,47,36,31],"text":"","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(5,150,105,1)","dash":"solid"},"hoveron":"points","name":"Neurologia","legendgroup":"Neurologia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[53,56,73,50,40,49,33,50,38,41,47,51,61,73,72,63,54,54,55,36,33,43,48,43],"text":"","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(217,119,6,1)","dash":"solid"},"hoveron":"points","name":"Pneumologia","legendgroup":"Pneumologia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[75,46,64,55,54,60,66,63,57,54,61,61,57,71,63,66,65,65,53,62,50,59,71,71],"text":["Cardiologia<br>Data: Jan 2022<br>Admissões: 75","Cardiologia<br>Data: Feb 2022<br>Admissões: 46","Cardiologia<br>Data: Mar 2022<br>Admissões: 64","Cardiologia<br>Data: Apr 2022<br>Admissões: 55","Cardiologia<br>Data: May 2022<br>Admissões: 54","Cardiologia<br>Data: Jun 2022<br>Admissões: 60","Cardiologia<br>Data: Jul 2022<br>Admissões: 66","Cardiologia<br>Data: Aug 2022<br>Admissões: 63","Cardiologia<br>Data: Sep 2022<br>Admissões: 57","Cardiologia<br>Data: Oct 2022<br>Admissões: 54","Cardiologia<br>Data: Nov 2022<br>Admissões: 61","Cardiologia<br>Data: Dec 2022<br>Admissões: 61","Cardiologia<br>Data: Jan 2023<br>Admissões: 57","Cardiologia<br>Data: Feb 2023<br>Admissões: 71","Cardiologia<br>Data: Mar 2023<br>Admissões: 63","Cardiologia<br>Data: Apr 2023<br>Admissões: 66","Cardiologia<br>Data: May 2023<br>Admissões: 65","Cardiologia<br>Data: Jun 2023<br>Admissões: 65","Cardiologia<br>Data: Jul 2023<br>Admissões: 53","Cardiologia<br>Data: Aug 2023<br>Admissões: 62","Cardiologia<br>Data: Sep 2023<br>Admissões: 50","Cardiologia<br>Data: Oct 2023<br>Admissões: 59","Cardiologia<br>Data: Nov 2023<br>Admissões: 71","Cardiologia<br>Data: Dec 2023<br>Admissões: 71"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(37,99,235,1)","opacity":1,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(37,99,235,1)"}},"hoveron":"points","name":"Cardiologia","legendgroup":"Cardiologia","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[37,44,46,44,33,42,34,34,45,53,42,16,41,34,48,32,32,46,31,41,45,47,36,31],"text":["Neurologia<br>Data: Jan 2022<br>Admissões: 37","Neurologia<br>Data: Feb 2022<br>Admissões: 44","Neurologia<br>Data: Mar 2022<br>Admissões: 46","Neurologia<br>Data: Apr 2022<br>Admissões: 44","Neurologia<br>Data: May 2022<br>Admissões: 33","Neurologia<br>Data: Jun 2022<br>Admissões: 42","Neurologia<br>Data: Jul 2022<br>Admissões: 34","Neurologia<br>Data: Aug 2022<br>Admissões: 34","Neurologia<br>Data: Sep 2022<br>Admissões: 45","Neurologia<br>Data: Oct 2022<br>Admissões: 53","Neurologia<br>Data: Nov 2022<br>Admissões: 42","Neurologia<br>Data: Dec 2022<br>Admissões: 16","Neurologia<br>Data: Jan 2023<br>Admissões: 41","Neurologia<br>Data: Feb 2023<br>Admissões: 34","Neurologia<br>Data: Mar 2023<br>Admissões: 48","Neurologia<br>Data: Apr 2023<br>Admissões: 32","Neurologia<br>Data: May 2023<br>Admissões: 32","Neurologia<br>Data: Jun 2023<br>Admissões: 46","Neurologia<br>Data: Jul 2023<br>Admissões: 31","Neurologia<br>Data: Aug 2023<br>Admissões: 41","Neurologia<br>Data: Sep 2023<br>Admissões: 45","Neurologia<br>Data: Oct 2023<br>Admissões: 47","Neurologia<br>Data: Nov 2023<br>Admissões: 36","Neurologia<br>Data: Dec 2023<br>Admissões: 31"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(5,150,105,1)","opacity":1,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(5,150,105,1)"}},"hoveron":"points","name":"Neurologia","legendgroup":"Neurologia","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692],"y":[53,56,73,50,40,49,33,50,38,41,47,51,61,73,72,63,54,54,55,36,33,43,48,43],"text":["Pneumologia<br>Data: Jan 2022<br>Admissões: 53","Pneumologia<br>Data: Feb 2022<br>Admissões: 56","Pneumologia<br>Data: Mar 2022<br>Admissões: 73","Pneumologia<br>Data: Apr 2022<br>Admissões: 50","Pneumologia<br>Data: May 2022<br>Admissões: 40","Pneumologia<br>Data: Jun 2022<br>Admissões: 49","Pneumologia<br>Data: Jul 2022<br>Admissões: 33","Pneumologia<br>Data: Aug 2022<br>Admissões: 50","Pneumologia<br>Data: Sep 2022<br>Admissões: 38","Pneumologia<br>Data: Oct 2022<br>Admissões: 41","Pneumologia<br>Data: Nov 2022<br>Admissões: 47","Pneumologia<br>Data: Dec 2022<br>Admissões: 51","Pneumologia<br>Data: Jan 2023<br>Admissões: 61","Pneumologia<br>Data: Feb 2023<br>Admissões: 73","Pneumologia<br>Data: Mar 2023<br>Admissões: 72","Pneumologia<br>Data: Apr 2023<br>Admissões: 63","Pneumologia<br>Data: May 2023<br>Admissões: 54","Pneumologia<br>Data: Jun 2023<br>Admissões: 54","Pneumologia<br>Data: Jul 2023<br>Admissões: 55","Pneumologia<br>Data: Aug 2023<br>Admissões: 36","Pneumologia<br>Data: Sep 2023<br>Admissões: 33","Pneumologia<br>Data: Oct 2023<br>Admissões: 43","Pneumologia<br>Data: Nov 2023<br>Admissões: 48","Pneumologia<br>Data: Dec 2023<br>Admissões: 43"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(217,119,6,1)","opacity":1,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(217,119,6,1)"}},"hoveron":"points","name":"Pneumologia","legendgroup":"Pneumologia","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":58.374429223744308,"r":19.925280199252807,"b":54.462432544624342,"l":54.462432544624342},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(51,65,85,1)","family":"Inter, sans-serif","size":17.268576172685766},"title":{"text":"<b> Admissões por Departamento (Interativo) <\/b>","font":{"color":"rgba(15,23,42,1)","family":"sans","size":22.449149024491501},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[18958.049999999999,19726.950000000001],"tickmode":"array","ticktext":["2022-01","2022-07","2023-01","2023-07","2024-01"],"tickvals":[18993,19174,19358,19539,19723],"categoryorder":"array","categoryarray":["2022-01","2022-07","2023-01","2023-07","2024-01"],"nticks":null,"ticks":"outside","tickcolor":"rgba(203,213,225,1)","ticklen":4.3171440431714414,"tickwidth":0.39850560398505613,"showticklabels":true,"tickfont":{"color":"rgba(100,116,139,1)","family":"sans","size":14.6782897467829},"tickangle":-0,"showline":true,"linecolor":"rgba(203,213,225,1)","linewidth":0.66417600664176002,"showgrid":true,"gridcolor":"rgba(241,245,249,1)","gridwidth":0.5313408053134081,"zeroline":false,"anchor":"y","title":{"text":"<b> Data <\/b>","font":{"color":"rgba(71,85,105,1)","family":"sans","size":15.541718555417191}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[13.050000000000001,77.950000000000003],"tickmode":"array","ticktext":["20","40","60"],"tickvals":[20,40,60],"categoryorder":"array","categoryarray":["20","40","60"],"nticks":null,"ticks":"outside","tickcolor":"rgba(203,213,225,1)","ticklen":4.3171440431714423,"tickwidth":0.39850560398505613,"showticklabels":true,"tickfont":{"color":"rgba(100,116,139,1)","family":"sans","size":14.6782897467829},"tickangle":-0,"showline":true,"linecolor":"rgba(203,213,225,1)","linewidth":0.66417600664176002,"showgrid":true,"gridcolor":"rgba(241,245,249,1)","gridwidth":0.5313408053134081,"zeroline":false,"anchor":"x","title":{"text":"<b> Número de Admissões <\/b>","font":{"color":"rgba(71,85,105,1)","family":"sans","size":15.541718555417191}},"hoverformat":".2f"},"shapes":[],"showlegend":true,"legend":{"bgcolor":"transparent","bordercolor":"rgba(0,0,0,1)","borderwidth":2.2333571939871155,"font":{"color":"rgba(51,65,85,1)","family":"sans","size":13.814860938148611},"orientation":"h","x":0.5,"y":-0.14999999999999999,"xanchor":"center","yanchor":"top","title":{"text":"Departamento","font":{"color":"rgba(51,65,85,1)","family":"sans","size":14.6782897467829}}},"hovermode":"closest","barmode":"relative","hoverlabel":{"bgcolor":"white","font":{"family":"Inter, sans-serif","size":13}}},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"locale":"pt-BR","displayModeBar":true,"modeBarButtonsToRemove":["lasso2d","select2d"],"displaylogo":false},"source":"A","attrs":{"e10f687c7858":{"x":{},"y":{},"colour":{},"type":"scatter"},"e10f43c10eff":{"x":{},"y":{},"colour":{},"text":{}}},"cur_data":"e10f687c7858","visdat":{"e10f687c7858":["function (y) ","x"],"e10f43c10eff":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -1077,7 +1088,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="cap10-linhas_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="cap10-linhas_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1106,7 +1117,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="cap10-linhas_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="cap10-linhas_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1135,7 +1146,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="cap10-linhas_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="cap10-linhas_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="cap10-linhas_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1160,23 +1171,39 @@ div.csl-indent {
 </section>
 <section id="quiz" class="level2">
 <h2 class="anchored" data-anchor-id="quiz">Quiz</h2>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Quizz">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Teste Seu Conhecimento
+<span class="screen-reader-only">Nota</span>Quizz
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Pergunta 1:</strong> Um pesquisador criou um gráfico mostrando taxa de mortalidade (eixo Y) vs.&nbsp;cinco tipos diferentes de câncer (eixo X), conectando os pontos com linhas. Isso é apropriado?</p>
 <ol type="a">
 <li>Sim, porque há cinco categorias no eixo X</li>
-<li>Não, porque os tipos de câncer não são ordenados</li>
+<li>Não, porque tipos de câncer são categorias sem uma sequência natural.</li>
 <li>Sim, porque a taxa de mortalidade é numérica</li>
 <li>Talvez, depende da revista</li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b) Não, porque tipos de câncer são categorias sem uma sequência natural.</strong> Gráficos de linha comunicam <strong>continuidade e tendência</strong> — a linha entre dois pontos sugere que existe algo entre eles. Tipos de câncer são categorias sem ordem natural: não há um “meio-caminho” entre câncer de mama e câncer de pulmão. Ao conectar categorias sem ordem com linhas, criamos uma impressão visual falsa. O fato de o eixo Y ser numérico (alternativa c) não justifica usar linhas — o que importa é a natureza do eixo X. Para dados categóricos, use barras ou pontos.</p>
+</div>
+</div>
+</div>
 <p><strong>Pergunta 2:</strong> Qual é o principal risco de usar um gráfico de linha para dados categóricos?</p>
 <ol type="a">
 <li>O gráfico fica muito colorido</li>
@@ -1184,6 +1211,22 @@ div.csl-indent {
 <li>Usa mais tinta</li>
 <li>Fica difícil imprimir</li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b) Cria ilusão de continuidade onde não existe.</strong> Como vimos na seção “O Erro Clássico”, a linha entre dois pontos implica que os valores intermediários são significativos. Quando conectamos “Cardiologia” e “Neurologia” com uma linha, sugerimos visualmente que existe uma transição contínua entre esses departamentos — o que é absurdo. Esse é o erro mais frequente na visualização de dados em saúde: usar linhas onde deveria haver barras.</p>
+</div>
+</div>
+</div>
 <p><strong>Pergunta 3:</strong> Você está monitorando o peso de um paciente ao longo de 6 meses (medições mensais). Qual visualização é melhor?</p>
 <ol type="a">
 <li>Barras</li>
@@ -1191,6 +1234,22 @@ div.csl-indent {
 <li>Linhas com pontos</li>
 <li>Tabela numérica</li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>c) Linhas com pontos.</strong> Aqui temos uma variável numérica (peso) medida ao longo do tempo (6 meses), com medições ordenadas cronologicamente — exatamente o cenário ideal para gráficos de linha. Os pontos marcam as medições reais, e a linha entre eles revela a tendência (ganho, perda ou estabilidade de peso). Pizza (alternativa b) não serve porque não mostra evolução temporal. Barras (alternativa a) até funcionariam, mas não comunicam a continuidade e a tendência tão bem quanto a linha. A tabela (alternativa d) mostra os números, mas não revela padrões visuais.</p>
+</div>
+</div>
+</div>
 <p><strong>Pergunta 4:</strong> Em um gráfico de linha com múltiplos grupos, qual é a melhor forma de diferenciar os grupos?</p>
 <ol type="a">
 <li>Usar cores diferentes</li>
@@ -1198,7 +1257,22 @@ div.csl-indent {
 <li>Usar ambas (cores + padrões)</li>
 <li>Adicionar anotações de texto</li>
 </ol>
-<p><strong>Respostas esperadas:</strong> 1-b, 2-b, 3-c, 4-c (especialmente importante para leitores com daltonismo)</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>c) Usar ambas (cores + padrões).</strong> Cores sozinhas (alternativa a) funcionam para a maioria dos leitores, mas aproximadamente 8% dos homens e 0,5% das mulheres têm algum grau de daltonismo. Para essas pessoas, duas linhas de cores diferentes podem parecer idênticas. Padrões sozinhos (alternativa b) resolvem o daltonismo, mas são mais difíceis de distinguir à distância. A combinação de cores <em>e</em> padrões (por exemplo, azul contínuo vs.&nbsp;vermelho tracejado) cria <strong>redundância visual</strong>: mesmo que o leitor não perceba a diferença de cor, o padrão da linha ainda permite distinguir os grupos. Esse princípio de redundância é uma das boas práticas fundamentais em visualização acessível.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <hr>
@@ -1631,8 +1705,8 @@ SOLÍS-VIVANCO, Rodolfo <em>et al.</em> <a href="https://doi.org/10.1001/jamapsy
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./cap12-historia.html" class="pagination-link" aria-label="Gráficos que Mudaram a História">
-        <span class="nav-page-text">Gráficos que Mudaram a História</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./cap10b-kaplanmeier.html" class="pagination-link" aria-label="Curvas de Kaplan–Meier">
+        <span class="nav-page-text">Curvas de Kaplan–Meier</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

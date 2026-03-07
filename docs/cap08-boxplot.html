@@ -254,6 +254,11 @@ window.Quarto = {
 </i> 
  <span class="dropdown-text">Gráfico de Linha</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10b-kaplanmeier.html"><i class="bi bi-heart-pulse" role="img">
+</i> 
+ <span class="dropdown-text">Curvas de Kaplan–Meier</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -429,6 +434,12 @@ window.Quarto = {
  <span class="menu-text">Gráfico de Linha</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10b-kaplanmeier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curvas de Kaplan–Meier</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -529,7 +540,7 @@ window.Quarto = {
   <li><a href="#raincloud-plot-o-melhor-dos-três-mundos" id="toc-raincloud-plot-o-melhor-dos-três-mundos" class="nav-link" data-scroll-target="#raincloud-plot-o-melhor-dos-três-mundos">Raincloud Plot: O Melhor dos Três Mundos</a></li>
   </ul></li>
   <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">Conclusão</a></li>
-  <li><a href="#quiz-teste-sua-compreensão" id="toc-quiz-teste-sua-compreensão" class="nav-link" data-scroll-target="#quiz-teste-sua-compreensão">Quiz: Teste Sua Compreensão</a></li>
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
   <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
   </ul>
 </nav>
@@ -540,7 +551,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap08-boxplot.html">Boxplot</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Boxplot</h1>
-<p class="subtitle lead">Capítulo 8 — O resumo dos cinco números</p>
+<p class="subtitle lead">O resumo dos cinco números</p>
 </div>
 
 
@@ -1759,93 +1770,125 @@ window.Quarto = {
 </ol>
 <p>Lembre-se: o boxplot é uma <strong>ferramenta de exploração</strong>. Use-o para fazer perguntas, não necessariamente para responder. Quando seus dados mostram outliers inesperados ou padrões curiosos, o boxplot é seu aliado para investigação adicional.</p>
 </section>
-<section id="quiz-teste-sua-compreensão" class="level2">
-<h2 class="anchored" data-anchor-id="quiz-teste-sua-compreensão">Quiz: Teste Sua Compreensão</h2>
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="quiz" class="level2">
+<h2 class="anchored" data-anchor-id="quiz">Quiz</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Quizz">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Quizz
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="questão-1-interpretando-a-mediana" class="level3">
+<h3 class="anchored" data-anchor-id="questão-1-interpretando-a-mediana">Questão 1: Interpretando a Mediana</h3>
+<p>Se em um boxplot a linha da mediana está muito próxima do topo da caixa (Q3), o que isso nos diz sobre a distribuição dos dados?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 1: Interpretando a Mediana
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Se em um boxplot a linha da mediana está muito próxima do topo da caixa (Q3), o que isso nos diz sobre a distribuição dos dados?</p>
-<p><strong>Resposta</strong>: A mediana estar próxima do Q3 indica que 50% dos dados estão comprimidos no topo (entre Q3 e máximo), enquanto a outra metade (Q1 a mediana) está espalhada em um intervalo maior. Isso significa a distribuição é <strong>assimétrica para baixo</strong> (cauda à esquerda). A maioria dos valores está alta, com alguns valores baixos.</p>
+<p>A mediana estar próxima do Q3 indica que 50% dos dados estão comprimidos no topo (entre Q3 e máximo), enquanto a outra metade (Q1 a mediana) está espalhada em um intervalo maior. Isso significa a distribuição é <strong>assimétrica para baixo</strong> (cauda à esquerda). A maioria dos valores está alta, com alguns valores baixos.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
+</section>
+<section id="questão-2-o-iqr-e-variabilidade" class="level3">
+<h3 class="anchored" data-anchor-id="questão-2-o-iqr-e-variabilidade">Questão 2: O IQR e Variabilidade</h3>
+<p>Dois grupos têm o mesmo intervalo (mínimo ao máximo) de 40 a 100 kg, mas diferentes IQRs: Grupo A tem IQR = 8 kg, Grupo B tem IQR = 25 kg. Qual grupo é mais variável?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 2: O IQR e Variabilidade
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Dois grupos têm o mesmo intervalo (mínimo ao máximo) de 40 a 100 kg, mas diferentes IQRs: Grupo A tem IQR = 8 kg, Grupo B tem IQR = 25 kg. Qual grupo é mais variável?</p>
-<p><strong>Resposta</strong>: O Grupo B é <strong>mais variável</strong> no seu centro (50% dos dados). Um IQR menor significa que a metade central dos dados está mais concentrada em um intervalo pequeno, indicando menos variabilidade. O Grupo A, com IQR pequeno, tem dados muito agrupados.</p>
+<p>O Grupo B é <strong>mais variável</strong> no seu centro (50% dos dados). Um IQR menor significa que a metade central dos dados está mais concentrada em um intervalo pequeno, indicando menos variabilidade. O Grupo A, com IQR pequeno, tem dados muito agrupados.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
+</section>
+<section id="questão-3-calculando-whiskers" class="level3">
+<h3 class="anchored" data-anchor-id="questão-3-calculando-whiskers">Questão 3: Calculando Whiskers</h3>
+<p>Se um grupo tem Q1 = 50 kg, Q3 = 70 kg, qual é o intervalo do whisker inferior?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 3: Calculando Whiskers
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Se um grupo tem Q1 = 50 kg, Q3 = 70 kg, qual é o intervalo do whisker inferior?</p>
-<p><strong>Resposta</strong>: - IQR = Q3 - Q1 = 70 - 50 = 20 kg - Whisker inferior = Q1 - 1.5 × IQR = 50 - 1.5 × 20 = 50 - 30 = <strong>20 kg</strong> - Qualquer valor abaixo de 20 kg seria um outlier.</p>
+<ul>
+<li>IQR = Q3 - Q1 = 70 - 50 = 20 kg</li>
+<li>Whisker inferior = Q1 - 1.5 × IQR = 50 - 1.5 × 20 = 50 - 30 = <strong>20 kg</strong></li>
+<li>Qualquer valor abaixo de 20 kg seria um outlier.</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
+</section>
+<section id="questão-4-comparando-boxplots" class="level3">
+<h3 class="anchored" data-anchor-id="questão-4-comparando-boxplots">Questão 4: Comparando Boxplots</h3>
+<p>Você tem dois boxplots lado a lado para colesterol em homens e mulheres. Os boxplots têm praticamente o mesmo tamanho (IQR similar) e mesma mediana, mas o boxplot dos homens tem muito mais outliers visíveis. O que isso sugere?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 4: Comparando Boxplots
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Você tem dois boxplots lado a lado para colesterol em homens e mulheres. Os boxplots têm praticamente o mesmo tamanho (IQR similar) e mesma mediana, mas o boxplot dos homens tem muito mais outliers visíveis. O que isso sugere?</p>
-<p><strong>Resposta</strong>: O IQR e mediana similares sugerem que as duas populações têm distribuições centrais similares. Os outliers adicionais nos homens sugerem: 1. Há mais homens na amostra (mais chance estatística de outliers) 2. Há mais variabilidade nas extremidades para homens (cauda mais pesada) 3. Pode haver um subgrupo distinto de homens com colesterol muito alto</p>
-<p>Seria útil investigar se há fatores clínicos explicando esses outliers.</p>
+<p>O IQR e mediana similares sugerem que as duas populações têm distribuições centrais similares. Os outliers adicionais nos homens sugerem: 1. Há mais homens na amostra (mais chance estatística de outliers) 2. Há mais variabilidade nas extremidades para homens (cauda mais pesada) 3. Pode haver um subgrupo distinto de homens com colesterol muito alto Seria útil investigar se há fatores clínicos explicando esses outliers.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
+</section>
+<section id="questão-5-boxplot-vs-densidade" class="level3">
+<h3 class="anchored" data-anchor-id="questão-5-boxplot-vs-densidade">Questão 5: Boxplot vs Densidade</h3>
+<p>Para uma análise de períodos de incubação de dengue entre 4 sorotipos, com n = 300 observações, você deveria usar boxplot, densidade, ou ambos?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 5: Boxplot vs Densidade
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Para uma análise de períodos de incubação de dengue entre 4 sorotipos, com n = 300 observações, você deveria usar boxplot, densidade, ou ambos?</p>
-<p><strong>Resposta</strong>: <strong>Ambos</strong>, mas por razões diferentes: - <strong>Boxplot</strong>: Excelente para comparar 4 grupos lado a lado. Mostra rapidamente se há diferenças nas medianas e IQRs. Identifica outliers. - <strong>Densidade</strong>: Revela se algum sorotipo tem distribuição bimodal ou padrões que o boxplot não mostra.</p>
-<p>Use boxplot como visualização principal para comparação entre grupos, e densidade como complemento se suspeitar de multimodalidade.</p>
+<p><strong>Ambos</strong>, mas por razões diferentes:<br>
+- <strong>Boxplot</strong>: Excelente para comparar 4 grupos lado a lado. Mostra rapidamente se há diferenças nas medianas e IQRs. Identifica outliers.<br>
+- <strong>Densidade</strong>: Revela se algum sorotipo tem distribuição bimodal ou padrões que o boxplot não mostra.<br>
+Use boxplot como visualização principal para comparação entre grupos, e densidade como complemento se suspeitar de multimodalidade.</p>
 </div>
+</div>
+</div>
+</section>
 </div>
 </div>
 <hr>

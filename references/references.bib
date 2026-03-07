@@ -666,3 +666,180 @@
   year      = {1989},
   doi       = {10.1177/089443938900700404}
 }
+
+
+% =============================================================
+% CURVAS DE KAPLAN–MEIER E ANÁLISE DE SOBREVIVÊNCIA
+% =============================================================
+
+% --- Kaplan & Meier (1958): Artigo original que introduziu o estimador
+%     não-paramétrico para dados censurados. Um dos artigos mais citados
+%     da história da estatística (~60 000 citações). (cap10b) ---
+@article{kaplan1958nonparametric,
+  author = {Kaplan, E. L. and Meier, Paul},
+  title = {Nonparametric Estimation from Incomplete Observations},
+  journal = {Journal of the American Statistical Association},
+  volume = {53},
+  number = {282},
+  pages = {457--481},
+  year = {1958},
+  publisher = {Taylor \& Francis},
+  doi = {10.1080/01621459.1958.10501452},
+  url = {https://doi.org/10.1080/01621459.1958.10501452}
+}
+
+
+% --- Stalpers & Kaplan (2018): Relato histórico detalhado da criação da
+%     curva de KM, coautorado pelo próprio Edward Kaplan. Conta a troca
+%     de cartas entre Kaplan e Meier e o longo caminho até a publicação. (cap10b) ---
+@article{stalpers2018kaplan,
+  author    = {Stalpers, Lukas J. A. and Kaplan, Edward L.},
+  title     = {Edward L. Kaplan and the Kaplan--Meier Survival Curve},
+  journal   = {BSHM Bulletin: Journal of the British Society for the History of Mathematics},
+  year      = {2018},
+  volume    = {33},
+  number    = {2},
+  pages     = {109--135},
+  doi       = {10.1080/17498430.2018.1450055},
+  publisher = {Taylor \& Francis},
+}
+
+% --- Schober & Vetter (2018): Tutorial moderno e acessível sobre análise
+%     de sobrevivência para clínicos. Explica censura, KM, log-rank e Cox
+%     com analogia da tartaruga e a lebre. (cap10b) ---
+@article{schober2018survival,
+  author  = {Schober, Patrick and Vetter, Thomas R.},
+  title   = {Survival Analysis and Interpretation of Time-to-Event Data: The Tortoise and the Hare},
+  journal = {Anesthesia \& Analgesia},
+  year    = {2018},
+  volume  = {127},
+  number  = {3},
+  pages   = {792--798},
+  month   = {sep},
+  doi     = {10.1213/ANE.0000000000003653}
+}
+
+% --- Clark et al. (2003): Tutorial clássico do British Journal of Cancer.
+%     Parte I de uma série sobre análise de sobrevivência, com Altman como
+%     coautor. Referência padrão para introdução ao tema. (cap10b) ---
+@article{clark2003survival,
+  author  = {Clark, T. G. and Bradburn, M. J. and Love, S. B. and Altman, D. G.},
+  title   = {Survival Analysis Part I: Basic Concepts and First Analyses},
+  journal = {British Journal of Cancer},
+  year    = {2003},
+  volume  = {89},
+  number  = {2},
+  pages   = {232--238},
+  doi     = {10.1038/sj.bjc.6601118},
+  url     = {https://doi.org/10.1038/sj.bjc.6601118}
+}
+
+
+% --- Rich et al. (2010): Guia prático com figuras didáticas mostrando
+%     como ler e interpretar curvas de KM na prática clínica.
+%     Publicado em revista cirúrgica (Otolaryngology). (cap10b) ---
+@article{rich2010kaplan,
+  author  = {Rich, Justin T. and Neely, James G. and Paniello, Randal C. and Voelker, Charles C. J. and Nussenbaum, Brian and Wang, Eric W.},
+  title   = {A Practical Guide to Understanding Kaplan--Meier Curves},
+  journal = {Otolaryngology--Head and Neck Surgery},
+  year    = {2010},
+  volume  = {143},
+  number  = {3},
+  pages   = {331--336},
+  month   = {sep},
+  doi     = {10.1016/j.otohns.2010.05.007},
+  pmid    = {20723767},
+  pmcid   = {PMC3932959}
+}
+
+% --- Gehan (1965): Teste de Wilcoxon generalizado para dados censurados.
+%     Foi Gehan quem, a partir de 1969, popularizou o método de KM na
+%     pesquisa médica (especialmente oncologia no MD Anderson). (cap10b) ---
+@article{Gehan1965,
+  author  = {Gehan, Edmund A.},
+  title   = {A Generalized Wilcoxon Test for Comparing Arbitrarily Singly-Censored Samples},
+  journal = {Biometrika},
+  year    = {1965},
+  volume  = {52},
+  number  = {1-2},
+  pages   = {203--224},
+  doi     = {10.1093/biomet/52.1-2.203},
+  url     = {https://doi.org/10.1093/biomet/52.1-2.203}
+}
+
+% --- Cox (1972): Modelo de riscos proporcionais — o complemento natural
+%     do KM. Permite avaliar o efeito de covariáveis na sobrevivência.
+%     Um dos artigos mais influentes da estatística do séc. XX. (cap10b) ---
+@article{cox1972regression,
+  author  = {Cox, David R.},
+  title   = {Regression Models and Life-Tables},
+  journal = {Journal of the Royal Statistical Society: Series B (Methodological)},
+  year    = {1972},
+  volume  = {34},
+  number  = {2},
+  pages   = {187--202},
+  doi     = {10.1111/j.2517-6161.1972.tb00899.x},
+  url     = {https://doi.org/10.1111/j.2517-6161.1972.tb00899.x}
+}
+
+% --- Moertel et al. (1990): Ensaio clínico marco do NEJM — primeiro a
+%     demonstrar benefício de quimioterapia adjuvante em câncer de cólon.
+%     Fonte do dataset survival::colon do R. (cap10b) ---
+@article{moertel1990levamisole,
+  author  = {Moertel, Charles G. and Fleming, Thomas R. and Macdonald, James S. and Haller, Daniel G. and Laurie, John A. and Goodman, Phyllis J. and Ungerleider, James S. and Emerson, William A. and Tormey, Douglas C. and Glick, John H. and Veeder, Michael H. and Mailliard, James A.},
+  title   = {Levamisole and Fluorouracil for Adjuvant Therapy of Resected Colon Carcinoma},
+  journal = {The New England Journal of Medicine},
+  year    = {1990},
+  volume  = {322},
+  number  = {6},
+  pages   = {352--358},
+  doi     = {10.1056/NEJM199002083220602},
+  url     = {https://doi.org/10.1056/NEJM199002083220602}
+}
+
+% --- Bland & Altman (1998): Tutorial conciso no BMJ sobre o método de KM.
+%     Dos mestres da estatística médica acessível — mesmo duo do famoso
+%     gráfico de Bland-Altman para concordância. (cap10b) ---
+@article{bland1998survival,
+  author  = {Bland, J. Martin and Altman, Douglas G.},
+  title   = {Survival Probabilities (the Kaplan--Meier Method)},
+  journal = {BMJ},
+  year    = {1998},
+  volume  = {317},
+  number  = {7172},
+  pages   = {1572},
+  doi     = {10.1136/bmj.317.7172.1572},
+  url     = {https://doi.org/10.1136/bmj.317.7172.1572}
+}
+
+% --- Dudley et al. (2016): Tutorial introdutório voltado a profissionais
+%     de oncologia. Explica KM passo a passo com exemplos clínicos e
+%     figuras claras. J Advanced Practitioner in Oncology. (cap10b) ---
+@article{dudley2016survival,
+  author  = {Dudley, William N. and Wickham, Robert and Coombs, Nicholas},
+  title   = {An Introduction to Survival Statistics: Kaplan--Meier Analysis},
+  journal = {Journal of the Advanced Practitioner in Oncology},
+  year    = {2016},
+  volume  = {7},
+  number  = {1},
+  pages   = {91--100},
+  doi     = {10.6004/jadpro.2016.7.1.8},
+  pmid    = {27713848},
+  pmcid   = {PMC5045282}
+}
+
+% --- Coltman et al. (1971): Primeiro artigo a exibir uma curva de KM
+%     no formato clássico de escada, em estudo de quimioterapia combinada
+%     para tumores sólidos no MD Anderson. Marco visual do método KM. (cap10b) ---
+@article{coltman1971chemotherapy,
+  author  = {Coltman, Charles A. Jr and Costanzi, John J. and Dudley, Gerald M. 3rd and Haut, Arthur and Lane, Montague and Gehan, Edmund A.},
+  title   = {Further Clinical Studies of Combination Chemotherapy Using Cyclophosphamide, Vincristine, Methotrexate and 5-Fluorouracil in Solid Tumors},
+  journal = {The American Journal of the Medical Sciences},
+  year    = {1971},
+  volume  = {261},
+  number  = {2},
+  pages   = {73--78},
+  month   = {feb},
+  doi     = {10.1097/00000441-197102000-00003},
+  pmid    = {5550137}
+}

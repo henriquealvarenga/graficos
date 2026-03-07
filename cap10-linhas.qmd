@@ -1,6 +1,6 @@
 ---
 title: "Gráficos de Linha"
-subtitle: "Capítulo 10 — Tendências ao longo do tempo"
+subtitle: "Tendências ao longo do tempo"
 author: "Henrique Alvarenga da Silva"
 date: last-modified
 ---
@@ -17,7 +17,7 @@ source("_common.R")
 
 ## Fechando o ciclo: o primeiro gráfico de Playfair
 
-Chegamos ao último tipo de gráfico deste livro — e, ironicamente, ao *primeiro* que **William Playfair** inventou. O gráfico de linhas foi publicado em *The Commercial and Political Atlas* [@playfair1786], onde Playfair apresentou 43 séries temporais da balança comercial inglesa com diversas nações ao longo do século XVIII. A mesma obra continha o gráfico de barras (que vimos no Capítulo 5); o gráfico de pizza viria quinze anos depois, no *Statistical Breviary* de 1801 (Capítulo 4).
+Chegamos ao último tipo de gráfico deste livro — e, ironicamente, ao *primeiro* que **William Playfair** inventou. O gráfico de linhas foi publicado em *The Commercial and Political Atlas* [@playfair1786], onde Playfair apresentou 43 séries temporais da balança comercial inglesa com diversas nações ao longo do século XVIII. A mesma obra continha o gráfico de barras (que vimos no capítulo sobre [Barras](cap05-barras.qmd)); o gráfico de pizza viria quinze anos depois, no *Statistical Breviary* de 1801 (capítulo sobre [Pizza](cap04-pizza.qmd)).
 
 Se o gráfico de linhas é historicamente o primeiro, por que aparece por último neste livro? Porque, dos três, é o mais complexo conceitualmente: envolve séries temporais, continuidade, sazonalidade e a noção de que a *ordem* dos pontos importa. Barras e pizza comparam categorias; linhas revelam *tendências*. Essa complexidade justifica deixá-lo para o final — quando o leitor já domina os fundamentos da visualização [@costiganeaves1990]. Uma reprodução comentada da obra original, com introdução de Howard Wainer e Ian Spence, está disponível em @playfair2005.
 
@@ -409,15 +409,19 @@ ggplot(dominios_cognitivos, aes(x = dominio, y = score, color = grupo)) +
 
 ## Quiz
 
-::: {.callout-note}
-## Teste Seu Conhecimento
+::: {.callout-note title="Quizz"}
 
 **Pergunta 1:** Um pesquisador criou um gráfico mostrando taxa de mortalidade (eixo Y) vs. cinco tipos diferentes de câncer (eixo X), conectando os pontos com linhas. Isso é apropriado?
 
 a) Sim, porque há cinco categorias no eixo X
-b) Não, porque os tipos de câncer não são ordenados
+b) Não, porque tipos de câncer são categorias sem uma sequência natural.
 c) Sim, porque a taxa de mortalidade é numérica
 d) Talvez, depende da revista
+
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Não, porque tipos de câncer são categorias sem uma sequência natural.**
+Gráficos de linha comunicam **continuidade e tendência** — a linha entre dois pontos sugere que existe algo entre eles. Tipos de câncer são categorias sem ordem natural: não há um "meio-caminho" entre câncer de mama e câncer de pulmão. Ao conectar categorias sem ordem com linhas, criamos uma impressão visual falsa. O fato de o eixo Y ser numérico (alternativa c) não justifica usar linhas — o que importa é a natureza do eixo X. Para dados categóricos, use barras ou pontos.
+:::
 
 **Pergunta 2:** Qual é o principal risco de usar um gráfico de linha para dados categóricos?
 
@@ -426,12 +430,22 @@ b) Cria ilusão de continuidade onde não existe
 c) Usa mais tinta
 d) Fica difícil imprimir
 
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Cria ilusão de continuidade onde não existe.**
+Como vimos na seção "O Erro Clássico", a linha entre dois pontos implica que os valores intermediários são significativos. Quando conectamos "Cardiologia" e "Neurologia" com uma linha, sugerimos visualmente que existe uma transição contínua entre esses departamentos — o que é absurdo. Esse é o erro mais frequente na visualização de dados em saúde: usar linhas onde deveria haver barras.
+:::
+
 **Pergunta 3:** Você está monitorando o peso de um paciente ao longo de 6 meses (medições mensais). Qual visualização é melhor?
 
 a) Barras
 b) Pizza
 c) Linhas com pontos
 d) Tabela numérica
+
+::: {.callout-note  title="Resposta" collapse="true"}
+**c) Linhas com pontos.**
+Aqui temos uma variável numérica (peso) medida ao longo do tempo (6 meses), com medições ordenadas cronologicamente — exatamente o cenário ideal para gráficos de linha. Os pontos marcam as medições reais, e a linha entre eles revela a tendência (ganho, perda ou estabilidade de peso). Pizza (alternativa b) não serve porque não mostra evolução temporal. Barras (alternativa a) até funcionariam, mas não comunicam a continuidade e a tendência tão bem quanto a linha. A tabela (alternativa d) mostra os números, mas não revela padrões visuais.
+:::
 
 **Pergunta 4:** Em um gráfico de linha com múltiplos grupos, qual é a melhor forma de diferenciar os grupos?
 
@@ -440,7 +454,10 @@ b) Usar padrões diferentes nas linhas (tracejado, pontilhado)
 c) Usar ambas (cores + padrões)
 d) Adicionar anotações de texto
 
-**Respostas esperadas:** 1-b, 2-b, 3-c, 4-c (especialmente importante para leitores com daltonismo)
+::: {.callout-note  title="Resposta" collapse="true"}
+**c) Usar ambas (cores + padrões).**
+Cores sozinhas (alternativa a) funcionam para a maioria dos leitores, mas aproximadamente 8% dos homens e 0,5% das mulheres têm algum grau de daltonismo. Para essas pessoas, duas linhas de cores diferentes podem parecer idênticas. Padrões sozinhos (alternativa b) resolvem o daltonismo, mas são mais difíceis de distinguir à distância. A combinação de cores *e* padrões (por exemplo, azul contínuo vs. vermelho tracejado) cria **redundância visual**: mesmo que o leitor não perceba a diferença de cor, o padrão da linha ainda permite distinguir os grupos. Esse princípio de redundância é uma das boas práticas fundamentais em visualização acessível.
+:::
 
 :::
 

@@ -1,6 +1,6 @@
 ---
 title: "Galeria de Horrores e Makeover"
-subtitle: "Capítulo 14 — Ache o Erro"
+subtitle: "Ache o Erro"
 ---
 
 ```{r}

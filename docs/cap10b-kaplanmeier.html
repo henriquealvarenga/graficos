@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Henrique Alvarenga da Silva">
+
+<title>Curvas de Kaplan–Meier</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cap12-historia.html" rel="next">
+<link href="./cap10-linhas.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-f938f6e5ca7bfbd6305a7d1113a49c1d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4d51be57ba27b381b31b4eadd55b0c4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/logo.svg" alt="" class="navbar-logo light-content">
+    <img src="./images/logo.svg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text">Início</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-fundamentos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Fundamentos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-fundamentos">    
+        <li>
+    <a class="dropdown-item" href="./cap00-precisa-grafico.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">Você precisa de um gráfico?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap01-gramatica.html"><i class="bi bi-layers" role="img">
+</i> 
+ <span class="dropdown-text">Gramática dos Gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap02-elementos.html"><i class="bi bi-diagram-3" role="img">
+</i> 
+ <span class="dropdown-text">Elementos de um gráfico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap03-tufte.html"><i class="bi bi-brush" role="img">
+</i> 
+ <span class="dropdown-text">Princípios de Tufte</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tipos-de-gráficos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tipos de Gráficos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tipos-de-gráficos">    
+        <li>
+    <a class="dropdown-item" href="./cap04-pizza.html"><i class="bi bi-pie-chart" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Pizza</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap05-barras.html"><i class="bi bi-bar-chart" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Barras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap06-histograma.html"><i class="bi bi-bar-chart-steps" role="img">
+</i> 
+ <span class="dropdown-text">Histograma</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap07-densidade.html"><i class="bi bi-soundwave" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Densidade</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap08-boxplot.html"><i class="bi bi-box" role="img">
+</i> 
+ <span class="dropdown-text">Boxplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap09-scatterplot.html"><i class="bi bi-scatter-chart" role="img">
+</i> 
+ <span class="dropdown-text">Scatter Plot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10-linhas.html"><i class="bi bi-graph-up" role="img">
+</i> 
+ <span class="dropdown-text">Gráfico de Linha</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10b-kaplanmeier.html"><i class="bi bi-heart-pulse" role="img">
+</i> 
+ <span class="dropdown-text">Curvas de Kaplan–Meier</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-pensamento-crítico" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Pensamento Crítico</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-pensamento-crítico">    
+        <li>
+    <a class="dropdown-item" href="./cap12-historia.html"><i class="bi bi-clock-history" role="img">
+</i> 
+ <span class="dropdown-text">Gráficos que Mudaram a História</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap13-mesmos-dados.html"><i class="bi bi-shuffle" role="img">
+</i> 
+ <span class="dropdown-text">Mesmos Dados, Histórias Diferentes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap14-galeria-horrores.html"><i class="bi bi-exclamation-triangle" role="img">
+</i> 
+ <span class="dropdown-text">Galeria de Horrores</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ferramentas" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ferramentas</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ferramentas">    
+        <li>
+    <a class="dropdown-item" href="./cap11-ia.html"><i class="bi bi-robot" role="img">
+</i> 
+ <span class="dropdown-text">IA para Gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./cap15-fluxograma.html"><i class="bi bi-signpost-split" role="img">
+</i> 
+ <span class="dropdown-text">Qual Gráfico Devo Usar?</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> <i class="bi bi-info-circle" role="img">
+</i> 
+<span class="menu-text">Sobre</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/henriquealvarenga/graficos"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo de leitor">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap10b-kaplanmeier.html">Curvas de Kaplan–Meier</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap00-precisa-grafico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Você precisa de um gráfico?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap01-gramatica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gramática dos Gráficos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap02-elementos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Elementos de um gráfico</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap03-tufte.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Princípios de Tufte</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tipos de Gráficos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap04-pizza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Pizza</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap05-barras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Barras</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap06-histograma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Histograma</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap07-densidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Densidade</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap08-boxplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Boxplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap09-scatterplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scatter Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10-linhas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráfico de Linha</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10b-kaplanmeier.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Curvas de Kaplan–Meier</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Pensamento Crítico</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap12-historia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gráficos que Mudaram a História</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap13-mesmos-dados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mesmos Dados, Histórias Diferentes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap14-galeria-horrores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Galeria de Horrores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Ferramentas</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap11-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">IA para Gráficos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap15-fluxograma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qual Gráfico Devo Usar?</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#a-correspondência-que-mudou-a-medicina" id="toc-a-correspondência-que-mudou-a-medicina" class="nav-link active" data-scroll-target="#a-correspondência-que-mudou-a-medicina">A Correspondência que Mudou a Medicina</a></li>
+  <li><a href="#o-que-é-análise-de-sobrevivência" id="toc-o-que-é-análise-de-sobrevivência" class="nav-link" data-scroll-target="#o-que-é-análise-de-sobrevivência">O Que é Análise de Sobrevivência?</a>
+  <ul class="collapse">
+  <li><a href="#o-problema-da-censura" id="toc-o-problema-da-censura" class="nav-link" data-scroll-target="#o-problema-da-censura">O Problema da Censura</a></li>
+  </ul></li>
+  <li><a href="#o-estimador-de-kaplanmeier" id="toc-o-estimador-de-kaplanmeier" class="nav-link" data-scroll-target="#o-estimador-de-kaplanmeier">O Estimador de Kaplan–Meier</a></li>
+  <li><a href="#construindo-passo-a-passo-com-dados-reais" id="toc-construindo-passo-a-passo-com-dados-reais" class="nav-link" data-scroll-target="#construindo-passo-a-passo-com-dados-reais">Construindo Passo a Passo com Dados Reais</a>
+  <ul class="collapse">
+  <li><a href="#conhecendo-os-dados" id="toc-conhecendo-os-dados" class="nav-link" data-scroll-target="#conhecendo-os-dados">Conhecendo os dados</a></li>
+  <li><a href="#a-primeira-curva-sobrevida-global" id="toc-a-primeira-curva-sobrevida-global" class="nav-link" data-scroll-target="#a-primeira-curva-sobrevida-global">A primeira curva: sobrevida global</a></li>
+  <li><a href="#lendo-a-curva" id="toc-lendo-a-curva" class="nav-link" data-scroll-target="#lendo-a-curva">Lendo a curva</a></li>
+  </ul></li>
+  <li><a href="#mediana-de-sobrevivência" id="toc-mediana-de-sobrevivência" class="nav-link" data-scroll-target="#mediana-de-sobrevivência">Mediana de Sobrevivência</a></li>
+  <li><a href="#comparando-curvas-o-teste-log-rank" id="toc-comparando-curvas-o-teste-log-rank" class="nav-link" data-scroll-target="#comparando-curvas-o-teste-log-rank">Comparando Curvas: O Teste Log-Rank</a>
+  <ul class="collapse">
+  <li><a href="#interpretando-o-p-valor-do-log-rank" id="toc-interpretando-o-p-valor-do-log-rank" class="nav-link" data-scroll-target="#interpretando-o-p-valor-do-log-rank">Interpretando o p-valor do log-rank</a></li>
+  </ul></li>
+  <li><a href="#a-razão-de-riscos-hazard-ratio" id="toc-a-razão-de-riscos-hazard-ratio" class="nav-link" data-scroll-target="#a-razão-de-riscos-hazard-ratio">A Razão de Riscos (Hazard Ratio)</a>
+  <ul class="collapse">
+  <li><a href="#como-interpretar-o-hazard-ratio" id="toc-como-interpretar-o-hazard-ratio" class="nav-link" data-scroll-target="#como-interpretar-o-hazard-ratio">Como interpretar o Hazard Ratio</a></li>
+  </ul></li>
+  <li><a href="#anatomia-visual-da-curva-de-km" id="toc-anatomia-visual-da-curva-de-km" class="nav-link" data-scroll-target="#anatomia-visual-da-curva-de-km">Anatomia Visual da Curva de KM</a></li>
+  <li><a href="#sobrevida-em-diferentes-cenários-estágio-da-doença" id="toc-sobrevida-em-diferentes-cenários-estágio-da-doença" class="nav-link" data-scroll-target="#sobrevida-em-diferentes-cenários-estágio-da-doença">Sobrevida em Diferentes Cenários: Estágio da Doença</a></li>
+  <li><a href="#número-de-linfonodos-e-sobrevida" id="toc-número-de-linfonodos-e-sobrevida" class="nav-link" data-scroll-target="#número-de-linfonodos-e-sobrevida">Número de Linfonodos e Sobrevida</a></li>
+  <li><a href="#sobrevida-em-5-anos" id="toc-sobrevida-em-5-anos" class="nav-link" data-scroll-target="#sobrevida-em-5-anos">Sobrevida em 5 Anos</a></li>
+  <li><a href="#erros-comuns-na-interpretação" id="toc-erros-comuns-na-interpretação" class="nav-link" data-scroll-target="#erros-comuns-na-interpretação">Erros Comuns na Interpretação</a></li>
+  <li><a href="#um-segundo-exemplo-câncer-de-pulmão" id="toc-um-segundo-exemplo-câncer-de-pulmão" class="nav-link" data-scroll-target="#um-segundo-exemplo-câncer-de-pulmão">Um Segundo Exemplo: Câncer de Pulmão</a></li>
+  <li><a href="#conexão-com-a-prática-clínica" id="toc-conexão-com-a-prática-clínica" class="nav-link" data-scroll-target="#conexão-com-a-prática-clínica">Conexão com a Prática Clínica</a></li>
+  <li><a href="#além-da-curva-de-km" id="toc-além-da-curva-de-km" class="nav-link" data-scroll-target="#além-da-curva-de-km">Além da Curva de KM</a></li>
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
+  <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap10b-kaplanmeier.html">Curvas de Kaplan–Meier</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Curvas de Kaplan–Meier</h1>
+<p class="subtitle lead">Sobrevivência ao longo do tempo</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Henrique Alvarenga da Silva </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">7 de março de 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="a-correspondência-que-mudou-a-medicina" class="level2">
+<h2 class="anchored" data-anchor-id="a-correspondência-que-mudou-a-medicina">A Correspondência que Mudou a Medicina</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Dois matemáticos, um artigo, seis anos de cartas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Em 1952, dois jovens matemáticos americanos — sem se conhecerem pessoalmente — começaram a trabalhar, de forma independente, no mesmo problema: como estimar a probabilidade de sobrevivência quando nem todos os indivíduos foram observados até o final? Um deles era <strong>Edward L. Kaplan</strong> (1920–2006), engenheiro e estatístico dos Bell Telephone Laboratories; o outro era <strong>Paul Meier</strong> (1924–2011), professor na Johns Hopkins University. Ambos haviam sido alunos de doutorado de <strong>John Tukey</strong> — o mesmo Tukey do boxplot — em Princeton <span class="citation" data-cites="stalpers2018kaplan">(<a href="#ref-stalpers2018kaplan" role="doc-biblioref">Stalpers; Kaplan, 2018</a>)</span>.</p>
+<p>Quando submeteram manuscritos separados ao <em>Journal of the American Statistical Association</em>, o editor percebeu a sobreposição e sugeriu que unissem forças. O que se seguiu foi uma correspondência de mais de quatro anos, com discordâncias metodológicas consideráveis. Kaplan preferia uma abordagem baseada em estimadores de máxima verossimilhança; Meier defendia argumentos de teoria de decisão. Finalmente, em 1958, publicaram juntos o artigo <em>“Nonparametric Estimation from Incomplete Observations”</em> <span class="citation" data-cites="kaplan1958nonparametric">(<a href="#ref-kaplan1958nonparametric" role="doc-biblioref">Kaplan; Meier, 1958</a>)</span> — que se tornaria um dos artigos mais citados de toda a história da ciência, com mais de 44 mil citações no Web of Science até 2017 <span class="citation" data-cites="stalpers2018kaplan">(<a href="#ref-stalpers2018kaplan" role="doc-biblioref">Stalpers; Kaplan, 2018</a>)</span> e mais de 65 mil no Google Scholar atualmente.</p>
+<p>O mais surpreendente é que o artigo foi praticamente <strong>ignorado por uma década</strong>. Publicado em um periódico de estatística teórica, só chegou à pesquisa médica em 1969, pelas mãos de <strong>Edmund Gehan</strong>, bioestatístico do MD Anderson Cancer Center, que aplicou o método em ensaios clínicos oncológicos <span class="citation" data-cites="Gehan1965 stalpers2018kaplan">(<a href="#ref-Gehan1965" role="doc-biblioref">Gehan, 1965</a>; <a href="#ref-stalpers2018kaplan" role="doc-biblioref">Stalpers; Kaplan, 2018</a>)</span>. A primeira curva de Kaplan–Meier com o formato de escada que hoje reconhecemos instantaneamente apareceu em 1971, em um estudo sobre quimioterapia para tumores sólidos no mesmo centro <span class="citation" data-cites="coltman1971chemotherapy stalpers2018kaplan">(<a href="#ref-coltman1971chemotherapy" role="doc-biblioref">Coltman <em>et al.</em>, 1971</a>; <a href="#ref-stalpers2018kaplan" role="doc-biblioref">Stalpers; Kaplan, 2018</a>)</span>. Em 1972, o modelo de riscos proporcionais de <strong>David Cox</strong> <span class="citation" data-cites="cox1972regression">(<a href="#ref-cox1972regression" role="doc-biblioref">Cox, 1972</a>)</span> deu o segundo grande impulso: o método de Cox precisava da curva de KM como ponto de partida, e juntos os dois se tornaram as ferramentas padrão de toda pesquisa clínica.</p>
+<p>Hoje, curvas de Kaplan–Meier aparecem na grande maioria dos artigos de oncologia clínica <span class="citation" data-cites="stalpers2018kaplan">(<a href="#ref-stalpers2018kaplan" role="doc-biblioref">Stalpers; Kaplan, 2018</a>)</span>.</p>
+</div>
+</div>
+</section>
+<section id="o-que-é-análise-de-sobrevivência" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-é-análise-de-sobrevivência">O Que é Análise de Sobrevivência?</h2>
+<p>Análise de sobrevivência é um conjunto de métodos estatísticos para estudar <strong>o tempo até a ocorrência de um evento</strong> <span class="citation" data-cites="schober2018survival">(<a href="#ref-schober2018survival" role="doc-biblioref">Schober; Vetter, 2018</a>)</span>. Na medicina, o evento de interesse pode ser:</p>
+<ul>
+<li><strong>Óbito</strong> (sobrevida global, ou <em>overall survival</em>)</li>
+<li><strong>Recidiva</strong> de uma doença (sobrevida livre de doença, ou <em>disease-free survival</em>)</li>
+<li><strong>Progressão</strong> tumoral (sobrevida livre de progressão)</li>
+<li><strong>Alta hospitalar</strong>, <strong>concepção</strong>, <strong>readmissão</strong> — qualquer desfecho binário com dimensão temporal</li>
+</ul>
+<p>O nome “sobrevivência” é histórico: os primeiros métodos foram desenvolvidos para estudar mortalidade. Mas a técnica se aplica a <em>qualquer</em> situação em que queremos medir quanto tempo leva até algo acontecer <span class="citation" data-cites="clark2003survival">(<a href="#ref-clark2003survival" role="doc-biblioref">Clark <em>et al.</em>, 2003</a>)</span>.</p>
+<section id="o-problema-da-censura" class="level3">
+<h3 class="anchored" data-anchor-id="o-problema-da-censura">O Problema da Censura</h3>
+<p>O que torna a análise de sobrevivência diferente de uma simples média ou mediana é a <strong>censura</strong> (<em>censoring</em>). Em um estudo clínico, nem todos os pacientes são observados até o desfecho. Alguns motivos comuns:</p>
+<ul>
+<li>O estudo termina antes que o evento ocorra (o paciente ainda está vivo ao final do seguimento)</li>
+<li>O paciente muda de cidade e perde o acompanhamento</li>
+<li>O paciente falece por uma causa não relacionada ao estudo</li>
+</ul>
+<p>Nesses casos, sabemos que o paciente sobreviveu <em>pelo menos</em> até o momento da censura, mas não sabemos exatamente quando o evento ocorreria. Descartar esses pacientes desperdiçaria informação valiosa; incluí-los como se tivessem tido o evento seria incorreto. A genialidade do método de Kaplan–Meier é justamente incorporar essas observações incompletas de forma matematicamente rigorosa <span class="citation" data-cites="kaplan1958nonparametric bland1998survival">(<a href="#ref-bland1998survival" role="doc-biblioref">Bland; Altman, 1998</a>; <a href="#ref-kaplan1958nonparametric" role="doc-biblioref">Kaplan; Meier, 1958</a>)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Dica</span>Censura à direita
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O tipo mais comum de censura em estudos clínicos é a <strong>censura à direita</strong> (<em>right censoring</em>): sabemos quando o paciente entrou no estudo, mas não sabemos quando o evento ocorrerá — apenas que ainda não ocorreu até o último contato. Nas curvas de KM, os pacientes censurados são indicados por <strong>pequenos traços verticais</strong> (tick marks) sobre a curva <span class="citation" data-cites="rich2010kaplan">(<a href="#ref-rich2010kaplan" role="doc-biblioref">Rich <em>et al.</em>, 2010</a>)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="o-estimador-de-kaplanmeier" class="level2">
+<h2 class="anchored" data-anchor-id="o-estimador-de-kaplanmeier">O Estimador de Kaplan–Meier</h2>
+<p>O estimador de Kaplan–Meier (também chamado de <strong>estimador produto-limite</strong>) calcula a probabilidade de sobrevivência em cada momento em que ocorre um evento <span class="citation" data-cites="kaplan1958nonparametric">(<a href="#ref-kaplan1958nonparametric" role="doc-biblioref">Kaplan; Meier, 1958</a>)</span>. A ideia é simples e elegante:</p>
+<blockquote class="blockquote">
+<p>Em cada tempo <span class="math inline">\(t_j\)</span> em que ocorre um evento, a probabilidade de sobreviver <strong>além</strong> daquele momento é calculada como a fração dos pacientes em risco que <em>não</em> tiveram o evento.</p>
+</blockquote>
+<p>Matematicamente:</p>
+<p><span class="math display">\[
+\hat{S}(t) = \prod_{t_j \leq t} \left(1 - \frac{d_j}{n_j}\right)
+\]</span></p>
+<p>onde <span class="math inline">\(d_j\)</span> é o número de eventos no tempo <span class="math inline">\(t_j\)</span> e <span class="math inline">\(n_j\)</span> é o número de indivíduos em risco naquele momento <span class="citation" data-cites="clark2003survival">(<a href="#ref-clark2003survival" role="doc-biblioref">Clark <em>et al.</em>, 2003</a>)</span>.</p>
+<p>O resultado é uma <strong>função-escada</strong> (<em>step function</em>): a probabilidade de sobrevivência permanece constante entre os eventos e cai abruptamente em cada tempo em que um evento ocorre. Essa é a característica visual mais marcante da curva de Kaplan–Meier.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Por que não usar uma média simples?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se todos os pacientes fossem observados até o desfecho (sem censura), bastaria calcular a média ou mediana dos tempos. Mas com censura, a média é enviesada para baixo (porque tratamos pacientes censurados como se tivessem tido o evento antes do que realmente teriam). O estimador de KM resolve isso: cada paciente contribui com informação <strong>enquanto estiver em risco</strong>, e deixa de contribuir no momento em que é censurado — sem distorcer as estimativas dos demais <span class="citation" data-cites="bland1998survival">(<a href="#ref-bland1998survival" role="doc-biblioref">Bland; Altman, 1998</a>)</span>.</p>
+</div>
+</div>
+</section>
+<section id="construindo-passo-a-passo-com-dados-reais" class="level2">
+<h2 class="anchored" data-anchor-id="construindo-passo-a-passo-com-dados-reais">Construindo Passo a Passo com Dados Reais</h2>
+<p>Vamos usar dados reais de um dos ensaios clínicos mais importantes da oncologia: o estudo de <strong>Moertel et al.&nbsp;(1990)</strong>, publicado no <em>New England Journal of Medicine</em> <span class="citation" data-cites="moertel1990levamisole">(<a href="#ref-moertel1990levamisole" role="doc-biblioref">Moertel <em>et al.</em>, 1990</a>)</span>. Esse estudo demonstrou, pela primeira vez, que a quimioterapia adjuvante com levamisol e fluorouracil reduzia a recorrência e a mortalidade em pacientes com câncer de cólon ressecado.</p>
+<p>Os dados desse ensaio estão disponíveis no R através do pacote <code>survival</code>, no dataset <code>colon</code>. Vamos construir nossa curva de KM passo a passo.</p>
+<section id="conhecendo-os-dados" class="level3">
+<h3 class="anchored" data-anchor-id="conhecendo-os-dados">Conhecendo os dados</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Carregar os dados do ensaio de Moertel et al. (1990)</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>dados_colon <span class="ot">&lt;-</span> survival<span class="sc">::</span>colon <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">filter</span>(etype <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span>  <span class="co"># etype 2 = óbito (1 = recorrência)</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="at">tratamento =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-6"><a href="#cb1-6"></a>      rx <span class="sc">==</span> <span class="st">"Obs"</span>     <span class="sc">~</span> <span class="st">"Observação"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7"></a>      rx <span class="sc">==</span> <span class="st">"Lev"</span>     <span class="sc">~</span> <span class="st">"Levamisol"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>      rx <span class="sc">==</span> <span class="st">"Lev+5FU"</span> <span class="sc">~</span> <span class="st">"Levamisol + 5-FU"</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    ),</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="at">tratamento =</span> <span class="fu">factor</span>(tratamento,</span>
+<span id="cb1-11"><a href="#cb1-11"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Observação"</span>, <span class="st">"Levamisol"</span>, <span class="st">"Levamisol + 5-FU"</span>)),</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="at">tempo_anos =</span> time <span class="sc">/</span> <span class="fl">365.25</span>  <span class="co"># converter dias para anos</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>  )</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># Resumo dos dados</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>dados_colon <span class="sc">|&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="fu">group_by</span>(tratamento) <span class="sc">|&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="at">obitos =</span> <span class="fu">sum</span>(status),</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    <span class="at">censurados =</span> <span class="fu">sum</span>(status <span class="sc">==</span> <span class="dv">0</span>),</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    <span class="at">mediana_dias =</span> <span class="fu">median</span>(time),</span>
+<span id="cb1-23"><a href="#cb1-23"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="fu">kable</span>(</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Tratamento"</span>, <span class="st">"N"</span>, <span class="st">"Óbitos"</span>, <span class="st">"Censurados"</span>, <span class="st">"Mediana (dias)"</span>),</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    <span class="at">caption =</span> <span class="st">"Resumo dos dados do ensaio de Moertel et al. (1990) — desfecho: óbito"</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>),</span>
+<span id="cb1-30"><a href="#cb1-30"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<caption>Resumo dos dados do ensaio de Moertel et al. (1990) — desfecho: óbito</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Tratamento</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">N</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Óbitos</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Censurados</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mediana (dias)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Observação</td>
+<td style="text-align: right;">315</td>
+<td style="text-align: right;">168</td>
+<td style="text-align: right;">147</td>
+<td style="text-align: right;">1856</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Levamisol</td>
+<td style="text-align: right;">310</td>
+<td style="text-align: right;">161</td>
+<td style="text-align: right;">149</td>
+<td style="text-align: right;">1882</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Levamisol + 5-FU</td>
+<td style="text-align: right;">304</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">2100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>O dataset contém 929 pacientes com câncer de cólon estágio B2 ou C, randomizados em três braços: observação (controle), levamisol isolado e levamisol combinado com fluorouracil (5-FU). Vamos acompanhar o tempo até o óbito.</p>
+</section>
+<section id="a-primeira-curva-sobrevida-global" class="level3">
+<h3 class="anchored" data-anchor-id="a-primeira-curva-sobrevida-global">A primeira curva: sobrevida global</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Ajustar o modelo de sobrevivência</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>fit_colon <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(tempo_anos, status) <span class="sc">~</span> tratamento, <span class="at">data =</span> dados_colon)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Criar o gráfico com survminer</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">ggsurvplot</span>(</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  fit_colon,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="at">data =</span> dados_colon,</span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="co"># Aparência</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="at">palette =</span> <span class="fu">c</span>(cores<span class="sc">$</span>vermelho, cores<span class="sc">$</span>verde, cores<span class="sc">$</span>azul),</span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="at">size =</span> <span class="fl">0.9</span>,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="at">censor.shape =</span> <span class="st">"|"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="at">censor.size =</span> <span class="dv">3</span>,</span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="co"># Intervalo de confiança</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="at">conf.int.alpha =</span> <span class="fl">0.15</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>  <span class="co"># Risk table</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="at">risk.table.col =</span> <span class="st">"strata"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19"></a>  <span class="at">risk.table.height =</span> <span class="fl">0.28</span>,</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="at">risk.table.fontsize =</span> <span class="fl">3.2</span>,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="co"># Labels</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="at">xlab =</span> <span class="st">"Tempo (anos)"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="at">ylab =</span> <span class="st">"Probabilidade de sobrevivência"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="at">title =</span> <span class="st">"Sobrevida global — Ensaio de câncer de cólon"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="at">subtitle =</span> <span class="st">"Moertel et al. (1990) · N Engl J Med"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26"></a>  <span class="at">legend.title =</span> <span class="st">"Tratamento"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27"></a>  <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">"Observação"</span>, <span class="st">"Levamisol"</span>, <span class="st">"Levamisol + 5-FU"</span>),</span>
+<span id="cb2-28"><a href="#cb2-28"></a>  <span class="co"># Estética</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a>  <span class="at">ggtheme =</span> <span class="fu">tema_graficos</span>(<span class="at">base_size =</span> <span class="dv">12</span>),</span>
+<span id="cb2-30"><a href="#cb2-30"></a>  <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>()</span>
+<span id="cb2-31"><a href="#cb2-31"></a>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-km-basico" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-km-basico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="cap10b-kaplanmeier_files/figure-html/fig-km-basico-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figura&nbsp;1: Curva de Kaplan–Meier para o ensaio de Moertel et al.&nbsp;(1990): sobrevida global dos três braços de tratamento. Cada degrau representa um óbito; traços verticais indicam censuras."><img src="cap10b-kaplanmeier_files/figure-html/fig-km-basico-1.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-km-basico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Curva de Kaplan–Meier para o ensaio de Moertel et al.&nbsp;(1990): sobrevida global dos três braços de tratamento. Cada degrau representa um óbito; traços verticais indicam censuras.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="lendo-a-curva" class="level3">
+<h3 class="anchored" data-anchor-id="lendo-a-curva">Lendo a curva</h3>
+<p>Observe os elementos fundamentais da curva de Kaplan–Meier <span class="citation" data-cites="rich2010kaplan dudley2016survival">(<a href="#ref-dudley2016survival" role="doc-biblioref">Dudley; Wickham; Coombs, 2016</a>; <a href="#ref-rich2010kaplan" role="doc-biblioref">Rich <em>et al.</em>, 2010</a>)</span>:</p>
+<p><strong>O eixo Y</strong> mostra a probabilidade de sobrevivência estimada, começando em 1,0 (100%) no tempo zero — quando todos os pacientes estão vivos.</p>
+<p><strong>O eixo X</strong> mostra o tempo de seguimento, em anos.</p>
+<p><strong>Os degraus</strong> (a “escada”) indicam os momentos em que ocorrem óbitos. Quanto maior o degrau, mais óbitos ocorreram naquele momento. Quanto mais longa a parte horizontal, mais tempo se passou sem eventos.</p>
+<p><strong>Os traços verticais</strong> (tick marks) sobre a curva indicam censuras — pacientes que saíram do estudo sem ter o evento.</p>
+<p><strong>A tabela de risco</strong> (<em>number at risk</em>) abaixo do gráfico mostra quantos pacientes ainda estão em acompanhamento em cada momento. Essa informação é essencial: à medida que o tempo passa, o número de pacientes em risco diminui, e as estimativas se tornam menos precisas.</p>
+<p><strong>As faixas sombreadas</strong> representam o intervalo de confiança de 95% — quanto mais larga a faixa, maior a incerteza.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>A “cauda” da curva
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuidado com interpretações na parte final (à direita) da curva, onde poucos pacientes permanecem em risco. As estimativas nessa região são instáveis e os intervalos de confiança se alargam. Alguns autores recomendam interromper a curva quando menos de 10–20% da amostra original está em risco <span class="citation" data-cites="rich2010kaplan">(<a href="#ref-rich2010kaplan" role="doc-biblioref">Rich <em>et al.</em>, 2010</a>)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="mediana-de-sobrevivência" class="level2">
+<h2 class="anchored" data-anchor-id="mediana-de-sobrevivência">Mediana de Sobrevivência</h2>
+<p>A <strong>mediana de sobrevivência</strong> é o tempo no qual a probabilidade de sobrevivência cruza 50% — ou seja, o tempo em que metade dos pacientes já teve o evento. É a medida-resumo mais usada em análise de sobrevivência, preferida sobre a média porque os tempos de sobrevida raramente seguem uma distribuição simétrica <span class="citation" data-cites="clark2003survival">(<a href="#ref-clark2003survival" role="doc-biblioref">Clark <em>et al.</em>, 2003</a>)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Extrair medianas de sobrevivência</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>mediana_surv <span class="ot">&lt;-</span> <span class="fu">surv_median</span>(fit_colon)</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>mediana_surv <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="at">strata =</span> <span class="fu">c</span>(<span class="st">"Observação"</span>, <span class="st">"Levamisol"</span>, <span class="st">"Levamisol + 5-FU"</span>),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>))</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">select</span>(strata, median, lower, upper) <span class="sc">|&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">kable</span>(</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Tratamento"</span>, <span class="st">"Mediana (anos)"</span>, <span class="st">"IC 95% inferior"</span>, <span class="st">"IC 95% superior"</span>),</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="at">caption =</span> <span class="st">"Mediana de sobrevivência por braço de tratamento"</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>),</span>
+<span id="cb3-15"><a href="#cb3-15"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-mediana" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mediana-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;1: Mediana de sobrevivência por braço de tratamento
+</figcaption>
+<div aria-describedby="tbl-mediana-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Tratamento</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mediana (anos)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">IC 95% inferior</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">IC 95% superior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Observação</td>
+<td style="text-align: right;">5.70</td>
+<td style="text-align: right;">4.53</td>
+<td style="text-align: right;">7.64</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Levamisol</td>
+<td style="text-align: right;">5.89</td>
+<td style="text-align: right;">4.22</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Levamisol + 5-FU</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">7.46</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Visualmente, estimamos a mediana traçando uma linha horizontal no nível de 0,50 do eixo Y e verificando onde ela cruza cada curva. Se a curva <em>não</em> cruza os 50%, significa que mais da metade dos pacientes sobreviveu além do período de seguimento — e a mediana não pode ser estimada.</p>
+</section>
+<section id="comparando-curvas-o-teste-log-rank" class="level2">
+<h2 class="anchored" data-anchor-id="comparando-curvas-o-teste-log-rank">Comparando Curvas: O Teste Log-Rank</h2>
+<p>Olhar para as curvas e “achar” que uma é melhor que a outra não basta — precisamos de um teste estatístico formal. O <strong>teste log-rank</strong> é o método mais usado para comparar curvas de Kaplan–Meier entre grupos <span class="citation" data-cites="clark2003survival schober2018survival">(<a href="#ref-clark2003survival" role="doc-biblioref">Clark <em>et al.</em>, 2003</a>; <a href="#ref-schober2018survival" role="doc-biblioref">Schober; Vetter, 2018</a>)</span>.</p>
+<p>O teste compara o número <em>observado</em> de eventos em cada grupo com o número <em>esperado</em> sob a hipótese nula de que as curvas são iguais. O resultado é uma estatística qui-quadrado com (g − 1) graus de liberdade, onde g é o número de grupos.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Teste log-rank</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>teste_lr <span class="ot">&lt;-</span> <span class="fu">survdiff</span>(<span class="fu">Surv</span>(tempo_anos, status) <span class="sc">~</span> tratamento, <span class="at">data =</span> dados_colon)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>teste_lr</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+survdiff(formula = Surv(tempo_anos, status) ~ tratamento, data = dados_colon)
+
+                              N Observed Expected (O-E)^2/E (O-E)^2/V
+tratamento=Observação       315      168      148      2.58      3.85
+tratamento=Levamisol        310      161      146      1.52      2.25
+tratamento=Levamisol + 5-FU 304      123      157      7.55     11.62
+
+ Chisq= 11.7  on 2 degrees of freedom, p= 0.003 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Comparações pareadas (com correção de Bonferroni)</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">pairwise_survdiff</span>(<span class="fu">Surv</span>(tempo_anos, status) <span class="sc">~</span> tratamento,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>                  <span class="at">data =</span> dados_colon,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                  <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pairwise comparisons using Log-Rank test 
+
+data:  dados_colon and tratamento 
+
+                 Observação Levamisol
+Levamisol        1.0000     -        
+Levamisol + 5-FU 0.0048     0.0125   
+
+P value adjustment method: bonferroni </code></pre>
+</div>
+</div>
+<p>O teste log-rank global nos diz se <em>pelo menos</em> um grupo difere dos demais. Para saber <em>quais</em> grupos diferem entre si, fazemos comparações pareadas com correção para múltiplos testes.</p>
+<section id="interpretando-o-p-valor-do-log-rank" class="level3">
+<h3 class="anchored" data-anchor-id="interpretando-o-p-valor-do-log-rank">Interpretando o p-valor do log-rank</h3>
+<p>O p-valor responde a uma pergunta simples: se os tratamentos fossem <em>idênticos</em>, qual a probabilidade de observar uma diferença tão grande (ou maior) quanto a que vemos nos dados? Por convenção, quando o p-valor é menor que 0,05, consideramos a diferença <strong>estatisticamente significativa</strong> — ou seja, é improvável que se deva apenas ao acaso. Quando o p-valor é maior que 0,05 (por exemplo, p = 0,15), dizemos que as curvas <strong>não diferem de forma estatisticamente significativa ao nível de 5%</strong>. Isso não prova que os tratamentos sejam iguais; apenas que os dados disponíveis não fornecem evidência suficiente para afirmar que são diferentes — o que pode ocorrer, por exemplo, quando a amostra é pequena.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Dica</span>Log-rank vs.&nbsp;Hazard Ratio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O teste log-rank responde <strong>se</strong> as curvas diferem, mas não quantifica <strong>o quanto</strong>. Para isso, usamos a <strong>razão de riscos</strong> (<em>hazard ratio</em>, HR), obtida pelo modelo de Cox <span class="citation" data-cites="cox1972regression">(<a href="#ref-cox1972regression" role="doc-biblioref">Cox, 1972</a>)</span>. Um HR &lt; 1 indica que o grupo de tratamento tem menor risco de evento em relação ao controle. O modelo de Cox é o complemento natural da curva de KM e aparece em praticamente todo artigo que apresenta curvas de sobrevivência <span class="citation" data-cites="schober2018survival">(<a href="#ref-schober2018survival" role="doc-biblioref">Schober; Vetter, 2018</a>)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="a-razão-de-riscos-hazard-ratio" class="level2">
+<h2 class="anchored" data-anchor-id="a-razão-de-riscos-hazard-ratio">A Razão de Riscos (Hazard Ratio)</h2>
+<p>O modelo de riscos proporcionais de Cox <span class="citation" data-cites="cox1972regression">(<a href="#ref-cox1972regression" role="doc-biblioref">Cox, 1972</a>)</span> permite estimar o <strong>hazard ratio</strong> (HR) — a razão entre as taxas instantâneas de evento entre dois grupos — ajustando para covariáveis.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Modelo de Cox</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>cox_fit <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(tempo_anos, status) <span class="sc">~</span> tratamento, <span class="at">data =</span> dados_colon)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Resultados formatados</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>cox_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(cox_fit)</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="fu">data.frame</span>(</span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="at">Comparacao =</span> <span class="fu">c</span>(<span class="st">"Levamisol vs. Observação"</span>, <span class="st">"Levamisol + 5-FU vs. Observação"</span>),</span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="at">HR =</span> <span class="fu">round</span>(cox_summary<span class="sc">$</span>conf.int[, <span class="dv">1</span>], <span class="dv">3</span>),</span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="at">IC_inferior =</span> <span class="fu">round</span>(cox_summary<span class="sc">$</span>conf.int[, <span class="dv">3</span>], <span class="dv">3</span>),</span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="at">IC_superior =</span> <span class="fu">round</span>(cox_summary<span class="sc">$</span>conf.int[, <span class="dv">4</span>], <span class="dv">3</span>),</span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="at">p =</span> <span class="fu">format.pval</span>(cox_summary<span class="sc">$</span>coefficients[, <span class="dv">5</span>], <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb8-13"><a href="#cb8-13"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>  <span class="fu">kable</span>(</span>
+<span id="cb8-15"><a href="#cb8-15"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Comparação"</span>, <span class="st">"HR"</span>, <span class="st">"IC 95% inferior"</span>, <span class="st">"IC 95% superior"</span>, <span class="st">"p"</span>),</span>
+<span id="cb8-16"><a href="#cb8-16"></a>    <span class="at">caption =</span> <span class="st">"Modelo de Cox — Hazard Ratios por braço de tratamento"</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>),</span>
+<span id="cb8-19"><a href="#cb8-19"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<caption>Modelo de Cox — Hazard Ratios por braço de tratamento</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Comparação</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">HR</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">IC 95% inferior</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">IC 95% superior</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">tratamentoLevamisol</td>
+<td style="text-align: left;">Levamisol vs. Observação</td>
+<td style="text-align: right;">0.974</td>
+<td style="text-align: right;">0.784</td>
+<td style="text-align: right;">1.209</td>
+<td style="text-align: left;">0.80917</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tratamentoLevamisol + 5-FU</td>
+<td style="text-align: left;">Levamisol + 5-FU vs. Observação</td>
+<td style="text-align: right;">0.690</td>
+<td style="text-align: right;">0.546</td>
+<td style="text-align: right;">0.870</td>
+<td style="text-align: left;">0.00175</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="como-interpretar-o-hazard-ratio" class="level3">
+<h3 class="anchored" data-anchor-id="como-interpretar-o-hazard-ratio">Como interpretar o Hazard Ratio</h3>
+<p>O HR funciona como um multiplicador de risco. Três cenários possíveis:</p>
+<ul>
+<li><strong>HR = 1</strong>: os dois grupos têm o mesmo risco — o tratamento não faz diferença.</li>
+<li><strong>HR &lt; 1</strong>: o grupo de tratamento tem <em>menor</em> risco que o controle. Para saber <em>quanto</em> menor, fazemos a conta: <strong>redução = 1 − HR</strong>. Por exemplo, um HR de 0,65 significa redução de 1 − 0,65 = 0,35, ou seja, <strong>35% menos risco</strong> de evento.</li>
+<li><strong>HR &gt; 1</strong>: o grupo de tratamento tem <em>maior</em> risco que o controle.</li>
+</ul>
+<p>O <strong>intervalo de confiança de 95%</strong> (IC 95%) do HR nos diz se o resultado é estatisticamente significativo. A regra prática: se o IC <strong>não inclui o valor 1</strong>, o resultado é significativo. Se o IC inclui o 1, não podemos afirmar que haja diferença real entre os grupos. Por exemplo, um HR de 0,65 com IC 95% de 0,48 a 0,88 é significativo (o intervalo inteiro fica abaixo de 1). Já um HR de 0,85 com IC 95% de 0,60 a 1,20 não seria significativo (o intervalo cruza o 1).</p>
+<p>Na tabela acima, o HR para o grupo Levamisol + 5-FU confirma o que vemos visualmente na curva: pacientes tratados com a combinação têm menor risco de óbito em comparação com o grupo de observação. Esse resultado mudou a prática clínica e estabeleceu a quimioterapia adjuvante como padrão para câncer de cólon estágio C <span class="citation" data-cites="moertel1990levamisole">(<a href="#ref-moertel1990levamisole" role="doc-biblioref">Moertel <em>et al.</em>, 1990</a>)</span>.</p>
+</section>
+</section>
+<section id="anatomia-visual-da-curva-de-km" class="level2">
+<h2 class="anchored" data-anchor-id="anatomia-visual-da-curva-de-km">Anatomia Visual da Curva de KM</h2>
+<p>Vamos criar um gráfico anotado para identificar visualmente cada elemento:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Dados simplificados: apenas Observação vs. Lev+5FU</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>dados_2g <span class="ot">&lt;-</span> dados_colon <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">filter</span>(tratamento <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Observação"</span>, <span class="st">"Levamisol + 5-FU"</span>))</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a>fit_2g <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(tempo_anos, status) <span class="sc">~</span> tratamento, <span class="at">data =</span> dados_2g)</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>p_anat <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(</span>
+<span id="cb9-8"><a href="#cb9-8"></a>  fit_2g,</span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="at">data =</span> dados_2g,</span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="at">palette =</span> <span class="fu">c</span>(cores<span class="sc">$</span>vermelho, cores<span class="sc">$</span>azul),</span>
+<span id="cb9-11"><a href="#cb9-11"></a>  <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb9-12"><a href="#cb9-12"></a>  <span class="at">censor.shape =</span> <span class="st">"|"</span>,</span>
+<span id="cb9-13"><a href="#cb9-13"></a>  <span class="at">censor.size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb9-14"><a href="#cb9-14"></a>  <span class="at">conf.int =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-15"><a href="#cb9-15"></a>  <span class="at">legend.title =</span> <span class="st">"Tratamento"</span>,</span>
+<span id="cb9-16"><a href="#cb9-16"></a>  <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">"Observação"</span>, <span class="st">"Levamisol + 5-FU"</span>),</span>
+<span id="cb9-17"><a href="#cb9-17"></a>  <span class="at">xlab =</span> <span class="st">"Tempo (anos)"</span>,</span>
+<span id="cb9-18"><a href="#cb9-18"></a>  <span class="at">ylab =</span> <span class="st">"Probabilidade de sobrevivência"</span>,</span>
+<span id="cb9-19"><a href="#cb9-19"></a>  <span class="at">ggtheme =</span> <span class="fu">tema_graficos</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
+<span id="cb9-20"><a href="#cb9-20"></a>)</span>
+<span id="cb9-21"><a href="#cb9-21"></a></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co"># Adicionar anotações</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>p_anat<span class="sc">$</span>plot <span class="ot">&lt;-</span> p_anat<span class="sc">$</span>plot <span class="sc">+</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a>  <span class="co"># Linha da mediana</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> cores<span class="sc">$</span>cinza, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.3</span>, <span class="at">y =</span> <span class="fl">0.52</span>, <span class="at">label =</span> <span class="st">"Mediana (50%)"</span>,</span>
+<span id="cb9-27"><a href="#cb9-27"></a>           <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> cores<span class="sc">$</span>cinza, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb9-28"><a href="#cb9-28"></a>  <span class="co"># Seta para censura</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> <span class="fl">5.5</span>, <span class="at">y =</span> <span class="fl">0.82</span>, <span class="at">xend =</span> <span class="fl">4.8</span>, <span class="at">yend =</span> <span class="fl">0.75</span>,</span>
+<span id="cb9-30"><a href="#cb9-30"></a>           <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.15</span>, <span class="st">"cm"</span>)), <span class="at">color =</span> cores<span class="sc">$</span>escuro) <span class="sc">+</span></span>
+<span id="cb9-31"><a href="#cb9-31"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">5.6</span>, <span class="at">y =</span> <span class="fl">0.83</span>, <span class="at">label =</span> <span class="st">"Censura (|)"</span>,</span>
+<span id="cb9-32"><a href="#cb9-32"></a>           <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> cores<span class="sc">$</span>escuro, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a>  <span class="co"># Seta para degrau</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> <span class="fl">5.5</span>, <span class="at">y =</span> <span class="fl">0.55</span>, <span class="at">xend =</span> <span class="fl">3.5</span>, <span class="at">yend =</span> <span class="fl">0.48</span>,</span>
+<span id="cb9-35"><a href="#cb9-35"></a>           <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.15</span>, <span class="st">"cm"</span>)), <span class="at">color =</span> cores<span class="sc">$</span>escuro) <span class="sc">+</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">5.6</span>, <span class="at">y =</span> <span class="fl">0.56</span>, <span class="at">label =</span> <span class="st">"Degrau = evento"</span>,</span>
+<span id="cb9-37"><a href="#cb9-37"></a>           <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> cores<span class="sc">$</span>escuro, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a>  <span class="co"># Título</span></span>
+<span id="cb9-39"><a href="#cb9-39"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Anatomia de uma curva de Kaplan–Meier"</span>)</span>
+<span id="cb9-40"><a href="#cb9-40"></a></span>
+<span id="cb9-41"><a href="#cb9-41"></a>p_anat</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-km-anatomia" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-km-anatomia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="cap10b-kaplanmeier_files/figure-html/fig-km-anatomia-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figura&nbsp;2: Anatomia de uma curva de Kaplan–Meier: cada elemento visual carrega informação clínica."><img src="cap10b-kaplanmeier_files/figure-html/fig-km-anatomia-1.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-km-anatomia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Anatomia de uma curva de Kaplan–Meier: cada elemento visual carrega informação clínica.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sobrevida-em-diferentes-cenários-estágio-da-doença" class="level2">
+<h2 class="anchored" data-anchor-id="sobrevida-em-diferentes-cenários-estágio-da-doença">Sobrevida em Diferentes Cenários: Estágio da Doença</h2>
+<p>Uma das aplicações mais informativas da curva de KM é estratificar pacientes por <strong>fatores prognósticos</strong>. No dataset do estudo de Moertel, temos informação sobre a profundidade de invasão tumoral e o número de linfonodos positivos.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Criar categorias de extensão</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>dados_extent <span class="ot">&lt;-</span> dados_colon <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(extent)) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    <span class="at">extensao =</span> <span class="fu">case_when</span>(</span>
+<span id="cb10-6"><a href="#cb10-6"></a>      extent <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Submucosa"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7"></a>      extent <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Muscular"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8"></a>      extent <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Serosa"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9"></a>      extent <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Órgão contíguo"</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>    ),</span>
+<span id="cb10-11"><a href="#cb10-11"></a>    <span class="at">extensao =</span> <span class="fu">factor</span>(extensao, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Submucosa"</span>, <span class="st">"Muscular"</span>, <span class="st">"Serosa"</span>, <span class="st">"Órgão contíguo"</span>))</span>
+<span id="cb10-12"><a href="#cb10-12"></a>  )</span>
+<span id="cb10-13"><a href="#cb10-13"></a></span>
+<span id="cb10-14"><a href="#cb10-14"></a>fit_extent <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(tempo_anos, status) <span class="sc">~</span> extensao, <span class="at">data =</span> dados_extent)</span>
+<span id="cb10-15"><a href="#cb10-15"></a></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="fu">ggsurvplot</span>(</span>
+<span id="cb10-17"><a href="#cb10-17"></a>  fit_extent,</span>
+<span id="cb10-18"><a href="#cb10-18"></a>  <span class="at">data =</span> dados_extent,</span>
+<span id="cb10-19"><a href="#cb10-19"></a>  <span class="at">palette =</span> <span class="fu">c</span>(cores<span class="sc">$</span>verde, cores<span class="sc">$</span>azul, cores<span class="sc">$</span>ambar, cores<span class="sc">$</span>vermelho),</span>
+<span id="cb10-20"><a href="#cb10-20"></a>  <span class="at">size =</span> <span class="fl">0.8</span>,</span>
+<span id="cb10-21"><a href="#cb10-21"></a>  <span class="at">censor.shape =</span> <span class="st">"|"</span>,</span>
+<span id="cb10-22"><a href="#cb10-22"></a>  <span class="at">censor.size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb10-23"><a href="#cb10-23"></a>  <span class="at">conf.int =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb10-24"><a href="#cb10-24"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-25"><a href="#cb10-25"></a>  <span class="at">risk.table.height =</span> <span class="fl">0.30</span>,</span>
+<span id="cb10-26"><a href="#cb10-26"></a>  <span class="at">risk.table.fontsize =</span> <span class="dv">3</span>,</span>
+<span id="cb10-27"><a href="#cb10-27"></a>  <span class="at">risk.table.col =</span> <span class="st">"strata"</span>,</span>
+<span id="cb10-28"><a href="#cb10-28"></a>  <span class="at">xlab =</span> <span class="st">"Tempo (anos)"</span>,</span>
+<span id="cb10-29"><a href="#cb10-29"></a>  <span class="at">ylab =</span> <span class="st">"Probabilidade de sobrevivência"</span>,</span>
+<span id="cb10-30"><a href="#cb10-30"></a>  <span class="at">title =</span> <span class="st">"Sobrevida por extensão da invasão tumoral"</span>,</span>
+<span id="cb10-31"><a href="#cb10-31"></a>  <span class="at">subtitle =</span> <span class="st">"Dados de Moertel et al. (1990)"</span>,</span>
+<span id="cb10-32"><a href="#cb10-32"></a>  <span class="at">legend.title =</span> <span class="st">"Extensão"</span>,</span>
+<span id="cb10-33"><a href="#cb10-33"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-34"><a href="#cb10-34"></a>  <span class="at">pval.size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb10-35"><a href="#cb10-35"></a>  <span class="at">ggtheme =</span> <span class="fu">tema_graficos</span>(<span class="at">base_size =</span> <span class="dv">11</span>),</span>
+<span id="cb10-36"><a href="#cb10-36"></a>  <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>()</span>
+<span id="cb10-37"><a href="#cb10-37"></a>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-km-extent" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-km-extent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="cap10b-kaplanmeier_files/figure-html/fig-km-extent-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figura&nbsp;3: Curvas de Kaplan–Meier estratificadas pela extensão da invasão tumoral. O prognóstico piora substancialmente com invasão mais profunda."><img src="cap10b-kaplanmeier_files/figure-html/fig-km-extent-1.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-km-extent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Curvas de Kaplan–Meier estratificadas pela extensão da invasão tumoral. O prognóstico piora substancialmente com invasão mais profunda.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A separação visual entre as curvas traduz diferenças reais de prognóstico. Quando as curvas se separam precocemente e mantêm distância constante, temos uma indicação visual de que o <strong>pressuposto de riscos proporcionais</strong> (necessário para o modelo de Cox) pode ser razoável <span class="citation" data-cites="schober2018survival">(<a href="#ref-schober2018survival" role="doc-biblioref">Schober; Vetter, 2018</a>)</span>.</p>
+</section>
+<section id="número-de-linfonodos-e-sobrevida" class="level2">
+<h2 class="anchored" data-anchor-id="número-de-linfonodos-e-sobrevida">Número de Linfonodos e Sobrevida</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Categorizar número de linfonodos</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>dados_nodes <span class="ot">&lt;-</span> dados_colon <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(nodes)) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-5"><a href="#cb11-5"></a>    <span class="at">grupo_nodes =</span> <span class="fu">case_when</span>(</span>
+<span id="cb11-6"><a href="#cb11-6"></a>      nodes <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"0 linfonodos"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7"></a>      nodes <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"1–3 linfonodos"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8"></a>      nodes <span class="sc">&lt;=</span> <span class="dv">6</span> <span class="sc">~</span> <span class="st">"4–6 linfonodos"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9"></a>      <span class="cn">TRUE</span>       <span class="sc">~</span> <span class="st">"7+ linfonodos"</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>    ),</span>
+<span id="cb11-11"><a href="#cb11-11"></a>    <span class="at">grupo_nodes =</span> <span class="fu">factor</span>(grupo_nodes,</span>
+<span id="cb11-12"><a href="#cb11-12"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"0 linfonodos"</span>, <span class="st">"1–3 linfonodos"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>                                    <span class="st">"4–6 linfonodos"</span>, <span class="st">"7+ linfonodos"</span>))</span>
+<span id="cb11-14"><a href="#cb11-14"></a>  )</span>
+<span id="cb11-15"><a href="#cb11-15"></a></span>
+<span id="cb11-16"><a href="#cb11-16"></a>fit_nodes <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(tempo_anos, status) <span class="sc">~</span> grupo_nodes, <span class="at">data =</span> dados_nodes)</span>
+<span id="cb11-17"><a href="#cb11-17"></a></span>
+<span id="cb11-18"><a href="#cb11-18"></a><span class="fu">ggsurvplot</span>(</span>
+<span id="cb11-19"><a href="#cb11-19"></a>  fit_nodes,</span>
+<span id="cb11-20"><a href="#cb11-20"></a>  <span class="at">data =</span> dados_nodes,</span>
+<span id="cb11-21"><a href="#cb11-21"></a>  <span class="at">palette =</span> <span class="fu">c</span>(cores<span class="sc">$</span>verde, cores<span class="sc">$</span>azul, cores<span class="sc">$</span>ambar, cores<span class="sc">$</span>vermelho),</span>
+<span id="cb11-22"><a href="#cb11-22"></a>  <span class="at">size =</span> <span class="fl">0.8</span>,</span>
+<span id="cb11-23"><a href="#cb11-23"></a>  <span class="at">censor.shape =</span> <span class="st">"|"</span>,</span>
+<span id="cb11-24"><a href="#cb11-24"></a>  <span class="at">censor.size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb11-25"><a href="#cb11-25"></a>  <span class="at">conf.int =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb11-26"><a href="#cb11-26"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-27"><a href="#cb11-27"></a>  <span class="at">risk.table.height =</span> <span class="fl">0.30</span>,</span>
+<span id="cb11-28"><a href="#cb11-28"></a>  <span class="at">risk.table.fontsize =</span> <span class="dv">3</span>,</span>
+<span id="cb11-29"><a href="#cb11-29"></a>  <span class="at">risk.table.col =</span> <span class="st">"strata"</span>,</span>
+<span id="cb11-30"><a href="#cb11-30"></a>  <span class="at">xlab =</span> <span class="st">"Tempo (anos)"</span>,</span>
+<span id="cb11-31"><a href="#cb11-31"></a>  <span class="at">ylab =</span> <span class="st">"Probabilidade de sobrevivência"</span>,</span>
+<span id="cb11-32"><a href="#cb11-32"></a>  <span class="at">title =</span> <span class="st">"Sobrevida por número de linfonodos positivos"</span>,</span>
+<span id="cb11-33"><a href="#cb11-33"></a>  <span class="at">subtitle =</span> <span class="st">"Dados de Moertel et al. (1990)"</span>,</span>
+<span id="cb11-34"><a href="#cb11-34"></a>  <span class="at">legend.title =</span> <span class="st">"Linfonodos"</span>,</span>
+<span id="cb11-35"><a href="#cb11-35"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-36"><a href="#cb11-36"></a>  <span class="at">pval.size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb11-37"><a href="#cb11-37"></a>  <span class="at">ggtheme =</span> <span class="fu">tema_graficos</span>(<span class="at">base_size =</span> <span class="dv">11</span>),</span>
+<span id="cb11-38"><a href="#cb11-38"></a>  <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>()</span>
+<span id="cb11-39"><a href="#cb11-39"></a>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-km-nodes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-km-nodes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="cap10b-kaplanmeier_files/figure-html/fig-km-nodes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figura&nbsp;4: Curvas de Kaplan–Meier por número de linfonodos positivos. O envolvimento linfonodal é um dos fatores prognósticos mais importantes em câncer de cólon."><img src="cap10b-kaplanmeier_files/figure-html/fig-km-nodes-1.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-km-nodes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Curvas de Kaplan–Meier por número de linfonodos positivos. O envolvimento linfonodal é um dos fatores prognósticos mais importantes em câncer de cólon.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>O número de linfonodos positivos é um dos fatores prognósticos mais fortes em câncer de cólon <span class="citation" data-cites="moertel1990levamisole">(<a href="#ref-moertel1990levamisole" role="doc-biblioref">Moertel <em>et al.</em>, 1990</a>)</span>. A curva de KM torna essa relação visualmente evidente: pacientes sem envolvimento linfonodal têm sobrevida muito superior àqueles com sete ou mais linfonodos comprometidos.</p>
+</section>
+<section id="sobrevida-em-5-anos" class="level2">
+<h2 class="anchored" data-anchor-id="sobrevida-em-5-anos">Sobrevida em 5 Anos</h2>
+<p>Na oncologia, é comum reportar a <strong>sobrevida estimada em pontos específicos</strong> (1 ano, 3 anos, 5 anos). Podemos extrair essas informações diretamente da curva de KM:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Sobrevida em tempos específicos</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>tempos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb12-3"><a href="#cb12-3"></a>surv_tempos <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_colon, <span class="at">times =</span> tempos)</span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="fu">data.frame</span>(</span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="at">Tempo =</span> <span class="fu">rep</span>(<span class="fu">paste0</span>(tempos, <span class="st">" ano(s)"</span>), <span class="at">each =</span> <span class="dv">3</span>),</span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="at">Tratamento =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Observação"</span>, <span class="st">"Levamisol"</span>, <span class="st">"Levamisol + 5-FU"</span>), <span class="at">times =</span> <span class="fu">length</span>(tempos)),</span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="at">Sobrevida =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(surv_tempos<span class="sc">$</span>surv <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>),</span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="at">IC_inferior =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(surv_tempos<span class="sc">$</span>lower <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>),</span>
+<span id="cb12-10"><a href="#cb12-10"></a>  <span class="at">IC_superior =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(surv_tempos<span class="sc">$</span>upper <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a>  <span class="fu">kable</span>(</span>
+<span id="cb12-13"><a href="#cb12-13"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Tempo"</span>, <span class="st">"Tratamento"</span>, <span class="st">"Sobrevida"</span>, <span class="st">"IC 95% inf."</span>, <span class="st">"IC 95% sup."</span>),</span>
+<span id="cb12-14"><a href="#cb12-14"></a>    <span class="at">caption =</span> <span class="st">"Probabilidade de sobrevivência estimada em tempos específicos"</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>),</span>
+<span id="cb12-17"><a href="#cb12-17"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a>  <span class="fu">collapse_rows</span>(<span class="at">columns =</span> <span class="dv">1</span>, <span class="at">valign =</span> <span class="st">"middle"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-surv-tempo" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-surv-tempo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;2: Probabilidade de sobrevivência estimada em tempos específicos
+</figcaption>
+<div aria-describedby="tbl-surv-tempo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed do-not-create-environment cell caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Tempo</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Tratamento</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Sobrevida</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">IC 95% inf.</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">IC 95% sup.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3" style="text-align: left; vertical-align: middle !important;">1 ano(s)</td>
+<td style="text-align: left;">Observação</td>
+<td style="text-align: left;">92.4%</td>
+<td style="text-align: left;">89.5%</td>
+<td style="text-align: left;">95.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Levamisol</td>
+<td style="text-align: left;">76.1%</td>
+<td style="text-align: left;">71.6%</td>
+<td style="text-align: left;">81%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Levamisol + 5-FU</td>
+<td style="text-align: left;">65.3%</td>
+<td style="text-align: left;">60.3%</td>
+<td style="text-align: left;">70.8%</td>
+</tr>
+<tr class="even">
+<td rowspan="3" style="text-align: left; vertical-align: middle !important;">2 ano(s)</td>
+<td style="text-align: left;">Observação</td>
+<td style="text-align: left;">52.6%</td>
+<td style="text-align: left;">47.3%</td>
+<td style="text-align: left;">58.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Levamisol</td>
+<td style="text-align: left;">90.6%</td>
+<td style="text-align: left;">87.5%</td>
+<td style="text-align: left;">93.9%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Levamisol + 5-FU</td>
+<td style="text-align: left;">75.8%</td>
+<td style="text-align: left;">71.2%</td>
+<td style="text-align: left;">80.7%</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" style="text-align: left; vertical-align: middle !important;">3 ano(s)</td>
+<td style="text-align: left;">Observação</td>
+<td style="text-align: left;">62.9%</td>
+<td style="text-align: left;">57.7%</td>
+<td style="text-align: left;">68.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Levamisol</td>
+<td style="text-align: left;">53.5%</td>
+<td style="text-align: left;">48.3%</td>
+<td style="text-align: left;">59.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Levamisol + 5-FU</td>
+<td style="text-align: left;">91.8%</td>
+<td style="text-align: left;">88.7%</td>
+<td style="text-align: left;">94.9%</td>
+</tr>
+<tr class="even">
+<td rowspan="3" style="text-align: left; vertical-align: middle !important;">5 ano(s)</td>
+<td style="text-align: left;">Observação</td>
+<td style="text-align: left;">80.3%</td>
+<td style="text-align: left;">75.9%</td>
+<td style="text-align: left;">84.9%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Levamisol</td>
+<td style="text-align: left;">74.3%</td>
+<td style="text-align: left;">69.6%</td>
+<td style="text-align: left;">79.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Levamisol + 5-FU</td>
+<td style="text-align: left;">63.4%</td>
+<td style="text-align: left;">58.2%</td>
+<td style="text-align: left;">69.1%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="erros-comuns-na-interpretação" class="level2">
+<h2 class="anchored" data-anchor-id="erros-comuns-na-interpretação">Erros Comuns na Interpretação</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Aviso</span>Armadilhas na leitura de curvas de KM
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>1. Extrapolar além dos dados.</strong> Se o seguimento máximo é de 5 anos, não podemos dizer nada sobre sobrevida em 10 anos. A curva termina onde os dados terminam.</p>
+<p><strong>2. Ignorar o número em risco.</strong> Uma curva que parece estável no final pode estar baseada em apenas 3 pacientes. Sempre olhe a tabela de risco abaixo do gráfico <span class="citation" data-cites="rich2010kaplan">(<a href="#ref-rich2010kaplan" role="doc-biblioref">Rich <em>et al.</em>, 2010</a>)</span>.</p>
+<p><strong>3. Confundir separação visual com significância estatística.</strong> Duas curvas podem parecer separadas visualmente, mas o teste log-rank pode não ser significativo — especialmente com amostras pequenas. O inverso também ocorre: com amostras muito grandes, diferenças clinicamente irrelevantes podem ser estatisticamente significativas.</p>
+<p><strong>4. Comparar pontos isolados em vez de curvas inteiras.</strong> O teste log-rank compara a distribuição <em>completa</em> dos tempos de sobrevivência, não apenas a sobrevida em um ponto específico <span class="citation" data-cites="rich2010kaplan dudley2016survival">(<a href="#ref-dudley2016survival" role="doc-biblioref">Dudley; Wickham; Coombs, 2016</a>; <a href="#ref-rich2010kaplan" role="doc-biblioref">Rich <em>et al.</em>, 2010</a>)</span>.</p>
+<p><strong>5. Assumir que “censurado” significa “curado”.</strong> Censura significa apenas que perdemos o acompanhamento; o paciente pode ter tido o evento logo depois <span class="citation" data-cites="schober2018survival">(<a href="#ref-schober2018survival" role="doc-biblioref">Schober; Vetter, 2018</a>)</span>.</p>
+</div>
+</div>
+</section>
+<section id="um-segundo-exemplo-câncer-de-pulmão" class="level2">
+<h2 class="anchored" data-anchor-id="um-segundo-exemplo-câncer-de-pulmão">Um Segundo Exemplo: Câncer de Pulmão</h2>
+<p>Para consolidar o aprendizado, vamos analisar outro dataset clássico do R: <code>lung</code>, do pacote <code>survival</code>. Estes dados vêm do North Central Cancer Treatment Group e incluem 228 pacientes com câncer de pulmão avançado.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Preparar dados</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>dados_lung <span class="ot">&lt;-</span> survival<span class="sc">::</span>lung <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="at">sexo =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Masculino"</span>, <span class="st">"Feminino"</span>),</span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="at">tempo_meses =</span> time <span class="sc">/</span> <span class="fl">30.44</span>  <span class="co"># converter dias para meses</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  )</span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a>fit_lung <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(tempo_meses, status) <span class="sc">~</span> sexo, <span class="at">data =</span> dados_lung)</span>
+<span id="cb13-9"><a href="#cb13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="fu">ggsurvplot</span>(</span>
+<span id="cb13-11"><a href="#cb13-11"></a>  fit_lung,</span>
+<span id="cb13-12"><a href="#cb13-12"></a>  <span class="at">data =</span> dados_lung,</span>
+<span id="cb13-13"><a href="#cb13-13"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#ef24c6"</span>, <span class="st">"#2563EB"</span>),  <span class="co"># Feminino (rosa), Masculino (azul)</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a>  <span class="at">size =</span> <span class="fl">0.9</span>,</span>
+<span id="cb13-15"><a href="#cb13-15"></a>  <span class="at">censor.shape =</span> <span class="st">"|"</span>,</span>
+<span id="cb13-16"><a href="#cb13-16"></a>  <span class="at">censor.size =</span> <span class="dv">3</span>,</span>
+<span id="cb13-17"><a href="#cb13-17"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-18"><a href="#cb13-18"></a>  <span class="at">conf.int.alpha =</span> <span class="fl">0.12</span>,</span>
+<span id="cb13-19"><a href="#cb13-19"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-20"><a href="#cb13-20"></a>  <span class="at">risk.table.height =</span> <span class="fl">0.25</span>,</span>
+<span id="cb13-21"><a href="#cb13-21"></a>  <span class="at">risk.table.fontsize =</span> <span class="fl">3.2</span>,</span>
+<span id="cb13-22"><a href="#cb13-22"></a>  <span class="at">risk.table.col =</span> <span class="st">"strata"</span>,</span>
+<span id="cb13-23"><a href="#cb13-23"></a>  <span class="at">xlab =</span> <span class="st">"Tempo (meses)"</span>,</span>
+<span id="cb13-24"><a href="#cb13-24"></a>  <span class="at">ylab =</span> <span class="st">"Probabilidade de sobrevivência"</span>,</span>
+<span id="cb13-25"><a href="#cb13-25"></a>  <span class="at">title =</span> <span class="st">"Sobrevida por sexo — Câncer de pulmão avançado"</span>,</span>
+<span id="cb13-26"><a href="#cb13-26"></a>  <span class="at">subtitle =</span> <span class="st">"North Central Cancer Treatment Group"</span>,</span>
+<span id="cb13-27"><a href="#cb13-27"></a>  <span class="at">legend.title =</span> <span class="st">"Sexo"</span>,</span>
+<span id="cb13-28"><a href="#cb13-28"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-29"><a href="#cb13-29"></a>  <span class="at">pval.size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb13-30"><a href="#cb13-30"></a>  <span class="at">ggtheme =</span> <span class="fu">tema_graficos</span>(<span class="at">base_size =</span> <span class="dv">12</span>),</span>
+<span id="cb13-31"><a href="#cb13-31"></a>  <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>()</span>
+<span id="cb13-32"><a href="#cb13-32"></a>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-km-lung" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-km-lung-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="cap10b-kaplanmeier_files/figure-html/fig-km-lung-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figura&nbsp;5: Curvas de Kaplan–Meier para 228 pacientes com câncer de pulmão avançado, separadas por sexo. A curva rosa (feminino) permanece acima da curva azul (masculino) ao longo de todo o seguimento, indicando que, neste estudo, as mulheres sobreviveram por mais tempo. O teste log-rank (p = 0,0013) confirma que essa diferença é estatisticamente significativa — ou seja, é improvável que se deva apenas ao acaso."><img src="cap10b-kaplanmeier_files/figure-html/fig-km-lung-1.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-km-lung-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5: Curvas de Kaplan–Meier para 228 pacientes com câncer de pulmão avançado, separadas por sexo. A curva rosa (feminino) permanece acima da curva azul (masculino) ao longo de todo o seguimento, indicando que, neste estudo, as mulheres sobreviveram por mais tempo. O teste log-rank (p = 0,0013) confirma que essa diferença é estatisticamente significativa — ou seja, é improvável que se deva apenas ao acaso.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Este exemplo ilustra outro uso fundamental da curva de KM: identificar fatores prognósticos. A diferença de sobrevida por sexo é visualmente clara e estatisticamente significativa — e leva à pergunta seguinte, tipicamente respondida com um modelo de Cox: essa diferença persiste após ajuste para idade, performance status e outros fatores?</p>
+</section>
+<section id="conexão-com-a-prática-clínica" class="level2">
+<h2 class="anchored" data-anchor-id="conexão-com-a-prática-clínica">Conexão com a Prática Clínica</h2>
+<p>As curvas de Kaplan–Meier são a linguagem visual da pesquisa clínica. Saber lê-las permite ao profissional de saúde:</p>
+<ul>
+<li><strong>Avaliar criticamente</strong> artigos que recomendam mudanças na prática</li>
+<li><strong>Comunicar prognóstico</strong> a pacientes e familiares de forma mais informada</li>
+<li><strong>Comparar tratamentos</strong> visualmente antes de mergulhar nas estatísticas</li>
+<li><strong>Identificar subgrupos</strong> com prognóstico diferente (como vimos com estágio e linfonodos)</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Dica</span>Checklist para leitura de curvas de KM
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ao encontrar uma curva de Kaplan–Meier em um artigo, verifique:</p>
+<ol type="1">
+<li><strong>Qual é o evento?</strong> (óbito, recorrência, progressão?)</li>
+<li><strong>Qual é o tempo no eixo X?</strong> (dias, meses, anos?)</li>
+<li><strong>O eixo Y começa em 0 ou 1?</strong> (curvas descendentes vs.&nbsp;ascendentes)</li>
+<li><strong>Há tabela de risco?</strong> (quantos pacientes em cada tempo?)</li>
+<li><strong>Há intervalos de confiança?</strong> (as faixas estão estreitas ou largas?)</li>
+<li><strong>As marcas de censura estão visíveis?</strong> (muitas censuras podem indicar problemas no seguimento)</li>
+<li><strong>O teste log-rank é significativo?</strong> (p-valor reportado?)</li>
+<li><strong>O hazard ratio e seu IC estão reportados?</strong> (qual a magnitude do efeito?)</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="além-da-curva-de-km" class="level2">
+<h2 class="anchored" data-anchor-id="além-da-curva-de-km">Além da Curva de KM</h2>
+<p>A curva de Kaplan–Meier é o primeiro passo da análise de sobrevivência. Na prática, os pesquisadores tipicamente seguem uma sequência <span class="citation" data-cites="schober2018survival clark2003survival">(<a href="#ref-clark2003survival" role="doc-biblioref">Clark <em>et al.</em>, 2003</a>; <a href="#ref-schober2018survival" role="doc-biblioref">Schober; Vetter, 2018</a>)</span>:</p>
+<ol type="1">
+<li><strong>Kaplan–Meier</strong> para visualizar e descrever os dados</li>
+<li><strong>Teste log-rank</strong> para comparar grupos</li>
+<li><strong>Modelo de Cox</strong> para ajustar por covariáveis e estimar hazard ratios</li>
+</ol>
+<p>O modelo de riscos proporcionais de Cox <span class="citation" data-cites="cox1972regression">(<a href="#ref-cox1972regression" role="doc-biblioref">Cox, 1972</a>)</span> é semiparamétrico: não assume uma forma específica para a função de sobrevivência (como o KM), mas assume que o efeito das covariáveis é constante ao longo do tempo (pressuposto de riscos proporcionais). Quando esse pressuposto é violado — por exemplo, se um tratamento tem efeito forte no início mas diminui com o tempo — os pesquisadores precisam de extensões mais avançadas, como modelos com covariáveis dependentes do tempo ou modelos de riscos competitivos <span class="citation" data-cites="schober2018survival">(<a href="#ref-schober2018survival" role="doc-biblioref">Schober; Vetter, 2018</a>)</span>.</p>
+</section>
+<section id="quiz" class="level2">
+<h2 class="anchored" data-anchor-id="quiz">Quiz</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Quizz">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Quizz
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pergunta 1:</strong> Em uma curva de Kaplan–Meier, o que representam os pequenos traços verticais sobre a curva?</p>
+<ol type="a">
+<li>Eventos (óbitos ou recorrências)</li>
+<li>Erros de medição</li>
+<li>Censuras (pacientes que saíram do estudo sem evento)</li>
+<li>Intervalos de confiança</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>c) Censuras (pacientes que saíram do estudo sem evento).</strong> Os traços verticais (<em>tick marks</em>) sobre a curva indicam pacientes censurados — aqueles que deixaram de ser acompanhados antes de ter o evento (por exemplo, mudaram de cidade, o estudo terminou ou faleceram por outra causa). Os <em>degraus</em> da escada é que representam os eventos.</p>
+</div>
+</div>
+</div>
+<p><strong>Pergunta 2:</strong> A mediana de sobrevivência em uma curva de KM é estimada como:</p>
+<ol type="a">
+<li>A média aritmética dos tempos de sobrevivência</li>
+<li>O tempo em que a curva cruza o nível de 50%</li>
+<li>O tempo do último evento observado</li>
+<li>A metade do tempo total de seguimento</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b) O tempo em que a curva cruza o nível de 50%.</strong><br>
+A mediana corresponde ao momento em que 50% dos pacientes já teve o evento. Como a probabilidade de sobrevivência está no eixo Y, traçamos uma linha <strong>horizontal</strong> no nível de 0,50 e verificamos onde ela intercepta a curva. Desse ponto de interseção, descemos verticalmente até o eixo X para ler o tempo correspondente — essa é a mediana de sobrevivência. A linha é horizontal (e não vertical) porque estamos buscando um valor fixo de probabilidade (50%), não um valor fixo de tempo. Se a curva não chega a cruzar os 50%, a mediana não pode ser estimada, pois mais da metade dos pacientes não apresentou o evento durante o período de seguimento do estudo.</p>
+</div>
+</div>
+</div>
+<p><strong>Pergunta 3:</strong> Qual das seguintes afirmações sobre censura é VERDADEIRA?</p>
+<ol type="a">
+<li>Pacientes censurados devem ser excluídos da análise</li>
+<li>Censura significa que o paciente foi curado</li>
+<li>Pacientes censurados contribuem com informação enquanto estão em risco</li>
+<li>A censura não afeta as estimativas de sobrevivência</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>c) Pacientes censurados contribuem com informação enquanto estão em risco.</strong><br>
+Esse é o grande mérito do método de Kaplan–Meier: cada paciente contribui para a estimativa de sobrevivência durante todo o período em que foi acompanhado. No momento da censura, o paciente sai do denominador (“em risco”), mas toda a sua informação anterior é preservada. Excluí-lo da análise (alternativa a) desperdiçaria dados valiosos. E censura <em>não</em> significa cura (alternativa b) — apenas que não sabemos o que aconteceu depois.</p>
+</div>
+</div>
+</div>
+<p><strong>Pergunta 4:</strong> Um estudo mostra curvas de KM separadas, mas o teste log-rank dá p = 0,15. O que concluímos?</p>
+<ol type="a">
+<li>As curvas são significativamente diferentes</li>
+<li>As curvas não diferem de forma estatisticamente significativa ao nível de 5%</li>
+<li>O gráfico está errado</li>
+<li>Precisamos de mais variáveis</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b) As curvas não diferem de forma estatisticamente significativa ao nível de 5%</strong><br>
+Um p-valor de 0,15 é maior que o limiar convencional de 0,05, portanto não temos evidência suficiente para rejeitar a hipótese de que as curvas sejam iguais. Isso não significa que os tratamentos sejam idênticos — apenas que, com os dados disponíveis, a diferença observada poderia ser explicada pelo acaso. É uma situação comum quando a amostra é pequena: visualmente as curvas parecem separadas, mas o teste não tem poder estatístico suficiente para confirmar.</p>
+</div>
+</div>
+</div>
+<p><strong>Pergunta 5:</strong> Um hazard ratio de 0,65 (IC 95%: 0,48–0,88) para um novo tratamento significa:</p>
+<ol type="a">
+<li>O tratamento aumenta o risco de evento em 65%</li>
+<li>O tratamento reduz o risco de evento em 35%</li>
+<li>65% dos pacientes sobrevivem</li>
+<li>O resultado não é estatisticamente significativo</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b) O tratamento reduz o risco de evento em 35%.</strong> O hazard ratio (HR) compara a taxa de eventos entre dois grupos. Um HR de 0,65 significa que, a qualquer momento, o grupo tratado tem 65% do risco do grupo controle — ou seja, uma <strong>redução de 35%</strong> (1 − 0,65 = 0,35). Como o intervalo de confiança (0,48–0,88) não inclui o valor 1 (que significaria risco igual), o resultado é estatisticamente significativo. Se o IC incluísse o 1, não poderíamos afirmar que há diferença real.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="referências" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="referências">Referências</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
+<div id="ref-bland1998survival" class="csl-entry" role="listitem">
+BLAND, J. Martin; ALTMAN, Douglas G. Survival Probabilities (the Kaplan–Meier Method). <strong>BMJ</strong>, [<em>s.l.</em>], vol. 317, n.º 7172, p. 1572, 1998. Disponível em: <a href="https://doi.org/10.1136/bmj.317.7172.1572">https://doi.org/10.1136/bmj.317.7172.1572. </a>
+</div>
+<div id="ref-clark2003survival" class="csl-entry" role="listitem">
+CLARK, T. G. <em>et al.</em> Survival Analysis Part I: Basic Concepts and First Analyses. <strong>British Journal of Cancer</strong>, [<em>s.l.</em>], vol. 89, n.º 2, pp. 232–238, 2003. Disponível em: <a href="https://doi.org/10.1038/sj.bjc.6601118">https://doi.org/10.1038/sj.bjc.6601118. </a>
+</div>
+<div id="ref-coltman1971chemotherapy" class="csl-entry" role="listitem">
+COLTMAN, Charles A. Jr <em>et al.</em> <a href="https://doi.org/10.1097/00000441-197102000-00003">Further Clinical Studies of Combination Chemotherapy Using Cyclophosphamide, Vincristine, Methotrexate and 5-Fluorouracil in Solid Tumors</a>. <strong>The American Journal of the Medical Sciences</strong>, [<em>s.l.</em>], vol. 261, n.º 2, pp. 73–78, 1971.
+</div>
+<div id="ref-cox1972regression" class="csl-entry" role="listitem">
+COX, David R. Regression Models and Life-Tables. <strong>Journal of the Royal Statistical Society: Series B (Methodological)</strong>, [<em>s.l.</em>], vol. 34, n.º 2, pp. 187–202, 1972. Disponível em: <a href="https://doi.org/10.1111/j.2517-6161.1972.tb00899.x">https://doi.org/10.1111/j.2517-6161.1972.tb00899.x. </a>
+</div>
+<div id="ref-dudley2016survival" class="csl-entry" role="listitem">
+DUDLEY, William N.; WICKHAM, Robert; COOMBS, Nicholas. <a href="https://doi.org/10.6004/jadpro.2016.7.1.8">An Introduction to Survival Statistics: Kaplan–Meier Analysis</a>. <strong>Journal of the Advanced Practitioner in Oncology</strong>, [<em>s.l.</em>], vol. 7, n.º 1, pp. 91–100, 2016.
+</div>
+<div id="ref-Gehan1965" class="csl-entry" role="listitem">
+GEHAN, Edmund A. A Generalized Wilcoxon Test for Comparing Arbitrarily Singly-Censored Samples. <strong>Biometrika</strong>, [<em>s.l.</em>], vol. 52, n.º 1-2, pp. 203–224, 1965. Disponível em: <a href="https://doi.org/10.1093/biomet/52.1-2.203">https://doi.org/10.1093/biomet/52.1-2.203. </a>
+</div>
+<div id="ref-kaplan1958nonparametric" class="csl-entry" role="listitem">
+KAPLAN, E. L.; MEIER, Paul. Nonparametric Estimation from Incomplete Observations. <strong>Journal of the American Statistical Association</strong>, [<em>s.l.</em>], vol. 53, n.º 282, pp. 457–481, 1958. Disponível em: <a href="https://doi.org/10.1080/01621459.1958.10501452">https://doi.org/10.1080/01621459.1958.10501452. </a>
+</div>
+<div id="ref-moertel1990levamisole" class="csl-entry" role="listitem">
+MOERTEL, Charles G. <em>et al.</em> Levamisole and Fluorouracil for Adjuvant Therapy of Resected Colon Carcinoma. <strong>The New England Journal of Medicine</strong>, [<em>s.l.</em>], vol. 322, n.º 6, pp. 352–358, 1990. Disponível em: <a href="https://doi.org/10.1056/NEJM199002083220602">https://doi.org/10.1056/NEJM199002083220602. </a>
+</div>
+<div id="ref-rich2010kaplan" class="csl-entry" role="listitem">
+RICH, Justin T. <em>et al.</em> <a href="https://doi.org/10.1016/j.otohns.2010.05.007">A Practical Guide to Understanding Kaplan–Meier Curves</a>. <strong>Otolaryngology–Head and Neck Surgery</strong>, [<em>s.l.</em>], vol. 143, n.º 3, pp. 331–336, 2010.
+</div>
+<div id="ref-schober2018survival" class="csl-entry" role="listitem">
+SCHOBER, Patrick; VETTER, Thomas R. <a href="https://doi.org/10.1213/ANE.0000000000003653">Survival Analysis and Interpretation of Time-to-Event Data: The Tortoise and the Hare</a>. <strong>Anesthesia &amp; Analgesia</strong>, [<em>s.l.</em>], vol. 127, n.º 3, pp. 792–798, 2018.
+</div>
+<div id="ref-stalpers2018kaplan" class="csl-entry" role="listitem">
+STALPERS, Lukas J. A.; KAPLAN, Edward L. <a href="https://doi.org/10.1080/17498430.2018.1450055">Edward L. Kaplan and the Kaplan–Meier Survival Curve</a>. <strong>BSHM Bulletin: Journal of the British Society for the History of Mathematics</strong>, [<em>s.l.</em>], vol. 33, n.º 2, pp. 109–135, 2018.
+</div>
+</div>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> De volta ao topo</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/henriquealvarenga\.github\.io\/graficos");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cap10-linhas.html" class="pagination-link" aria-label="Gráfico de Linha">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Gráfico de Linha</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cap12-historia.html" class="pagination-link" aria-label="Gráficos que Mudaram a História">
+        <span class="nav-page-text">Gráficos que Mudaram a História</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Dos Dados aos Gráficos<br> © 2026 Henrique Alvarenga da Silva · UFSJ · UNIPTAN/AFYA</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Feito com <a href="https://quarto.org/">Quarto</a> e <a href="https://www.r-project.org/">R</a></p>
+</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

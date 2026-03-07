@@ -236,6 +236,11 @@ div.csl-indent {
 </i> 
  <span class="dropdown-text">Gráfico de Linha</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10b-kaplanmeier.html"><i class="bi bi-heart-pulse" role="img">
+</i> 
+ <span class="dropdown-text">Curvas de Kaplan–Meier</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -411,6 +416,12 @@ div.csl-indent {
  <span class="menu-text">Gráfico de Linha</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10b-kaplanmeier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curvas de Kaplan–Meier</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -507,7 +518,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap05-barras.html">Gráfico de Barras</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Gráfico de Barras</h1>
-<p class="subtitle lead">Capítulo 5 — Comparando categorias</p>
+<p class="subtitle lead">Comparando categorias</p>
 </div>
 
 
@@ -1159,8 +1170,8 @@ div.csl-indent {
 <span id="cb12-19"><a href="#cb12-19"></a><span class="fu">para_plotly</span>(p_barras)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-3b39dad718fe298e4fb6" style="width:100%;height:750px;"></div>
-<script type="application/json" data-for="htmlwidget-3b39dad718fe298e4fb6">{"x":{"data":[{"orientation":"v","width":[0.60000000000000009,0.59999999999999987,0.59999999999999964,0.59999999999999964],"base":[null,0,0,0],"x":[1,2,3,4],"y":[null,104,103,12],"text":["reorder(biotipo_label, -n): Médio<br />n: 184","reorder(biotipo_label, -n): Pequeno<br />n: 104","reorder(biotipo_label, -n): Grande<br />n: 103","reorder(biotipo_label, -n): NA<br />n:  12"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(37,99,235,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4],"y":[null,104,103,12],"text":["184 (45.7%)","104 (25.8%)","103 (25.6%)","12 (3%)"],"hovertext":["reorder(biotipo_label, -n): Médio<br />n: 184<br />paste0(n, \" (\", round(pct, 1), \"%)\"): 184 (45.7%)","reorder(biotipo_label, -n): Pequeno<br />n: 104<br />paste0(n, \" (\", round(pct, 1), \"%)\"): 104 (25.8%)","reorder(biotipo_label, -n): Grande<br />n: 103<br />paste0(n, \" (\", round(pct, 1), \"%)\"): 103 (25.6%)","reorder(biotipo_label, -n): NA<br />n:  12<br />paste0(n, \" (\", round(pct, 1), \"%)\"): 12 (3%)"],"textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":58.374429223744301,"r":19.925280199252807,"b":54.462432544624335,"l":61.801577418015789},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(51,65,85,1)","family":"Inter, sans-serif","size":17.268576172685762},"title":{"text":"<b> Distribuição de Biotipo (Interativo) <\/b>","font":{"color":"rgba(15,23,42,1)","family":"sans","size":22.449149024491497},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,4.5999999999999996],"tickmode":"array","ticktext":["Médio","Pequeno","Grande"],"tickvals":[1,2,3],"categoryorder":"array","categoryarray":["Médio","Pequeno","Grande"],"nticks":null,"ticks":"outside","tickcolor":"rgba(203,213,225,1)","ticklen":4.3171440431714405,"tickwidth":0.39850560398505613,"showticklabels":true,"tickfont":{"color":"rgba(100,116,139,1)","family":"sans","size":14.6782897467829},"tickangle":-0,"showline":true,"linecolor":"rgba(203,213,225,1)","linewidth":0.66417600664176002,"showgrid":true,"gridcolor":"rgba(241,245,249,1)","gridwidth":0.5313408053134081,"zeroline":false,"anchor":"y","title":{"text":"<b> Biotipo <\/b>","font":{"color":"rgba(71,85,105,1)","family":"sans","size":15.541718555417187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-9,189],"tickmode":"array","ticktext":["0","50","100","150"],"tickvals":[0,49.999999999999993,100,150],"categoryorder":"array","categoryarray":["0","50","100","150"],"nticks":null,"ticks":"outside","tickcolor":"rgba(203,213,225,1)","ticklen":4.3171440431714414,"tickwidth":0.39850560398505613,"showticklabels":true,"tickfont":{"color":"rgba(100,116,139,1)","family":"sans","size":14.6782897467829},"tickangle":-0,"showline":true,"linecolor":"rgba(203,213,225,1)","linewidth":0.66417600664176002,"showgrid":true,"gridcolor":"rgba(241,245,249,1)","gridwidth":0.5313408053134081,"zeroline":false,"anchor":"x","title":{"text":"<b> Número de Pacientes <\/b>","font":{"color":"rgba(71,85,105,1)","family":"sans","size":15.541718555417187}},"hoverformat":".2f"},"shapes":[],"showlegend":false,"legend":{"bgcolor":"transparent","bordercolor":"rgba(0,0,0,1)","borderwidth":2.2333571939871155,"font":{"color":"rgba(51,65,85,1)","family":"sans","size":13.814860938148611},"orientation":"h","x":0.5,"y":-0.14999999999999999,"xanchor":"center","yanchor":"top"},"hovermode":"closest","barmode":"relative","hoverlabel":{"bgcolor":"white","font":{"family":"Inter, sans-serif","size":13}}},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"locale":"pt-BR","displayModeBar":true,"modeBarButtonsToRemove":["lasso2d","select2d"],"displaylogo":false},"source":"A","attrs":{"10caf2586d83":{"x":{},"y":{},"type":"bar"},"10caf7b7db4a8":{"x":{},"y":{},"label":{}}},"cur_data":"10caf2586d83","visdat":{"10caf2586d83":["function (y) ","x"],"10caf7b7db4a8":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-094a2aa478a8007dce51" style="width:100%;height:750px;"></div>
+<script type="application/json" data-for="htmlwidget-094a2aa478a8007dce51">{"x":{"data":[{"orientation":"v","width":[0.60000000000000009,0.59999999999999987,0.59999999999999964,0.59999999999999964],"base":[null,0,0,0],"x":[1,2,3,4],"y":[null,104,103,12],"text":["reorder(biotipo_label, -n): Médio<br />n: 184","reorder(biotipo_label, -n): Pequeno<br />n: 104","reorder(biotipo_label, -n): Grande<br />n: 103","reorder(biotipo_label, -n): NA<br />n:  12"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(37,99,235,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4],"y":[null,104,103,12],"text":["184 (45.7%)","104 (25.8%)","103 (25.6%)","12 (3%)"],"hovertext":["reorder(biotipo_label, -n): Médio<br />n: 184<br />paste0(n, \" (\", round(pct, 1), \"%)\"): 184 (45.7%)","reorder(biotipo_label, -n): Pequeno<br />n: 104<br />paste0(n, \" (\", round(pct, 1), \"%)\"): 104 (25.8%)","reorder(biotipo_label, -n): Grande<br />n: 103<br />paste0(n, \" (\", round(pct, 1), \"%)\"): 103 (25.6%)","reorder(biotipo_label, -n): NA<br />n:  12<br />paste0(n, \" (\", round(pct, 1), \"%)\"): 12 (3%)"],"textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":58.374429223744301,"r":19.925280199252807,"b":54.462432544624335,"l":61.801577418015789},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(51,65,85,1)","family":"Inter, sans-serif","size":17.268576172685762},"title":{"text":"<b> Distribuição de Biotipo (Interativo) <\/b>","font":{"color":"rgba(15,23,42,1)","family":"sans","size":22.449149024491497},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,4.5999999999999996],"tickmode":"array","ticktext":["Médio","Pequeno","Grande"],"tickvals":[1,2,3],"categoryorder":"array","categoryarray":["Médio","Pequeno","Grande"],"nticks":null,"ticks":"outside","tickcolor":"rgba(203,213,225,1)","ticklen":4.3171440431714405,"tickwidth":0.39850560398505613,"showticklabels":true,"tickfont":{"color":"rgba(100,116,139,1)","family":"sans","size":14.6782897467829},"tickangle":-0,"showline":true,"linecolor":"rgba(203,213,225,1)","linewidth":0.66417600664176002,"showgrid":true,"gridcolor":"rgba(241,245,249,1)","gridwidth":0.5313408053134081,"zeroline":false,"anchor":"y","title":{"text":"<b> Biotipo <\/b>","font":{"color":"rgba(71,85,105,1)","family":"sans","size":15.541718555417187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-9,189],"tickmode":"array","ticktext":["0","50","100","150"],"tickvals":[0,49.999999999999993,100,150],"categoryorder":"array","categoryarray":["0","50","100","150"],"nticks":null,"ticks":"outside","tickcolor":"rgba(203,213,225,1)","ticklen":4.3171440431714414,"tickwidth":0.39850560398505613,"showticklabels":true,"tickfont":{"color":"rgba(100,116,139,1)","family":"sans","size":14.6782897467829},"tickangle":-0,"showline":true,"linecolor":"rgba(203,213,225,1)","linewidth":0.66417600664176002,"showgrid":true,"gridcolor":"rgba(241,245,249,1)","gridwidth":0.5313408053134081,"zeroline":false,"anchor":"x","title":{"text":"<b> Número de Pacientes <\/b>","font":{"color":"rgba(71,85,105,1)","family":"sans","size":15.541718555417187}},"hoverformat":".2f"},"shapes":[],"showlegend":false,"legend":{"bgcolor":"transparent","bordercolor":"rgba(0,0,0,1)","borderwidth":2.2333571939871155,"font":{"color":"rgba(51,65,85,1)","family":"sans","size":13.814860938148611},"orientation":"h","x":0.5,"y":-0.14999999999999999,"xanchor":"center","yanchor":"top"},"hovermode":"closest","barmode":"relative","hoverlabel":{"bgcolor":"white","font":{"family":"Inter, sans-serif","size":13}}},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"locale":"pt-BR","displayModeBar":true,"modeBarButtonsToRemove":["lasso2d","select2d"],"displaylogo":false},"source":"A","attrs":{"e0ae4344e4b9":{"x":{},"y":{},"type":"bar"},"e0ae6004502f":{"x":{},"y":{},"label":{}}},"cur_data":"e0ae4344e4b9","visdat":{"e0ae4344e4b9":["function (y) ","x"],"e0ae6004502f":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -1421,6 +1432,16 @@ div.csl-indent {
 </section>
 <section id="quiz" class="level2">
 <h2 class="anchored" data-anchor-id="quiz">Quiz</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Quizz">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Quizz
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Questão 1:</strong> Você tem dados de 403 pacientes distribuídos em 3 grupos de biotipo, e quer mostrar tanto o total de pacientes quanto como cada sexo contribui para esse total. Qual tipo de gráfico seria mais apropriado?</p>
 <ol type="a">
 <li>Gráfico de pizza com 6 fatias</li>
@@ -1428,7 +1449,7 @@ div.csl-indent {
 <li>Gráfico de barras empilhado</li>
 <li>Histograma</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -1440,13 +1461,9 @@ div.csl-indent {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Resposta correta: c) Gráfico de barras empilhado</strong></p>
-<p>O gráfico empilhado permite que você veja:</p>
-<ul>
-<li>A altura total de cada barra (total de pacientes em cada biotipo)</li>
-<li>A divisão dentro de cada barra (quantos homens e mulheres em cada biotipo)</li>
-</ul>
-<p>A opção b (lado a lado) também funcionaria bem para esse caso, mas é menos eficiente para ver o total em cada categoria. A opção d (histograma) é para dados contínuos, não categóricos.</p>
+<p><strong>c) Gráfico de barras empilhado</strong><br>
+O gráfico empilhado permite que você veja:<br>
+- A altura total de cada barra (total de pacientes em cada biotipo) - A divisão dentro de cada barra (quantos homens e mulheres em cada biotipo) A opção b (lado a lado) também funcionaria bem para esse caso, mas é menos eficiente para ver o total em cada categoria. A opção d (histograma) é para dados contínuos, não categóricos.</p>
 </div>
 </div>
 </div>
@@ -1457,7 +1474,7 @@ div.csl-indent {
 <li>Adicionar um rótulo com o valor em cima de cada barra</li>
 <li>Não incluir uma legenda</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -1469,7 +1486,7 @@ div.csl-indent {
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Resposta correta: b) Começar o eixo Y em 50 em vez de 0</strong></p>
+<p><strong>b) Começar o eixo Y em 50 em vez de 0</strong></p>
 <p>Isso distorce a percepção visual das diferenças entre as barras. Uma diferença de 20 pacientes pode parecer 3 vezes maior do que é quando o eixo não começa em zero.</p>
 <p>As outras opções:</p>
 <ul>
@@ -1493,7 +1510,7 @@ div.csl-indent {
 <li>Cabe em menos espaço na página</li>
 <li>É mais fácil de criar</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -1505,8 +1522,7 @@ div.csl-indent {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Resposta correta: b) Permite comparar alturas com precisão, enquanto pizza requer comparar ângulos</strong></p>
-<p>Isso é fundamentado em pesquisa em psicologia visual: nossos olhos e cérebro são muito melhores em comparar comprimentos e alturas (barras) do que em estimar ângulos (fatias de pizza). Essa é a razão científica pela qual gráficos de barras são preferidos em pesquisa.</p>
+<p><strong>b) Permite comparar alturas com precisão, enquanto pizza requer comparar ângulos</strong>. Isso é fundamentado em pesquisa em psicologia visual: nossos olhos e cérebro são muito melhores em comparar comprimentos e alturas (barras) do que em estimar ângulos (fatias de pizza). Essa é a razão científica pela qual gráficos de barras são preferidos em pesquisa.</p>
 </div>
 </div>
 </div>
@@ -1517,7 +1533,7 @@ div.csl-indent {
 <li>Ordem aleatória para parecer imparcial</li>
 <li>Ordem que aparecem no dataset</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -1529,9 +1545,10 @@ div.csl-indent {
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Resposta correta: b) Ordem de frequência (maior para menor)</strong></p>
-<p>Isso torna o gráfico muito mais fácil de interpretar. O leitor pode imediatamente identificar as categorias mais e menos frequentes. A ordem alfabética pode ser apropriada em alguns contextos (como nomes de medicamentos), mas frequência é geralmente preferida para análise exploratória.</p>
+<p><strong>b) Ordem de frequência (maior para menor)</strong> Isso torna o gráfico muito mais fácil de interpretar. O leitor pode imediatamente identificar as categorias mais e menos frequentes. A ordem alfabética pode ser apropriada em alguns contextos (como nomes de medicamentos), mas frequência é geralmente preferida para análise exploratória.</p>
 <p>A ordem aleatória ou a ordem do dataset não têm lógica visual.</p>
+</div>
+</div>
 </div>
 </div>
 </div>

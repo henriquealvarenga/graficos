@@ -253,6 +253,11 @@ window.Quarto = {
 </i> 
  <span class="dropdown-text">Gráfico de Linha</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10b-kaplanmeier.html"><i class="bi bi-heart-pulse" role="img">
+</i> 
+ <span class="dropdown-text">Curvas de Kaplan–Meier</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -428,6 +433,12 @@ window.Quarto = {
  <span class="menu-text">Gráfico de Linha</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10b-kaplanmeier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curvas de Kaplan–Meier</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -523,7 +534,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap04-pizza.html">Gráfico de Pizza</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Gráfico de Setores (Pizza)</h1>
-<p class="subtitle lead">Capítulo 4 — Proporções de um todo</p>
+<p class="subtitle lead">Proporções de um todo</p>
 </div>
 
 
@@ -887,6 +898,16 @@ window.Quarto = {
 </section>
 <section id="quiz" class="level2">
 <h2 class="anchored" data-anchor-id="quiz">Quiz</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Quizz">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Quizz
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>Questão 1:</strong> Você está apresentando dados sobre a distribuição de 8 categorias de comorbidades em pacientes. Qual tipo de gráfico seria mais apropriado?</p>
 <ol type="a">
 <li>Gráfico de pizza com 8 fatias</li>
@@ -894,7 +915,7 @@ window.Quarto = {
 <li>Gráfico de pizza em 3D para destacar a apresentação</li>
 <li>Não plotar nada, apenas mostrar uma tabela</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -906,7 +927,7 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Resposta correta: b)</strong></p>
+<p><strong>b) Gráfico de barras horizontal com as categorias ordenadas por frequência</strong></p>
 <p>Com 8 categorias, o gráfico de pizza se torna ilegível. Um gráfico de barras horizontal com as categorias ordenadas permite comparações muito mais fáceis e precisas. A opção c é particularmente má porque o 3D distorce as proporções. A opção d, embora às vezes válida, perde a oportunidade de visualização que um bom gráfico oferece.</p>
 </div>
 </div>
@@ -918,7 +939,7 @@ window.Quarto = {
 <li>Usam muito espaço na página</li>
 <li>Humanos são melhores em comparar comprimentos do que ângulos</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -930,7 +951,7 @@ window.Quarto = {
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Resposta correta: d)</strong></p>
+<p><strong>d) Humanos são melhores em comparar comprimentos do que ângulos</strong></p>
 <p>A crítica fundamental é baseada em psicologia visual: nossos olhos e cérebro são muito mais eficientes em comparar comprimentos (como em barras) do que em estimar e comparar ângulos (como em fatias de pizza).</p>
 </div>
 </div>
@@ -942,7 +963,7 @@ window.Quarto = {
 <li>Não, porque em 3D fica melhor</li>
 <li>Sim, porque a proporção é de 95% vs 5%</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -954,8 +975,10 @@ window.Quarto = {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Resposta correta: d)</strong>, mas <strong>com ressalva</strong>.</p>
-<p>Proporções muito desiguais (95% vs 5%) é um dos poucos casos onde um gráfico de pizza pode ser aceitável, porque a diferença é tão óbvia que até o gráfico de pizza não consegue confundir. Mesmo assim, muitos prefeririam um gráfico de barras simples. A opção c está definitivamente errada: nunca use 3D.</p>
+<p><strong>d) Sim, porque a proporção é de 95% vs 5%</strong>, mas <strong>com ressalva</strong>.<br>
+Proporções muito desiguais (95% vs 5%) é um dos poucos casos onde um gráfico de pizza pode ser aceitável, porque a diferença é tão óbvia que até o gráfico de pizza não consegue confundir. Mesmo assim, muitos prefeririam um gráfico de barras simples. A opção c está definitivamente errada: nunca use 3D.</p>
+</div>
+</div>
 </div>
 </div>
 </div>

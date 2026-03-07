@@ -1,6 +1,6 @@
 ---
 title: "Elementos de um Gráfico"
-subtitle: "Capítulo 2 — Anatomia completa"
+subtitle: "Anatomia completa"
 author: "Henrique Alvarenga da Silva"
 date: today
 ---

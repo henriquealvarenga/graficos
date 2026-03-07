@@ -69,7 +69,7 @@ page-layout: full
         <p>Nem sempre um gráfico é a melhor escolha. Descubra quando visualizar — e quando uma tabela comunica melhor. Inclui o Quarteto de Anscombe e o Datasaurus Dozen.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 0</span>
+        <span class="card-chapter">Fundamentos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -84,7 +84,7 @@ page-layout: full
         <p>De Wilkinson a Wickham: a ideia revolucionária de que todo gráfico pode ser decomposto em componentes gramaticais — dados, estéticas, geometrias, escalas e temas.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 1</span>
+        <span class="card-chapter">Fundamentos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -99,7 +99,7 @@ page-layout: full
         <p>A anatomia completa: título, eixos, legendas, geometrias, anotações. Boas práticas para cada elemento.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 2</span>
+        <span class="card-chapter">Fundamentos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -114,7 +114,7 @@ page-layout: full
         <p>Data-ink ratio, chartjunk, lie factor e small multiples. A arte de não mentir com dados, segundo o "Galileu dos gráficos".</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 3</span>
+        <span class="card-chapter">Fundamentos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -143,7 +143,7 @@ page-layout: full
         <p>Proporções de um todo. Quando usar (raramente), quando evitar (quase sempre), e por que barras costumam ser melhores.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 4</span>
+        <span class="card-chapter">Tipos de Gráficos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -158,7 +158,7 @@ page-layout: full
         <p>Comparando frequências entre categorias. Barras simples, agrupadas, empilhadas e percentuais.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 5</span>
+        <span class="card-chapter">Tipos de Gráficos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -173,7 +173,7 @@ page-layout: full
         <p>A distribuição de variáveis numéricas. O papel crucial dos bins, a diferença para barras, e como explorar distribuições.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 6</span>
+        <span class="card-chapter">Tipos de Gráficos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -188,7 +188,7 @@ page-layout: full
         <p>A versão suavizada do histograma. Ideal para comparar distribuições de múltiplos grupos sobrepostos.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 7</span>
+        <span class="card-chapter">Tipos de Gráficos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -203,7 +203,7 @@ page-layout: full
         <p>Mediana, quartis, outliers — tudo em um gráfico. Anatomia detalhada e comparações com outros métodos.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 8</span>
+        <span class="card-chapter">Tipos de Gráficos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -218,7 +218,7 @@ page-layout: full
         <p>Relações entre duas variáveis numéricas. Regressão, correlação de Pearson, e por que correlação não é causalidade.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 9</span>
+        <span class="card-chapter">Tipos de Gráficos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -233,7 +233,22 @@ page-layout: full
         <p>Tendências ao longo do tempo. Séries temporais, dados longitudinais, e o erro clássico de ligar categorias com linhas.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 10</span>
+        <span class="card-chapter">Tipos de Gráficos</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="cap10b-kaplanmeier.html" class="card-new">
+      <div class="card-accent tipos"></div>
+      <div class="card-body-new">
+        <div class="card-icon-container tipos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round"><path d="M2 4h6v6H8L14 10v5h-1l5 0v5" fill="none"/><line x1="2" y1="22" x2="2" y2="2"/><line x1="2" y1="22" x2="22" y2="22"/></svg>
+        </div>
+        <h3>Curvas de Kaplan–Meier</h3>
+        <p>Análise de sobrevivência visual. Como ler e construir curvas de Kaplan–Meier — o gráfico mais importante da pesquisa clínica moderna.</p>
+      </div>
+      <div class="card-footer-new">
+        <span class="card-chapter">Tipos de Gráficos</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -262,7 +277,7 @@ page-layout: full
         <p>Florence Nightingale, John Snow, o desastre do Challenger. Visualizações que salvaram — e custaram — vidas.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 12</span>
+        <span class="card-chapter">Pensamento Crítico</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -277,7 +292,7 @@ page-layout: full
         <p>Eixos truncados, escalas manipuladas, cores que alarmam. Como as mesmas informações podem contar histórias opostas.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 13</span>
+        <span class="card-chapter">Pensamento Crítico</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -292,7 +307,7 @@ page-layout: full
         <p>Gráficos ruins reais, categorizados e corrigidos passo a passo. Ache o erro e aprenda com os piores exemplos.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 14</span>
+        <span class="card-chapter">Pensamento Crítico</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -321,7 +336,7 @@ page-layout: full
         <p>Como usar ChatGPT, Claude e Copilot para gerar código R. Prompts eficazes, limitações, e o que a IA erra.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 11</span>
+        <span class="card-chapter">Ferramentas</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
@@ -336,7 +351,7 @@ page-layout: full
         <p>Fluxograma interativo de decisão. Responda algumas perguntas e descubra o gráfico ideal para seus dados.</p>
       </div>
       <div class="card-footer-new">
-        <span class="card-chapter">Capítulo 15</span>
+        <span class="card-chapter">Ferramentas</span>
         <span class="card-arrow">→</span>
       </div>
     </a>

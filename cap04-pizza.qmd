@@ -1,6 +1,6 @@
 ---
 title: "Gráfico de Setores (Pizza)"
-subtitle: "Capítulo 4 — Proporções de um todo"
+subtitle: "Proporções de um todo"
 author: "Henrique Alvarenga da Silva"
 lang: pt-BR
 ---
@@ -272,6 +272,9 @@ Sempre comece a primeira fatia no topo (0°) ou à direita (90°). Começar em �
 
 ## Quiz
 
+::: {.callout-note  title="Quizz"}
+
+
 **Questão 1:** Você está apresentando dados sobre a distribuição de 8 categorias de comorbidades em pacientes. Qual tipo de gráfico seria mais apropriado?
 
 a) Gráfico de pizza com 8 fatias
@@ -279,10 +282,8 @@ b) Gráfico de barras horizontal com as categorias ordenadas por frequência
 c) Gráfico de pizza em 3D para destacar a apresentação
 d) Não plotar nada, apenas mostrar uma tabela
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: b)**
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Gráfico de barras horizontal com as categorias ordenadas por frequência**
 
 Com 8 categorias, o gráfico de pizza se torna ilegível. Um gráfico de barras horizontal com as categorias ordenadas permite comparações muito mais fáceis e precisas. A opção c é particularmente má porque o 3D distorce as proporções. A opção d, embora às vezes válida, perde a oportunidade de visualização que um bom gráfico oferece.
 :::
@@ -294,10 +295,8 @@ b) Levam muito tempo para serem criados
 c) Usam muito espaço na página
 d) Humanos são melhores em comparar comprimentos do que ângulos
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: d)**
+::: {.callout-note  title="Resposta" collapse="true"}
+**d) Humanos são melhores em comparar comprimentos do que ângulos**
 
 A crítica fundamental é baseada em psicologia visual: nossos olhos e cérebro são muito mais eficientes em comparar comprimentos (como em barras) do que em estimar e comparar ângulos (como em fatias de pizza).
 :::
@@ -309,14 +308,12 @@ b) Sim, porque destaca que a maioria tem resultado positivo
 c) Não, porque em 3D fica melhor
 d) Sim, porque a proporção é de 95% vs 5%
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: d)**, mas **com ressalva**.
-
+::: {.callout-note  title="Resposta" collapse="true"}
+**d) Sim, porque a proporção é de 95% vs 5%**, mas **com ressalva**.  
 Proporções muito desiguais (95% vs 5%) é um dos poucos casos onde um gráfico de pizza pode ser aceitável, porque a diferença é tão óbvia que até o gráfico de pizza não consegue confundir. Mesmo assim, muitos prefeririam um gráfico de barras simples. A opção c está definitivamente errada: nunca use 3D.
 :::
 
+::: 
 
 ---
 

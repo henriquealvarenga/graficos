@@ -1,6 +1,6 @@
 ---
 title: "Criando Gráficos com IA"
-subtitle: "Capítulo 11 - O Fim de uma Barreira"
+subtitle: "O Fim de uma Barreira"
 author: "Henrique Alvarenga da Silva"
 date: last-modified
 ---

@@ -252,6 +252,11 @@ window.Quarto = {
 </i> 
  <span class="dropdown-text">Gráfico de Linha</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./cap10b-kaplanmeier.html"><i class="bi bi-heart-pulse" role="img">
+</i> 
+ <span class="dropdown-text">Curvas de Kaplan–Meier</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -427,6 +432,12 @@ window.Quarto = {
  <span class="menu-text">Gráfico de Linha</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap10b-kaplanmeier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curvas de Kaplan–Meier</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -530,8 +541,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#um-lembrete-anscombe-revisited" id="toc-um-lembrete-anscombe-revisited" class="nav-link" data-scroll-target="#um-lembrete-anscombe-revisited">Um Lembrete: Anscombe Revisited</a></li>
   <li><a href="#resumo-prático" id="toc-resumo-prático" class="nav-link" data-scroll-target="#resumo-prático">Resumo Prático</a></li>
-  <li><a href="#quiz-teste-seu-conhecimento" id="toc-quiz-teste-seu-conhecimento" class="nav-link" data-scroll-target="#quiz-teste-seu-conhecimento">Quiz: Teste Seu Conhecimento</a></li>
-  <li><a href="#próximo-capítulo" id="toc-próximo-capítulo" class="nav-link" data-scroll-target="#próximo-capítulo">Próximo Capítulo</a></li>
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
   <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
   </ul>
 </nav>
@@ -542,7 +552,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cap04-pizza.html">Tipos de Gráficos</a></li><li class="breadcrumb-item"><a href="./cap09-scatterplot.html">Scatter Plot</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Scatter Plot e Correlação</h1>
-<p class="subtitle lead">Capítulo 9 — Relações entre variáveis numéricas</p>
+<p class="subtitle lead">Relações entre variáveis numéricas</p>
 </div>
 
 
@@ -1308,7 +1318,7 @@ window.Quarto = {
 </section>
 <section id="um-lembrete-anscombe-revisited" class="level2">
 <h2 class="anchored" data-anchor-id="um-lembrete-anscombe-revisited">Um Lembrete: Anscombe Revisited</h2>
-<p>Lembra do Quarteto de Anscombe <span class="citation" data-cites="anscombe1973">(<a href="#ref-anscombe1973" role="doc-biblioref">1973</a>)</span> e do <strong>Datasaurus Dozen</strong> de Matejka e Fitzmaurice <span class="citation" data-cites="matejka2017">(<a href="#ref-matejka2017" role="doc-biblioref">2017</a>)</span> que vimos no Capítulo 0? É um lembrete perfeito aqui:</p>
+<p>Lembra do Quarteto de Anscombe <span class="citation" data-cites="anscombe1973">(<a href="#ref-anscombe1973" role="doc-biblioref">1973</a>)</span> e do <strong>Datasaurus Dozen</strong> de Matejka e Fitzmaurice <span class="citation" data-cites="matejka2017">(<a href="#ref-matejka2017" role="doc-biblioref">2017</a>)</span> que vimos no capítulo <a href="./cap00-precisa-grafico.html">Você Precisa Mesmo de um Gráfico?</a>? É um lembrete perfeito aqui:</p>
 <p>Datasets completamente diferentes podem ter: - A mesma correlação (r ≈ 0.816) - A mesma linha de regressão - Os mesmos valores de média, desvio padrão, etc.</p>
 <p>Mas quando visualizados, são completamente diferentes!</p>
 <p>Isso reforça nossa mensagem central: <strong>sempre visualize os dados antes de confiar em um número</strong>.</p>
@@ -1350,20 +1360,20 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="quiz-teste-seu-conhecimento" class="level2">
-<h2 class="anchored" data-anchor-id="quiz-teste-seu-conhecimento">Quiz: Teste Seu Conhecimento</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<section id="quiz" class="level2">
+<h2 class="anchored" data-anchor-id="quiz">Quiz</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Quizz">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 1: O que é Regressão?
+<span class="screen-reader-only">Nota</span>Quizz
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<section id="questão-1-o-que-é-regressão" class="level3">
+<h3 class="anchored" data-anchor-id="questão-1-o-que-é-regressão">Questão 1: O que é Regressão?</h3>
 <p>Qual é o principal objetivo de uma linha de regressão em um scatter plot?</p>
 <ol type="a">
 <li>Provar causalidade entre as variáveis</li>
@@ -1371,22 +1381,25 @@ window.Quarto = {
 <li>Eliminar outliers dos dados</li>
 <li>Transformar dados não-normais</li>
 </ol>
-<p><strong>Resposta:</strong> b) A regressão descreve a tendência geral e nos permite fazer previsões.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 2: Interpretando Correlação
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><strong>b) Descrever o padrão geral e fazer previsões.</strong> A linha de regressão (ou <em>best fit line</em>) resume a tendência geral dos dados — por exemplo, “a cada centímetro a mais no quadril, o peso tende a aumentar X quilos”. Isso nos permite fazer previsões para novos indivíduos. Importante: a regressão <strong>não prova causalidade</strong> (alternativa a). Ela apenas descreve a associação observada nos dados. Também não elimina outliers (alternativa c) — eles continuam lá, apenas não influenciam tanto a direção da reta.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="questão-2-interpretando-correlação" class="level3">
+<h3 class="anchored" data-anchor-id="questão-2-interpretando-correlação">Questão 2: Interpretando Correlação</h3>
 <p>Se r = -0.78 entre idade e função renal, o que isso significa?</p>
 <ol type="a">
 <li>Quanto maior a idade, melhor a função renal</li>
@@ -1394,22 +1407,25 @@ window.Quarto = {
 <li>Não há relação entre idade e função renal</li>
 <li>A idade causa queda na função renal</li>
 </ol>
-<p><strong>Resposta:</strong> b) Uma correlação negativa significa que as variáveis variam em direções opostas. O valor 0.78 indica uma relação forte.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 3: Correlação vs Causalidade
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><strong>b) Quanto maior a idade, pior a função renal (relação forte).</strong> O sinal negativo do coeficiente indica que as variáveis variam em <strong>direções opostas</strong>: quando uma sobe, a outra tende a descer. O valor absoluto (0,78) indica a <strong>força</strong> da relação — quanto mais próximo de 1, mais forte. Um r = −0,78 é uma correlação negativa forte: à medida que a idade aumenta, a função renal tende a diminuir. A alternativa d está errada porque correlação <strong>não é causalidade</strong> — mesmo que clinicamente saibamos que a idade de fato afeta a função renal, o coeficiente r sozinho não prova isso.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="questão-3-correlação-vs-causalidade" class="level3">
+<h3 class="anchored" data-anchor-id="questão-3-correlação-vs-causalidade">Questão 3: Correlação vs Causalidade</h3>
 <p>Um estudo observa correlação r = 0.65 entre número de piscinas em uma cidade e taxa de desemprego. O que você conclui?</p>
 <ol type="a">
 <li>Piscinas causam desemprego</li>
@@ -1417,22 +1433,25 @@ window.Quarto = {
 <li>Há uma terceira variável (tamanho/riqueza da cidade) explicando ambas</li>
 <li>As variáveis não têm relação alguma</li>
 </ol>
-<p><strong>Resposta:</strong> c) Ambas as variáveis são provavelmente afetadas pelo tamanho e riqueza da cidade (uma variável confundidora).</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 4: Observando o Scatter Plot
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><strong>c) Há uma terceira variável (tamanho/riqueza da cidade) explicando ambas.</strong> Este é um exemplo clássico de <strong>variável confundidora</strong> (<em>confounding variable</em>): cidades maiores e mais ricas tendem a ter mais piscinas <em>e</em> mais pessoas desempregadas (simplesmente porque têm mais população). A correlação é real, mas não há relação causal entre piscinas e desemprego. Como vimos com as correlações espúrias do projeto de Tyler Vigen, correlações estatisticamente fortes podem ser completamente sem sentido quando existe uma terceira variável influenciando ambas.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="questão-4-observando-o-scatter-plot" class="level3">
+<h3 class="anchored" data-anchor-id="questão-4-observando-o-scatter-plot">Questão 4: Observando o Scatter Plot</h3>
 <p>Você vê um scatter plot com pontos formando um padrão de U perfeito (curva parabólica). O que você espera do coeficiente r?</p>
 <ol type="a">
 <li>r ≈ 0.95 (correlação forte)</li>
@@ -1440,22 +1459,25 @@ window.Quarto = {
 <li>r ≈ -0.95 (correlação negativa forte)</li>
 <li>r não pode ser calculado para padrões não-lineares</li>
 </ol>
-<p><strong>Resposta:</strong> b) O coeficiente de Pearson mede apenas correlação LINEAR. Um padrão de U tem correlação linear próxima de zero, mesmo havendo uma relação clara.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Questão 5: Escolha de Variável X vs Y
+<span class="screen-reader-only">Nota</span>Resposta
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><strong>b) r ≈ 0.00 (nenhuma correlação linear).</strong> O coeficiente de Pearson mede apenas a correlação <strong>linear</strong> — ou seja, o quanto os dados se aproximam de uma reta. Em um padrão de U, os valores sobem de um lado e descem do outro, de modo que os efeitos se cancelam e r fica próximo de zero. Mas isso <strong>não significa</strong> que não haja relação entre as variáveis! Existe uma relação clara, porém <strong>não linear</strong>. Por isso é tão importante olhar o scatter plot antes de confiar cegamente no r — como nos ensina o Quarteto de Anscombe. A alternativa d está errada: o r <em>pode</em> ser calculado, apenas não capta relações curvilíneas e não faz sentido fazer esse cálculo.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="questão-5-escolha-de-variável-x-vs-y" class="level3">
+<h3 class="anchored" data-anchor-id="questão-5-escolha-de-variável-x-vs-y">Questão 5: Escolha de Variável X vs Y</h3>
 <p>Em um scatter plot de “Pressão Arterial × Idade”, qual variável deve estar no eixo X?</p>
 <ol type="a">
 <li>Pressão arterial (resultado) deve estar em X</li>
@@ -1463,15 +1485,25 @@ window.Quarto = {
 <li>Não importa a orientação</li>
 <li>Depende do tamanho dos valores</li>
 </ol>
-<p><strong>Resposta:</strong> b) Convencionalmente, a variável explicativa (independente) vai no eixo X e a variável de resultado (dependente) no eixo Y. Idade é anterior a pressão arterial, então deve estar em X.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Resposta">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Resposta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b) Idade (variável explicativa/tempo) deve estar em X.</strong> A convenção em scatter plots é colocar a variável <strong>explicativa</strong> (independente, preditora) no eixo X e a variável <strong>de resposta</strong> (dependente, desfecho) no eixo Y. A pergunta que fazemos é: “como a pressão arterial varia <em>em função da</em> idade?” — e não o contrário. A idade vem primeiro (não podemos mudar a idade de alguém alterando sua pressão), então ela é a variável explicativa e vai no eixo X. Essa convenção ajuda o leitor a interpretar o gráfico intuitivamente: a “causa” ou “preditor” na horizontal, o “efeito” ou “resultado” na vertical.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="próximo-capítulo" class="level2">
-<h2 class="anchored" data-anchor-id="próximo-capítulo">Próximo Capítulo</h2>
-<p>Matriz de Correlação e Análise Multivariada.</p>
-<p>Para aprofundamento, veja os trabalhos fundacionais de <span class="citation" data-cites="galton1886">Galton (<a href="#ref-galton1886" role="doc-biblioref">1886</a>)</span> e <span class="citation" data-cites="pearson1895">Pearson (<a href="#ref-pearson1895" role="doc-biblioref">1895</a>)</span> sobre regressão e correlação, e o clássico de <span class="citation" data-cites="anscombe1973">Anscombe (<a href="#ref-anscombe1973" role="doc-biblioref">1973</a>)</span> sobre a importância da visualização.</p>
+</div>
+</div>
 <hr>
 </section>
 <section id="referências" class="level2 unnumbered">
@@ -1485,9 +1517,6 @@ GALTON, Francis. <a href="https://doi.org/10.2307/2841583">Regression Towards Me
 </div>
 <div id="ref-matejka2017" class="csl-entry" role="listitem">
 MATEJKA, Justin; FITZMAURICE, George. <a href="https://doi.org/10.1145/3025453.3025912">Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing</a>. <em>Em</em>: SAME STATS, DIFFERENT GRAPHS, 2017. <strong>Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems</strong>. [<em>S.l.</em>]: ACM, 2017. pp. 1290–1294.
-</div>
-<div id="ref-pearson1895" class="csl-entry" role="listitem">
-PEARSON, Karl. <a href="https://doi.org/10.1098/rspl.1895.0041">Notes on Regression and Inheritance in the Case of Two Parents</a>. <strong>Proceedings of the Royal Society of London</strong>, [<em>s.l.</em>], vol. 58, pp. 240–242, 1895.
 </div>
 <div id="ref-stanton2001" class="csl-entry" role="listitem">
 STANTON, Jeffrey M. <a href="https://doi.org/10.1080/10691898.2001.11910537">Galton, Pearson, and the Peas: A Brief History of Linear Regression for Statistics Instructors</a>. <strong>Journal of Statistics Education</strong>, [<em>s.l.</em>], vol. 9, n.º 3, 2001.

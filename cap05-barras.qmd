@@ -1,6 +1,6 @@
 ---
 title: "Gráfico de Barras"
-subtitle: "Capítulo 5 — Comparando categorias"
+subtitle: "Comparando categorias"
 author: "Henrique Alvarenga da Silva"
 lang: pt-BR
 ---
@@ -648,6 +648,8 @@ kable(tabela_pct_linha, caption = "Biotipo por Sexo: Contagens e Percentuais") |
 
 ## Quiz
 
+::: {.callout-note  title="Quizz"}
+
 **Questão 1:** Você tem dados de 403 pacientes distribuídos em 3 grupos de biotipo, e quer mostrar tanto o total de pacientes quanto como cada sexo contribui para esse total. Qual tipo de gráfico seria mais apropriado?
 
 a) Gráfico de pizza com 6 fatias
@@ -655,16 +657,11 @@ b) Gráfico de barras lado a lado
 c) Gráfico de barras empilhado
 d) Histograma
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: c) Gráfico de barras empilhado**
-
-O gráfico empilhado permite que você veja:
-
+::: {.callout-note  title="Resposta" collapse="true"}
+**c) Gráfico de barras empilhado**  
+O gráfico empilhado permite que você veja:  
 - A altura total de cada barra (total de pacientes em cada biotipo)
 - A divisão dentro de cada barra (quantos homens e mulheres em cada biotipo)
-
 A opção b (lado a lado) também funcionaria bem para esse caso, mas é menos eficiente para ver o total em cada categoria. A opção d (histograma) é para dados contínuos, não categóricos.
 :::
 
@@ -675,10 +672,8 @@ b) Começar o eixo Y em 50 em vez de 0
 c) Adicionar um rótulo com o valor em cima de cada barra
 d) Não incluir uma legenda
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: b) Começar o eixo Y em 50 em vez de 0**
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Começar o eixo Y em 50 em vez de 0**
 
 Isso distorce a percepção visual das diferenças entre as barras. Uma diferença de 20 pacientes pode parecer 3 vezes maior do que é quando o eixo não começa em zero.
 
@@ -696,11 +691,8 @@ b) Permite comparar alturas com precisão, enquanto pizza requer comparar ângul
 c) Cabe em menos espaço na página
 d) É mais fácil de criar
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: b) Permite comparar alturas com precisão, enquanto pizza requer comparar ângulos**
-
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Permite comparar alturas com precisão, enquanto pizza requer comparar ângulos**. 
 Isso é fundamentado em pesquisa em psicologia visual: nossos olhos e cérebro são muito melhores em comparar comprimentos e alturas (barras) do que em estimar ângulos (fatias de pizza). Essa é a razão científica pela qual gráficos de barras são preferidos em pesquisa.
 :::
 
@@ -711,17 +703,14 @@ b) Ordem de frequência (maior para menor)
 c) Ordem aleatória para parecer imparcial
 d) Ordem que aparecem no dataset
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: b) Ordem de frequência (maior para menor)**
-
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Ordem de frequência (maior para menor)**
 Isso torna o gráfico muito mais fácil de interpretar. O leitor pode imediatamente identificar as categorias mais e menos frequentes. A ordem alfabética pode ser apropriada em alguns contextos (como nomes de medicamentos), mas frequência é geralmente preferida para análise exploratória.
 
 A ordem aleatória ou a ordem do dataset não têm lógica visual.
 :::
 
-
+:::
 ---
 
 ## Referências {.unnumbered}

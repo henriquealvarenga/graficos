@@ -1,6 +1,6 @@
 ---
 title: "A Gramática dos Gráficos"
-subtitle: "Capítulo 1 — The Grammar of Graphics"
+subtitle: "The Grammar of Graphics"
 ---
 
 ```{r}

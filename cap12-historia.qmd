@@ -1,6 +1,6 @@
 ---
 title: "Gráficos que Mudaram a História"
-subtitle: "Capítulo 12 — Da medicina ao espaço"
+subtitle: "Da medicina ao espaço"
 ---
 
 ```{r}

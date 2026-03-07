@@ -1,6 +1,6 @@
 ---
 title: "Mesmos Dados, Histórias Diferentes"
-subtitle: "Capítulo 13 — A ética da visualização"
+subtitle: "A ética da visualização"
 ---
 
 ```{r}

@@ -1,6 +1,6 @@
 ---
 title: "Histograma"
-subtitle: "Capítulo 6 — Distribuição de variáveis numéricas"
+subtitle: "Distribuição de variáveis numéricas"
 author: "Henrique Alvarenga da Silva"
 ---
 
@@ -363,6 +363,7 @@ O histograma é uma ferramenta essencial para exploração de dados contínuos. 
 ---
 
 ## Quiz
+::: {.callout-note  title="Quizz"}
 
 **Pergunta 1:** Qual é a diferença fundamental entre um gráfico de barras e um histograma?
 
@@ -371,10 +372,9 @@ b) Um representa variáveis categóricas (com espaços), o outro variáveis cont
 c) O histograma sempre tem mais barras
 d) Nenhuma diferença importante
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: b)** Um gráfico de barras representa variáveis categóricas discretas com espaço entre as barras. Um histograma representa variáveis numéricas contínuas **sem espaços**, enfatizando a continuidade.
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) Um representa variáveis categóricas (com espaços), o outro variáveis contínuas (sem espaços)**   
+Um gráfico de barras representa variáveis categóricas discretas com espaço entre as barras. Um histograma representa variáveis numéricas contínuas **sem espaços**, enfatizando a continuidade.
 :::
 
 **Pergunta 2:** Para um conjunto de dados com 400 observações, quantos bins você aproximadamente escolheria?
@@ -384,10 +384,9 @@ b) 15-20
 c) 100
 d) 200
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: b)** A regra de √n sugere √400 ≈ 20 bins. Embora a escolha exata dependa dos dados, 15-20 é geralmente um bom ponto de partida.
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) 15-20**  
+A regra de √n sugere √400 ≈ 20 bins. Embora a escolha exata dependa dos dados, 15-20 é geralmente um bom ponto de partida.
 :::
 
 **Pergunta 3:** Por que usar muitos bins (ex., 100 para 400 observações) é problemático?
@@ -397,12 +396,12 @@ b) Ocupa muito espaço
 c) Cria ruído visual — flutuações aleatórias parecem padrões reais
 d) Aumenta o tempo de computação
 
-::: {.callout-note collapse="true"}
-## Resposta
-
-**Resposta correta: c)** Muitos bins criam barras muito estreitas com poucos dados cada uma, fazendo variações aleatórias parecerem como padrões significativos.
+::: {.callout-note  title="Resposta" collapse="true"}
+**c) Cria ruído visual — flutuações aleatórias parecem padrões reais**. 
+Muitos bins criam barras muito estreitas com poucos dados cada uma, fazendo variações aleatórias parecerem como padrões significativos.
 :::
 
+:::
 
 ---
 

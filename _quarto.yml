@@ -53,6 +53,9 @@ website:
           - text: "Gráfico de Linha"
             href: cap10-linhas.qmd
             icon: graph-up
+          - text: "Curvas de Kaplan–Meier"
+            href: cap10b-kaplanmeier.qmd
+            icon: heart-pulse
       - text: "Pensamento Crítico"
         menu:
           - text: "Gráficos que Mudaram a História"
@@ -108,6 +111,8 @@ website:
             href: cap09-scatterplot.qmd
           - text: "Gráfico de Linha"
             href: cap10-linhas.qmd
+          - text: "Curvas de Kaplan–Meier"
+            href: cap10b-kaplanmeier.qmd
       - section: "Pensamento Crítico"
         contents:
           - text: "Gráficos que Mudaram a História"

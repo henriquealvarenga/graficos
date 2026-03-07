@@ -1,6 +1,6 @@
 ---
 title: "Princípios de Edward Tufte"
-subtitle: "Capítulo 3 — A arte de não mentir com dados"
+subtitle: "A arte de não mentir com dados"
 author: "Henrique Alvarenga da Silva"
 date: today
 ---

@@ -1,0 +1,650 @@
+---
+title: "Curvas de Kaplan–Meier"
+subtitle: "Sobrevivência ao longo do tempo"
+author: "Henrique Alvarenga da Silva"
+date: last-modified
+---
+
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+library(survival)
+library(survminer)
+```
+
+## A Correspondência que Mudou a Medicina
+
+::: {.callout-note appearance="minimal"}
+
+## Dois matemáticos, um artigo, seis anos de cartas
+
+Em 1952, dois jovens matemáticos americanos — sem se conhecerem pessoalmente — começaram a trabalhar, de forma independente, no mesmo problema: como estimar a probabilidade de sobrevivência quando nem todos os indivíduos foram observados até o final? Um deles era **Edward L. Kaplan** (1920–2006), engenheiro e estatístico dos Bell Telephone Laboratories; o outro era **Paul Meier** (1924–2011), professor na Johns Hopkins University. Ambos haviam sido alunos de doutorado de **John Tukey** — o mesmo Tukey do boxplot — em Princeton [@stalpers2018kaplan].
+
+Quando submeteram manuscritos separados ao *Journal of the American Statistical Association*, o editor percebeu a sobreposição e sugeriu que unissem forças. O que se seguiu foi uma correspondência de mais de quatro anos, com discordâncias metodológicas consideráveis. Kaplan preferia uma abordagem baseada em estimadores de máxima verossimilhança; Meier defendia argumentos de teoria de decisão. Finalmente, em 1958, publicaram juntos o artigo *"Nonparametric Estimation from Incomplete Observations"* [@kaplan1958nonparametric] — que se tornaria um dos artigos mais citados de toda a história da ciência, com mais de 44 mil citações no Web of Science até 2017 [@stalpers2018kaplan] e mais de 65 mil no Google Scholar atualmente.
+
+O mais surpreendente é que o artigo foi praticamente **ignorado por uma década**. Publicado em um periódico de estatística teórica, só chegou à pesquisa médica em 1969, pelas mãos de **Edmund Gehan**, bioestatístico do MD Anderson Cancer Center, que aplicou o método em ensaios clínicos oncológicos [@Gehan1965; @stalpers2018kaplan]. A primeira curva de Kaplan–Meier com o formato de escada que hoje reconhecemos instantaneamente apareceu em 1971, em um estudo sobre quimioterapia para tumores sólidos no mesmo centro [@coltman1971chemotherapy; @stalpers2018kaplan]. Em 1972, o modelo de riscos proporcionais de **David Cox** [@cox1972regression] deu o segundo grande impulso: o método de Cox precisava da curva de KM como ponto de partida, e juntos os dois se tornaram as ferramentas padrão de toda pesquisa clínica.
+
+Hoje, curvas de Kaplan–Meier aparecem na grande maioria dos artigos de oncologia clínica [@stalpers2018kaplan].
+
+:::
+
+## O Que é Análise de Sobrevivência?
+
+Análise de sobrevivência é um conjunto de métodos estatísticos para estudar **o tempo até a ocorrência de um evento** [@schober2018survival]. Na medicina, o evento de interesse pode ser:
+
+- **Óbito** (sobrevida global, ou *overall survival*)
+- **Recidiva** de uma doença (sobrevida livre de doença, ou *disease-free survival*)
+- **Progressão** tumoral (sobrevida livre de progressão)
+- **Alta hospitalar**, **concepção**, **readmissão** — qualquer desfecho binário com dimensão temporal
+
+O nome "sobrevivência" é histórico: os primeiros métodos foram desenvolvidos para estudar mortalidade. Mas a técnica se aplica a *qualquer* situação em que queremos medir quanto tempo leva até algo acontecer [@clark2003survival].
+
+### O Problema da Censura
+
+O que torna a análise de sobrevivência diferente de uma simples média ou mediana é a **censura** (*censoring*). Em um estudo clínico, nem todos os pacientes são observados até o desfecho. Alguns motivos comuns:
+
+- O estudo termina antes que o evento ocorra (o paciente ainda está vivo ao final do seguimento)
+- O paciente muda de cidade e perde o acompanhamento
+- O paciente falece por uma causa não relacionada ao estudo
+
+Nesses casos, sabemos que o paciente sobreviveu *pelo menos* até o momento da censura, mas não sabemos exatamente quando o evento ocorreria. Descartar esses pacientes desperdiçaria informação valiosa; incluí-los como se tivessem tido o evento seria incorreto. A genialidade do método de Kaplan–Meier é justamente incorporar essas observações incompletas de forma matematicamente rigorosa [@kaplan1958nonparametric; @bland1998survival].
+
+::: {.callout-tip}
+## Censura à direita
+O tipo mais comum de censura em estudos clínicos é a **censura à direita** (*right censoring*): sabemos quando o paciente entrou no estudo, mas não sabemos quando o evento ocorrerá — apenas que ainda não ocorreu até o último contato. Nas curvas de KM, os pacientes censurados são indicados por **pequenos traços verticais** (tick marks) sobre a curva [@rich2010kaplan].
+:::
+
+## O Estimador de Kaplan–Meier
+
+O estimador de Kaplan–Meier (também chamado de **estimador produto-limite**) calcula a probabilidade de sobrevivência em cada momento em que ocorre um evento [@kaplan1958nonparametric]. A ideia é simples e elegante:
+
+> Em cada tempo $t_j$ em que ocorre um evento, a probabilidade de sobreviver **além** daquele momento é calculada como a fração dos pacientes em risco que *não* tiveram o evento.
+
+Matematicamente:
+
+$$
+\hat{S}(t) = \prod_{t_j \leq t} \left(1 - \frac{d_j}{n_j}\right)
+$$
+
+onde $d_j$ é o número de eventos no tempo $t_j$ e $n_j$ é o número de indivíduos em risco naquele momento [@clark2003survival].
+
+O resultado é uma **função-escada** (*step function*): a probabilidade de sobrevivência permanece constante entre os eventos e cai abruptamente em cada tempo em que um evento ocorre. Essa é a característica visual mais marcante da curva de Kaplan–Meier.
+
+::: {.callout-note}
+## Por que não usar uma média simples?
+Se todos os pacientes fossem observados até o desfecho (sem censura), bastaria calcular a média ou mediana dos tempos. Mas com censura, a média é enviesada para baixo (porque tratamos pacientes censurados como se tivessem tido o evento antes do que realmente teriam). O estimador de KM resolve isso: cada paciente contribui com informação **enquanto estiver em risco**, e deixa de contribuir no momento em que é censurado — sem distorcer as estimativas dos demais [@bland1998survival].
+:::
+
+## Construindo Passo a Passo com Dados Reais
+
+Vamos usar dados reais de um dos ensaios clínicos mais importantes da oncologia: o estudo de **Moertel et al. (1990)**, publicado no *New England Journal of Medicine* [@moertel1990levamisole]. Esse estudo demonstrou, pela primeira vez, que a quimioterapia adjuvante com levamisol e fluorouracil reduzia a recorrência e a mortalidade em pacientes com câncer de cólon ressecado.
+
+Os dados desse ensaio estão disponíveis no R através do pacote `survival`, no dataset `colon`. Vamos construir nossa curva de KM passo a passo.
+
+### Conhecendo os dados
+
+```{r}
+#| label: dados-colon
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Carregar os dados do ensaio de Moertel et al. (1990)
+dados_colon <- survival::colon |>
+  filter(etype == 2) |>  # etype 2 = óbito (1 = recorrência)
+  mutate(
+    tratamento = case_when(
+      rx == "Obs"     ~ "Observação",
+      rx == "Lev"     ~ "Levamisol",
+      rx == "Lev+5FU" ~ "Levamisol + 5-FU"
+    ),
+    tratamento = factor(tratamento,
+                        levels = c("Observação", "Levamisol", "Levamisol + 5-FU")),
+    tempo_anos = time / 365.25  # converter dias para anos
+  )
+
+# Resumo dos dados
+dados_colon |>
+  group_by(tratamento) |>
+  summarise(
+    n = n(),
+    obitos = sum(status),
+    censurados = sum(status == 0),
+    mediana_dias = median(time),
+    .groups = "drop"
+  ) |>
+  kable(
+    col.names = c("Tratamento", "N", "Óbitos", "Censurados", "Mediana (dias)"),
+    caption = "Resumo dos dados do ensaio de Moertel et al. (1990) — desfecho: óbito"
+  ) |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE, position = "center")
+```
+
+O dataset contém `r nrow(dados_colon)` pacientes com câncer de cólon estágio B2 ou C, randomizados em três braços: observação (controle), levamisol isolado e levamisol combinado com fluorouracil (5-FU). Vamos acompanhar o tempo até o óbito.
+
+### A primeira curva: sobrevida global
+
+```{r}
+#| label: fig-km-basico
+#| fig-cap: "Curva de Kaplan–Meier para o ensaio de Moertel et al. (1990): sobrevida global dos três braços de tratamento. Cada degrau representa um óbito; traços verticais indicam censuras."
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Ajustar o modelo de sobrevivência
+fit_colon <- survfit(Surv(tempo_anos, status) ~ tratamento, data = dados_colon)
+
+# Criar o gráfico com survminer
+ggsurvplot(
+  fit_colon,
+  data = dados_colon,
+  # Aparência
+  palette = c(cores$vermelho, cores$verde, cores$azul),
+  size = 0.9,
+  censor.shape = "|",
+  censor.size = 3,
+  # Intervalo de confiança
+  conf.int = TRUE,
+  conf.int.alpha = 0.15,
+  # Risk table
+  risk.table = TRUE,
+  risk.table.col = "strata",
+  risk.table.height = 0.28,
+  risk.table.fontsize = 3.2,
+  # Labels
+  xlab = "Tempo (anos)",
+  ylab = "Probabilidade de sobrevivência",
+  title = "Sobrevida global — Ensaio de câncer de cólon",
+  subtitle = "Moertel et al. (1990) · N Engl J Med",
+  legend.title = "Tratamento",
+  legend.labs = c("Observação", "Levamisol", "Levamisol + 5-FU"),
+  # Estética
+  ggtheme = tema_graficos(base_size = 12),
+  tables.theme = theme_cleantable()
+)
+```
+
+### Lendo a curva
+
+Observe os elementos fundamentais da curva de Kaplan–Meier [@rich2010kaplan; @dudley2016survival]:
+
+**O eixo Y** mostra a probabilidade de sobrevivência estimada, começando em 1,0 (100%) no tempo zero — quando todos os pacientes estão vivos.
+
+**O eixo X** mostra o tempo de seguimento, em anos.
+
+**Os degraus** (a "escada") indicam os momentos em que ocorrem óbitos. Quanto maior o degrau, mais óbitos ocorreram naquele momento. Quanto mais longa a parte horizontal, mais tempo se passou sem eventos.
+
+**Os traços verticais** (tick marks) sobre a curva indicam censuras — pacientes que saíram do estudo sem ter o evento.
+
+**A tabela de risco** (*number at risk*) abaixo do gráfico mostra quantos pacientes ainda estão em acompanhamento em cada momento. Essa informação é essencial: à medida que o tempo passa, o número de pacientes em risco diminui, e as estimativas se tornam menos precisas.
+
+**As faixas sombreadas** representam o intervalo de confiança de 95% — quanto mais larga a faixa, maior a incerteza.
+
+::: {.callout-important}
+## A "cauda" da curva
+Cuidado com interpretações na parte final (à direita) da curva, onde poucos pacientes permanecem em risco. As estimativas nessa região são instáveis e os intervalos de confiança se alargam. Alguns autores recomendam interromper a curva quando menos de 10–20% da amostra original está em risco [@rich2010kaplan].
+:::
+
+## Mediana de Sobrevivência
+
+A **mediana de sobrevivência** é o tempo no qual a probabilidade de sobrevivência cruza 50% — ou seja, o tempo em que metade dos pacientes já teve o evento. É a medida-resumo mais usada em análise de sobrevivência, preferida sobre a média porque os tempos de sobrevida raramente seguem uma distribuição simétrica [@clark2003survival].
+
+```{r}
+#| label: tbl-mediana
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Extrair medianas de sobrevivência
+mediana_surv <- surv_median(fit_colon)
+
+mediana_surv |>
+  mutate(
+    strata = c("Observação", "Levamisol", "Levamisol + 5-FU"),
+    across(where(is.numeric), ~ round(.x, 2))
+  ) |>
+  select(strata, median, lower, upper) |>
+  kable(
+    col.names = c("Tratamento", "Mediana (anos)", "IC 95% inferior", "IC 95% superior"),
+    caption = "Mediana de sobrevivência por braço de tratamento"
+  ) |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE, position = "center")
+```
+
+Visualmente, estimamos a mediana traçando uma linha horizontal no nível de 0,50 do eixo Y e verificando onde ela cruza cada curva. Se a curva *não* cruza os 50%, significa que mais da metade dos pacientes sobreviveu além do período de seguimento — e a mediana não pode ser estimada.
+
+## Comparando Curvas: O Teste Log-Rank
+
+Olhar para as curvas e "achar" que uma é melhor que a outra não basta — precisamos de um teste estatístico formal. O **teste log-rank** é o método mais usado para comparar curvas de Kaplan–Meier entre grupos [@clark2003survival; @schober2018survival].
+
+O teste compara o número *observado* de eventos em cada grupo com o número *esperado* sob a hipótese nula de que as curvas são iguais. O resultado é uma estatística qui-quadrado com (g − 1) graus de liberdade, onde g é o número de grupos.
+
+```{r}
+#| label: logrank
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Teste log-rank
+teste_lr <- survdiff(Surv(tempo_anos, status) ~ tratamento, data = dados_colon)
+teste_lr
+```
+
+```{r}
+#| label: logrank-pairwise
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Comparações pareadas (com correção de Bonferroni)
+pairwise_survdiff(Surv(tempo_anos, status) ~ tratamento,
+                  data = dados_colon,
+                  p.adjust.method = "bonferroni")
+```
+
+O teste log-rank global nos diz se *pelo menos* um grupo difere dos demais. Para saber *quais* grupos diferem entre si, fazemos comparações pareadas com correção para múltiplos testes.
+
+### Interpretando o p-valor do log-rank
+
+O p-valor responde a uma pergunta simples: se os tratamentos fossem *idênticos*, qual a probabilidade de observar uma diferença tão grande (ou maior) quanto a que vemos nos dados? Por convenção, quando o p-valor é menor que 0,05, consideramos a diferença **estatisticamente significativa** — ou seja, é improvável que se deva apenas ao acaso. Quando o p-valor é maior que 0,05 (por exemplo, p = 0,15), dizemos que as curvas **não diferem de forma estatisticamente significativa ao nível de 5%**. Isso não prova que os tratamentos sejam iguais; apenas que os dados disponíveis não fornecem evidência suficiente para afirmar que são diferentes — o que pode ocorrer, por exemplo, quando a amostra é pequena.
+
+::: {.callout-tip}
+## Log-rank vs. Hazard Ratio
+O teste log-rank responde **se** as curvas diferem, mas não quantifica **o quanto**. Para isso, usamos a **razão de riscos** (*hazard ratio*, HR), obtida pelo modelo de Cox [@cox1972regression]. Um HR < 1 indica que o grupo de tratamento tem menor risco de evento em relação ao controle. O modelo de Cox é o complemento natural da curva de KM e aparece em praticamente todo artigo que apresenta curvas de sobrevivência [@schober2018survival].
+:::
+
+## A Razão de Riscos (Hazard Ratio)
+
+O modelo de riscos proporcionais de Cox [@cox1972regression] permite estimar o **hazard ratio** (HR) — a razão entre as taxas instantâneas de evento entre dois grupos — ajustando para covariáveis.
+
+```{r}
+#| label: cox-model
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Modelo de Cox
+cox_fit <- coxph(Surv(tempo_anos, status) ~ tratamento, data = dados_colon)
+
+# Resultados formatados
+cox_summary <- summary(cox_fit)
+
+data.frame(
+  Comparacao = c("Levamisol vs. Observação", "Levamisol + 5-FU vs. Observação"),
+  HR = round(cox_summary$conf.int[, 1], 3),
+  IC_inferior = round(cox_summary$conf.int[, 3], 3),
+  IC_superior = round(cox_summary$conf.int[, 4], 3),
+  p = format.pval(cox_summary$coefficients[, 5], digits = 3)
+) |>
+  kable(
+    col.names = c("Comparação", "HR", "IC 95% inferior", "IC 95% superior", "p"),
+    caption = "Modelo de Cox — Hazard Ratios por braço de tratamento"
+  ) |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE, position = "center")
+```
+
+### Como interpretar o Hazard Ratio
+
+O HR funciona como um multiplicador de risco. Três cenários possíveis:
+
+- **HR = 1**: os dois grupos têm o mesmo risco — o tratamento não faz diferença.
+- **HR < 1**: o grupo de tratamento tem *menor* risco que o controle. Para saber *quanto* menor, fazemos a conta: **redução = 1 − HR**. Por exemplo, um HR de 0,65 significa redução de 1 − 0,65 = 0,35, ou seja, **35% menos risco** de evento.
+- **HR > 1**: o grupo de tratamento tem *maior* risco que o controle.
+
+O **intervalo de confiança de 95%** (IC 95%) do HR nos diz se o resultado é estatisticamente significativo. A regra prática: se o IC **não inclui o valor 1**, o resultado é significativo. Se o IC inclui o 1, não podemos afirmar que haja diferença real entre os grupos. Por exemplo, um HR de 0,65 com IC 95% de 0,48 a 0,88 é significativo (o intervalo inteiro fica abaixo de 1). Já um HR de 0,85 com IC 95% de 0,60 a 1,20 não seria significativo (o intervalo cruza o 1).
+
+Na tabela acima, o HR para o grupo Levamisol + 5-FU confirma o que vemos visualmente na curva: pacientes tratados com a combinação têm menor risco de óbito em comparação com o grupo de observação. Esse resultado mudou a prática clínica e estabeleceu a quimioterapia adjuvante como padrão para câncer de cólon estágio C [@moertel1990levamisole].
+
+## Anatomia Visual da Curva de KM
+
+Vamos criar um gráfico anotado para identificar visualmente cada elemento:
+
+```{r}
+#| label: fig-km-anatomia
+#| fig-cap: "Anatomia de uma curva de Kaplan–Meier: cada elemento visual carrega informação clínica."
+#| fig-height: 6
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Dados simplificados: apenas Observação vs. Lev+5FU
+dados_2g <- dados_colon |>
+  filter(tratamento %in% c("Observação", "Levamisol + 5-FU"))
+
+fit_2g <- survfit(Surv(tempo_anos, status) ~ tratamento, data = dados_2g)
+
+p_anat <- ggsurvplot(
+  fit_2g,
+  data = dados_2g,
+  palette = c(cores$vermelho, cores$azul),
+  size = 1,
+  censor.shape = "|",
+  censor.size = 3.5,
+  conf.int = FALSE,
+  legend.title = "Tratamento",
+  legend.labs = c("Observação", "Levamisol + 5-FU"),
+  xlab = "Tempo (anos)",
+  ylab = "Probabilidade de sobrevivência",
+  ggtheme = tema_graficos(base_size = 12)
+)
+
+# Adicionar anotações
+p_anat$plot <- p_anat$plot +
+  # Linha da mediana
+  geom_hline(yintercept = 0.5, linetype = "dashed", color = cores$cinza, linewidth = 0.4) +
+  annotate("text", x = 0.3, y = 0.52, label = "Mediana (50%)",
+           size = 3, color = cores$cinza, hjust = 0, fontface = "italic") +
+  # Seta para censura
+  annotate("segment", x = 5.5, y = 0.82, xend = 4.8, yend = 0.75,
+           arrow = arrow(length = unit(0.15, "cm")), color = cores$escuro) +
+  annotate("text", x = 5.6, y = 0.83, label = "Censura (|)",
+           size = 3, color = cores$escuro, hjust = 0) +
+  # Seta para degrau
+  annotate("segment", x = 5.5, y = 0.55, xend = 3.5, yend = 0.48,
+           arrow = arrow(length = unit(0.15, "cm")), color = cores$escuro) +
+  annotate("text", x = 5.6, y = 0.56, label = "Degrau = evento",
+           size = 3, color = cores$escuro, hjust = 0) +
+  # Título
+  labs(title = "Anatomia de uma curva de Kaplan–Meier")
+
+p_anat
+```
+
+## Sobrevida em Diferentes Cenários: Estágio da Doença
+
+Uma das aplicações mais informativas da curva de KM é estratificar pacientes por **fatores prognósticos**. No dataset do estudo de Moertel, temos informação sobre a profundidade de invasão tumoral e o número de linfonodos positivos.
+
+```{r}
+#| label: fig-km-extent
+#| fig-cap: "Curvas de Kaplan–Meier estratificadas pela extensão da invasão tumoral. O prognóstico piora substancialmente com invasão mais profunda."
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Criar categorias de extensão
+dados_extent <- dados_colon |>
+  filter(!is.na(extent)) |>
+  mutate(
+    extensao = case_when(
+      extent == 1 ~ "Submucosa",
+      extent == 2 ~ "Muscular",
+      extent == 3 ~ "Serosa",
+      extent == 4 ~ "Órgão contíguo"
+    ),
+    extensao = factor(extensao, levels = c("Submucosa", "Muscular", "Serosa", "Órgão contíguo"))
+  )
+
+fit_extent <- survfit(Surv(tempo_anos, status) ~ extensao, data = dados_extent)
+
+ggsurvplot(
+  fit_extent,
+  data = dados_extent,
+  palette = c(cores$verde, cores$azul, cores$ambar, cores$vermelho),
+  size = 0.8,
+  censor.shape = "|",
+  censor.size = 2.5,
+  conf.int = FALSE,
+  risk.table = TRUE,
+  risk.table.height = 0.30,
+  risk.table.fontsize = 3,
+  risk.table.col = "strata",
+  xlab = "Tempo (anos)",
+  ylab = "Probabilidade de sobrevivência",
+  title = "Sobrevida por extensão da invasão tumoral",
+  subtitle = "Dados de Moertel et al. (1990)",
+  legend.title = "Extensão",
+  pval = TRUE,
+  pval.size = 3.5,
+  ggtheme = tema_graficos(base_size = 11),
+  tables.theme = theme_cleantable()
+)
+```
+
+A separação visual entre as curvas traduz diferenças reais de prognóstico. Quando as curvas se separam precocemente e mantêm distância constante, temos uma indicação visual de que o **pressuposto de riscos proporcionais** (necessário para o modelo de Cox) pode ser razoável [@schober2018survival].
+
+## Número de Linfonodos e Sobrevida
+
+```{r}
+#| label: fig-km-nodes
+#| fig-cap: "Curvas de Kaplan–Meier por número de linfonodos positivos. O envolvimento linfonodal é um dos fatores prognósticos mais importantes em câncer de cólon."
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Categorizar número de linfonodos
+dados_nodes <- dados_colon |>
+  filter(!is.na(nodes)) |>
+  mutate(
+    grupo_nodes = case_when(
+      nodes == 0 ~ "0 linfonodos",
+      nodes <= 3 ~ "1–3 linfonodos",
+      nodes <= 6 ~ "4–6 linfonodos",
+      TRUE       ~ "7+ linfonodos"
+    ),
+    grupo_nodes = factor(grupo_nodes,
+                         levels = c("0 linfonodos", "1–3 linfonodos",
+                                    "4–6 linfonodos", "7+ linfonodos"))
+  )
+
+fit_nodes <- survfit(Surv(tempo_anos, status) ~ grupo_nodes, data = dados_nodes)
+
+ggsurvplot(
+  fit_nodes,
+  data = dados_nodes,
+  palette = c(cores$verde, cores$azul, cores$ambar, cores$vermelho),
+  size = 0.8,
+  censor.shape = "|",
+  censor.size = 2.5,
+  conf.int = FALSE,
+  risk.table = TRUE,
+  risk.table.height = 0.30,
+  risk.table.fontsize = 3,
+  risk.table.col = "strata",
+  xlab = "Tempo (anos)",
+  ylab = "Probabilidade de sobrevivência",
+  title = "Sobrevida por número de linfonodos positivos",
+  subtitle = "Dados de Moertel et al. (1990)",
+  legend.title = "Linfonodos",
+  pval = TRUE,
+  pval.size = 3.5,
+  ggtheme = tema_graficos(base_size = 11),
+  tables.theme = theme_cleantable()
+)
+```
+
+O número de linfonodos positivos é um dos fatores prognósticos mais fortes em câncer de cólon [@moertel1990levamisole]. A curva de KM torna essa relação visualmente evidente: pacientes sem envolvimento linfonodal têm sobrevida muito superior àqueles com sete ou mais linfonodos comprometidos.
+
+## Sobrevida em 5 Anos
+
+Na oncologia, é comum reportar a **sobrevida estimada em pontos específicos** (1 ano, 3 anos, 5 anos). Podemos extrair essas informações diretamente da curva de KM:
+
+```{r}
+#| label: tbl-surv-tempo
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Sobrevida em tempos específicos
+tempos <- c(1, 2, 3, 5)
+surv_tempos <- summary(fit_colon, times = tempos)
+
+data.frame(
+  Tempo = rep(paste0(tempos, " ano(s)"), each = 3),
+  Tratamento = rep(c("Observação", "Levamisol", "Levamisol + 5-FU"), times = length(tempos)),
+  Sobrevida = paste0(round(surv_tempos$surv * 100, 1), "%"),
+  IC_inferior = paste0(round(surv_tempos$lower * 100, 1), "%"),
+  IC_superior = paste0(round(surv_tempos$upper * 100, 1), "%")
+) |>
+  kable(
+    col.names = c("Tempo", "Tratamento", "Sobrevida", "IC 95% inf.", "IC 95% sup."),
+    caption = "Probabilidade de sobrevivência estimada em tempos específicos"
+  ) |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE, position = "center") |>
+  collapse_rows(columns = 1, valign = "middle")
+```
+
+
+## Erros Comuns na Interpretação
+
+::: {.callout-warning}
+## Armadilhas na leitura de curvas de KM
+
+**1. Extrapolar além dos dados.** Se o seguimento máximo é de 5 anos, não podemos dizer nada sobre sobrevida em 10 anos. A curva termina onde os dados terminam.
+
+**2. Ignorar o número em risco.** Uma curva que parece estável no final pode estar baseada em apenas 3 pacientes. Sempre olhe a tabela de risco abaixo do gráfico [@rich2010kaplan].
+
+**3. Confundir separação visual com significância estatística.** Duas curvas podem parecer separadas visualmente, mas o teste log-rank pode não ser significativo — especialmente com amostras pequenas. O inverso também ocorre: com amostras muito grandes, diferenças clinicamente irrelevantes podem ser estatisticamente significativas.
+
+**4. Comparar pontos isolados em vez de curvas inteiras.** O teste log-rank compara a distribuição *completa* dos tempos de sobrevivência, não apenas a sobrevida em um ponto específico [@rich2010kaplan; @dudley2016survival].
+
+**5. Assumir que "censurado" significa "curado".** Censura significa apenas que perdemos o acompanhamento; o paciente pode ter tido o evento logo depois [@schober2018survival].
+:::
+
+## Um Segundo Exemplo: Câncer de Pulmão
+
+Para consolidar o aprendizado, vamos analisar outro dataset clássico do R: `lung`, do pacote `survival`. Estes dados vêm do North Central Cancer Treatment Group e incluem 228 pacientes com câncer de pulmão avançado.
+
+```{r}
+#| label: fig-km-lung
+#| fig-cap: "Curvas de Kaplan–Meier para 228 pacientes com câncer de pulmão avançado, separadas por sexo. A curva rosa (feminino) permanece acima da curva azul (masculino) ao longo de todo o seguimento, indicando que, neste estudo, as mulheres sobreviveram por mais tempo. O teste log-rank (p = 0,0013) confirma que essa diferença é estatisticamente significativa — ou seja, é improvável que se deva apenas ao acaso."
+#| code-fold: true
+#| code-summary: "Ver código R"
+
+# Preparar dados
+dados_lung <- survival::lung |>
+  mutate(
+    sexo = ifelse(sex == 1, "Masculino", "Feminino"),
+    tempo_meses = time / 30.44  # converter dias para meses
+  )
+
+fit_lung <- survfit(Surv(tempo_meses, status) ~ sexo, data = dados_lung)
+
+ggsurvplot(
+  fit_lung,
+  data = dados_lung,
+  palette = c("#ef24c6", "#2563EB"),  # Feminino (rosa), Masculino (azul)
+  size = 0.9,
+  censor.shape = "|",
+  censor.size = 3,
+  conf.int = TRUE,
+  conf.int.alpha = 0.12,
+  risk.table = TRUE,
+  risk.table.height = 0.25,
+  risk.table.fontsize = 3.2,
+  risk.table.col = "strata",
+  xlab = "Tempo (meses)",
+  ylab = "Probabilidade de sobrevivência",
+  title = "Sobrevida por sexo — Câncer de pulmão avançado",
+  subtitle = "North Central Cancer Treatment Group",
+  legend.title = "Sexo",
+  pval = TRUE,
+  pval.size = 3.5,
+  ggtheme = tema_graficos(base_size = 12),
+  tables.theme = theme_cleantable()
+)
+```
+
+Este exemplo ilustra outro uso fundamental da curva de KM: identificar fatores prognósticos. A diferença de sobrevida por sexo é visualmente clara e estatisticamente significativa — e leva à pergunta seguinte, tipicamente respondida com um modelo de Cox: essa diferença persiste após ajuste para idade, performance status e outros fatores?
+
+## Conexão com a Prática Clínica
+
+As curvas de Kaplan–Meier são a linguagem visual da pesquisa clínica. Saber lê-las permite ao profissional de saúde:
+
+- **Avaliar criticamente** artigos que recomendam mudanças na prática
+- **Comunicar prognóstico** a pacientes e familiares de forma mais informada
+- **Comparar tratamentos** visualmente antes de mergulhar nas estatísticas
+- **Identificar subgrupos** com prognóstico diferente (como vimos com estágio e linfonodos)
+
+::: {.callout-tip}
+## Checklist para leitura de curvas de KM
+
+Ao encontrar uma curva de Kaplan–Meier em um artigo, verifique:
+
+1. **Qual é o evento?** (óbito, recorrência, progressão?)
+2. **Qual é o tempo no eixo X?** (dias, meses, anos?)
+3. **O eixo Y começa em 0 ou 1?** (curvas descendentes vs. ascendentes)
+4. **Há tabela de risco?** (quantos pacientes em cada tempo?)
+5. **Há intervalos de confiança?** (as faixas estão estreitas ou largas?)
+6. **As marcas de censura estão visíveis?** (muitas censuras podem indicar problemas no seguimento)
+7. **O teste log-rank é significativo?** (p-valor reportado?)
+8. **O hazard ratio e seu IC estão reportados?** (qual a magnitude do efeito?)
+:::
+
+## Além da Curva de KM
+
+A curva de Kaplan–Meier é o primeiro passo da análise de sobrevivência. Na prática, os pesquisadores tipicamente seguem uma sequência [@schober2018survival; @clark2003survival]:
+
+1. **Kaplan–Meier** para visualizar e descrever os dados
+2. **Teste log-rank** para comparar grupos
+3. **Modelo de Cox** para ajustar por covariáveis e estimar hazard ratios
+
+O modelo de riscos proporcionais de Cox [@cox1972regression] é semiparamétrico: não assume uma forma específica para a função de sobrevivência (como o KM), mas assume que o efeito das covariáveis é constante ao longo do tempo (pressuposto de riscos proporcionais). Quando esse pressuposto é violado — por exemplo, se um tratamento tem efeito forte no início mas diminui com o tempo — os pesquisadores precisam de extensões mais avançadas, como modelos com covariáveis dependentes do tempo ou modelos de riscos competitivos [@schober2018survival].
+
+
+## Quiz
+
+::: {.callout-note title="Quizz"}
+
+**Pergunta 1:** Em uma curva de Kaplan–Meier, o que representam os pequenos traços verticais sobre a curva?
+
+a) Eventos (óbitos ou recorrências)
+b) Erros de medição
+c) Censuras (pacientes que saíram do estudo sem evento)
+d) Intervalos de confiança
+
+::: {.callout-note  title="Resposta" collapse="true"}
+**c) Censuras (pacientes que saíram do estudo sem evento).**
+Os traços verticais (*tick marks*) sobre a curva indicam pacientes censurados — aqueles que deixaram de ser acompanhados antes de ter o evento (por exemplo, mudaram de cidade, o estudo terminou ou faleceram por outra causa). Os *degraus* da escada é que representam os eventos.
+:::
+
+**Pergunta 2:** A mediana de sobrevivência em uma curva de KM é estimada como:
+
+a) A média aritmética dos tempos de sobrevivência
+b) O tempo em que a curva cruza o nível de 50%
+c) O tempo do último evento observado
+d) A metade do tempo total de seguimento
+
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) O tempo em que a curva cruza o nível de 50%.**  
+A mediana corresponde ao momento em que 50% dos pacientes já teve o evento. Como a probabilidade de sobrevivência está no eixo Y, traçamos uma linha **horizontal** no nível de 0,50 e verificamos onde ela intercepta a curva. Desse ponto de interseção, descemos verticalmente até o eixo X para ler o tempo correspondente — essa é a mediana de sobrevivência. A linha é horizontal (e não vertical) porque estamos buscando um valor fixo de probabilidade (50%), não um valor fixo de tempo. Se a curva não chega a cruzar os 50%, a mediana não pode ser estimada, pois mais da metade dos pacientes não apresentou o evento durante o período de seguimento do estudo.
+:::
+
+**Pergunta 3:** Qual das seguintes afirmações sobre censura é VERDADEIRA?
+
+a) Pacientes censurados devem ser excluídos da análise
+b) Censura significa que o paciente foi curado
+c) Pacientes censurados contribuem com informação enquanto estão em risco
+d) A censura não afeta as estimativas de sobrevivência
+
+::: {.callout-note  title="Resposta" collapse="true"}
+**c) Pacientes censurados contribuem com informação enquanto estão em risco.**  
+Esse é o grande mérito do método de Kaplan–Meier: cada paciente contribui para a estimativa de sobrevivência durante todo o período em que foi acompanhado. No momento da censura, o paciente sai do denominador ("em risco"), mas toda a sua informação anterior é preservada. Excluí-lo da análise (alternativa a) desperdiçaria dados valiosos. E censura *não* significa cura (alternativa b) — apenas que não sabemos o que aconteceu depois.
+:::
+
+**Pergunta 4:** Um estudo mostra curvas de KM separadas, mas o teste log-rank dá p = 0,15. O que concluímos?
+
+a) As curvas são significativamente diferentes
+b) As curvas não diferem de forma estatisticamente significativa ao nível de 5%
+c) O gráfico está errado
+d) Precisamos de mais variáveis
+
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) As curvas não diferem de forma estatisticamente significativa ao nível de 5%**   
+Um p-valor de 0,15 é maior que o limiar convencional de 0,05, portanto não temos evidência suficiente para rejeitar a hipótese de que as curvas sejam iguais. Isso não significa que os tratamentos sejam idênticos — apenas que, com os dados disponíveis, a diferença observada poderia ser explicada pelo acaso. É uma situação comum quando a amostra é pequena: visualmente as curvas parecem separadas, mas o teste não tem poder estatístico suficiente para confirmar.
+:::
+
+**Pergunta 5:** Um hazard ratio de 0,65 (IC 95%: 0,48–0,88) para um novo tratamento significa:
+
+a) O tratamento aumenta o risco de evento em 65%
+b) O tratamento reduz o risco de evento em 35%
+c) 65% dos pacientes sobrevivem
+d) O resultado não é estatisticamente significativo
+
+::: {.callout-note  title="Resposta" collapse="true"}
+**b) O tratamento reduz o risco de evento em 35%.**
+O hazard ratio (HR) compara a taxa de eventos entre dois grupos. Um HR de 0,65 significa que, a qualquer momento, o grupo tratado tem 65% do risco do grupo controle — ou seja, uma **redução de 35%** (1 − 0,65 = 0,35). Como o intervalo de confiança (0,48–0,88) não inclui o valor 1 (que significaria risco igual), o resultado é estatisticamente significativo. Se o IC incluísse o 1, não poderíamos afirmar que há diferença real.
+:::
+
+:::
+
+---
+
+## Referências {.unnumbered}
+
+::: {#refs}
+:::
