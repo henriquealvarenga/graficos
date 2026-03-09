@@ -609,8 +609,8 @@ div.csl-indent {
 <span id="cb1-6"><a href="#cb1-6"></a></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="co"># HORROR: Eixo Y começando em 190</span></span>
 <span id="cb1-8"><a href="#cb1-8"></a>p_horror_eixo <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(colesterol_grupos, <span class="fu">aes</span>(<span class="at">x =</span> grupo, <span class="at">y =</span> colesterol, <span class="at">fill =</span> grupo)) <span class="sc">+</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">190</span>, <span class="dv">205</span>)) <span class="sc">+</span>  <span class="co"># ← O CRIME ESTÁ AQUI!</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">190</span>, <span class="dv">205</span>)) <span class="sc">+</span>  <span class="co"># ← O CRIME ESTÁ AQUI!</span></span>
 <span id="cb1-11"><a href="#cb1-11"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF6B6B"</span>, <span class="st">"#FFD93D"</span>, <span class="st">"#6BCB77"</span>)) <span class="sc">+</span></span>
 <span id="cb1-12"><a href="#cb1-12"></a>  <span class="fu">labs</span>(</span>
 <span id="cb1-13"><a href="#cb1-13"></a>    <span class="at">title =</span> <span class="st">"Efeito Dramático Falso: Eixo Truncado"</span>,</span>
@@ -917,8 +917,8 @@ div.csl-indent {
 <details class="code-fold">
 <summary>Ver código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(colesterol_grupos, <span class="fu">aes</span>(<span class="at">x =</span> grupo, <span class="at">y =</span> colesterol, <span class="at">fill =</span> grupo)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">190</span>, <span class="dv">205</span>)) <span class="sc">+</span>  <span class="co"># ← O CRIME!</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">190</span>, <span class="dv">205</span>)) <span class="sc">+</span>  <span class="co"># ← O CRIME!</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF6B6B"</span>, <span class="st">"#FFD93D"</span>, <span class="st">"#6BCB77"</span>)) <span class="sc">+</span></span>
 <span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">labs</span>(</span>
 <span id="cb6-6"><a href="#cb6-6"></a>    <span class="at">title =</span> <span class="st">"ANTES: Eixo Mentiroso"</span>,</span>
@@ -1482,8 +1482,8 @@ div.csl-indent {
 <span id="cb19-5"><a href="#cb19-5"></a>)</span>
 <span id="cb19-6"><a href="#cb19-6"></a></span>
 <span id="cb19-7"><a href="#cb19-7"></a><span class="fu">ggplot</span>(peso_sexo, <span class="fu">aes</span>(<span class="at">x =</span> sexo, <span class="at">y =</span> peso_kg, <span class="at">fill =</span> sexo)) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">85</span>)) <span class="sc">+</span>  <span class="co"># ← Truncado?</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">85</span>)) <span class="sc">+</span>  <span class="co"># ← Truncado?</span></span>
 <span id="cb19-10"><a href="#cb19-10"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF69B4"</span>, <span class="st">"#4169E1"</span>)) <span class="sc">+</span></span>
 <span id="cb19-11"><a href="#cb19-11"></a>  <span class="fu">labs</span>(</span>
 <span id="cb19-12"><a href="#cb19-12"></a>    <span class="at">title =</span> <span class="st">"Peso Médio por Sexo"</span>,</span>

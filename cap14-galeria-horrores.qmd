@@ -41,8 +41,8 @@ colesterol_grupos <- data.frame(
 
 # HORROR: Eixo Y começando em 190
 p_horror_eixo <- ggplot(colesterol_grupos, aes(x = grupo, y = colesterol, fill = grupo)) +
-  geom_col(alpha = 0.8, color = "black", size = 1) +
-  scale_y_continuous(limits = c(190, 205)) +  # ← O CRIME ESTÁ AQUI!
+  geom_col(alpha = 0.8, color = "black", linewidth = 0.5) +
+  coord_cartesian(ylim = c(190, 205)) +  # ← O CRIME ESTÁ AQUI!
   scale_fill_manual(values = c("#FF6B6B", "#FFD93D", "#6BCB77")) +
   labs(
     title = "Efeito Dramático Falso: Eixo Truncado",
@@ -317,8 +317,8 @@ Agora vamos transformar cada Horror em uma Obra de Arte (bem, quase!).
 #| fig.cap: "Antes: Eixo truncado enganando"
 
 ggplot(colesterol_grupos, aes(x = grupo, y = colesterol, fill = grupo)) +
-  geom_col(alpha = 0.8, color = "black", size = 1) +
-  scale_y_continuous(limits = c(190, 205)) +  # ← O CRIME!
+  geom_col(alpha = 0.8, color = "black", linewidth = 0.5) +
+  coord_cartesian(ylim = c(190, 205)) +  # ← O CRIME!
   scale_fill_manual(values = c("#FF6B6B", "#FFD93D", "#6BCB77")) +
   labs(
     title = "ANTES: Eixo Mentiroso",
@@ -763,8 +763,8 @@ peso_sexo <- data.frame(
 )
 
 ggplot(peso_sexo, aes(x = sexo, y = peso_kg, fill = sexo)) +
-  geom_col(alpha = 0.8, color = "black", size = 1.2) +
-  scale_y_continuous(limits = c(60, 85)) +  # ← Truncado?
+  geom_col(alpha = 0.8, color = "black", linewidth = 0.5) +
+  coord_cartesian(ylim = c(60, 85)) +  # ← Truncado?
   scale_fill_manual(values = c("#FF69B4", "#4169E1")) +
   labs(
     title = "Peso Médio por Sexo",
