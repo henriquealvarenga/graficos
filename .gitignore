@@ -1,23 +1,43 @@
-# Saída renderizada pelo Quarto
+# Saída renderizada pelo Quarto (gerada pelo CI no GitHub Actions)
+docs/
 _site/
-_freeze/
+
+# IMPORTANTE: _freeze/ NÃO entra aqui. Ele é versionado de propósito.
+# Estratégia: o CI reusa o congelamento de _freeze/ para não precisar instalar R
+# nem rodar os chunks. Rode `quarto render` localmente antes de `git push`
+# para manter _freeze/ atualizado.
+
+# Quarto / Jupyter intermediários
+/.quarto/
+**/*.quarto_ipynb
+**/*_cache/
+**/*_files/
+
+# Configurações locais do Claude Code
+.claude/
 
 # PDFs das referências (arquivos grandes)
 references/PDF/
 
-# Arquivos temporários do R
+# Dados pesados versionados à parte
+data/wines.csv
+
+# R
 .Rproj.user/
 .Rhistory
 .RData
 .Rdata
 *.Rproj
 
-# Cache e temporários do sistema
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# OS
 .DS_Store
 Thumbs.db
 *.swp
 *~
-
-/.quarto/
-**/*.quarto_ipynb
-data/wines.csv
