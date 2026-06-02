@@ -21,6 +21,7 @@ cores <- list(
   verde = "#059669",
   ciano = "#0891B2",
   ambar = "#D97706",
+  laranja = "#D97706",
   vermelho = "#DC2626",
   rosa = "#DB2777",
   escuro = "#1E293B",

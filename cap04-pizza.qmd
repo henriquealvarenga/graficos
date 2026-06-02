@@ -64,7 +64,7 @@ O estatístico Norman H. Streiner, em suas pesquisas sobre comunicação de dado
 
 > *"The only place for a pie chart is at a baker's convention"*
 
-Essa frase reflete um consenso crescente na comunidade de visualização de dados: o gráfico de pizza é frequentemente uma escolha inadequada. Pesquisas em psicologia visual mostram que **humans são muito melhores em comparar comprimentos (como em gráficos de barras) do que em comparar ângulos (como em gráficos de pizza)**.
+Essa frase reflete um consenso crescente na comunidade de visualização de dados: o gráfico de pizza é frequentemente uma escolha inadequada. Pesquisas em psicologia visual mostram que **humanos são muito melhores em comparar comprimentos (como em gráficos de barras) do que em comparar ângulos (como em gráficos de pizza)**.
 
 Quando somos solicitados a responder "qual fatia é maior?", nossos olhos precisam estimar ângulos, um processo cognitivo menos preciso. Em contraste, em um gráfico de barras, a resposta é imediata: a barra mais alta claramente vence.
 
@@ -288,7 +288,7 @@ d) Não plotar nada, apenas mostrar uma tabela
 Com 8 categorias, o gráfico de pizza se torna ilegível. Um gráfico de barras horizontal com as categorias ordenadas permite comparações muito mais fáceis e precisas. A opção c é particularmente má porque o 3D distorce as proporções. A opção d, embora às vezes válida, perde a oportunidade de visualização que um bom gráfico oferece.
 :::
 
-**Questão 2:** Qual era o crítica principal de Norman H. Streiner sobre gráficos de pizza?
+**Questão 2:** Qual era a crítica principal de Norman H. Streiner sobre gráficos de pizza?
 
 a) São muito coloridos
 b) Levam muito tempo para serem criados
