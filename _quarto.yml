@@ -1,6 +1,12 @@
 project:
   type: website
   output-dir: docs
+  # OTHER_YAML guarda a configuração alternativa usada para gerar a versão em
+  # PDF. Sem esta exclusão o Quarto renderizava OTHER_YAML/index-PDF.qmd como
+  # uma página pública ("index-pdf"), que ia para o ar e entrava no sitemap.
+  render:
+    - "*.qmd"
+    - "!OTHER_YAML/"
 
 website:
   title: ""
