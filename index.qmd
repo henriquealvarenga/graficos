@@ -1,5 +1,6 @@
 ---
 pagetitle: "Dos Dados aos Gráficos — Visualização Estatística para Profissionais de Saúde"
+description: "Visualização estatística para profissionais de saúde: gramática dos gráficos, princípios de Tufte e como escolher o gráfico certo, com exemplos em R."
 toc: false
 sidebar: false
 page-layout: full
