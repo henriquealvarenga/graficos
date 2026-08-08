@@ -138,9 +138,8 @@ website:
             href: cap15-fluxograma.qmd
   page-footer:
     left: |
-      Dos Dados aos Gráficos<br>
-      © 2026 Dr. Henrique Alvarenga da Silva · Médico Psiquiatra · CRM-MG 31.778 · RQE 8381<br>
-      Professor de Medicina (UFSJ e UNIPTAN/AFYA) · [henriquealvarenga.com](https://henriquealvarenga.com)
+      Dr. Henrique Alvarenga da Silva · Médico Psiquiatra · CRM-MG 31.778 · RQE 8381<br>
+      [henriquealvarenga.com](https://henriquealvarenga.com)
     right: |
       Feito com [Quarto](https://quarto.org/) e [R](https://www.r-project.org/)
 
@@ -159,6 +158,7 @@ format:
     canonical-url: true
     include-in-header:
       - file: _includes/autor.html
+      - file: _includes/rodape.html
     toc: true
     toc-depth: 3
     toc-title: "Nesta página"
