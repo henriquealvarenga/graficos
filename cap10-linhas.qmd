@@ -2,7 +2,6 @@
 title: "Gráficos de Linha"
 subtitle: "Tendências ao longo do tempo"
 author: "Henrique Alvarenga da Silva"
-date: last-modified
 ---
 
 ```{r}

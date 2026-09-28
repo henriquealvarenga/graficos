@@ -3,10 +3,10 @@ project:
   output-dir: ~/Mesa
 
 book:
-  title: "Dos Dados aos Gráficos"
-  subtitle: "Visualização Estatística para Profissionais de Saúde"
+  title: "Dos Dados aos Gráficos - Visualização estatística para profissionais de saúde"
+  subtitle: "Da gramática dos gráficos à prática clínica, com R e ggplot2"
   author: "Henrique Alvarenga da Silva"
-  date: today
+  date: 2026-03-06  # registro do ISBN; fixa, não usar "today"
   chapters:
     - index.qmd
     - part: "Fundamentos"

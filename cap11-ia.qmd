@@ -2,7 +2,6 @@
 title: "Criando Gráficos com IA"
 subtitle: "O Fim de uma Barreira"
 author: "Henrique Alvarenga da Silva"
-date: last-modified
 ---
 
 ```{r}

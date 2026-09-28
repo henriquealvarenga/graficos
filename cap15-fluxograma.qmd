@@ -2,7 +2,6 @@
 title: "Qual Gráfico Devo Usar?"
 subtitle: "Fluxograma de decisão"
 author: "Henrique Alvarenga da Silva"
-date: "`r Sys.Date()`"
 ---
 
 ## Introdução

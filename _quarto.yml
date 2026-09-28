@@ -151,6 +151,12 @@ execute:
 bibliography: references/references.bib
 csl: references/csl_styles/ABNT.csl
 
+# Data de publicação do livro: o dia do registro do ISBN 978-65-01-98049-2.
+# É fixa de propósito e vale para todas as páginas. Não use "today" nem
+# "last-modified" (aqui ou no cabeçalho dos capítulos): o Quarto mostra este
+# campo como "Data de Publicação", e a data mudaria a cada renderização.
+date: 2026-03-06
+
 format:
   html:
     theme:
